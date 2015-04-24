@@ -1,0 +1,7 @@
+RewriteEngine On
+Options +FollowSymLinks
+Options -Multiviews
+RewriteBase /napchart/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]*)$ index.php?chartid=$1 [L]

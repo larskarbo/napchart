@@ -1,0 +1,70 @@
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    padding: 1em 1em;
+    font-size: 10px;
+    font-size: 1rem;
+    font-family: 'Lato';
+    text-transform: uppercase;
+    line-height: 1;
+    color: hsl(0, 0%, 100%);
+    background: #3c3c3c;
+    background: hsl(0, 0%, 24%);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
+    -webkit-appearance: button; /* Corrects inability to style clickable 'input' types in iOS */
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+    background: #000;
+    background: hsl(0, 0%, 0%);
+}
+button:focus,
+input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+button:active,
+input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active {
+    background: #000;
+    background: hsl(0, 0%, 0%);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea {
+    padding: 8px;
+    font-family: 'Lato', sans-serif;
+    color: #333;
+    border: 1px solid #ccc;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    color: #111;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"] {
+    padding: 3px;
+}
+
+textarea {
+    padding-left: 3px;
+    width: 100%;
+}
