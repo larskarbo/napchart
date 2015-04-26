@@ -14,7 +14,7 @@ if ($_SERVER['HTTP_HOST'] === "localhost" || $_SERVER['HTTP_HOST'] === "beta.nap
 }else {
     $local = false;
 }
-include_once '../chromephp/ChromePhp.php';
+
 //ChromePhp::log( 'Hello console!');
 if ($local) {
 }
