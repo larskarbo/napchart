@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Bra program",
   "main": "script.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "*"},
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
