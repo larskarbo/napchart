@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+<% include ../partials/head.ejs %>
+</head>
+
+<body>
+    <div id="debugger"></div>
+<script>
+window.ga=function(){};
+</script>
+
+<div id="messageBar">
+<div id="innerMessageBar">
+	<span id="logo"><a href="">napchart</a></span>
+<div id="saveform">
+<div id="savebutton"><i id="saveicon" class="fa fa-link"></i>save</div>
+<input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
+	<div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>
+    </div>
+    
+    <span id="shareButtons">
+    <a href="#"><i class="fa fa-facebook-square"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-google-plus"></i></a>
+        <a href="#"><i class="fa fa-pinterest"></i></a>
+    </span>
+    
+
+<div class"shareButtons"></div>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+<div id="wrapper-id" class="wrapper">
+    <!-- wraps around all elements-->
+	<% include ../partials/chart %>
+	<?php
+
+	if($pagetype=="chart")
+include 'includes/chartViewer.html.php';
+else if($pagetype=="about")
+include 'files/about.html';
+else if($pagetype=="404")
+include 'files/404.html';
+
+?>
+
+</div>
+    <div id="footer">
+<div id="innerFooter">
+Created by me. Thanks to everyone who has given feedback. You can find me at reddit or twitter or even real life. Contact at own risk.
+</div>
+</div>
+</body>
+</html>
