@@ -59,12 +59,13 @@ $(document).ready(function () {
     });
 	$("#savebutton").on("click touchstart", function () {
         currentlyGray();
+		console.log('asto');
 		document.getElementById("saveicon").className="fa fa-spinner fa-spin";
-		$.post("add.php", {data:phpify()},responseHandler);
+		$.post("post", {data:phpify()},responseHandler);
     });
 function responseHandler(chartid){
 	ga('send', 'event', 'click', 'save', 'succesful-save');
-
+console.log(chartid);
 document.getElementById("saveicon").className="fa fa-link";
 cancelGray();
 setChartID(chartid);

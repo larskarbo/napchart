@@ -5,7 +5,10 @@
   "main": "script.js",
   "dependencies": {
     "express": "*",
-	"ejs":"*"
+	"ejs":"*",
+	"angular":"*",
+	"redis":"*",
+	"body-parser":"*"
 	},
   "devDependencies": {
     "grunt": "^0.4.5",

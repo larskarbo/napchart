@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html ng-app='napchart'>
 <head>
 <% include ../partials/head.ejs %>
 </head>
@@ -12,6 +12,7 @@ window.ga=function(){};
 
 <div id="messageBar">
 <div id="innerMessageBar">
+
 	<span id="logo"><a href="">napchart</a></span>
 <div id="saveform">
 <div id="savebutton"><i id="saveicon" class="fa fa-link"></i>save</div>
@@ -39,6 +40,19 @@ window.ga=function(){};
 
 <div id="wrapper-id" class="wrapper">
     <!-- wraps around all elements-->
+	
+<div ng-controller='MyController'>
+<div ng-repeat="chart in charts">
+<h2>{{chart.title}}</h2>
+<p>{{chart.id}}</p>
+<div ng-repeat="bar in chart.data">
+
+<p ng-repeat="baritem in bar">{{baritem}}</p>
+
+</div>
+</div>
+</div>
+
 	<% include ../partials/chart %>
 	<?php
 
