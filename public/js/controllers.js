@@ -1,30 +1,26 @@
 
 
-var napchart = angular.module('napchart',[]);
+var chartControllers = angular.module('chartControllers',[]);
 
-napchart.controller('MyController', function MyController($scope){
-	$scope.charts=[
-	{
-		'id'	: 'e3ennl',
-		'title'	: 'My napchart',
-		'data':{
-			 "alfa":{"0":{"start":540,"end":1020}},"charlie":{"0":{"start":1410,"end":450}},"delta":{"0":{"start":960,"end":980},"1":{"start":1080,"end":1100}}
-		}
-	},
-	{
-		'id'	: 'hturkt',
-		'title'	: 'My second napchart',
-		'data':{
-			 "alfa":{"0":{"start":540,"end":1020}},"charlie":{"0":{"start":1410,"end":450}},"delta":{"0":{"start":960,"end":980},"1":{"start":1080,"end":1100}}
-		}
-	},
-	{
-		'id'	: 'a23nt8',
-		'title'	: 'My third napchart',
-		'data':{
-			 "alfa":{"0":{"start":540,"end":1020}},"charlie":{"0":{"start":1410,"end":450}},"delta":{"0":{"start":960,"end":980},"1":{"start":1080,"end":1100}}
-		}
-	}
-	]
+chartControllers.controller('ChartController', function($scope,$http,$routeParams){
+	chartid=$routeParams.chartid;
+	$http.get('get/'+chartid).success(function(data){
+		$scope.chart=data;
+		console.log(chartid);
+		console.log(data);
+	})
+	.error(function(data){
+		alert('There was an error :'+data);
+	})
+});
+
+chartControllers.controller('AboutController', function($scope,$http){
+	$http.get('get/3pz41').success(function(data){
+		$scope.chart=data;
+		console.log(data);
+	})
+	.error(function(data){
+		alert('There was an error :'+data);
+	})
 });
 

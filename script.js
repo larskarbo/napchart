@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
 app.get('/get/:chartid', function(req, res) {
 	var chartid=req.params.chartid;
 	client.get('chart:'+chartid, function(err, reply) {
@@ -26,22 +27,36 @@ app.get('/get/:chartid', function(req, res) {
 });
 
 app.post('/post', function(req, res) {
-	res.writeHead(200, {"Content-Type": "application/json"});
+	function idgen(){
+		alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
+		id='';
+		for( var i=0; i < 5; i++ )
+        id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+		return id;
+	}
 	console.log(req.body.data);
-	res.end('rto');
+	chartid=idgen();
+	console.log(chartid);
+	client.set('chart:'+chartid,req.body.data,function(err,reply){
+		res.writeHead(200);
+		res.end(chartid);
+	})
 	
 });
 
+app.get('*', function (req, res) {
+  res.render('pages/index',{chartid:null});
+});
 app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
 app.get('/', function (req, res) {
-  res.render('pages/index',{napid:null});
+  res.render('pages/index',{chartid:null});
 });
-app.get('/:napid', function (req, res) {
-	console.log(req.params.napid);
-  res.render('pages/index',{napid:req.params.napid});
+app.get('/:chartid', function (req, res) {
+	console.log(req.params.chartid);
+  res.render('pages/index',{chartid:req.params.chartid});
 });
 
 

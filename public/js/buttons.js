@@ -61,7 +61,7 @@ $(document).ready(function () {
         currentlyGray();
 		console.log('asto');
 		document.getElementById("saveicon").className="fa fa-spinner fa-spin";
-		$.post("post", {data:phpify()},responseHandler);
+		$.post("post", {data:JSON.stringify(data)},responseHandler);
     });
 function responseHandler(chartid){
 	ga('send', 'event', 'click', 'save', 'succesful-save');
@@ -78,7 +78,6 @@ setChartID(chartid);
 			$(saveURL).animate({width:"160px"});
 			document.getElementById("copyLink").style.display="block";
 		}
-		chartid=chartid.substr(1, chartid.length-2);
 		window.history.pushState({chartid:chartid}, "", '/'+chartid);
 		saveURL.value="http://napchart.com/"+chartid;
 	}

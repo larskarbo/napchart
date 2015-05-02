@@ -91,20 +91,7 @@ window.convertPHP=function(indata){
 }
 
 
-window.phpify=function(){
-sendArr=[];
-dataKeys=Object.keys(data);
-for(d=0;d<dataKeys.length;d++){
-countKeys=Object.keys(data[dataKeys[d]]);
-for(i=0;i<countKeys.length;i++){
-	convertPHP(dataKeys[d]);
-	arr=[convertPHP(dataKeys[d]),Math.floor(data[dataKeys[d]][countKeys[i]].start),Math.floor(data[dataKeys[d]][countKeys[i]].end),data[dataKeys[d]][countKeys[i]].desc];
-	sendArr.push(arr);
-}
-}
 
-return JSON.stringify(sendArr);
-};
 
 window.minutesToClock=function(minutes){
 	minutes=Math.floor(minutes);

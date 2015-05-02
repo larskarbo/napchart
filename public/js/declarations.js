@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
+window.initChart=function(){
 window.canvas = document.getElementById("myCanvas");
 window.ctx = canvas.getContext("2d");
 window.currentActive="none";
 window.clockCanvas = document.getElementById("clockCanvas");
 window.cctx = clockCanvas.getContext("2d");
-
+}
 window.PIXEL_RATIO = (function () {
     var ctx = document.createElement("canvas").getContext("2d"),
         dpr = window.devicePixelRatio || 1,

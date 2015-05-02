@@ -13,7 +13,7 @@ window.ga=function(){};
 <div id="messageBar">
 <div id="innerMessageBar">
 
-	<span id="logo"><a href="">napchart</a></span>
+	<span id="logo"><a href="/">napchart</a></span>
 <div id="saveform">
 <div id="savebutton"><i id="saveicon" class="fa fa-link"></i>save</div>
 <input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
@@ -38,36 +38,20 @@ window.ga=function(){};
 </div>
 
 
-<div id="wrapper-id" class="wrapper">
+
+<div id="wrapper-id" class="wrapper" ng-view>
     <!-- wraps around all elements-->
 	
-<div ng-controller='MyController'>
-<div ng-repeat="chart in charts">
-<h2>{{chart.title}}</h2>
-<p>{{chart.id}}</p>
-<div ng-repeat="bar in chart.data">
 
-<p ng-repeat="baritem in bar">{{baritem}}</p>
 
-</div>
-</div>
-</div>
-
-	<% include ../partials/chart %>
-	<?php
-
-	if($pagetype=="chart")
-include 'includes/chartViewer.html.php';
-else if($pagetype=="about")
-include 'files/about.html';
-else if($pagetype=="404")
-include 'files/404.html';
-
-?>
+	<% //include ../partials/chart %>
 
 </div>
     <div id="footer">
 <div id="innerFooter">
+<script>
+//obj=<%= chartid %>;
+</script>
 Created by me. Thanks to everyone who has given feedback. You can find me at reddit or twitter or even real life. Contact at own risk.
 </div>
 </div>
