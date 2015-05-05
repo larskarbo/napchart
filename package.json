@@ -1,6 +1,6 @@
 {
   "name": "napchart",
-  "version": "0.6",
+  "version": "0.6.0",
   "description": "Bra program",
   "main": "script.js",
   "dependencies": {
@@ -15,7 +15,9 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "~0.5.0"
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-qunit": "*",
+    "grunt-contrib-concat": "*"
   },
   "repository": {
     "type": "git",
