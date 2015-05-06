@@ -8,10 +8,14 @@ chartControllers.controller('ChartController', function($scope,$http,$routeParam
 		$scope.chart=data;
 		console.log(chartid);
 		console.log(data);
+		
+		   sampleAnimator(data);
+	
+		
 	})
 	.error(function(data){
 		alert('There was an error :'+data);
-	})
+	});
 });
 
 chartControllers.controller('AboutController', function($scope,$http){
