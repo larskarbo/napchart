@@ -9,7 +9,6 @@ var client = redis.createClient(); //creates a new client
 		console.log('connected');
 	});
 
-app.set('view engine','ejs');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -17,6 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.set('view engine', 'ejs');
 
 app.get('/get/:chartid', function(req, res) {
 	var chartid=req.params.chartid;
@@ -45,18 +45,19 @@ app.post('/post', function(req, res) {
 });
 
 app.get('*', function (req, res) {
-  res.render('pages/index',{chartid:null});
+	res.render('pages/index',{chartid:null});
 });
 app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
 app.get('/', function (req, res) {
-  res.render('pages/index',{chartid:null});
+	res.send('You are now on the index page!')
 });
 app.get('/:chartid', function (req, res) {
 	console.log(req.params.chartid);
-  res.render('pages/index',{chartid:req.params.chartid});
+  //res.render('pages/index',{chartid:req.params.chartid});
+	res.send('You are now on the index page!')
 });
 
 

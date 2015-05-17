@@ -25,6 +25,12 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*.html']
     },
+    beautify: {
+      files: {
+		  src:'public/js/draw.js'
+         //src: ['public/js/*.js']
+      }
+    },
     jshint: {
       files: ['Gruntfile.js', 'js/*.js', 'test/**/*.js'],
       options: {
@@ -48,6 +54,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-beautify');
 
   grunt.registerTask('test', ['jshint', 'qunit']);
 

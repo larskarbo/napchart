@@ -1,12 +1,5 @@
 $(document).ready(function () {
-	$("#sampleSchedules").on("click touchstart",".sampleSchedule", function (e) {
-	e.stopPropagation();
-	e.preventDefault();
-        selector = this.id;
-	ga('send', 'event', 'click', 'sampleSchedule', selector);
-        sampleAnimator(sampleSchedules[this.id]);
-		changeActiveSchedule(this.id);
-    });
+	
 
     $("body").on("click touchstart", ".remove", function (e) {
 	e.stopPropagation();

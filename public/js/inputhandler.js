@@ -1,3 +1,31 @@
+function InputManager() {
+	
+
+	this.listen();
+}
+
+InputManager.prototype.listen = function() {
+
+console.log(this)
+
+	this.bindButtonPress(".sampleSchedule",this.changeSampleSchedule);
+
+};
+
+InputManager.prototype.bindButtonPress = function (selector, fn) {
+  var button = document.querySelector(selector);
+  console.log(fn);
+  button.addEventListener("click", fn.bind(this));
+  button.addEventListener(this.eventTouchend, fn.bind(this));
+};
+
+InputManager.prototype.changeSampleSchedule = function (event) {
+	event.preventDefault();
+	this.emit("changeSampleSchedule");
+};
+
+
+
 $(document).ready(function(){
 
 window.sliderUpdater=function(slider){

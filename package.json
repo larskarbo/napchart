@@ -17,7 +17,8 @@
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "*",
     "grunt-contrib-qunit": "*",
-    "grunt-contrib-concat": "*"
+    "grunt-contrib-concat": "*",
+    "grunt-beautify": "*"
   },
   "repository": {
     "type": "git",
