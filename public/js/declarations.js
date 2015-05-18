@@ -2,11 +2,10 @@ $(document).ready(function(){
 
 var app={};
 app.init=function(){
-window.canvas = document.getElementById("myCanvas");
-window.ctx = canvas.getContext("2d");
+document.getElementById("myCanvas");
+
 window.currentActive="none";
-window.clockCanvas = document.getElementById("clockCanvas");
-window.cctx = clockCanvas.getContext("2d");
+
 
 window.PIXEL_RATIO = (function () {
     var ctx = document.createElement("canvas").getContext("2d"),

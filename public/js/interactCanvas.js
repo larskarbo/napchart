@@ -41,8 +41,8 @@ function getTouchCoordinates(e){
 
 }
 
-document.getElementById("myCanvas").addEventListener('mousedown',mouseDown);
-document.getElementById("myCanvas").addEventListener('touchstart',touch);
+document.getElementById("canvas").addEventListener('mousedown',mouseDown);
+document.getElementById("canvas").addEventListener('touchstart',touch);
 document.addEventListener('mousemove',getMouseCoordinates);
 document.addEventListener('touchmove',getTouchCoordinates);
 document.addEventListener('mousemove',move);

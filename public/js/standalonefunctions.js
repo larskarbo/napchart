@@ -1,25 +1,13 @@
 $(document).ready(function(){
 
 
-window.shortestWay=function(s){
-	console.log(s);
-if(s<-720)
-return calc(1440,s);
-if(s>720)
-return s-1440;
-return s;
-}
+
 window.convertCanvasToImage=function() {
 	var image = new Image();
 	image.src = clockCanvas.toDataURL("image/png");
 	document.getElementById('canvasImg').appendChild(image);
 }
-window.range=function(start,end){
-	if(end<start){
-	return 1440-start+end}
-	else{
-	return end-start;}
-}
+
 window.barConvert=function(indata){
 	if(indata=="alfa")
 	out="Work";
@@ -36,13 +24,6 @@ window.barConvert=function(indata){
 	return out;
 }
 
-window.rangeObject=function(arr){
-	return range(arr.start,arr.end);
-}
-
-window.middlepointFinder=function(obj){
-	return calc(rangeObject(obj)/2,obj.start);
-}
 oldColor={
 	alfa:color.alfa,
 	charlie:color.charlie,
@@ -63,32 +44,7 @@ color={
 }
 }
 
-window.calc=function(minutes,plus){
-	if(minutes+plus<0){
-	return minutes+plus+1440}
-	else if(minutes+plus>1440){
-	return minutes+plus-1440}
-	else{
-	return minutes+plus;}	
-}
 
-window.totalWidth=function(percent){
-	return (document.getElementById("myCanvas").clientHeight *(percent/100));
-}
-window.currentProp=function(){
-	return (document.getElementById("myCanvas").clientHeight/500);
-}
-
-window.convertPHP=function(indata){
-	if(indata=="alfa")
-	return 2;
-	else if(indata=="charlie")
-	return 0;
-	else if(indata=="delta")
-	return 1;
-	
-	
-}
 
 
 

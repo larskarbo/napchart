@@ -1,5 +1,6 @@
 $(document).ready(function(){
-window.center=totalWidth(50);
+window.center=helpers.totalWidth(50);
+
 window.draw=(function(){
 	//private inside function
 	defaultstrokecolor="#C9C9C9";
@@ -9,84 +10,101 @@ window.draw=(function(){
 	rightPanel=document.getElementById("controlPanelColumn");
 	leftPanel=document.getElementById("leftColumn");
 
-	function drawLines(){
-		cctx.save();
-		cctx.strokeStyle=defaultstrokecolor;
-		cctx.beginPath();
-		cctx.translate(totalWidth(50),totalWidth(50));
+	//functions used by draw.initialize()
+	function drawLines(ctx){
+		ctx.save();
+		ctx.strokeStyle=defaultstrokecolor;
+		ctx.beginPath();
+		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		for(i=0;i<12;i++){
 			c=minutesToXY(i*60);
-			cctx.moveTo(c.x,c.y);
+			ctx.moveTo(c.x,c.y);
 			c=minutesToXY(i*60+720);
-			cctx.lineTo(c.x,c.y);
+			ctx.lineTo(c.x,c.y);
 		}	
-		cctx.closePath();
-		cctx.stroke();
-		cctx.restore();
+		ctx.closePath();
+		ctx.stroke();
+		ctx.restore();
+		console.info('drawLines() success')
 	}
 
-	function drawImpLines(){
-		cctx.save();
-		cctx.translate(totalWidth(50),totalWidth(50));
-		cctx.beginPath();
-		cctx.strokeStyle=impstrokecolor;
+	function drawImpLines(ctx){
+		ctx.save();
+		ctx.translate(helpers.totalWidth(50),helpers.totalWidth(50));
+		ctx.beginPath();
+		ctx.strokeStyle=impstrokecolor;
 		c=minutesToXY(0);
-		cctx.moveTo(c.x,c.y);
+		ctx.moveTo(c.x,c.y);
 		c=minutesToXY(720);
-		cctx.lineTo(c.x,c.y);
+		ctx.lineTo(c.x,c.y);
 		c=minutesToXY(240);
-		cctx.moveTo(c.x,c.y);
+		ctx.moveTo(c.x,c.y);
 		c=minutesToXY(960);
-		cctx.lineTo(c.x,c.y);
+		ctx.lineTo(c.x,c.y);
 		c=minutesToXY(480);
-		cctx.moveTo(c.x,c.y);
+		ctx.moveTo(c.x,c.y);
 		c=minutesToXY(1200);
-		cctx.lineTo(c.x,c.y);
-		cctx.closePath();
-		cctx.stroke();
-		cctx.restore();	
+		ctx.lineTo(c.x,c.y);
+		ctx.closePath();
+		ctx.stroke();
+		ctx.restore();	
+		console.info('drawImpLines() success');
 	}
 
-	function drawCircles(){
-		cctx.beginPath();
-		cctx.arc(senter, senter, totalWidth(36), 0, grader(360), false);
-		cctx.moveTo(senter+sirkel3,totalWidth(50));
-		cctx.arc(senter, senter, totalWidth(29), 0, grader(360), false);
-		cctx.moveTo(senter+sirkel1p5,totalWidth(50));
-		cctx.arc(senter, senter, sirkel1p5, 0, grader(360), false);
-		cctx.moveTo(senter+sirkel1,totalWidth(50));
-		cctx.arc(senter, senter, sirkel1, 0, grader(360), false);
-		cctx.closePath();
-		cctx.strokeStyle=defaultstrokecolor;
-		cctx.stroke();
+	function drawCircles(ctx){
+		ctx.beginPath();
+		ctx.arc(senter, senter, helpers.totalWidth(36), 0, grader(360), false);
+		ctx.moveTo(senter+sirkel3,helpers.totalWidth(50));
+		ctx.arc(senter, senter, helpers.totalWidth(29), 0, grader(360), false);
+		ctx.moveTo(senter+sirkel1p5,helpers.totalWidth(50));
+		ctx.arc(senter, senter, sirkel1p5, 0, grader(360), false);
+		ctx.moveTo(senter+sirkel1,helpers.totalWidth(50));
+		ctx.arc(senter, senter, sirkel1, 0, grader(360), false);
+		ctx.closePath();
+		ctx.strokeStyle=defaultstrokecolor;
+		ctx.stroke();
 
-		cctx.beginPath();
-		cctx.arc(senter, senter, totalWidth(29), 0, grader(360), false);
-		cctx.closePath();
-		cctx.strokeStyle="#BABABA";
-		cctx.stroke();
+		ctx.beginPath();
+		ctx.arc(senter, senter,helpers.totalWidth(29), 0, grader(360), false);
+		ctx.closePath();
+		ctx.strokeStyle="#BABABA";
+		ctx.stroke();
+		console.info('drawCircles() success');
 	}
 
-	function drawClockNumbers(){
-		impfontpixels=currentProp()*20;
-		cctx.fillStyle="black";
-		numberRadius=totalWidth(44);
-		cctx.font=impfontpixels+"px Verdana";
-		cctx.textAlign="center";
-		cctx.textBaseline="middle";
-		cctx.fillStyle="#262626";
+	function drawClockNumbers(ctx){
+		impfontpixels=helpers.currentProp()*20;
+		ctx.fillStyle="black";
+		numberRadius=helpers.totalWidth(44);
+		ctx.font=impfontpixels+"px Verdana";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.fillStyle="#262626";
 		for(i=0;i<24;i++){
 			if(i==0||i==4||i==16||i==20||i==8||i==12){
 			degrees=(grader((15*i)+270));
-			xval=totalWidth(50)+Math.cos(degrees)*numberRadius;
-			yval=totalWidth(50)+Math.sin(degrees)*numberRadius;
+			xval=helpers.totalWidth(50)+Math.cos(degrees)*numberRadius;
+			yval=helpers.totalWidth(50)+Math.sin(degrees)*numberRadius;
 			if(i==0)
-			cctx.fillText("0",xval,yval);
+			ctx.fillText("0",xval,yval);
 			else if(i==12)
-			cctx.fillText("12",xval,yval);
+			ctx.fillText("12",xval,yval);
 			else
-			cctx.fillText(i,xval,yval);
+			ctx.fillText(i,xval,yval);
 		}}
+		console.info('drawClockNumbers() success');
+	}
+
+	function clearClockCircle(ctx,radius){
+		ctx.save();
+		ctx.globalCompositeOperation = 'destination-out';
+		ctx.beginPath();
+		ctx.arc(senter,senter,radius,0,grader(360), false);
+		ctx.lineTo(senter,senter);
+		ctx.closePath();
+		ctx.fill();
+		ctx.restore();
+		console.info('clearClockCircle() success');
 	}
 
 	function clearCanvas(){
@@ -184,17 +202,6 @@ window.draw=(function(){
 		ctx.arc(senter,senter,radius,0,grader(360), false);
 		ctx.fill();
 		ctx.restore();
-	}
-
-	function clearClockCircle(radius){
-		cctx.save();
-		cctx.globalCompositeOperation = 'destination-out'
-		cctx.beginPath();
-		cctx.arc(senter,senter,radius,0,grader(360), false);
-		cctx.lineTo(senter,senter);
-		cctx.closePath();
-		cctx.fill();
-		cctx.restore();
 	}
 
 	function drawHandles(){
@@ -317,36 +324,34 @@ window.draw=(function(){
 	}
 
 	return { //exposed to public
-		initialize:function(canvas,clockCanvas){
-			canvas=window.canvas;
-			canvasCont=document.getElementById('canvasCont');
-			canvasCont=document.getElementById('canvasCont');
-			ctx.canvas.width  = canvasCont.clientWidth;
-			ctx.canvas.height = canvasCont.clientWidth;
-			cctx.canvas.width  = canvasCont.clientWidth;
-			cctx.canvas.height = canvasCont.clientWidth;
-			window.clockWidth=window.canvas.clientHeight;
-			window.clockBasepoint=(canvas.clientWidth-clockWidth)/2;
-			myCanvasOffset=document.getElementById("myCanvas").getBoundingClientRect();
+		initialize:function(context){
+			// the initialize function draws the background clock to an off-screen canvas.
+			// This increases performance because the browser doesn't need to redraw everything, every frame
 			
-			radius=totalWidth(40);
-			sirkel1=totalWidth(2);
-			sirkel1p5=totalWidth(20);
-			sirkel2=totalWidth(26);
-			sirkel3=totalWidth(29);
-			sirkel3p5=totalWidth(32.5);
-			sirkel4=totalWidth(36);
-			window.center=totalWidth(50);
-			senter=totalWidth(50);
-			supportNumbers=currentProp()*11;
-			durationNumbers=currentProp()*16;
+			canvas=context.canvas;
+			ctx=context;
+
+			window.clockWidth=canvas.clientHeight;
+			window.clockBasepoint=(canvas.clientWidth-clockWidth)/2;
+			
+			radius=helpers.totalWidth(40);
+			sirkel1=helpers.totalWidth(2);
+			sirkel1p5=helpers.totalWidth(20);
+			sirkel2=helpers.totalWidth(26);
+			sirkel3=helpers.totalWidth(29);
+			sirkel3p5=helpers.totalWidth(32.5);
+			sirkel4=helpers.totalWidth(36);
+			window.center=helpers.totalWidth(50);
+			senter=helpers.totalWidth(50);
+			supportNumbers=helpers.currentProp()*11;
+			durationNumbers=helpers.currentProp()*16;
 			
 			//draw clock
-			drawLines();
-			clearClockCircle(sirkel1p5);
-			drawCircles();
-			drawImpLines();
-			drawClockNumbers();
+			drawLines(ctx);
+			clearClockCircle(ctx,sirkel1p5);
+			drawCircles(ctx);
+			drawImpLines(ctx);
+			drawClockNumbers(ctx);
 				
 			//canvasCont.style.height=canvasCont.clientWidth+"px";
 				console.log(mainCont.clientHeight);
@@ -366,6 +371,8 @@ window.draw=(function(){
 	}
 }());
 
+
+draw.initialize(document.getElementById("canvas").getContext('2d'));
 
 window.render = function() {
 canvasRound++;
