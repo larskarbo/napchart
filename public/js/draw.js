@@ -10,7 +10,28 @@ window.draw=(function(){
 	rightPanel=document.getElementById("controlPanelColumn");
 	leftPanel=document.getElementById("leftColumn");
 
-	//functions used by draw.initialize()
+	barConfig = {
+	core:{
+		stack:0,
+		color:"#c70e0e",
+		innerRadius:0,
+		outerRadius:50
+	},
+	nap:{
+		stack:1,
+		color:"#c70e0e",
+		innerRadius:0,
+		outerRadius:50
+	},
+	busy:{
+		stack:2,
+		color:"#1f1f1f",
+		innerRadius:30,
+		outerRadius:40
+	}
+	}
+
+	// (also private) functions used by draw.initialize()
 	function drawLines(ctx){
 		ctx.save();
 		ctx.strokeStyle=defaultstrokecolor;
@@ -107,11 +128,82 @@ window.draw=(function(){
 		console.info('clearClockCircle() success');
 	}
 
-	function clearCanvas(){
-			ctx.clearRect(0,0,canvas.width,canvas.height);
+	function clearCanvas(ctx){
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		console.info('clearCanvas() success');
 	}
 
-	function drawAlfa(){
+	function drawBars(ctx,data){
+		data=[
+		{
+			name:"core",
+			data:[
+			{
+				start:120,
+				end:330
+			},
+			{
+				start:360,
+				end:450
+			}
+			]
+		},
+		{
+			name:"nap",
+			data:[
+			{
+				start:960,
+				end:980
+			}
+			]
+		},
+		{
+			name:"busy",
+			data:[
+			{
+				start:598,
+				end:844
+			}
+			]
+		}
+		];
+		datah=[
+		{
+			name:"busy",
+			data:[
+			{
+				start:690,
+				end:1288
+			}
+			]
+		}
+		];
+		console.log(data.length);
+		var width = canvas.width;
+		var height = canvas.height;
+		for (var i = 0; i < data.length; i++) {
+			console.log("barname: ",data[i].name);
+			var ratio = width/100;
+			var innerRadius = barConfig[data[i].name].innerRadius*ratio;
+			var outerRadius = barConfig[data[i].name].outerRadius*ratio;
+			console.log("color :", barConfig[data[i].name].color)
+			ctx.fillStyle=barConfig[data[i].name].color;
+
+			for (var f = 0; f < data[i].data.length; f++){
+				var startRadians=helpers.minutesToRadians(data[i].data[f].start);
+				var endRadians=helpers.minutesToRadians(data[i].data[f].end);
+				var lineToXY=helpers.minutesToXY_OIC(data[i].data[f].end,innerRadius);
+
+				ctx.beginPath();
+				ctx.arc(width/2,height/2,outerRadius,startRadians,endRadians);
+				ctx.lineTo(lineToXY.x+width/2,lineToXY.y+height/2);
+				ctx.arc(width/2,height/2,innerRadius,endRadians,startRadians,true);
+				ctx.fill();
+			}
+		};
+	}
+
+	function drawAlfa(ctx){
 		if (typeof data['alfa'] != 'undefined'){
 		$.each(data['alfa'],function(i){
 		ctx.beginPath();
@@ -128,9 +220,10 @@ window.draw=(function(){
 		ctx.fill();
 		ctx.restore();
 		});}
+		console.info('drawAlfa() success');
 	}
 
-	function drawCharlie(){
+	function drawCharlie(ctx){
 
 		if (typeof data.charlie != 'undefined'){
 		$.each(data.charlie,function(i){
@@ -155,9 +248,11 @@ window.draw=(function(){
 		ctx.fillStyle=color["charlie"];
 		ctx.fill();
 		});}
+		console.info('drawCharlie() success');
+
 	}
 
-	function drawDelta(){
+	function drawDelta(ctx){
 		if (typeof data['delta'] != 'undefined'){
 		$.each(data['delta'],function(i){
 		ctx.save();
@@ -183,18 +278,20 @@ window.draw=(function(){
 		ctx.fillStyle=color["delta"];
 		ctx.fill();
 		});}
+		console.info('drawDelta() success');
 	}
 
-	function clearCircle(radius){
+	function clearCircle(ctx,radius){
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out'
 		ctx.beginPath();
 		ctx.arc(senter,senter,radius,0,grader(360), false);
 		ctx.fill();
 		ctx.restore();
+		console.info('clearCircle() success');
 	}
 
-	function drawOpacityCircle(radius,opacity){
+	function drawOpacityCircle(ctx,radius,opacity){
 		ctx.save();
 		ctx.fillStyle=canvasbgcolor;
 		ctx.globalAlpha=opacity;
@@ -202,37 +299,39 @@ window.draw=(function(){
 		ctx.arc(senter,senter,radius,0,grader(360), false);
 		ctx.fill();
 		ctx.restore();
+		console.info('drawOpacityCircle() success');
 	}
 
-	function drawHandles(){
+	function drawHandles(ctx){
 		ctx.save();
 		ctx.translate(senter,senter);
 		//outer grey
 		dataKeys=["charlie","alfa"];
 		for(d=0;d<dataKeys.length;d++){
-		if(dataKeys[d]=="charlie"){
-		countKeys=Object.keys(data[dataKeys[d]]);
-		for(i=0;i<countKeys.length;i++){
+			if(dataKeys[d]=="charlie"){
+				countKeys=Object.keys(data[dataKeys[d]]);
+				for(i=0;i<countKeys.length;i++){
 
-		for(f=0;f<2;f++){
+					for(f=0;f<2;f++){
 
-		ctx.fillStyle = '#a8a8a8';
-		ctx.beginPath();
-		o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
-		ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
-		ctx.fill();
-		if(mdown.barHolder=="charlie"&&mdown.count==i&&mdown.type==[startend[f]]){
-		ctx.beginPath();
-			
-		console.log(data.charlie[countKeys[i]][startend[f]]);
-		o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
-		ctx.fillStyle = '#c95e5e';
-		ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
-		ctx.fill();
-		}
-		}
-		}
-		}
+						ctx.fillStyle = '#a8a8a8';
+						ctx.beginPath();
+						o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
+						ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
+						ctx.fill();
+						if(mdown.barHolder=="charlie"&&mdown.count==i&&mdown.type==[startend[f]]){
+							ctx.beginPath();
+							
+							console.log(data.charlie[countKeys[i]][startend[f]]);
+							o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
+							ctx.fillStyle = '#c95e5e';
+							ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
+							ctx.fill();
+						}
+					}
+				}
+			}
+		console.info('drawHandles() success');
 		}
 
 		ctx.fillStyle = 'black';
@@ -324,15 +423,16 @@ window.draw=(function(){
 	}
 
 	return { //exposed to public
-		initialize:function(context){
+		initialize:function(){
 			// the initialize function draws the background clock to an off-screen canvas.
 			// This increases performance because the browser doesn't need to redraw everything, every frame
-			
-			canvas=context.canvas;
-			ctx=context;
+			offScreenCanvas=document.createElement('canvas');
+			offScreenCanvas.height=400;
+			offScreenCanvas.width=400;
+			octx=offScreenCanvas.getContext('2d');
 
-			window.clockWidth=canvas.clientHeight;
-			window.clockBasepoint=(canvas.clientWidth-clockWidth)/2;
+			window.clockWidth=offScreenCanvas.clientHeight;
+			window.clockBasepoint=(offScreenCanvas.clientWidth-clockWidth)/2;
 			
 			radius=helpers.totalWidth(40);
 			sirkel1=helpers.totalWidth(2);
@@ -347,23 +447,27 @@ window.draw=(function(){
 			durationNumbers=helpers.currentProp()*16;
 			
 			//draw clock
-			drawLines(ctx);
-			clearClockCircle(ctx,sirkel1p5);
-			drawCircles(ctx);
-			drawImpLines(ctx);
-			drawClockNumbers(ctx);
-				
-			//canvasCont.style.height=canvasCont.clientWidth+"px";
-				console.log(mainCont.clientHeight);
-			//rightPanel.style.height=mainCont.clientHeight-10+"px";
-			//leftPanel.style.height=mainCont.clientHeight-10+"px";
+			drawLines(octx);
+			clearClockCircle(octx,sirkel1p5);
+			drawCircles(octx);
+			drawImpLines(octx);
+			drawClockNumbers(octx);
+			//saves to a variable used in drawFrame()
+			this.cachedBackground=offScreenCanvas;
+			
 		},
-		drawFrame:function(){
-			clearCanvas();
-			drawAlfa();
-			drawCharlie();
-			drawDelta();
-			//drawHandles();
+		drawFrame:function(ctx){
+			//clearCanvas(ctx);
+
+			if(typeof this.cachedBackground=="undefined")
+			throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()")
+			cachedBackground=this.cachedBackground;
+
+
+			
+			ctx.drawImage(cachedBackground,0,0);
+			drawBars(ctx,data);
+			//drawHandles(ctx);
 			//drawOpacityCircle(sirkel3,0.8);
 			//drawTimeHandles();
 			//drawStackedDescriptionText(); //MÅ FIKSAST
@@ -371,8 +475,14 @@ window.draw=(function(){
 	}
 }());
 
+var canvas=document.getElementById("canvas");
+var ctx=document.getElementById("canvas").getContext("2d");
+draw.initialize();
+addInputBox("Sleep");
+addInputBox("Sleep");
+addInputBox("Nap");
+draw.drawFrame(ctx);
 
-draw.initialize(document.getElementById("canvas").getContext('2d'));
 
 window.render = function() {
 canvasRound++;

@@ -72,7 +72,7 @@ helpers.grader = function (deg) {
     return ((Math.PI / 180) * (deg));
 };
 
-helpers.klokkegrader = function (minutt) {
+helpers.minutesToRadians = function (minutt) {
     return ((Math.PI / 720) * (minutt - 360));
 };
 
@@ -89,12 +89,12 @@ helpers.minutesToXY = function (minutes, radiusMultiplier) {
     return o;
 };
 
-helpers.minutesToXY_OIC = function (minutes, radiusMultiplier) {
-    if (typeof radiusMultiplier == "undefined")
-        radiusMultiplier = 100;
+helpers.minutesToXY_OIC = function (minutes, radius) {
+    radius=radius;
+    console.log(radius)
     o = {};
-    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius * radiusMultiplier / 100 + totalWidth(50);
-    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius * radiusMultiplier / 100 + totalWidth(50);
+    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
+    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
     return o;
 };
 

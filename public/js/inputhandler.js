@@ -96,8 +96,8 @@ easeInQuad = function (t, b, c, d) {
 			  currentOrigin[barHolder][id].start=target[barHolder][id].start;
 			  currentOrigin[barHolder][id].end=target[barHolder][id].start;
 			  }else{
-		  distance[barHolder][id].start=shortestWay(target[barHolder][id].start-data[barHolder][id].start);
-		  distance[barHolder][id].end=shortestWay(target[barHolder][id].end-data[barHolder][id].end);
+		  distance[barHolder][id].start=helpers.shortestWay(target[barHolder][id].start-data[barHolder][id].start);
+		  distance[barHolder][id].end=helpers.shortestWay(target[barHolder][id].end-data[barHolder][id].end);
 		  
 			currentOrigin[barHolder][id]={start:data[barHolder][id].start,end:data[barHolder][id].end}; 
 			  }
