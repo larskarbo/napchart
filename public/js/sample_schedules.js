@@ -60,8 +60,8 @@ window.sampleSchedule = (function () {
 	}
 	
 	var schedules={
-		"monophasic":	[{name:"core", data:[{start:120, end:330 }, {start:360, end:450 } ] }, {name:"nap", data:[{start:960, end:980 } ] }, {name:"busy", data:[{start:598, end:844 } ] } ],
-		"siesta": [{name:"core", data:[{start:1000, end:100 }, {start:600, end:720 } ] }, {name:"nap", data:[{start:540, end:560 } ] }, {name:"busy", data:[{start:400, end:900 } ] } ]
+		"monophasic":	{"core":[{start:120, end:330 }, {start:360, end:450 } ], "nap":[{start:960, end:980 } ] , "busy":[{start:598, end:844 } ]},
+		"siesta":	{"core":[{start:320, end:430 }, {start:360, end:450 } ] , "nap":[{start:960, end:980 } ] , "busy":[{start:598, end:1044 } ]}
 	}
 	
 

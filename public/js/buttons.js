@@ -1,5 +1,4 @@
 $(document).ready(function () {
-	
 
     $("body").on("click touchstart", ".remove", function (e) {
 	e.stopPropagation();
@@ -18,7 +17,6 @@ $(document).ready(function () {
     });
 
     $("#addSleep").on("click touchstart", function (e) {
-		
 	e.stopPropagation();
 	e.preventDefault();
 	ga('send', 'event', 'click', 'button', 'addSleep');

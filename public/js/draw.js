@@ -151,20 +151,19 @@ window.draw=(function(){
 	function drawBars(ctx,data){
 		
 		ctx.save();
-		console.log(data.length);
-
-		for (var i = 0; i < data.length; i++) {
-			console.log("barname: ",data[i].name);
-			var innerRadius = barConfig[data[i].name].innerRadius*draw.ratio;
-			var outerRadius = barConfig[data[i].name].outerRadius*draw.ratio;
-			console.log("color :", barConfig[data[i].name].color)
-			ctx.fillStyle=barConfig[data[i].name].color;
+		console.log(data);
+		for (name in data){
+			console.log("barname: ",name);
+			var innerRadius = barConfig[name].innerRadius*draw.ratio;
+			var outerRadius = barConfig[name].outerRadius*draw.ratio;
+			console.log("color :", barConfig[name].color)
+			ctx.fillStyle=barConfig[name].color;
 			console.log(ctx.lineJoin)
 
-			for (var f = 0; f < data[i].data.length; f++){
-				var startRadians=helpers.minutesToRadians(data[i].data[f].start);
-				var endRadians=helpers.minutesToRadians(data[i].data[f].end);
-				var lineToXY=helpers.minutesToXY_OIC(data[i].data[f].end,innerRadius);
+			for (var i = 0; i < data[name].length; i++){
+				var startRadians=helpers.minutesToRadians(data[name][i].start);
+				var endRadians=helpers.minutesToRadians(data[name][i].end);
+				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
 
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
@@ -172,37 +171,34 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
-				if(mdown.barHolder=="charlie"&&mdown.count==0)
-				ctx.globalAlpha=0.6;
-				//else if(ctx.isPointInPath(mx,my))
-				//ctx.globalAlpha=0.5;
-				else
 				ctx.globalAlpha=0.6;
 
 				ctx.fill();
 
 					
 			}
-		};
+		
+		}
+		for (var i = 0; i < data.length; i++) {};
 		ctx.restore();
 	}
 	function strokeBars(ctx,data){
 		ctx.save();
 		ctx.lineJoin = 'mittel';
-		for (var i = 0; i < data.length; i++) {
-			if(typeof barConfig[data[i].name].stroke=="undefined")
+		for (var name in data){
+			if(typeof barConfig[name].stroke=="undefined")
 				continue;
-			ctx.lineWidth=barConfig[data[i].name].stroke.lineWidth;
-			var innerRadius = barConfig[data[i].name].innerRadius*draw.ratio;
-			var outerRadius = barConfig[data[i].name].outerRadius*draw.ratio;
+			ctx.lineWidth=barConfig[name].stroke.lineWidth;
+			var innerRadius = barConfig[name].innerRadius*draw.ratio;
+			var outerRadius = barConfig[name].outerRadius*draw.ratio;
 			var blurRadius = clockConfig.blurCircle.radius*draw.ratio;
 			if(innerRadius<blurRadius)
 				innerRadius = blurRadius;
-			ctx.strokeStyle=barConfig[data[i].name].color;
+			ctx.strokeStyle=barConfig[name].color;
 
-			for (var f = 0; f < data[i].data.length; f++){
-				var startRadians=helpers.minutesToRadians(data[i].data[f].start);
-				var endRadians=helpers.minutesToRadians(data[i].data[f].end);
+			for (var i = 0; i < data[name].length; i++){
+				var startRadians=helpers.minutesToRadians(data[name][i].start);
+				var endRadians=helpers.minutesToRadians(data[name][i].end);
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
@@ -217,16 +213,15 @@ window.draw=(function(){
 
 	function drawShadows(ctx,data){
 		ctx.save();
-		console.log(data.length);
-		for (var i = 0; i < data.length; i++) {
+		for (var name in data) {
 			var innerRadius = 0;
-			var outerRadius = barConfig[data[i].name].innerRadius*draw.ratio;
-			ctx.fillStyle=barConfig[data[i].name].color;
+			var outerRadius = barConfig[name].innerRadius*draw.ratio;
+			ctx.fillStyle=barConfig[name].color;
 
-			for (var f = 0; f < data[i].data.length; f++){
-				var startRadians=helpers.minutesToRadians(data[i].data[f].start);
-				var endRadians=helpers.minutesToRadians(data[i].data[f].end);
-				var lineToXY=helpers.minutesToXY_OIC(data[i].data[f].end,innerRadius);
+			for (var i = 0; i < data[name].length; i++){
+				var startRadians=helpers.minutesToRadians(data[name][i].start);
+				var endRadians=helpers.minutesToRadians(data[name][i].end);
+				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
 
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
@@ -271,19 +266,19 @@ window.draw=(function(){
 		ctx.save();
 
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
-		for (var i = 0; i < data.length; i++) {
-			if(typeof barConfig[data[i].name].rangeHandles == 'undefined')
+		for (var name in data) {
+			if(typeof barConfig[name].rangeHandles == 'undefined')
 				continue;
-			for (var f = 0; f < data[i].data.length; f++){
+			for (var i = 0; i < data[name].length; i++){
 				for(s=0;s<2;s++){
-					point=helpers.minutesToXY(data[i].data[f][['start','end'][s]], barConfig[data[i].name].outerRadius*draw.ratio);
+					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
 					ctx.fillStyle = 'white';
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
 
-					ctx.fillStyle = barConfig[data[i].name].color;
+					ctx.fillStyle = barConfig[name].color;
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
@@ -426,10 +421,7 @@ window.draw=(function(){
 sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
 
 draw.initialize(document.getElementById("canvas"));
-addInputBox("Sleep");
-addInputBox("Sleep");
-addInputBox("Nap");
-draw.drawFrame(document.getElementById("canvas").getContext("2d"));
+draw.drawFrame({});
 
 
 window.render = function() {

@@ -13,8 +13,8 @@ window.napchartCore=(function(){
 			draw.drawFrame(scheduleData);
 		},
 
-		addToScedule:function(data){
-
+		addToSchedule:function(name,data){
+			console.log(name,data,scheduleData);
 		},
 
 		removeFromSchedule:function(data){
