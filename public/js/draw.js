@@ -1,10 +1,7 @@
 $(document).ready(function(){
-window.center=helpers.totalWidth(50);
 
 window.draw=(function(){
 	//private inside function
-	defaultstrokecolor="#C9C9C9";
-	impstrokecolor="#262626";
 	canvasCont=document.getElementById("canvasCont");
 	mainCont=document.getElementById("main_content");
 	rightPanel=document.getElementById("controlPanelColumn");
@@ -18,7 +15,8 @@ window.draw=(function(){
 		outerRadius:40,
 		stroke:{
 			lineWidth:2
-		}
+		},
+		rangeHandles:true
 	},
 	nap:{
 		stack:1,
@@ -36,7 +34,8 @@ window.draw=(function(){
 		outerRadius:36,
 		stroke:{
 			lineWidth:2
-		}
+		},
+		rangeHandles:true
 	}
 	}
 
@@ -47,22 +46,27 @@ window.draw=(function(){
 		{radius:20},
 		{radius:2}
 		],
+		clearCircle: 20,
 		blurCircle:{
 				radius:29,
-				opacity:0.6
-			}
+				opacity:0.8
+			},
+		strokeColor:"#C9C9C9",
+		impStrokeColor:"#262626"
+
 		}
 
 	// (also private) functions used by draw.initialize()
 	function drawLines(ctx){
+		var radius=40*draw.ratio;
 		ctx.save();
-		ctx.strokeStyle=defaultstrokecolor;
+		ctx.strokeStyle=clockConfig.strokeColor;
 		ctx.beginPath();
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		for(i=0;i<12;i++){
-			c=minutesToXY(i*60);
+			c=helpers.minutesToXY(i*60,radius);
 			ctx.moveTo(c.x,c.y);
-			c=minutesToXY(i*60+720);
+			c=helpers.minutesToXY(i*60+720,radius);
 			ctx.lineTo(c.x,c.y);
 		}	
 		ctx.closePath();
@@ -72,22 +76,23 @@ window.draw=(function(){
 	}
 
 	function drawImpLines(ctx){
+		var radius=40*draw.ratio;
 		ctx.save();
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		ctx.beginPath();
-		ctx.strokeStyle=impstrokecolor;
+		ctx.strokeStyle=clockConfig.impStrokeColor;
 
-		c=minutesToXY(0);
+		c=helpers.minutesToXY(0,radius);
 		ctx.moveTo(c.x,c.y);
-		c=minutesToXY(720);
+		c=helpers.minutesToXY(720,radius);
 		ctx.lineTo(c.x,c.y);
-		c=minutesToXY(240);
+		c=helpers.minutesToXY(240,radius);
 		ctx.moveTo(c.x,c.y);
-		c=minutesToXY(960);
+		c=helpers.minutesToXY(960,radius);
 		ctx.lineTo(c.x,c.y);
-		c=minutesToXY(480);
+		c=helpers.minutesToXY(480,radius);
 		ctx.moveTo(c.x,c.y);
-		c=minutesToXY(1200);
+		c=helpers.minutesToXY(1200,radius);
 		ctx.lineTo(c.x,c.y);
 		ctx.closePath();
 		ctx.stroke();
@@ -98,11 +103,11 @@ window.draw=(function(){
 	function drawCircles(ctx){
 
 		var circles=clockConfig.circles;
-		ctx.strokeStyle=defaultstrokecolor;
+		ctx.strokeStyle=clockConfig.strokeColor;
 
 		for(i=0;i<circles.length;i++){
 			ctx.beginPath();
-			ctx.arc(ctx.canvas.width/2,ctx.canvas.height/2,circles[i].radius*draw.ratio,0, grader(360));
+			ctx.arc(ctx.canvas.width/2,ctx.canvas.height/2,circles[i].radius*draw.ratio,0, 2*Math.PI);
 			ctx.stroke();
 		}
 		console.info('drawCircles() success');
@@ -118,7 +123,7 @@ window.draw=(function(){
 		ctx.fillStyle="#262626";
 		for(i=0;i<24;i++){
 			if(i==0||i==4||i==16||i==20||i==8||i==12){
-			degrees=(grader((15*i)+270));
+			degrees=(helpers.degreesToRadiens((15*i)+270));
 			xval=helpers.totalWidth(50)+Math.cos(degrees)*numberRadius;
 			yval=helpers.totalWidth(50)+Math.sin(degrees)*numberRadius;
 			if(i==0)
@@ -135,7 +140,7 @@ window.draw=(function(){
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
-		ctx.arc(senter,senter,radius,0,grader(360), false);
+		ctx.arc(senter,senter,radius,0,2*Math.PI, false);
 		ctx.lineTo(senter,senter);
 		ctx.closePath();
 		ctx.fill();
@@ -144,39 +149,7 @@ window.draw=(function(){
 	}
 
 	function drawBars(ctx,data){
-		data=[
-		{
-			name:"core",
-			data:[
-			{
-				start:120,
-				end:330
-			},
-			{
-				start:360,
-				end:450
-			}
-			]
-		},
-		{
-			name:"nap",
-			data:[
-			{
-				start:960,
-				end:980
-			}
-			]
-		},
-		{
-			name:"busy",
-			data:[
-			{
-				start:598,
-				end:844
-			}
-			]
-		}
-		];
+		
 		ctx.save();
 		console.log(data.length);
 
@@ -213,40 +186,7 @@ window.draw=(function(){
 		};
 		ctx.restore();
 	}
-	function strokeBars(ctx){
-		data=[
-		{
-			name:"core",
-			data:[
-			{
-				start:120,
-				end:330
-			},
-			{
-				start:360,
-				end:450
-			}
-			]
-		},
-		{
-			name:"nap",
-			data:[
-			{
-				start:960,
-				end:980
-			}
-			]
-		},
-		{
-			name:"busy",
-			data:[
-			{
-				start:598,
-				end:844
-			}
-			]
-		}
-		];
+	function strokeBars(ctx,data){
 		ctx.save();
 		ctx.lineJoin = 'mittel';
 		for (var i = 0; i < data.length; i++) {
@@ -274,86 +214,46 @@ window.draw=(function(){
 			}
 		ctx.restore();
 		}
+
+	function drawShadows(ctx,data){
+		ctx.save();
+		console.log(data.length);
+		for (var i = 0; i < data.length; i++) {
+			var innerRadius = 0;
+			var outerRadius = barConfig[data[i].name].innerRadius*draw.ratio;
+			ctx.fillStyle=barConfig[data[i].name].color;
+
+			for (var f = 0; f < data[i].data.length; f++){
+				var startRadians=helpers.minutesToRadians(data[i].data[f].start);
+				var endRadians=helpers.minutesToRadians(data[i].data[f].end);
+				var lineToXY=helpers.minutesToXY_OIC(data[i].data[f].end,innerRadius);
+
+				ctx.beginPath();
+				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+				ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
+				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+				ctx.closePath();
+
+				ctx.globalAlpha=0.1;
+
+				ctx.fill();
+
+					
+			}
+		};
+		ctx.restore();
+	
+	}
+
 	function drawBlurCircle(ctx){
 		ctx.save();
 		ctx.fillStyle=draw.backgroundColor;
 		ctx.globalAlpha=clockConfig.blurCircle.opacity;
 		ctx.beginPath();
-		ctx.arc(senter,senter,clockConfig.blurCircle.radius*draw.ratio,0,grader(360), false);
+		ctx.arc(senter,senter,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
 		ctx.fill();
 		ctx.restore();
 		console.info('drawBlurCircle() success');
-	}
-	function drawAlfa(ctx){
-		if (typeof data['alfa'] != 'undefined'){
-		$.each(data['alfa'],function(i){
-		ctx.beginPath();
-		ctx.arc(senter,senter, sirkel3,klokkegrader(data['alfa'][i].start),klokkegrader(data['alfa'][i].end), false);
-		f=minutesToXY_OIC(data.alfa[i].end,73);
-		ctx.lineTo(f.x,f.y);
-		ctx.arc(senter, senter, sirkel3p5,klokkegrader(data.alfa[i].end),klokkegrader(data.alfa[i].start), true);
-		ctx.save();
-		if(typeof mdown.barHolder=="alfa"&&mdown.count==i)
-		ctx.globalAlpha=0.5;
-		else
-		ctx.globalAlpha=0.6;
-		ctx.fillStyle=color['alfa'];
-		ctx.fill();
-		ctx.restore();
-		});}
-		console.info('drawAlfa() success');
-	}
-
-	function drawCharlie(ctx){
-
-		if (typeof data.charlie != 'undefined'){
-		$.each(data.charlie,function(i){
-		ctx.beginPath();
-		ctx.arc(senter, senter, totalWidth(40),klokkegrader(data.charlie[i].start),klokkegrader(data.charlie[i].end), false);
-		f=minutesToXY_OIC(data.charlie[i].end,73);
-		ctx.lineTo(f.x,f.y);
-		ctx.arc(senter, senter, sirkel3,klokkegrader(data.charlie[i].end),klokkegrader(data.charlie[i].start), true);
-		ctx.save();
-		ctx.fillStyle=color["charlie"];
-		ctx.fill();
-		ctx.restore();
-		ctx.beginPath();
-		ctx.arc(senter, senter, sirkel3,klokkegrader(data.charlie[i].start),klokkegrader(data.charlie[i].end), false);
-		ctx.lineTo(senter,senter);
-		ctx.fillStyle=color["charlie"];
-		ctx.fill();
-		});}
-		console.info('drawCharlie() success');
-
-	}
-
-	function drawDelta(ctx){
-		if (typeof data['delta'] != 'undefined'){
-		$.each(data['delta'],function(i){
-		ctx.save();
-		ctx.beginPath();
-		ctx.arc(senter, senter,totalWidth(40),klokkegrader(data['delta'][i].start),klokkegrader(data['delta'][i].end), false);
-		f=minutesToXY_OIC(data.delta[i].end,73);
-		ctx.lineTo(f.x,f.y);
-		ctx.arc(senter, senter,sirkel3,klokkegrader(data['delta'][i].end),klokkegrader(data['delta'][i].start), true);
-		ctx.closePath();
-		ctx.fillStyle=color["delta"];
-		if(mdown.barHolder=="delta"&&mdown.count==0)
-		ctx.globalAlpha=0.6;
-		else if(ctx.isPointInPath(mx,my))
-		ctx.globalAlpha=0.5;
-		else
-		ctx.globalAlpha=0.6;
-		ctx.fill();
-		ctx.restore();
-		ctx.beginPath();
-		ctx.arc(senter, senter,sirkel3,klokkegrader(data['delta'][i].start-2),klokkegrader(data['delta'][i].end+2), false);
-		f=minutesToXY_OIC(data.delta[i].end,73);
-		ctx.lineTo(senter,senter);
-		ctx.fillStyle=color["delta"];
-		ctx.fill();
-		});}
-		console.info('drawDelta() success');
 	}
 
 	function clearCircle(ctx,radius){
@@ -367,47 +267,30 @@ window.draw=(function(){
 	}
 
 
-	function drawHandles(ctx){
+	function drawHandles(ctx,data){
 		ctx.save();
-		ctx.translate(senter,senter);
-		//outer grey
-		dataKeys=["charlie","alfa"];
-		for(d=0;d<dataKeys.length;d++){
-			if(dataKeys[d]=="charlie"){
-				countKeys=Object.keys(data[dataKeys[d]]);
-				for(i=0;i<countKeys.length;i++){
 
-					for(f=0;f<2;f++){
+		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
+		for (var i = 0; i < data.length; i++) {
+			if(typeof barConfig[data[i].name].rangeHandles == 'undefined')
+				continue;
+			for (var f = 0; f < data[i].data.length; f++){
+				for(s=0;s<2;s++){
+					point=helpers.minutesToXY(data[i].data[f][['start','end'][s]], barConfig[data[i].name].outerRadius*draw.ratio);
 
-						ctx.fillStyle = '#a8a8a8';
-						ctx.beginPath();
-						o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
-						ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
-						ctx.fill();
-						if(mdown.barHolder=="charlie"&&mdown.count==i&&mdown.type==[startend[f]]){
-							ctx.beginPath();
-							
-							console.log(data.charlie[countKeys[i]][startend[f]]);
-							o=minutesToXY(data.charlie[countKeys[i]][startend[f]]);
-							ctx.fillStyle = '#c95e5e';
-							ctx.arc(o.x,o.y,10,0, 2 * Math.PI, false);
-							ctx.fill();
-						}
-					}
+					ctx.fillStyle = 'white';
+					ctx.beginPath();
+					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
+					ctx.fill();
+
+					ctx.fillStyle = barConfig[data[i].name].color;
+					ctx.beginPath();
+					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
+					ctx.fill();
 				}
 			}
-		console.info('drawHandles() success');
 		}
-
-		ctx.fillStyle = 'black';
-		for (i = 0; i < keys.length; i++) {
-			for(f=0;f<2;f++){
-				ctx.beginPath();
-				o=minutesToXY(data.charlie[keys[i]][startend[f]]);
-				ctx.arc(o.x,o.y,5,0, 2 * Math.PI, false);
-				ctx.fill();
-			}
-		};
+		console.info('drawHandles() success');
 		ctx.restore();
 	}
 
@@ -492,24 +375,18 @@ window.draw=(function(){
 			// the initialize function draws the background clock to an off-screen canvas.
 			// This increases performance because the browser doesn't need to redraw everything, every frame
 			offScreenCanvas=document.createElement('canvas');
-			offScreenCanvas.height=400;
-			offScreenCanvas.width=400;
+			offScreenCanvas.height=canvas.width;
+			offScreenCanvas.width=canvas.width;
 			octx=offScreenCanvas.getContext('2d');
 
-			window.clockWidth=offScreenCanvas.clientHeight;
+			window.clockWidth=offScreenCanvas.height;
 			window.clockBasepoint=(offScreenCanvas.clientWidth-clockWidth)/2;
 
-			var clockWidth=400;
+			var clockWidth=offScreenCanvas.width;
 			this.ratio=clockWidth/100;
 			this.backgroundColor="#F4F4F4";
+			this.ctx=canvas.getContext("2d");
 
-			radius=helpers.totalWidth(40);
-			sirkel1=helpers.totalWidth(2);
-			sirkel1p5=helpers.totalWidth(20);
-			sirkel2=helpers.totalWidth(26);
-			sirkel3=helpers.totalWidth(29);
-			sirkel3p5=helpers.totalWidth(32.5);
-			sirkel4=helpers.totalWidth(36);
 			window.center=helpers.totalWidth(50);
 			senter=helpers.totalWidth(50);
 			supportNumbers=helpers.currentProp()*11;
@@ -517,7 +394,7 @@ window.draw=(function(){
 			
 			//draw clock
 			drawLines(octx);
-			clearClockCircle(octx,sirkel1p5);
+			clearClockCircle(octx,clockConfig.clearCircle*draw.ratio);
 			drawCircles(octx);
 			drawImpLines(octx);
 			drawClockNumbers(octx);
@@ -525,30 +402,28 @@ window.draw=(function(){
 			this.cachedBackground=offScreenCanvas;
 			
 		},
-		drawFrame:function(ctx){
-			console.log(canvas);
-			ctx.clearRect(0,0,canvas.width,canvas.height);
+		drawFrame:function(data){
+			if(typeof data=='undefined')
+				throw new Error("drawFrame did not receive data in argument")
+			ctx=draw.ctx;
+			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
 			throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()")
 			cachedBackground=this.cachedBackground;
 
-
-			
 			ctx.drawImage(cachedBackground,0,0);
-
 			drawBars(ctx,data);
 
 			if(typeof clockConfig.blurCircle != "undefined")
 			drawBlurCircle(ctx);
-			strokeBars(ctx);
-
-			//drawHandles(ctx);
-			//drawTimeHandles();
-			//drawStackedDescriptionText(); //MÅ FIKSAST
+			strokeBars(ctx,data);
+			drawShadows(ctx,data);
+			drawHandles(ctx,data);
 		}
 	}
 }());
 
+sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
 
 draw.initialize(document.getElementById("canvas"));
 addInputBox("Sleep");

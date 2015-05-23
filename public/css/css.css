@@ -341,7 +341,7 @@ text-align:center;
 #sampleSchedules{
 	position:relative;
 }
-.sampleSchedule{
+.schedule{
 z-index:5;
 	position:relative;
 
@@ -364,10 +364,10 @@ z-index:0;
     margin-bottom: 3px;
 }
 
-.sampleSchedule:hover {
+.schedule:hover {
     background-color:#dbdbdb;
 }
-.sampleSchedule:active {
+.schedule:active {
     background-color:#b36565;
     border:none;
 }

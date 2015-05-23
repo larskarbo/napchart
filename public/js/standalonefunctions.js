@@ -1,77 +1,6 @@
 $(document).ready(function(){
 
 
-
-window.convertCanvasToImage=function() {
-	var image = new Image();
-	image.src = clockCanvas.toDataURL("image/png");
-	document.getElementById('canvasImg').appendChild(image);
-}
-
-window.barConvert=function(indata){
-	if(indata=="alfa")
-	out="Work";
-	if(indata=="charlie")
-	out="Sleep";
-	if(indata=="delta")
-	out="Nap";
-	if(indata=="Work")
-	out="alfa";
-	if(indata=="Sleep")
-	out="charlie";
-	if(indata=="Nap")
-	out="delta";
-	return out;
-}
-
-oldColor={
-	alfa:color.alfa,
-	charlie:color.charlie,
-	delta:color.delta
-}
-window.currentlyGray=function(){
-color={
-	alfa:"#616161",
-	charlie:"#616161",
-	delta:"#919191"
-}
-};
-window.cancelGray=function(){
-color={
-	alfa:oldColor.alfa,
-	charlie:oldColor.charlie,
-	delta:oldColor.delta
-}
-}
-
-
-
-
-
-
-window.minutesToClock=function(minutes){
-	minutes=Math.floor(minutes);
-	if(minutes>=1440)
-	minutes-=1440;
-	hours=Math.floor(minutes/60)+"";
-	minutes=minutes%60+"";
-	if(hours.length==1){
-		hours="0"+hours;
-	}
-	if (minutes.length==1){
-		minutes="0"+minutes;
-	}
-
-	return(hours+minutes);
-
-};
-window.minutesToStatistics=function(minutes){
-	hours=Math.floor(minutes/60)+"";
-	minutes=minutes%60+"";
-	returnArr=[hours,Math.floor(minutes)];
-	return(returnArr);
-
-};
 window.countOverlappingExcluder=function(bars){
 
 original=[];
@@ -122,39 +51,7 @@ if(original[f].start<=merged[merged.length-1].end
 
 return merged;
 };
-window.grader=function(deg){
-return ((Math.PI/180)*(deg));}
-window.klokkegrader=function(minutt){
-return ((Math.PI/720)*(minutt-360));}
-window.radiensTilMinutt=function(deg){
-return ((Math.PI/180)*(deg));}
-window.minutesToXY=function(minutes,radiusMultiplier){
-	if(typeof radiusMultiplier=="undefined")
-	radiusMultiplier=100;
-	o={};
-o.y=Math.sin((minutes/1440)*(Math.PI*2)-(Math.PI/2))*radius*radiusMultiplier/100;
-o.x=Math.cos((minutes/1440)*(Math.PI*2)-(Math.PI/2))*radius*radiusMultiplier/100;
-return o;
-}
 
-window.minutesToXY_OIC=function(minutes,radiusMultiplier){
-	if(typeof radiusMultiplier=="undefined")
-	radiusMultiplier=100;
-	o={};
-o.y=Math.sin((minutes/1440)*(Math.PI*2)-(Math.PI/2))*radius*radiusMultiplier/100+totalWidth(50);
-o.x=Math.cos((minutes/1440)*(Math.PI*2)-(Math.PI/2))*radius*radiusMultiplier/100+totalWidth(50);
-return o;
-}
-
-window.XYtoMinutes=function(coord){
-minutes=(Math.atan(coord.y/coord.x)/(Math.PI*2))*1440+360;
-if(coord.x<0){
-	minutes+=720
-}
-minutes=Math.round(minutes);
-
-return minutes;
-}
 
 //easing::
 window.easeInOutQuad=function(t, b, c, d) {

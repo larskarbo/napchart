@@ -99,8 +99,8 @@ window.addInputBox=function(type,startval,endval){
 	endval=data.charlie[id].end+180;}
 	}
 	$(container).append(contentToAdd);
-	$("#startSleep"+count).val(minutesToClock(startval));
-	$("#endSleep"+count).val(minutesToClock(endval));
+	$("#startSleep"+count).val(helpers.minutesToClock(startval));
+	$("#endSleep"+count).val(helpers.minutesToClock(endval));
 	
 	currentEnd["charlie"]=endval;
 
@@ -137,7 +137,7 @@ window.addInputBox=function(type,startval,endval){
 		duration=calc(endval,-startval);
 	}
 	$(container).append(contentToAdd);
-	$("#startNap"+count).val(minutesToClock(startval));
+	$("#startNap"+count).val(helpers.minutesToClock(startval));
 	$("#durationNap"+count).val(duration);
 	//add default values
 

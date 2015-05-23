@@ -1,0 +1,328 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"clear",
+				"clearCircle"
+			],
+			[
+				"range",
+				"rangeHandles"
+			],
+			[
+				"bac",
+				"backgroundColor"
+			],
+			[
+				"clock",
+				"clockConfig"
+			],
+			[
+				"outer",
+				"outerRadius"
+			],
+			[
+				"lin",
+				"lineToXY"
+			],
+			[
+				"minutes",
+				"minutesToXY_OIC"
+			],
+			[
+				"fill",
+				"fillStyle"
+			],
+			[
+				"get",
+				"getContext"
+			],
+			[
+				"scr",
+				"script	Tag"
+			],
+			[
+				"cha",
+				"changeSampleSchedule"
+			],
+			[
+				"scrip",
+				"SCRIPT	Tag"
+			],
+			[
+				"bind",
+				"bindButtonPress"
+			],
+			[
+				"ht",
+				"html	html"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "public/js/napchartCore.js",
+			"settings":
+			{
+				"buffer_size": 297,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/sample_schedules.js",
+			"settings":
+			{
+				"buffer_size": 1094,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Add Repository"
+			],
+			[
+				"package control add r",
+				"Package Control: Add Repository"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 274.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/lars/Documents/napchart/public/js/application.js",
+		"/C/Users/lars/Documents/napchart/public/js/draw.js",
+		"/C/Users/lars/Documents/napchart/public/js/helpers.js",
+		"/C/Users/lars/Documents/napchart/public/js/snippets.js",
+		"/C/Users/lars/Documents/napchart/views/partials/head.ejs",
+		"/C/Users/lars/Documents/napchart/public/js/declarations.js",
+		"/C/Users/lars/Documents/napchart/public/js/inputhandler.js",
+		"/C/Users/lars/Documents/napchart/public/js/standalonefunctions.js",
+		"/C/Users/lars/Documents/napchart/public/js/dynamics.js",
+		"/C/Users/lars/Documents/napchart/public/js/napchart.js",
+		"/C/Users/lars/Documents/napchart/public/partials/chart.html",
+		"/C/Users/lars/Documents/napchart/views/pages/index.ejs",
+		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/lars/Documents/napchart/index.html",
+		"/C/Users/lars/Documents/napchart/public/js/save_manager.js",
+		"/C/Users/lars/Documents/napchart/script.js",
+		"/C/Users/lars/Documents/napchart/public/js/sample_schedules.js",
+		"/C/Users/lars/Documents/napchart/public/js/controllers.js",
+		"/C/Users/lars/Documents/napchart/public/js/buttons.js",
+		"/C/Users/lars/Documents/napchart/package.json",
+		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/User/html-html5skel.sublime-snippet"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Users\\lars\\Documents\\napchart",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"minutestoclock",
+			"clockConfig",
+			"stroke",
+			"canvas",
+			"canvas =",
+			"canvas=",
+			"clearCanvas",
+			"clockco",
+			"blur",
+			"color",
+			"drawBlurCircle",
+			"drawop",
+			"drawbars",
+			"ratio",
+			"drawbars",
+			"drawbar",
+			"sirkel1",
+			"start",
+			"\"",
+			"drawba",
+			"draw.ini",
+			"draw()",
+			"getElementById",
+			"function",
+			"240",
+			"Lines",
+			"lines",
+			"}\n",
+			"center",
+			"\n<script src=\"../../js/save_manager.js\"></script>",
+			">\n",
+			"changeact"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "public/js/napchartCore.js",
+					"settings":
+					{
+						"buffer_size": 297,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								215,
+								215
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/js/sample_schedules.js",
+					"settings":
+					{
+						"buffer_size": 1094,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1088,
+								1088
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"index.ej",
+				"views/pages/index.ejs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 229.0,
+	"status_bar_visible": true
+}

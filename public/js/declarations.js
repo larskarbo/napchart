@@ -2,8 +2,6 @@ $(document).ready(function(){
 
 var app={};
 app.init=function(){
-document.getElementById("myCanvas");
-
 window.currentActive="none";
 
 

@@ -68,7 +68,7 @@ helpers.minutesToStatistics = function (minutes) {
 
 };
 
-helpers.grader = function (deg) {
+helpers.degreesToRadiens = function (deg) {
     return ((Math.PI / 180) * (deg));
 };
 
@@ -80,12 +80,10 @@ helpers.radiensTilMinutt = function (deg) {
     return ((Math.PI / 180) * (deg));
 };
 
-helpers.minutesToXY = function (minutes, radiusMultiplier) {
-    if (typeof radiusMultiplier == "undefined")
-        radiusMultiplier = 100;
+helpers.minutesToXY = function (minutes, radius) {
     o = {};
-    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius * radiusMultiplier / 100;
-    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius * radiusMultiplier / 100;
+    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
+    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
     return o;
 };
 
