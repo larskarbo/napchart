@@ -1,21 +1,17 @@
-function addBar(name){
-	//find start and end point
-	var start=292;
-	var end=489;
-
-	obj={
-		start:start,
-		end:end
-	}
-
-	napchartCore.addToSchedule(name,obj);
-}
-
-
 $(document).ready(function(){
 
 	document.getElementById('addCore').addEventListener('click',function(){
-		addBar("core");
+		barhandler.addBar("core");
+	})
+	document.getElementById('addNap').addEventListener('click',function(){
+		barhandler.addBar("nap");
+	})
+	document.getElementById('addBusy').addEventListener('click',function(){
+		barhandler.addBar("busy");
+	})
+
+	document.getElementById('removeAll').addEventListener('click',function(){
+		barhandler.removeAllBars();
 	})
 
 })

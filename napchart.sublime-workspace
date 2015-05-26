@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"defaul",
+				"defaultLocation"
+			],
+			[
+				"sc",
+				"scheduleLinks"
+			],
+			[
 				"clear",
 				"clearCircle"
 			],
@@ -64,10 +72,36 @@
 	"buffers":
 	[
 		{
+			"file": "public/js/dom.js",
+			"settings":
+			{
+				"buffer_size": 463,
+				"line_ending": "Windows",
+				"name": "dom.js"
+			}
+		},
+		{
+			"file": "public/js/barhandler.js",
+			"settings":
+			{
+				"buffer_size": 1737,
+				"line_ending": "Windows",
+				"name": "barhandler.js"
+			}
+		},
+		{
 			"file": "public/js/napchartCore.js",
 			"settings":
 			{
-				"buffer_size": 297,
+				"buffer_size": 1062,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/draw.js",
+			"settings":
+			{
+				"buffer_size": 12101,
 				"line_ending": "Windows"
 			}
 		},
@@ -75,7 +109,55 @@
 			"file": "public/js/sample_schedules.js",
 			"settings":
 			{
-				"buffer_size": 1094,
+				"buffer_size": 2420,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/buttons.js",
+			"settings":
+			{
+				"buffer_size": 3664,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/js/js.js",
+			"settings":
+			{
+				"buffer_size": 2275,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/css/css.css",
+			"settings":
+			{
+				"buffer_size": 9180,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/partials/chart.html",
+			"settings":
+			{
+				"buffer_size": 3738,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/pages/index.ejs",
+			"settings":
+			{
+				"buffer_size": 2501,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/partials/head.ejs",
+			"settings":
+			{
+				"buffer_size": 2047,
 				"line_ending": "Windows"
 			}
 		}
@@ -112,8 +194,10 @@
 	},
 	"file_history":
 	[
-		"/C/Users/lars/Documents/napchart/public/js/application.js",
 		"/C/Users/lars/Documents/napchart/public/js/draw.js",
+		"/C/Users/lars/Documents/napchart/views/pages/index.ejs",
+		"/C/Users/lars/Documents/napchart/public/js/js.js",
+		"/C/Users/lars/Documents/napchart/public/js/application.js",
 		"/C/Users/lars/Documents/napchart/public/js/helpers.js",
 		"/C/Users/lars/Documents/napchart/public/js/snippets.js",
 		"/C/Users/lars/Documents/napchart/views/partials/head.ejs",
@@ -123,7 +207,6 @@
 		"/C/Users/lars/Documents/napchart/public/js/dynamics.js",
 		"/C/Users/lars/Documents/napchart/public/js/napchart.js",
 		"/C/Users/lars/Documents/napchart/public/partials/chart.html",
-		"/C/Users/lars/Documents/napchart/views/pages/index.ejs",
 		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/lars/Documents/napchart/index.html",
@@ -137,7 +220,7 @@
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -153,6 +236,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"",
+			"window.napchartCore=(function(){\n	//private:\n	var scheduleData={\n\n	}\n\n	//public:\n	return {\n\n		setSchedule:function(data){\n			console.dir(data);\n			scheduleData=data;\n\n			//draw\n			draw.drawFrame(scheduleData);\n		},\n\n		addToSchedule:function(name,data){\n			if(typeof scheduleData[name]=='undefined'){\n				scheduleData[name]=[];\n			}\n\n			scheduleData[name].push(data);\n			this.setSchedule(scheduleData);\n		},\n\n		removeFromSchedule:function(data){\n\n		},\n\n		start:function(){\n\n		},\n\n		howMany:function(name){\n			if(typeof scheduleData[name]=='undefined'){\n				scheduleData[name]=[];\n			}\n			return scheduleData[name].length;\n		},\n\n		lastElement:function(name){\n			if(typeof scheduleData[name]=='undefined'){\n				console.warn('lastElement received an undefined name')\n				return false;\n			}\n			return scheduleData[name][scheduleData[name].length-1];\n		}\n	}\n\n}());",
+			"lastElement",
+			"console.",
+			"console.info",
+			"data",
+			"changeActiveSchedule",
+			"sampleSchedule",
+			"schedule",
+			"	",
 			"minutestoclock",
 			"clockConfig",
 			"stroke",
@@ -203,27 +296,28 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/js/napchartCore.js",
+					"file": "public/js/dom.js",
 					"settings":
 					{
-						"buffer_size": 297,
+						"buffer_size": 463,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								215,
-								215
+								449,
+								449
 							]
 						],
 						"settings":
 						{
+							"auto_name": "dom.js",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -235,24 +329,271 @@
 				},
 				{
 					"buffer": 1,
-					"file": "public/js/sample_schedules.js",
+					"file": "public/js/barhandler.js",
 					"settings":
 					{
-						"buffer_size": 1094,
+						"buffer_size": 1737,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1088,
-								1088
+								1556,
+								1556
+							]
+						],
+						"settings":
+						{
+							"auto_name": "barhandler.js",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1153.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/napchartCore.js",
+					"settings":
+					{
+						"buffer_size": 1062,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								648,
+								648
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 105.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/js/draw.js",
+					"settings":
+					{
+						"buffer_size": 12101,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4567,
+								4567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3177.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public/js/sample_schedules.js",
+					"settings":
+					{
+						"buffer_size": 2420,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2358,
+								2358
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1060.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/js/buttons.js",
+					"settings":
+					{
+						"buffer_size": 3664,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								526,
+								526
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 118.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/js/js.js",
+					"settings":
+					{
+						"buffer_size": 2275,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								619,
+								619
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 496.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "public/css/css.css",
+					"settings":
+					{
+						"buffer_size": 9180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5584,
+								5584
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 6505.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "public/partials/chart.html",
+					"settings":
+					{
+						"buffer_size": 3738,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2451,
+								2451
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1239.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "views/pages/index.ejs",
+					"settings":
+					{
+						"buffer_size": 2501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2272,
+								2272
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1059.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "views/partials/head.ejs",
+					"settings":
+					{
+						"buffer_size": 2047,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								601,
+								601
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

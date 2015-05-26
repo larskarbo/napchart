@@ -60,11 +60,11 @@ window.sampleSchedule = (function () {
 	}
 	
 	var schedules={
-		"monophasic":	{"core":[{start:120, end:330 }, {start:360, end:450 } ], "nap":[{start:960, end:980 } ] , "busy":[{start:598, end:844 } ]},
-		"siesta":	{"core":[{start:320, end:430 }, {start:360, end:450 } ] , "nap":[{start:960, end:980 } ] , "busy":[{start:598, end:1044 } ]}
+		monophasic:	{core:[{start:120, end:330 }, {start:360, end:450 } ], nap:[{start:960, end:980 } ] , busy:[{start:598, end:844 } ]},
+		siesta:	{core:[{start:320, end:430 }, {start:360, end:450 } ] , nap:[{start:960, end:980 } ] , busy:[{start:598, end:1044 } ]},
+		segmented: {busy:[{start:540,end:1020},{start:1080,end:1140},{start:1200,end:1260},{start:1320,end:1380}],core:[{start:1410,end:1530},{start:1620,end:1740},{start:1830,end:1950},{start:2040,end:2160}],nap:[{start:960,end:980},{start:1040,end:1060}]}
 	}
 	
-
 
 	//public:
 	return {
@@ -74,6 +74,9 @@ window.sampleSchedule = (function () {
 			for(i=0;i<scheduleLinks.length;i++){
 				scheduleLinks[i].addEventListener('click',chooseSchedule)
 			}
+		},
+		getSchedules:function(){
+			return schedules;
 		}
 	}
 

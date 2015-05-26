@@ -72,7 +72,6 @@ window.draw=(function(){
 		ctx.closePath();
 		ctx.stroke();
 		ctx.restore();
-		console.info('drawLines() success')
 	}
 
 	function drawImpLines(ctx){
@@ -96,9 +95,8 @@ window.draw=(function(){
 		ctx.lineTo(c.x,c.y);
 		ctx.closePath();
 		ctx.stroke();
-		ctx.restore();	
-		console.info('drawImpLines() success');
-	}
+		ctx.restore();		
+}
 
 	function drawCircles(ctx){
 
@@ -110,7 +108,6 @@ window.draw=(function(){
 			ctx.arc(ctx.canvas.width/2,ctx.canvas.height/2,circles[i].radius*draw.ratio,0, 2*Math.PI);
 			ctx.stroke();
 		}
-		console.info('drawCircles() success');
 	}
 
 	function drawClockNumbers(ctx){
@@ -133,7 +130,6 @@ window.draw=(function(){
 			else
 			ctx.fillText(i,xval,yval);
 		}}
-		console.info('drawClockNumbers() success');
 	}
 
 	function clearClockCircle(ctx,radius){
@@ -145,20 +141,15 @@ window.draw=(function(){
 		ctx.closePath();
 		ctx.fill();
 		ctx.restore();
-		console.info('clearClockCircle() success');
 	}
 
 	function drawBars(ctx,data){
 		
 		ctx.save();
-		console.log(data);
 		for (name in data){
-			console.log("barname: ",name);
 			var innerRadius = barConfig[name].innerRadius*draw.ratio;
 			var outerRadius = barConfig[name].outerRadius*draw.ratio;
-			console.log("color :", barConfig[name].color)
 			ctx.fillStyle=barConfig[name].color;
-			console.log(ctx.lineJoin)
 
 			for (var i = 0; i < data[name].length; i++){
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
@@ -182,6 +173,7 @@ window.draw=(function(){
 		for (var i = 0; i < data.length; i++) {};
 		ctx.restore();
 	}
+
 	function strokeBars(ctx,data){
 		ctx.save();
 		ctx.lineJoin = 'mittel';
@@ -248,7 +240,6 @@ window.draw=(function(){
 		ctx.arc(senter,senter,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
 		ctx.fill();
 		ctx.restore();
-		console.info('drawBlurCircle() success');
 	}
 
 	function clearCircle(ctx,radius){
@@ -258,7 +249,6 @@ window.draw=(function(){
 		ctx.arc(senter,senter,radius,0,grader(360), false);
 		ctx.fill();
 		ctx.restore();
-		console.info('clearCircle() success');
 	}
 
 
@@ -285,7 +275,6 @@ window.draw=(function(){
 				}
 			}
 		}
-		console.info('drawHandles() success');
 		ctx.restore();
 	}
 

@@ -16,33 +16,6 @@ $(document).ready(function () {
         removeInputBox(deleteObj);
     });
 
-    $("#addSleep").on("click touchstart", function (e) {
-	e.stopPropagation();
-	e.preventDefault();
-	ga('send', 'event', 'click', 'button', 'addSleep');
-        addInputBox("Sleep");
-		updateInputValues();
-    });
-    $("#addNap").on("click touchstart", function (e) {
-	e.stopPropagation();
-	e.preventDefault();
-	ga('send', 'event', 'click', 'button', 'addNap');
-        addInputBox("Nap");
-		updateInputValues();
-    });
-    $("#addWork").on("click touchstart", function (e) {
-	e.stopPropagation();
-	e.preventDefault();
-	ga('send', 'event', 'click', 'button', 'addWork');
-        addInputBox("Work");
-		updateInputValues();
-    });
-    $("#removeAll").on("click touchstart", function (e) {
-	e.stopPropagation();
-	e.preventDefault();
-	ga('send', 'event', 'click', 'button', 'removeAll');
-        removeInputBox(data);
-    });
 	$("#saveURL").on("focus mouseup", function (e) {
 	e.stopPropagation();
 	e.preventDefault();
