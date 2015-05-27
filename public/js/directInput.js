@@ -6,12 +6,19 @@ directly on the canvas with mouse or touch
 */
 
 window.directInput = (function(){
-	//public:
-
-
 	//private:
-	return{
 
+
+	//public:
+	return{
+		initialize:function(canvas){
+			canvas.addEventListener('mousemove',this.hover)
+		}
+
+		hover:function(e){
+			//checks if mouse is hovering something on the canvas
+
+		}
 	}
-	
+
 }());
