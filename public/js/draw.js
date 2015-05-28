@@ -153,7 +153,9 @@ window.draw=(function(){
 	}
 
 	function drawBars(ctx,data){
-		var mouse = directInput.getCanvasMousePosition();
+		var mouse = directInput.getCanvasMousePosition(),
+		hoverElements = [];
+
 		ctx.save();
 		for (name in data){
 			var innerRadius = barConfig[name].innerRadius*draw.ratio,
@@ -175,8 +177,10 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
-				if(ctx.isPointInPath(mouse.x,mouse.y))
+				if(ctx.isPointInPath(mouse.x,mouse.y)){
 					ctx.globalAlpha=hoverOpacity;
+					hoverElements.push({name:name,count:i})
+				}
 				else
 					ctx.globalAlpha=opacity;
 
@@ -184,7 +188,9 @@ window.draw=(function(){
 
 					
 			}
-		
+			//notify directInput module about which elements are being
+			//hovered. Used hit detection
+			directInput.setHoverElements(hoverElements);
 		}
 		for (var i = 0; i < data.length; i++) {};
 		ctx.restore();
@@ -275,7 +281,7 @@ window.draw=(function(){
 		for (var name in data) {
 			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
 				continue;
-			
+
 			for (var i = 0; i < data[name].length; i++){
 				for(s=0;s<2;s++){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
@@ -284,7 +290,7 @@ window.draw=(function(){
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
-
+					
 					ctx.fillStyle = barConfig[name].color;
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);

@@ -10,6 +10,8 @@ window.directInput = (function(){
 
 	var mouseX,mouseY;
 
+	var hoverElements;
+
 	function getRelativePosition(e){
 		var canvas = e.currentTarget || e.srcElement,
 		boundingRect = canvas.getBoundingClientRect();
@@ -32,6 +34,7 @@ window.directInput = (function(){
 
 	function hover(e){
 		var relativePosition = getRelativePosition(e);
+
 		mouseX = relativePosition.x;
 		mouseY = relativePosition.y;
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
@@ -42,14 +45,29 @@ window.directInput = (function(){
 		mouseY = null;
 	}
 
+	function down(e){
+		var relativePosition = getRelativePosition(e);
+
+		//check if point is over an element (hoverElements array)
+		if(typeof hoverElements[0] != 'undefined')
+		console.log('hit',hoverElements[0].name,hoverElements[0].count)
+	}
+
 	//public:
 	return{
 		initialize:function(canvas){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mouseleave',mouseLeave);
+			canvas.addEventListener('mousedown',down);
+			canvas.addEventListener('touchstart',down);
 		},
+
 		getCanvasMousePosition:function(e){
 			return {x:mouseX,y:mouseY};
+		},
+
+		setHoverElements:function(elementsArray){
+			hoverElements = elementsArray;
 		}
 	}
 
