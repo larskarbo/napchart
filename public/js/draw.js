@@ -236,6 +236,9 @@ window.draw=(function(){
 			ctx.fillStyle=barConfig[name].color;
 
 			for (var i = 0; i < data[name].length; i++){
+				if(!directInput.isActive(name,i))
+					continue;
+				
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
 				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
