@@ -111,7 +111,6 @@ helpers.minutesToXY = function (minutes, radius) {
 
 helpers.minutesToXY_OIC = function (minutes, radius) {
     radius=radius;
-    console.log(radius)
     o = {};
     o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
     o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
