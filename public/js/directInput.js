@@ -10,7 +10,8 @@ window.directInput = (function(){
 
 	var mouseX,mouseY;
 
-	var hoverElements;
+	var hoverElements = [],
+	activeElements = [];
 
 	function getRelativePosition(e){
 		var canvas = e.currentTarget || e.srcElement,
@@ -49,8 +50,19 @@ window.directInput = (function(){
 		var relativePosition = getRelativePosition(e);
 
 		//check if point is over an element (hoverElements array)
-		if(typeof hoverElements[0] != 'undefined')
-		console.log('hit',hoverElements[0].name,hoverElements[0].count)
+		if(typeof hoverElements[0] != 'undefined'){
+			console.log('hit',hoverElements[0].name,hoverElements[0].count);
+			activeElements.push({name:hoverElements[0].name,count:hoverElements[0].count})
+		}
+		
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
+
+	function up(){
+		//function must be modified when adding multitouch support
+		activeElements = [];
+
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
 	//public:
@@ -59,7 +71,7 @@ window.directInput = (function(){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mouseleave',mouseLeave);
 			canvas.addEventListener('mousedown',down);
-			canvas.addEventListener('touchstart',down);
+			canvas.addEventListener('mouseup',up);
 		},
 
 		getCanvasMousePosition:function(e){
@@ -68,6 +80,15 @@ window.directInput = (function(){
 
 		setHoverElements:function(elementsArray){
 			hoverElements = elementsArray;
+		},
+
+		isActive:function(name,count){
+			for(i=0;i<activeElements.length;i++){
+				if(name == activeElements[i].name && count == activeElements[i].count){
+					return true
+				}
+			}
+			return false
 		}
 	}
 

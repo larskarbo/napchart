@@ -177,13 +177,16 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
-				if(ctx.isPointInPath(mouse.x,mouse.y)){
+				if(directInput.isActive(name,i)){
+					ctx.globalAlpha = activeOpacity
+				}
+				else if(ctx.isPointInPath(mouse.x,mouse.y)){
 					ctx.globalAlpha=hoverOpacity;
 					hoverElements.push({name:name,count:i})
 				}
-				else
+				else{
 					ctx.globalAlpha=opacity;
-
+				}
 				ctx.fill();
 
 					
@@ -290,7 +293,7 @@ window.draw=(function(){
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
-					
+
 					ctx.fillStyle = barConfig[name].color;
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
