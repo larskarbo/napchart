@@ -16,7 +16,10 @@ window.draw=(function(){
 		stroke:{
 			lineWidth:2
 		},
-		rangeHandles:true
+		rangeHandles:true,
+		opacity:0.6,
+		hoverOpacity:0.5,
+		activeOpacity:0.2
 	},
 	nap:{
 		stack:1,
@@ -25,7 +28,10 @@ window.draw=(function(){
 		outerRadius:40,
 		stroke:{
 			lineWidth:2
-		}
+		},
+		opacity:0.6,
+		hoverOpacity:0.5,
+		activeOpacity:0.2
 	},
 	busy:{
 		stack:2,
@@ -35,7 +41,10 @@ window.draw=(function(){
 		stroke:{
 			lineWidth:2
 		},
-		rangeHandles:true
+		rangeHandles:true,
+		opacity:0.6,
+		hoverOpacity:0.5,
+		activeOpacity:0.2
 	}
 	}
 
@@ -144,11 +153,15 @@ window.draw=(function(){
 	}
 
 	function drawBars(ctx,data){
-		
+		var mouse = directInput.getCanvasMousePosition();
 		ctx.save();
 		for (name in data){
-			var innerRadius = barConfig[name].innerRadius*draw.ratio;
-			var outerRadius = barConfig[name].outerRadius*draw.ratio;
+			var innerRadius = barConfig[name].innerRadius*draw.ratio,
+			outerRadius = barConfig[name].outerRadius*draw.ratio,
+			opacity = barConfig[name].opacity,
+			hoverOpacity = barConfig[name].hoverOpacity,
+			activeOpacity = barConfig[name].activeOpacity;
+
 			ctx.fillStyle=barConfig[name].color;
 
 			for (var i = 0; i < data[name].length; i++){
@@ -162,7 +175,10 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
-				ctx.globalAlpha=0.6;
+				if(ctx.isPointInPath(mouse.x,mouse.y))
+					ctx.globalAlpha=hoverOpacity;
+				else
+					ctx.globalAlpha=opacity;
 
 				ctx.fill();
 
@@ -257,8 +273,9 @@ window.draw=(function(){
 
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		for (var name in data) {
-			if(typeof barConfig[name].rangeHandles == 'undefined')
+			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
 				continue;
+			
 			for (var i = 0; i < data[name].length; i++){
 				for(s=0;s<2;s++){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
@@ -403,14 +420,18 @@ window.draw=(function(){
 			strokeBars(ctx,data);
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
+		},
+		drawUpdate:function(){
+			data = napchartCore.getSchedule();
+			draw.drawFrame(data);
 		}
 	}
 }());
 
 sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
-
+directInput.initialize(document.getElementById("canvas"));
 draw.initialize(document.getElementById("canvas"));
-draw.drawFrame({});
+draw.drawUpdate();
 
 
 window.render = function() {
