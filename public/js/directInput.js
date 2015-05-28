@@ -47,14 +47,23 @@ window.directInput = (function(){
 	}
 
 	function down(e){
-		var relativePosition = getRelativePosition(e);
+		var relativePosition = getRelativePosition(e),
+		name,
+		count;
 
 		//check if point is over an element (hoverElements array)
-		if(typeof hoverElements[0] != 'undefined'){
-			console.log('hit',hoverElements[0].name,hoverElements[0].count);
-			activeElements.push({name:hoverElements[0].name,count:hoverElements[0].count})
+		if(typeof hoverElements[0] == 'undefined'){
+			return
 		}
-		
+
+		name = hoverElements[0].name;
+		count = hoverElements[0].count;
+
+		console.log('hit',name,count);
+		activeElements.push({name:name,count:count})
+
+		//[addeventlistener]
+
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
@@ -71,7 +80,7 @@ window.directInput = (function(){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mouseleave',mouseLeave);
 			canvas.addEventListener('mousedown',down);
-			canvas.addEventListener('mouseup',up);
+			document.addEventListener('mouseup',up);
 		},
 
 		getCanvasMousePosition:function(e){
