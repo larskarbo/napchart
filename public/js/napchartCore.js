@@ -22,7 +22,7 @@ window.napchartCore=(function(){
 		},
 
 		getSchedule:function(){
-			return scheduleData;
+			return JSON.parse(JSON.stringify(scheduleData));
 		},
 
 		addToSchedule:function(name,obj){
