@@ -19,7 +19,7 @@ window.draw=(function(){
 		rangeHandles:true,
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.2
+		activeOpacity:0.5
 	},
 	nap:{
 		stack:1,
@@ -31,7 +31,7 @@ window.draw=(function(){
 		},
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.2
+		activeOpacity:0.5
 	},
 	busy:{
 		stack:2,
@@ -44,7 +44,7 @@ window.draw=(function(){
 		rangeHandles:true,
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.2
+		activeOpacity:0.5
 	}
 	}
 
@@ -238,7 +238,7 @@ window.draw=(function(){
 			for (var i = 0; i < data[name].length; i++){
 				if(!directInput.isActive(name,i))
 					continue;
-				
+
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
 				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
