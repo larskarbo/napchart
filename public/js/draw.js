@@ -154,7 +154,7 @@ window.draw=(function(){
 
 	function drawBars(ctx,data){
 		var mouse = directInput.getCanvasMousePosition(),
-		hoverElements = [];
+		mouseHover = {};
 
 		ctx.save();
 		for (name in data){
@@ -177,12 +177,15 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
+				if(ctx.isPointInPath(mouse.x,mouse.y)){
+					mouseHover = {name:name,count:i};
+				}
+
 				if(directInput.isActive(name,i)){
 					ctx.globalAlpha = activeOpacity
 				}
-				else if(ctx.isPointInPath(mouse.x,mouse.y)){
+				else if(directInput.isHover(name,i)){
 					ctx.globalAlpha=hoverOpacity;
-					hoverElements.push({name:name,count:i})
 				}
 				else{
 					ctx.globalAlpha=opacity;
@@ -191,10 +194,11 @@ window.draw=(function(){
 
 					
 			}
-			//notify directInput module about which elements are being
-			//hovered. Used hit detection
-			directInput.setHoverElements(hoverElements);
 		}
+		//notify directInput module about which elements are being
+		//hovered. Used hit detection
+		directInput.setHoverElements(mouseHover);
+
 		for (var i = 0; i < data.length; i++) {};
 		ctx.restore();
 	}

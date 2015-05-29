@@ -10,7 +10,7 @@ window.directInput = (function(){
 
 	var mouseX,mouseY;
 
-	var hoverElements = [],
+	var mouseHover = {},
 	activeElements = [];
 
 	function getRelativePosition(e){
@@ -54,12 +54,12 @@ window.directInput = (function(){
 		count;
 
 		//check if point is over an element (hoverElements array)
-		if(typeof hoverElements[0] == 'undefined'){
+		if(typeof mouseHover == {}){
 			return
 		}
 
-		name = hoverElements[0].name;
-		count = hoverElements[0].count;
+		name = mouseHover.name;
+		count = mouseHover.count;
 
 		console.log('hit',name,count);
 		activeElements.push({name:name,count:count})
@@ -102,8 +102,9 @@ window.directInput = (function(){
 			return {x:mouseX,y:mouseY};
 		},
 
-		setHoverElements:function(elementsArray){
-			hoverElements = elementsArray;
+		setHoverElements:function(hover){
+		console.log(mouseHover.name,mouseHover.count);
+			mouseHover = hover;
 		},
 
 		isActive:function(name,count){
@@ -111,6 +112,13 @@ window.directInput = (function(){
 				if(name == activeElements[i].name && count == activeElements[i].count){
 					return true
 				}
+			}
+			return false
+		},
+
+		isHover:function(name,count){
+			if(name == mouseHover.name && count == mouseHover.count){
+				return true
 			}
 			return false
 		}
