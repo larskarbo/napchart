@@ -3,7 +3,7 @@ window.helpers = {};
 console.horse=function(){
     console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhhho");
 }
-    
+
 //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 helpers.requestAnimFrame = (function(){
     return window.requestAnimationFrame ||
@@ -121,9 +121,9 @@ helpers.minutesToXY_OIC = function (minutes, radius) {
     return o;
 };
 
-helpers.XYtoMinutes = function (coord) {
-    minutes = (Math.atan(coord.y / coord.x) / (Math.PI * 2)) * 1440 + 360;
-    if (coord.x < 0) {
+helpers.XYtoMinutes = function (x,y) {
+    minutes = (Math.atan(y /x) / (Math.PI * 2)) * 1440 + 360;
+    if (x < 0) {
         minutes += 720
     }
     minutes = Math.round(minutes);

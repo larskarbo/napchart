@@ -48,21 +48,29 @@ window.directInput = (function(){
 
 	function down(e){
 		e.preventDefault();
-		console.log(e);
-		var relativePosition = getRelativePosition(e),
-		name,
-		count;
 
-		//check if point is over an element (hoverElements array)
+		//return of no hit
 		if(typeof mouseHover == {}){
 			return
 		}
 
+		var relativePosition = getRelativePosition(e),
+		minutes = helpers.XYtoMinutes(relativePosition.x,relativePosition.y)
+		name,
+		count,
+		positionInElement,
+		element;
+
+
 		name = mouseHover.name;
 		count = mouseHover.count;
+		element = napchartCore.returnElement(name,count);
 
 		console.log('hit',name,count);
-		activeElements.push({name:name,count:count})
+
+		positionInElement=helpers.calc(minutes,-element.start);
+		activeElements.push({name:name,count:count,position:positionInElement,what:'dragWhole'});
+
 
 		document.addEventListener('mousemove',drag);
 		document.addEventListener('mouseup',function(){
@@ -73,7 +81,22 @@ window.directInput = (function(){
 	}
 
 	function drag(e){
-		console.horse();
+		var dragElement = activeElements[0],
+		relativePosition = getRelativePosition(e),
+		minutes = helpers.XYtoMinutes(relativePosition.x,relativePosition.y),
+		name = dragElement.name,
+		count = dragElement.count,
+		positionInElement = dragElement.positionInElement,
+		start = calc(minutes,-positionInElement);
+
+		//newValues is an object that will replace the existing one with new values
+		newValues = {}
+
+		if(dragElement.what=='dragWhole'){
+			napchartCore.modifyElement(name,count,newValues)
+		}
+
+
 	}
 
 	function up(){

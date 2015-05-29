@@ -56,6 +56,21 @@ window.napchartCore=(function(){
 			}
 
 			return scheduleData[name][scheduleData[name].length-1];
+		},
+
+		returnElement:function(name,count){
+			if(typeof scheduleData[name][count]=='undefined'){
+				console.warn('Specified element does not exist');
+			}
+			return scheduleData[name][count];
+		},
+
+		modifyElement:function(name,count,newElement){
+			if(typeof scheduleData[name][count]=='undefined'){
+				console.warn('Specified element does not exist');
+			}
+			scheduleData[name][count]=newElement;
+			draw.drawFrame(sheduleData);
 		}
 	}
 
