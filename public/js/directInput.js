@@ -72,8 +72,8 @@ window.directInput = (function(){
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
-	function drag(){
-
+	function drag(e){
+		console.horse();
 	}
 
 	function up(){

@@ -1,5 +1,9 @@
 window.helpers = {};
 
+console.horse=function(){
+    console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhhho");
+}
+    
 //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 helpers.requestAnimFrame = (function(){
     return window.requestAnimationFrame ||
