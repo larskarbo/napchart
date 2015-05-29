@@ -47,6 +47,8 @@ window.directInput = (function(){
 	}
 
 	function down(e){
+		e.preventDefault();
+		console.log(e);
 		var relativePosition = getRelativePosition(e),
 		name,
 		count;
@@ -62,9 +64,16 @@ window.directInput = (function(){
 		console.log('hit',name,count);
 		activeElements.push({name:name,count:count})
 
-		//[addeventlistener]
+		document.addEventListener('mousemove',drag);
+		document.addEventListener('mouseup',function(){
+			document.removeEventListener('mousemove',drag)
+		})
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
+
+	function drag(){
+
 	}
 
 	function up(){
@@ -80,7 +89,13 @@ window.directInput = (function(){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mouseleave',mouseLeave);
 			canvas.addEventListener('mousedown',down);
+			canvas.addEventListener('touchstart',down);
 			document.addEventListener('mouseup',up);
+
+			/*document.body.addEventListener('touchmove', function(event) {
+			  event.preventDefault();
+			}, false); */
+
 		},
 
 		getCanvasMousePosition:function(e){
