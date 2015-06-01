@@ -179,14 +179,14 @@ window.draw=(function(){
 				ctx.closePath();
 
 				if(ctx.isPointInPath(mouse.x,mouse.y)){
-					mouseHover = {name:name,count:i};
+					mouseHover = {name:name,count:i,type:'whole'};
 				}
 
-				if(directInput.isActive(name,i)){
+				if(directInput.isActive(name,i,'whole')){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(directInput.isHover(name,i)){
+				else if(directInput.isHover(name,i,'whole')){
 					ctx.globalAlpha=hoverOpacity;
 				}
 
@@ -287,6 +287,7 @@ window.draw=(function(){
 
 
 	function drawHandles(ctx,data){
+		var outerColor, innerColor;
 		ctx.save();
 
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
@@ -298,12 +299,24 @@ window.draw=(function(){
 				for(s=0;s<2;s++){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
-					ctx.fillStyle = 'white';
+					if(directInput.isActive(name,i,['start','end'][s])){
+						outerColor = 'red';
+						innerColor = 'green';
+					}
+					else if(directInput.isHover(name,i,['start','end'][s])){
+						outerColor = 'white';
+						innerColor = 'blue';
+					}else{
+						outerColor = 'white';
+						innerColor = barConfig[name].color;
+					}
+					ctx.fillStyle = outerColor;
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
 
-					ctx.fillStyle = barConfig[name].color;
+					
+					ctx.fillStyle = innerColor;
 					ctx.beginPath();
 					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();

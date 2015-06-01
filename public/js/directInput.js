@@ -10,7 +10,8 @@ window.directInput = (function(){
 
 	var mouse = {},
 	mouseHover = {},
-	activeElements = [];
+	activeElements = [],
+	hoverDistance = 6;
 
 	function getRelativePosition(e,canvas){
 		var mouseX, mouseY, boundingRect;
@@ -57,29 +58,47 @@ window.directInput = (function(){
 	}
 
 	function hover(e){
-		var relativePosition = getRelativePosition(e),
-		data = napchartCore.getSchedule,
-		barConfig = draw.getBarConfig,
-		points = [], point, value, distance;
+		var canvas = napchartCore.getCanvas(),
+		coordinates = getCoordinates(e,canvas),
+		data = napchartCore.getSchedule(),
+		barConfig = draw.getBarConfig(),
+		points = [], point, value, distance, handlesMouseHover;
 
-		mouseX = relativePosition.x;
-		mouseY = relativePosition.y;
-
+		
 		//draws a new frame and checks for hit detection on bars
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
-
+		
+		handlesMouseHover = {};
 		//hit detection of handles (will overwrite current mouseHover object
 		//from draw if hovering a handle):
 		for(var name in data){
 			for(i = 0; i < data[name].length; i++){
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
-					point = helpers.minutesToXY(value , barConfig[name].outerRadius*draw.ratio);
+					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.ratio);
 
-					distance = helpers.distance(point.x,point.y);
+					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
+					if(distance < hoverDistance*draw.ratio){
+						if(typeof handlesMouseHover.distance=='undefined'||distance < handlesMouseHover.distance){
+							//overwrite current hover object
+							handlesMouseHover ={
+								name:name,
+								count:i,
+								type:['start','end'][s],
+								distance:distance
+							};
+						}
+					}
 				}
 			}
 		}
+		if(Object.keys(handlesMouseHover).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
+			mouseHover = {};
+
+		}else if(Object.keys(handlesMouseHover).length > 0){
+			mouseHover = handlesMouseHover;
+		};
+			console.log(mouseHover);
 	}
 
 	function mouseLeave(e){
@@ -91,7 +110,7 @@ window.directInput = (function(){
 		e.preventDefault();
 
 		//return of no hit
-		if(typeof mouseHover.name == 'undefined'||typeof mouseHover.count == 'undefined'){
+		if(typeof mouseHover.name == 'undefined'){
 			return;
 		}
 
@@ -100,16 +119,16 @@ window.directInput = (function(){
 		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
 		name = mouseHover.name,
 		count = mouseHover.count,
+		type = mouseHover.type,
 		element = napchartCore.returnElement(name,count),
 		positionInElement=helpers.calc(minutes,-element.start);
 		
-
 
 		activeElements.push({
 			name:name,
 			count:count,
 			positionInElement:positionInElement,
-			drag:'whole',
+			drag:type,
 			canvas:canvas
 		});
 
@@ -166,9 +185,8 @@ window.directInput = (function(){
 	}
 
 	function setCoordinates(e){
-		var canvas = napchartCore.canvas;
-		getRelativePosition(e,canvas)
-		mouse.x
+		var canvas = napchartCore.getCanvas();
+		mouse = getRelativePosition(e,canvas);
 	}
 
 	//public:
@@ -176,7 +194,7 @@ window.directInput = (function(){
 		initialize:function(canvas){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousemove',setCoordinates);
-			//canvas.addEventListener('mouseleave',mouseLeave);
+			canvas.addEventListener('mouseleave',setCoordinates);
 			canvas.addEventListener('mousedown',down);
 			canvas.addEventListener('touchstart',down);
 			document.addEventListener('mouseup',up);
@@ -192,20 +210,23 @@ window.directInput = (function(){
 		},
 
 		setHoverElements:function(hover){
-			mouseHover = hover;
+			//ignore if a handle is being hovered
+			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
+				mouseHover = hover;
+			}
 		},
 
-		isActive:function(name,count){
+		isActive:function(name,count,type){
 			for(i=0;i<activeElements.length;i++){
-				if(name == activeElements[i].name && count == activeElements[i].count){
+				if(name == activeElements[i].name && count == activeElements[i].count && type == activeElements[i].type){
 					return true;
 				}
 			}
 			return false;
 		},
 
-		isHover:function(name,count){
-			if(name == mouseHover.name && count == mouseHover.count){
+		isHover:function(name,count,type){
+			if(name == mouseHover.name && count == mouseHover.count && type == mouseHover.type){
 				return true;
 			}
 			return false;
