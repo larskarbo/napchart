@@ -27,12 +27,15 @@ module.exports = function(grunt) {
     },
     beautify: {
       files: {
-		  src:'public/js/draw.js'
-         //src: ['public/js/*.js']
+         src: 'public/js/*.js',
+		 dest: './'
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'js/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'public/js/draw.js',
+		'public/js/napchartCore.js',
+		'public/js/helpers.js',
+		'public/js/directInput.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
@@ -45,7 +48,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= jshint.files %>'],
-      tasks: [ 'concat','uglify']
+      tasks: [ 'beautify','jshint']
     }
   });
 
@@ -58,6 +61,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint', 'qunit']);
 
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'beautify']);
 
 };
