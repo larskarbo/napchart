@@ -113,13 +113,6 @@ helpers.minutesToXY = function (minutes, radius) {
     return o;
 };
 
-helpers.minutesToXY_OIC = function (minutes, radius) {
-    radius=radius;
-    o = {};
-    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
-    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
-    return o;
-};
 
 helpers.XYtoMinutes = function (x,y) {
     minutes = (Math.atan(y /x) / (Math.PI * 2)) * 1440 + 360;
