@@ -184,9 +184,11 @@ window.draw=(function(){
 				if(directInput.isActive(name,i)){
 					ctx.globalAlpha = activeOpacity
 				}
+
 				else if(directInput.isHover(name,i)){
 					ctx.globalAlpha=hoverOpacity;
 				}
+
 				else{
 					ctx.globalAlpha=opacity;
 				}
@@ -196,7 +198,7 @@ window.draw=(function(){
 			}
 		}
 		//notify directInput module about which elements are being
-		//hovered. Used hit detection
+		//hovered. Used for hit detection
 		directInput.setHoverElements(mouseHover);
 
 		for (var i = 0; i < data.length; i++) {};
@@ -440,6 +442,10 @@ window.draw=(function(){
 		drawUpdate:function(){
 			data = napchartCore.getSchedule();
 			draw.drawFrame(data);
+		},
+
+		getBarConfig:function(){
+			return JSON.parse(JSON.stringify(barConfig))
 		}
 	}
 }());
