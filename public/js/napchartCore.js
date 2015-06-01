@@ -70,7 +70,7 @@ window.napchartCore=(function(){
 				console.warn('Specified element does not exist');
 			}
 			scheduleData[name][count]=newElement;
-			draw.drawFrame(sheduleData);
+			draw.drawFrame(scheduleData);
 		}
 	}
 
