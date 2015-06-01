@@ -67,7 +67,7 @@ window.directInput = (function(){
 
 		//hit detection of handles (will overwrite current mouseHover object
 		//from draw if hovering a handle):
-		for(name in data){
+		for(var name in data){
 			for(i = 0; i < data[name].length; i++){
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
@@ -88,7 +88,7 @@ window.directInput = (function(){
 
 		//return of no hit
 		if(typeof mouseHover.name == 'undefined'||typeof mouseHover.count == 'undefined'){
-			return
+			return;
 		}
 
 		var canvas = e.target || e.srcElement,
@@ -112,8 +112,8 @@ window.directInput = (function(){
 
 		document.addEventListener('mousemove',drag);
 		document.addEventListener('mouseup',function(){
-			document.removeEventListener('mousemove',drag)
-		})
+			document.removeEventListener('mousemove',drag);
+		});
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
@@ -135,7 +135,7 @@ window.directInput = (function(){
 
 		//newValues is an object that will replace the existing one with new values
 		if(dragElement.what=='dragWhole'){
-			newValues = {start:start,end:end}
+			newValues = {start:start,end:end};
 		}
 		
 		napchartCore.modifyElement(name,count,newValues);
@@ -176,18 +176,18 @@ window.directInput = (function(){
 		isActive:function(name,count){
 			for(i=0;i<activeElements.length;i++){
 				if(name == activeElements[i].name && count == activeElements[i].count){
-					return true
+					return true;
 				}
 			}
-			return false
+			return false;
 		},
 
 		isHover:function(name,count){
 			if(name == mouseHover.name && count == mouseHover.count){
-				return true
+				return true;
 			}
-			return false
+			return false;
 		}
-	}
+	};
 
 }());

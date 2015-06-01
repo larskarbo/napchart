@@ -8,7 +8,7 @@ window.napchartCore=(function(){
 	//private:
 	var scheduleData={
 
-	}
+	};
 
 	//public:
 	return {
@@ -51,7 +51,7 @@ window.napchartCore=(function(){
 
 		lastElement:function(name){
 			if(typeof scheduleData[name]=='undefined'){
-				console.warn('lastElement received an undefined name')
+				console.warn('lastElement received an undefined name');
 				return false;
 			}
 
@@ -72,6 +72,6 @@ window.napchartCore=(function(){
 			scheduleData[name][count]=newElement;
 			draw.drawFrame(scheduleData);
 		}
-	}
+	};
 
 }());

@@ -46,7 +46,7 @@ window.draw=(function(){
 		hoverOpacity:0.5,
 		activeOpacity:0.5
 	}
-	}
+	};
 
 	clockConfig = { // define how the background clock should be drawn
 		circles:[
@@ -63,7 +63,7 @@ window.draw=(function(){
 		strokeColor:"#C9C9C9",
 		impStrokeColor:"#262626"
 
-		}
+		};
 
 	// (also private) functions used by draw.initialize()
 	function drawLines(ctx){
@@ -128,11 +128,11 @@ window.draw=(function(){
 		ctx.textBaseline="middle";
 		ctx.fillStyle="#262626";
 		for(i=0;i<24;i++){
-			if(i==0||i==4||i==16||i==20||i==8||i==12){
+			if(i===0||i==4||i==16||i==20||i==8||i==12){
 			degrees=(helpers.degreesToRadiens((15*i)+270));
 			xval=helpers.totalWidth(50)+Math.cos(degrees)*numberRadius;
 			yval=helpers.totalWidth(50)+Math.sin(degrees)*numberRadius;
-			if(i==0)
+			if(i===0)
 			ctx.fillText("0",xval,yval);
 			else if(i==12)
 			ctx.fillText("12",xval,yval);
@@ -157,7 +157,7 @@ window.draw=(function(){
 		mouseHover = {};
 
 		ctx.save();
-		for (name in data){
+		for (var name in data){
 			var innerRadius = barConfig[name].innerRadius*draw.ratio,
 			outerRadius = barConfig[name].outerRadius*draw.ratio,
 			opacity = barConfig[name].opacity,
@@ -169,7 +169,7 @@ window.draw=(function(){
 			for (var i = 0; i < data[name].length; i++){
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
-				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
+				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
 
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
@@ -182,7 +182,7 @@ window.draw=(function(){
 				}
 
 				if(directInput.isActive(name,i)){
-					ctx.globalAlpha = activeOpacity
+					ctx.globalAlpha = activeOpacity;
 				}
 
 				else if(directInput.isHover(name,i)){
@@ -201,7 +201,6 @@ window.draw=(function(){
 		//hovered. Used for hit detection
 		directInput.setHoverElements(mouseHover);
 
-		for (var i = 0; i < data.length; i++) {};
 		ctx.restore();
 	}
 
@@ -247,7 +246,7 @@ window.draw=(function(){
 
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
-				var lineToXY=helpers.minutesToXY_OIC(data[name][i].end,innerRadius);
+				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
 
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
@@ -261,7 +260,7 @@ window.draw=(function(){
 
 					
 			}
-		};
+		}
 		ctx.restore();
 	
 	}
@@ -278,7 +277,7 @@ window.draw=(function(){
 
 	function clearCircle(ctx,radius){
 		ctx.save();
-		ctx.globalCompositeOperation = 'destination-out'
+		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
 		ctx.arc(senter,senter,radius,0,grader(360), false);
 		ctx.fill();
@@ -423,11 +422,11 @@ window.draw=(function(){
 		},
 		drawFrame:function(data){
 			if(typeof data=='undefined')
-				throw new Error("drawFrame did not receive data in argument")
+				throw new Error("drawFrame did not receive data in argument");
 			ctx=draw.ctx;
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
-			throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()")
+				throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()");
 			cachedBackground=this.cachedBackground;
 
 			ctx.drawImage(cachedBackground,0,0);
@@ -445,9 +444,9 @@ window.draw=(function(){
 		},
 
 		getBarConfig:function(){
-			return JSON.parse(JSON.stringify(barConfig))
+			return JSON.parse(JSON.stringify(barConfig));
 		}
-	}
+	};
 }());
 
 sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
@@ -460,7 +459,7 @@ window.render = function() {
 canvasRound++;
 keys=Object.keys(data.charlie);
 
-if(canvasRound%8==0)
+if(canvasRound%8===0)
 statistics();
 
 if(cores!=Object.keys(data.charlie).length||naps!=Object.keys(data.delta).length){

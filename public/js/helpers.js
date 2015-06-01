@@ -2,7 +2,7 @@ window.helpers = {};
 
 console.horse=function(){
     console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhhhhho");
-}
+};
 
 //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 helpers.requestAnimFrame = (function(){
@@ -37,7 +37,7 @@ helpers.shortestWay = function (s) {
 
 helpers.range = function (start, end) {
     if (end < start) {
-        return 1440 - start + end
+        return 1440 - start + end;
     } else {
         return end - start;
     }
@@ -53,9 +53,9 @@ helpers.middlepointFinder = function (obj) {
 
 helpers.calc = function (minutes, plus) {
     if (minutes + plus < 0) {
-        return minutes + plus + 1440
+        return minutes + plus + 1440;
     } else if (minutes + plus > 1440) {
-        return minutes + plus - 1440
+        return minutes + plus - 1440;
     } else {
         return minutes + plus;
     }
@@ -106,10 +106,15 @@ helpers.radiensTilMinutt = function (deg) {
     return ((Math.PI / 180) * (deg));
 };
 
-helpers.minutesToXY = function (minutes, radius) {
+helpers.minutesToXY = function (minutes, radius, basewidth, baseheight) {
+    if(typeof basewidth == 'undefined')
+        var basewidth = 0;
+    if(typeof baseheight == 'undefined')
+        var baseheight = 0;
+
     o = {};
-    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
-    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius;
+    o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + baseheight;
+    o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + basewidth;
     return o;
 };
 
@@ -117,7 +122,7 @@ helpers.minutesToXY = function (minutes, radius) {
 helpers.XYtoMinutes = function (x,y) {
     minutes = (Math.atan(y /x) / (Math.PI * 2)) * 1440 + 360;
     if (x < 0) {
-        minutes += 720
+        minutes += 720;
     }
     minutes = Math.round(minutes);
 
