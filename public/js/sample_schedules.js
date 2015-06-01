@@ -70,7 +70,6 @@ window.sampleSchedule = (function () {
 	return {
 		initialize:function(container,className){
 			var scheduleLinks = container.getElementsByClassName(className);
-			console.log(scheduleLinks);
 			for(i=0;i<scheduleLinks.length;i++){
 				scheduleLinks[i].addEventListener('click',chooseSchedule)
 			}
