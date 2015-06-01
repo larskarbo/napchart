@@ -118,6 +118,11 @@ helpers.minutesToXY = function (minutes, radius, basewidth, baseheight) {
     return o;
 };
 
+helpers.distance = function (x1,y1,x2,y2){
+    var y = y2-y1;
+    var x = x2-x1;
+    return Math.sqrt(y*y+x*x);
+}
 
 helpers.XYtoMinutes = function (x,y) {
     minutes = (Math.atan(y /x) / (Math.PI * 2)) * 1440 + 360;

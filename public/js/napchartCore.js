@@ -10,8 +10,17 @@ window.napchartCore=(function(){
 
 	};
 
+	var canvas = document.getElementById("canvas");
+
 	//public:
 	return {
+
+		initialize:function(){
+			sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
+			directInput.initialize(canvas);
+			draw.initialize(canvas);
+			draw.drawUpdate();
+		},
 
 		setSchedule:function(data){
 			console.dir(data);
@@ -69,8 +78,14 @@ window.napchartCore=(function(){
 			if(typeof scheduleData[name][count]=='undefined'){
 				console.warn('Specified element does not exist');
 			}
-			scheduleData[name][count]=newElement;
+			for(var prop in newElement){
+				scheduleData[name][count][prop] = newElement[prop];
+			}
 			draw.drawFrame(scheduleData);
+		},
+
+		getCanvas:function(){
+			return canvas;
 		}
 	};
 

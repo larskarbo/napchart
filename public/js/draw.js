@@ -153,7 +153,8 @@ window.draw=(function(){
 	}
 
 	function drawBars(ctx,data){
-		var mouse = directInput.getCanvasMousePosition(),
+		var canvas = ctx.canvas,
+		mouse = directInput.getCanvasMousePosition(canvas),
 		mouseHover = {};
 
 		ctx.save();
@@ -449,10 +450,7 @@ window.draw=(function(){
 	};
 }());
 
-sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
-directInput.initialize(document.getElementById("canvas"));
-draw.initialize(document.getElementById("canvas"));
-draw.drawUpdate();
+napchartCore.initialize();
 
 
 window.render = function() {

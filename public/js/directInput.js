@@ -8,13 +8,15 @@ directly on the canvas with mouse or touch
 window.directInput = (function(){
 	//private:
 
-	var mouseX,mouseY;
-
-	var mouseHover = {},
+	var mouse = {},
+	mouseHover = {},
 	activeElements = [];
 
-	function getRelativePosition(e){
-		var canvas = e.target || e.srcElement,
+	function getRelativePosition(e,canvas){
+		var mouseX, mouseY, boundingRect;
+		if(typeof canvas=='undefined'){
+			canvas = e.target || e.srcElement;
+		}
 		boundingRect = canvas.getBoundingClientRect();
 
 		if (e.touches){
@@ -34,6 +36,7 @@ window.directInput = (function(){
 	}
 
 	function getCoordinates(e,canvas){
+		var mouseX,mouseY,
 		//similar to getrelativeposition but here origo is (0,0)
 		boundingRect = canvas.getBoundingClientRect();
 
@@ -57,7 +60,7 @@ window.directInput = (function(){
 		var relativePosition = getRelativePosition(e),
 		data = napchartCore.getSchedule,
 		barConfig = draw.getBarConfig,
-		points = [], point, value;
+		points = [], point, value, distance;
 
 		mouseX = relativePosition.x;
 		mouseY = relativePosition.y;
@@ -72,15 +75,16 @@ window.directInput = (function(){
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
 					point = helpers.minutesToXY(value , barConfig[name].outerRadius*draw.ratio);
-					//distance
+
+					distance = helpers.distance(point.x,point.y);
 				}
 			}
 		}
 	}
 
 	function mouseLeave(e){
-		mouseX = null;
-		mouseY = null;
+		//mouseX = null;
+		//mouseY = null;
 	}
 
 	function down(e){
@@ -105,7 +109,7 @@ window.directInput = (function(){
 			name:name,
 			count:count,
 			positionInElement:positionInElement,
-			what:'dragWhole',
+			drag:'whole',
 			canvas:canvas
 		});
 
@@ -126,15 +130,26 @@ window.directInput = (function(){
 		name = dragElement.name,
 		count = dragElement.count,
 		element = napchartCore.returnElement(name,count),
-		positionInElement = dragElement.positionInElement,
-		duration = helpers.range(element.start,element.end),
-		start = helpers.calc(minutes,-positionInElement),
-		end = helpers.calc(start,duration);
-		newValues = {};
-
-
 		//newValues is an object that will replace the existing one with new values
-		if(dragElement.what=='dragWhole'){
+		newValues = {}, positionInElement, duration, start, end;
+
+		
+		
+
+
+		if(dragElement.drag=='start'){
+			start = minutes;
+			newValues = {start:start};
+		}
+		else if(dragElement.drag=='end'){
+			end = minutes;
+			newValues = {end:end};
+		}
+		else if(dragElement.drag=='whole'){
+			positionInElement = dragElement.positionInElement;
+			duration = helpers.range(element.start,element.end);
+			start = helpers.calc(minutes,-positionInElement);
+			end = helpers.calc(start,duration);
 			newValues = {start:start,end:end};
 		}
 		
@@ -150,11 +165,18 @@ window.directInput = (function(){
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
+	function setCoordinates(e){
+		var canvas = napchartCore.canvas;
+		getRelativePosition(e,canvas)
+		mouse.x
+	}
+
 	//public:
 	return{
 		initialize:function(canvas){
 			canvas.addEventListener('mousemove',hover);
-			canvas.addEventListener('mouseleave',mouseLeave);
+			canvas.addEventListener('mousemove',setCoordinates);
+			//canvas.addEventListener('mouseleave',mouseLeave);
 			canvas.addEventListener('mousedown',down);
 			canvas.addEventListener('touchstart',down);
 			document.addEventListener('mouseup',up);
@@ -165,8 +187,8 @@ window.directInput = (function(){
 
 		},
 
-		getCanvasMousePosition:function(e){
-			return {x:mouseX,y:mouseY};
+		getCanvasMousePosition:function(canvas){
+			return {x:mouse.x , y:mouse.y};
 		},
 
 		setHoverElements:function(hover){
