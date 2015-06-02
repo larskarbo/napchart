@@ -186,7 +186,7 @@ window.draw=(function(){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(directInput.isHover(name,i,'whole')){
+				else if(ctx.isPointInPath(mouse.x,mouse.y) || directInput.isActive(name,i)){
 					ctx.globalAlpha=hoverOpacity;
 				}
 

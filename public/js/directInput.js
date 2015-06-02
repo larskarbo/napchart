@@ -138,6 +138,8 @@ window.directInput = (function(){
 			document.removeEventListener('mousemove',drag);
 		});
 
+		drag(e); //to  make sure the handles positions to the cursor even before movement
+
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
@@ -217,8 +219,14 @@ window.directInput = (function(){
 		},
 
 		isActive:function(name,count,type){
+			var dontCheckType;
+
+			if(typeof type=='undefined')
+				dontCheckType = true;
+
 			for(i=0;i<activeElements.length;i++){
-				if(name == activeElements[i].name && count == activeElements[i].count && type == activeElements[i].type){
+				if(name == activeElements[i].name && count == activeElements[i].count){
+					if(dontCheckType || type == activeElements[i].type)
 					return true;
 				}
 			}
