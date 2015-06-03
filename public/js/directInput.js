@@ -10,6 +10,7 @@ window.directInput = (function(){
 
 	var mouse = {},
 	mouseHover = {},
+	selected = {},
 	activeElements = [],
 	hoverDistance = 6;
 
@@ -94,11 +95,9 @@ window.directInput = (function(){
 		}
 		if(Object.keys(handlesMouseHover).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
 			mouseHover = {};
-
 		}else if(Object.keys(handlesMouseHover).length > 0){
 			mouseHover = handlesMouseHover;
 		};
-			console.log(mouseHover);
 	}
 
 	function mouseLeave(e){
@@ -111,6 +110,7 @@ window.directInput = (function(){
 
 		//return of no hit
 		if(typeof mouseHover.name == 'undefined'){
+			deselect();
 			return;
 		}
 
@@ -128,19 +128,30 @@ window.directInput = (function(){
 			name:name,
 			count:count,
 			positionInElement:positionInElement,
-			drag:type,
+			type:type,
 			canvas:canvas
 		});
-
 
 		document.addEventListener('mousemove',drag);
 		document.addEventListener('mouseup',function(){
 			document.removeEventListener('mousemove',drag);
 		});
 
+		select(name,count);
 		drag(e); //to  make sure the handles positions to the cursor even before movement
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
+
+	function select(name,count){
+		selected = {
+			name:name,
+			count:count
+		};
+	}
+
+	function deselect(name,count){
+		selected = {};
 	}
 
 	function drag(e){
@@ -158,15 +169,15 @@ window.directInput = (function(){
 		
 
 
-		if(dragElement.drag=='start'){
+		if(dragElement.type=='start'){
 			start = minutes;
 			newValues = {start:start};
 		}
-		else if(dragElement.drag=='end'){
+		else if(dragElement.type=='end'){
 			end = minutes;
 			newValues = {end:end};
 		}
-		else if(dragElement.drag=='whole'){
+		else if(dragElement.type=='whole'){
 			positionInElement = dragElement.positionInElement;
 			duration = helpers.range(element.start,element.end);
 			start = helpers.calc(minutes,-positionInElement);
@@ -211,22 +222,21 @@ window.directInput = (function(){
 			return {x:mouse.x , y:mouse.y};
 		},
 
-		setHoverElements:function(hover){
+		setHoverElement:function(hover){
 			//ignore if a handle is being hovered
+			console.log(hover);
 			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
 				mouseHover = hover;
 			}
 		},
 
 		isActive:function(name,count,type){
-			var dontCheckType;
-
-			if(typeof type=='undefined')
-				dontCheckType = true;
 
 			for(i=0;i<activeElements.length;i++){
+
+				console.log(activeElements.type);
 				if(name == activeElements[i].name && count == activeElements[i].count){
-					if(dontCheckType || type == activeElements[i].type)
+					if(typeof type=='undefined' || type == activeElements[i].type)
 					return true;
 				}
 			}
@@ -234,10 +244,22 @@ window.directInput = (function(){
 		},
 
 		isHover:function(name,count,type){
-			if(name == mouseHover.name && count == mouseHover.count && type == mouseHover.type){
+			if(name == mouseHover.name && count == mouseHover.count){
+				if(typeof type=='undefined' || type == mouseHover.type)
 				return true;
 			}
 			return false;
+		},
+
+		isSelected:function(name,count){
+			if(name == selected.name && count == selected.count){
+				return true;
+			}
+			return false;
+		},
+
+		returnSelected:function(name,count){
+			return selected;
 		}
 	};
 

@@ -19,7 +19,12 @@ window.draw=(function(){
 		rangeHandles:true,
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.5
+		activeOpacity:0.5,
+		selected:{
+			strokeColor:'#FF6363',
+			lineWidth:1,
+			expand:0.5
+		}
 	},
 	nap:{
 		stack:1,
@@ -31,7 +36,12 @@ window.draw=(function(){
 		},
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.5
+		activeOpacity:0.5,
+		selected:{
+			strokeColor:'grey',
+			lineWidth:1,
+			expand:0.5
+		}
 	},
 	busy:{
 		stack:2,
@@ -44,7 +54,12 @@ window.draw=(function(){
 		rangeHandles:true,
 		opacity:0.6,
 		hoverOpacity:0.5,
-		activeOpacity:0.5
+		activeOpacity:0.5,
+		selected:{
+			strokeColor:'#FF6363',
+			lineWidth:1,
+			expand:0.5
+		}
 	}
 	};
 
@@ -181,12 +196,12 @@ window.draw=(function(){
 				if(ctx.isPointInPath(mouse.x,mouse.y)){
 					mouseHover = {name:name,count:i,type:'whole'};
 				}
-
+			
 				if(directInput.isActive(name,i,'whole')){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(ctx.isPointInPath(mouse.x,mouse.y) || directInput.isActive(name,i)){
+				else if(directInput.isActive(name,i) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,i))){
 					ctx.globalAlpha=hoverOpacity;
 				}
 
@@ -200,7 +215,8 @@ window.draw=(function(){
 		}
 		//notify directInput module about which elements are being
 		//hovered. Used for hit detection
-		directInput.setHoverElements(mouseHover);
+		console.log(mouseHover);
+		directInput.setHoverElement(mouseHover);
 
 		ctx.restore();
 	}
@@ -214,9 +230,6 @@ window.draw=(function(){
 			ctx.lineWidth=barConfig[name].stroke.lineWidth;
 			var innerRadius = barConfig[name].innerRadius*draw.ratio;
 			var outerRadius = barConfig[name].outerRadius*draw.ratio;
-			var blurRadius = clockConfig.blurCircle.radius*draw.ratio;
-			if(innerRadius<blurRadius)
-				innerRadius = blurRadius;
 			ctx.strokeStyle=barConfig[name].color;
 
 			for (var i = 0; i < data[name].length; i++){
@@ -242,7 +255,7 @@ window.draw=(function(){
 			ctx.fillStyle=barConfig[name].color;
 
 			for (var i = 0; i < data[name].length; i++){
-				if(!directInput.isActive(name,i))
+				if(!directInput.isActive(name,i) && !directInput.isSelected(name,i))
 					continue;
 
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
@@ -285,6 +298,35 @@ window.draw=(function(){
 		ctx.restore();
 	}
 
+	function drawSelected(ctx,data){
+		var selected = directInput.returnSelected();
+		if(typeof selected.name == 'undefined'){
+			return;
+		}
+
+		var name, count, stroke, lineWidth, innerRadius, expand, outerRadius, startRadians, endRadians;
+		name = selected.name;
+		count = selected.count;
+		strokeColor = barConfig[name].selected.strokeColor;
+		lineWidth = barConfig[name].selected.lineWidth*draw.ratio;
+		expand = barConfig[name].selected.expand;
+		innerRadius = barConfig[name].innerRadius*draw.ratio - expand;
+		outerRadius = barConfig[name].outerRadius*draw.ratio + expand;
+		startRadians=helpers.minutesToRadians(data[name][count].start - expand);
+		endRadians=helpers.minutesToRadians(data[name][count].end + expand);
+
+		ctx.save();
+
+		ctx.beginPath();
+		ctx.lineWidth = lineWidth;
+		ctx.strokeStyle = strokeColor;
+		ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+		ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.restore();
+	}
 
 	function drawHandles(ctx,data){
 		var outerColor, innerColor;
@@ -300,6 +342,7 @@ window.draw=(function(){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
 					if(directInput.isActive(name,i,['start','end'][s])){
+						console.horse();
 						outerColor = 'red';
 						innerColor = 'green';
 					}
@@ -448,6 +491,7 @@ window.draw=(function(){
 
 			if(typeof clockConfig.blurCircle != "undefined")
 			drawBlurCircle(ctx);
+			drawSelected(ctx,data);
 			strokeBars(ctx,data);
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
