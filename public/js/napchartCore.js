@@ -78,9 +78,10 @@ window.napchartCore=(function(){
 		},
 
 		elementExists:function(name,count){
-			if(typeof scheduleData[name][count] == 'undefined')
-				return false;
-			return true;
+			if(typeof scheduleData[name] != 'undefined'
+			&& typeof scheduleData[name][count] != 'undefined')
+				return true;
+			return false;
 		},
 
 		modifyElement:function(name,count,newElement){

@@ -39,6 +39,19 @@ window.dom=(function(){
 				console.log(name,count)
 				napchartCore.removeElement(name,count);
 			});
+		},
+
+		bindHoverOnFormInput:function(container){
+			$(container).on('mouseenter','.inputBox',function(){
+				name = $(this).find('[name="name"]').val();
+				count = $(this).find('[name="count"]').val();
+				directInput.setHoverElement({
+					name:name,
+					count:count,
+					type:'whole'
+				});
+				draw.drawUpdate();
+			});
 		}
 		
 	}

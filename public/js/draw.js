@@ -201,7 +201,7 @@ window.draw=(function(){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(directInput.isActive(name,i) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,i))){
+				else if(directInput.isActive(name,i) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,i)) || directInput.isHover(name,i,'whole')){
 					ctx.globalAlpha=hoverOpacity;
 				}
 
@@ -215,7 +215,9 @@ window.draw=(function(){
 		}
 		//notify directInput module about which elements are being
 		//hovered. Used for hit detection
-		directInput.setHoverElement(mouseHover);
+		if(directInput.mouseIsOverCanvas()){
+			directInput.setHoverElement(mouseHover);
+		}
 
 		ctx.restore();
 	}

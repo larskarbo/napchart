@@ -210,12 +210,16 @@ window.directInput = (function(){
 		mouse = getRelativePosition(e,canvas);
 	}
 
+	function leave(){
+		mouse = {};
+	}
+
 	//public:
 	return{
 		initialize:function(canvas){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousemove',setCoordinates);
-			canvas.addEventListener('mouseleave',setCoordinates);
+			canvas.addEventListener('mouseleave',leave);
 			canvas.addEventListener('mousedown',down);
 			canvas.addEventListener('touchstart',down);
 			document.addEventListener('mouseup',up);
@@ -234,7 +238,7 @@ window.directInput = (function(){
 			//ignore if a handle is being hovered
 			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
 				mouseHover = hover;
-			}
+			};
 		},
 
 		isActive:function(name,count,type){
@@ -264,8 +268,26 @@ window.directInput = (function(){
 			return false;
 		},
 
-		returnSelected:function(name,count){
+		returnSelected:function(){
+
+			//check if selected exists or is removed
+			if(typeof selected.name != 'undefined'
+			&& !napchartCore.elementExists(selected.name,selected.count)){
+				selected = {}
+			}
 			return selected;
+		},
+
+		deselect:function(){
+			deselect();
+		},
+
+		mouseIsOverCanvas:function(){
+			console.log(mouseHover);
+			if(typeof mouse.x != 'undefined')
+				return true;
+			else
+				return false;
 		}
 	};
 

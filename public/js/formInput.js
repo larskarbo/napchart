@@ -26,10 +26,6 @@ window.formInput=(function(){
 		container.innerHTML += add;
 	}
 
-	function deleteBlock(name,count){
-		
-	}
-
 	function blockExists(name,count){
 		if($(container).find("."+name+count).length > 0)
 			return true;
@@ -73,6 +69,9 @@ window.formInput=(function(){
 
 			//bind remove buttons
 			dom.bindRemoveButtons(container);
+
+			//bind hover events
+			dom.bindHoverOnFormInput(container);
 		},
 
 		setData:function(data){
