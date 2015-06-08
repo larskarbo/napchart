@@ -12,7 +12,8 @@ window.directInput = (function(){
 	mouseHover = {},
 	selected = {},
 	activeElements = [],
-	hoverDistance = 6;
+	hoverDistance = 6,
+	selectedOpacity = 1;
 
 	function getRelativePosition(e,canvas){
 		var mouseX, mouseY, boundingRect;
@@ -287,6 +288,14 @@ window.directInput = (function(){
 				return true;
 			else
 				return false;
+		},
+
+		getSelectedOpacity:function(){
+			return selectedOpacity;
+		},
+
+		setSelectedOpacity:function(to){
+			selectedOpacity = to;
 		}
 	};
 

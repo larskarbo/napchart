@@ -18,7 +18,7 @@ window.animate=(function(){
 			var stepDecimal, easeDecimal, currentStep, easingFunction, totalSteps;
 
 			currentStep = 0;
-			totalSteps = 200;
+			totalSteps = 6;
 			easingFunction = easingEffects[easingString] || easingEffects.linear;
 
 			var animationFrame = function(){
@@ -26,9 +26,13 @@ window.animate=(function(){
 				stepDecimal = currentStep/totalSteps;
 				easeDecimal = easingFunction(stepDecimal);
 
+				onProgress(easeDecimal);
+
+				if(currentStep<totalSteps)
+					helpers.requestAnimFrame.call(window,animationFrame);;
 			};
 
-
+			helpers.requestAnimFrame.call(window,animationFrame);
 		}
 	}
 

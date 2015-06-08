@@ -6,9 +6,10 @@ It handles low level storing of the current schedule
 
 window.napchartCore=(function(){
 	//private:
-	var scheduleData, canvas;
+	var scheduleData, canvas, selected;
 
 	scheduleData={};
+	selected = {};
 	canvas = document.getElementById("canvas");
 
 	//public:
@@ -99,8 +100,23 @@ window.napchartCore=(function(){
 		},
 
 		setSelected:function(name,count){
+			//if already the same, exit
+			if(typeof selected.name != 'undefined' 
+				&& selected.name == name 
+				&& selected.count == count)
+				return;
+
+			selected.name = name;
+			selected.count = count;
+
 			//notify forminput module:
 			formInput.setSelected(name,count);
+
+			//animate the appearance of shadow and handles
+			animate.frameAnimator(function(easing){
+				directInput.setSelectedOpacity(easing);
+				draw.drawUpdate();
+			});
 
 		}
 	};

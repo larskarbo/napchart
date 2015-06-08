@@ -269,7 +269,7 @@ window.draw=(function(){
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
 
-				ctx.globalAlpha=0.1;
+				ctx.globalAlpha=0.1*ctx.globalAlpha;
 
 				ctx.fill();
 
@@ -497,16 +497,12 @@ window.draw=(function(){
 			strokeBars(ctx,data);
 
 			ctx.save();
-			ctx.globalAlpha=0.3;
+			console.log(directInput.getSelectedOpacity());
+			ctx.globalAlpha=directInput.getSelectedOpacity();
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
 			ctx.restore();
 
-			animate.frameAnimator(function(easing){
-				ctx.save();
-				ctx.globalAlpha=easing;
-				ctx.restore();
-			})
 		},
 		drawUpdate:function(){
 			data = napchartCore.getSchedule();
