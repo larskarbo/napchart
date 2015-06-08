@@ -31,15 +31,12 @@ window.dom=(function(){
 		},
 
 		bindRemoveButtons:function(container){
-			var classes, myClass, count, name;
-
 			$(container).on('click','.remove',function(){
-				console.log($(this).parent().attr('class'));
-				classes = $(this).parent().attr('class');
-				myClass = classes.replace(' inputBox','');
-				count = myClass.match(/(\d+)/g)[0];
-				name = myClass.replace(count,'');
+				var classes, myClass, name, count;
 
+				name = $(this).parent().find('[name="name"]').val();
+				count = $(this).parent().find('[name="count"]').val();
+				console.log(name,count)
 				napchartCore.removeElement(name,count);
 			});
 		}
