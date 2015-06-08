@@ -54,6 +54,18 @@ window.formInput=(function(){
 		}
 	}
 
+	function prune(data){
+		//removes blocks not specified in the data objects
+		var blocks, name, count;
+
+		$.each($(container).find('.inputBox'), function(key,block){
+			name = $(block).find('[name="name"]').val();
+			count = $(block).find('[name="count"]').val();
+			if(!napchartCore.elementExists(name,count))
+				$(block).remove();
+		})
+	}
+
 	//public:
 	return{
 		initialize:function(containerDiv){
@@ -65,6 +77,7 @@ window.formInput=(function(){
 
 		setData:function(data){
 			updateValues(data);
+			prune(data);
 		},
 
 		setSelected:function(name,count){

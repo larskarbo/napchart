@@ -77,6 +77,12 @@ window.napchartCore=(function(){
 			return scheduleData[name][count];
 		},
 
+		elementExists:function(name,count){
+			if(typeof scheduleData[name][count] == 'undefined')
+				return false;
+			return true;
+		},
+
 		modifyElement:function(name,count,newElement){
 			if(typeof scheduleData[name][count]=='undefined'){
 				console.warn('Specified element does not exist');
