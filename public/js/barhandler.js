@@ -62,12 +62,12 @@ window.barhandler = (function(){
 				start:start,
 				end:end
 			}
-
-			napchartCore.addToSchedule(name,obj);
+			
+			napchartCore.addElement(name,obj);
 		},
 	
-		removeBar:function(name,index){
-			napchartCore.removeFromSchedule(name,index);
+		removeBar:function(name,count){
+			napchartCore.removeElement(name,count);
 		},
 
 		removeAllBars:function(names){
@@ -82,10 +82,8 @@ window.barhandler = (function(){
 				names=Object.keys(data)
 			}
 
-			console.log(JSON.stringify(data))
 			for(i=0;i<names.length;i++){
 				delete data[names[i]];
-				console.log(sampleSchedule.getSchedules())
 			}
 			napchartCore.setSchedule(data);
 		}

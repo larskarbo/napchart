@@ -76,6 +76,8 @@ window.directInput = (function(){
 			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
 				continue;
 			for(i = 0; i < data[name].length; i++){
+				if(!directInput.isSelected(name,i))
+					continue;
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
 					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.ratio);

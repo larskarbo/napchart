@@ -337,6 +337,8 @@ window.draw=(function(){
 				continue;
 
 			for (var i = 0; i < data[name].length; i++){
+				if(!directInput.isSelected(name,i))
+					continue;
 				for(s=0;s<2;s++){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
@@ -344,7 +346,7 @@ window.draw=(function(){
 						outerColor = 'red';
 						innerColor = 'green';
 					}
-					else if(directInput.isHover(name,i,['start','end'][s])){
+					else if(directInput.isHover(name,i,['start','end'][s]) && !directInput.isActive(name,i)){
 						outerColor = 'white';
 						innerColor = 'blue';
 					}else{

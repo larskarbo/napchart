@@ -59,6 +59,8 @@ window.formInput=(function(){
 		initialize:function(containerDiv){
 			container = containerDiv;
 
+			//bind remove buttons
+			dom.bindRemoveButtons(container);
 		},
 
 		setData:function(data){

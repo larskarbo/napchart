@@ -20,6 +20,7 @@ window.napchartCore=(function(){
 			draw.initialize(canvas);
 			draw.drawUpdate();
 			formInput.initialize(document.getElementById('formInputContainer'));
+			dom.initialize();
 		},
 
 		setSchedule:function(data){
@@ -34,7 +35,7 @@ window.napchartCore=(function(){
 			return JSON.parse(JSON.stringify(scheduleData));
 		},
 
-		addToSchedule:function(name,obj){
+		addElement:function(name,obj){
 			if(typeof scheduleData[name]=='undefined'){
 				scheduleData[name]=[];
 			}
@@ -43,8 +44,9 @@ window.napchartCore=(function(){
 			this.setSchedule(scheduleData);
 		},
 
-		removeFromSchedule:function(name,index){
-			scheduleData[name].splice(index,1);
+		removeElement:function(name,count){
+			scheduleData[name].splice(count,1);
+
 			this.setSchedule(scheduleData);
 		},
 
