@@ -5,7 +5,7 @@
 
 1.0   Standardar og sånt
 
-2.0   Hovedlayout. Gridsystem
+2.0   Main layout. Gridsystem
 
 3.0   Header
 
@@ -15,7 +15,7 @@
 
 6.0   Canvas
 
-7.0   Control panel
+7.0   Forminput
 
 8.0   Statistics
 
@@ -76,7 +76,7 @@ body{
 }
 
 /**************************
-2.0   Hovedlayout. Gridsystem
+2.0   Main layout. Gridsystem
 *******************/
 .wrapper {
   heilght: 100%;
@@ -420,8 +420,21 @@ color:#c70e0e;
 	color:black;
 }
 /**************************
-7.0   Control panel
+7.0   Forminput
 *******************/
+.inputBox{
+    font-size: 16px;
+    outline: none;
+    padding: 6px;
+    margin-bottom: 3px;
+}
+.inputBox.selected{
+    background-color:yellow;
+}
+.inputBox:hover{
+    background-color:#dbdbdb;
+}
+
 #controlPanelColumn>input,div,button{
 	/*for å hindre at dei inherita heighta til den automatisk resiza parenten*/
 	height:auto;
@@ -466,20 +479,7 @@ input.desc{
 	border:1px solid #999;
 	padding:2px;
 }
-.inputBox{
-    font-size: 16px;
-    outline: none;
-    padding: 6px;
-    margin-bottom: 3px;
-}
-.inputBox:hover{
-    background-color:#dbdbdb;
-}
-.setUpContainer{
-	background-color:#EDEDED;
-	width:800px;
-	height:auto;
-}
+
 /**************************
 8.0   Statistics
 *******************/
