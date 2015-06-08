@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"line",
+				"lineWidth"
+			],
+			[
+				"oute",
+				"outerColor"
+			],
+			[
+				"handle",
+				"handlesMouseHover"
+			],
+			[
+				"han",
+				"handlesMouseHover"
+			],
+			[
+				"hover",
+				"hoverDistance"
+			],
+			[
+				"re",
+				"relativePosition"
+			],
+			[
+				"get",
+				"getrelativeposition"
+			],
+			[
+				"base",
+				"basewidth"
+			],
+			[
+				"new",
+				"newValues"
+			],
+			[
+				"positi",
+				"positionInElement"
+			],
+			[
 				"defaul",
 				"defaultLocation"
 			],
@@ -44,10 +84,6 @@
 				"fillStyle"
 			],
 			[
-				"get",
-				"getContext"
-			],
-			[
 				"scr",
 				"script	Tag"
 			],
@@ -84,41 +120,61 @@
 			"file": "public/js/barhandler.js",
 			"settings":
 			{
-				"buffer_size": 1737,
+				"buffer_size": 1825,
 				"line_ending": "Windows",
 				"name": "barhandler.js"
 			}
 		},
 		{
-			"file": "public/js/napchartCore.js",
+			"file": "public/js/directInput.js",
 			"settings":
 			{
-				"buffer_size": 1062,
-				"line_ending": "Windows"
+				"buffer_size": 6398,
+				"line_ending": "Windows",
+				"name": "directInput.js"
 			}
 		},
 		{
 			"file": "public/js/draw.js",
 			"settings":
 			{
-				"buffer_size": 12101,
+				"buffer_size": 14709,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/js/sample_schedules.js",
+			"file": "public/js/helpers.js",
 			"settings":
 			{
-				"buffer_size": 2420,
+				"buffer_size": 3511,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/js/buttons.js",
+			"file": "public/js/napchartCore.js",
 			"settings":
 			{
-				"buffer_size": 3664,
+				"buffer_size": 1908,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 5809 files for \"xytominutes\"\n\nkan du ringe læreren min å sei eg e sjuk?\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-beautify/node_modules/grunt/node_modules/nodeunit/node_modules/tap/node_modules/tap-mocha-reporter/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/.travis.yml\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-beautify/node_modules/grunt/node_modules/nodeunit/node_modules/tap/node_modules/tap-mocha-reporter/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/package.json\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-beautify/node_modules/grunt/node_modules/nodeunit/node_modules/tap/node_modules/tap-mocha-reporter/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/balanced-match/test/balanced.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-beautify/node_modules/grunt/node_modules/nodeunit/node_modules/tap/node_modules/tap-mocha-reporter/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/node_modules/concat-map/README.markdown\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/fs-extra/node_modules/rimraf/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion/test/negative-increment.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-delayed-http-upload.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-delayed-stream-auto-pause.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-delayed-stream-pause.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-delayed-stream.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-handle-source-errors.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-max-data-size.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-pipe-resumes.js\nUnable to open /C/Users/lars/Documents/napchart/node_modules/grunt-contrib-qunit/node_modules/grunt-lib-phantomjs/node_modules/phantomjs/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/integration/test-proxy-readable.js\nC:\\Users\\lars\\Documents\\napchart\\public\\js\\directInput.js:\n   56  \n   57  		var relativePosition = getRelativePosition(e),\n   58: 		minutes = helpers.XYtoMinutes(relativePosition.x,relativePosition.y),\n   59  		name = mouseHover.name,\n   60  		count = mouseHover.count,\n   ..\n   81  		var dragElement = activeElements[0],\n   82  		relativePosition = getRelativePosition(e),\n   83: 		minutes = helpers.XYtoMinutes(relativePosition.x,relativePosition.y),\n   84  		name = dragElement.name,\n   85  		count = dragElement.count,\n\nC:\\Users\\lars\\Documents\\napchart\\public\\js\\helpers.js:\n  122  };\n  123  \n  124: helpers.XYtoMinutes = function (x,y) {\n  125      console.log(x,y);\n  126      minutes = (Math.atan(y /x) / (Math.PI * 2)) * 1440 + 360;\n\nC:\\Users\\lars\\Documents\\napchart\\public\\js\\interactCanvas.js:\n   75  		  ctx.closePath();\n   76  		  if(ctx.isPointInPath(mx,my)){\n   77: 		  position=calc(XYtoMinutes({x:dx,y:dy}),-data['charlie'][i].start);\n   78  		console.log(position);\n   79  		  nearest={barHolder:\"charlie\",count:i,type:\"middle\",position:position,distance:35}\n   ..\n  107  	if(distance<50){\n  108  	if(typeof nearest.distance==\"undefined\"||distance<nearest.distance){\n  109: 	position=calc(XYtoMinutes({x:dx,y:dy}),-data['delta'][i].start);\n  110  	nearest={barHolder:\"delta\",count:i,type:\"middle\",position:position,distance:distance};\n  111  	}\n  ...\n  130  	var slider = { x : dx * scale , y : dy * scale };\n  131  	//set new value\n  132: 	newValue=XYtoMinutes(slider);\n  133  	\n  134  	//snap to some values\n\n6 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 5270,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "public/js/controlPanel.js",
+			"settings":
+			{
+				"buffer_size": 161,
+				"line_ending": "Windows",
+				"name": "controlPanel.js"
 			}
 		},
 		{
@@ -149,7 +205,7 @@
 			"file": "views/pages/index.ejs",
 			"settings":
 			{
-				"buffer_size": 2501,
+				"buffer_size": 2657,
 				"line_ending": "Windows"
 			}
 		},
@@ -194,7 +250,10 @@
 	},
 	"file_history":
 	[
+		"/C/Users/lars/Documents/napchart/public/js/sample_schedules.js",
+		"/C/Users/lars/Documents/napchart/public/js/buttons.js",
 		"/C/Users/lars/Documents/napchart/public/js/draw.js",
+		"/C/Users/lars/Documents/napchart/public/js/animate.js",
 		"/C/Users/lars/Documents/napchart/views/pages/index.ejs",
 		"/C/Users/lars/Documents/napchart/public/js/js.js",
 		"/C/Users/lars/Documents/napchart/public/js/application.js",
@@ -212,9 +271,7 @@
 		"/C/Users/lars/Documents/napchart/index.html",
 		"/C/Users/lars/Documents/napchart/public/js/save_manager.js",
 		"/C/Users/lars/Documents/napchart/script.js",
-		"/C/Users/lars/Documents/napchart/public/js/sample_schedules.js",
 		"/C/Users/lars/Documents/napchart/public/js/controllers.js",
-		"/C/Users/lars/Documents/napchart/public/js/buttons.js",
 		"/C/Users/lars/Documents/napchart/package.json",
 		"/C/Users/lars/AppData/Roaming/Sublime Text 2/Packages/User/html-html5skel.sublime-snippet"
 	],
@@ -224,7 +281,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"C:\\Users\\lars\\Documents\\napchart",
@@ -236,6 +293,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"hover",
+			"drawb",
+			"drawsh",
+			"draw.",
+			"canvas",
+			"mousex",
+			"barconfig",
+			"mousehover",
+			"xytominutes",
+			"error",
+			"calc",
+			"draw",
+			"point",
+			"sampleSchedule",
+			"schedules",
 			"\"",
 			"window.napchartCore=(function(){\n	//private:\n	var scheduleData={\n\n	}\n\n	//public:\n	return {\n\n		setSchedule:function(data){\n			console.dir(data);\n			scheduleData=data;\n\n			//draw\n			draw.drawFrame(scheduleData);\n		},\n\n		addToSchedule:function(name,data){\n			if(typeof scheduleData[name]=='undefined'){\n				scheduleData[name]=[];\n			}\n\n			scheduleData[name].push(data);\n			this.setSchedule(scheduleData);\n		},\n\n		removeFromSchedule:function(data){\n\n		},\n\n		start:function(){\n\n		},\n\n		howMany:function(name){\n			if(typeof scheduleData[name]=='undefined'){\n				scheduleData[name]=[];\n			}\n			return scheduleData[name].length;\n		},\n\n		lastElement:function(name){\n			if(typeof scheduleData[name]=='undefined'){\n				console.warn('lastElement received an undefined name')\n				return false;\n			}\n			return scheduleData[name][scheduleData[name].length-1];\n		}\n	}\n\n}());",
 			"lastElement",
@@ -296,7 +368,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -311,8 +383,8 @@
 						"selection":
 						[
 							[
-								449,
-								449
+								456,
+								456
 							]
 						],
 						"settings":
@@ -332,15 +404,15 @@
 					"file": "public/js/barhandler.js",
 					"settings":
 					{
-						"buffer_size": 1737,
+						"buffer_size": 1825,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1556,
-								1556
+								1724,
+								1724
 							]
 						],
 						"settings":
@@ -350,34 +422,35 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1153.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "public/js/napchartCore.js",
+					"file": "public/js/directInput.js",
 					"settings":
 					{
-						"buffer_size": 1062,
+						"buffer_size": 6398,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								648,
-								648
+								5571,
+								5571
 							]
 						],
 						"settings":
 						{
+							"auto_name": "directInput.js",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 105.0,
+						"translation.y": 3974.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -387,15 +460,15 @@
 					"file": "public/js/draw.js",
 					"settings":
 					{
-						"buffer_size": 12101,
+						"buffer_size": 14709,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4567,
-								4567
+								4065,
+								4065
 							]
 						],
 						"settings":
@@ -404,53 +477,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3177.0,
+						"translation.y": 3422.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "public/js/sample_schedules.js",
+					"file": "public/js/helpers.js",
 					"settings":
 					{
-						"buffer_size": 2420,
+						"buffer_size": 3511,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2358,
-								2358
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1060.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "public/js/buttons.js",
-					"settings":
-					{
-						"buffer_size": 3664,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								526,
-								526
+								3233,
+								3233
 							]
 						],
 						"settings":
@@ -460,13 +505,130 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 118.0,
+						"translation.y": 2036.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/js/napchartCore.js",
+					"settings":
+					{
+						"buffer_size": 1908,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1908,
+								1908
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1402.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
+					"settings":
+					{
+						"buffer_size": 5270,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										3867,
+										3878
+									],
+									[
+										4118,
+										4129
+									],
+									[
+										4329,
+										4340
+									],
+									[
+										4615,
+										4626
+									],
+									[
+										4923,
+										4934
+									],
+									[
+										5184,
+										5195
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								1192,
+								1191
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1155.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "public/js/controlPanel.js",
+					"settings":
+					{
+						"buffer_size": 161,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								161,
+								161
+							]
+						],
+						"settings":
+						{
+							"auto_name": "controlPanel.js",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
 					"file": "public/js/js.js",
 					"settings":
 					{
@@ -493,7 +655,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "public/css/css.css",
 					"settings":
 					{
@@ -519,7 +681,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 10,
 					"file": "public/partials/chart.html",
 					"settings":
 					{
@@ -540,25 +702,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1239.0,
+						"translation.y": 669.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 11,
 					"file": "views/pages/index.ejs",
 					"settings":
 					{
-						"buffer_size": 2501,
+						"buffer_size": 2657,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2272,
-								2272
+								2139,
+								2139
 							]
 						],
 						"settings":
@@ -568,13 +730,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1059.0,
+						"translation.y": 1149.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "views/partials/head.ejs",
 					"settings":
 					{
@@ -596,7 +758,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -654,11 +816,11 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"show_minimap": true,
 	"show_open_files": false,

@@ -197,7 +197,7 @@ window.draw=(function(){
 					mouseHover = {name:name,count:i,type:'whole'};
 				}
 			
-				if(directInput.isActive(name,i,'whole')){
+				if(directInput.isActive(name,i,'whole') || directInput.isSelected(name,i)){
 					ctx.globalAlpha = activeOpacity;
 				}
 
@@ -215,7 +215,6 @@ window.draw=(function(){
 		}
 		//notify directInput module about which elements are being
 		//hovered. Used for hit detection
-		console.log(mouseHover);
 		directInput.setHoverElement(mouseHover);
 
 		ctx.restore();

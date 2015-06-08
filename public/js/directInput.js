@@ -73,6 +73,8 @@ window.directInput = (function(){
 		//hit detection of handles (will overwrite current mouseHover object
 		//from draw if hovering a handle):
 		for(var name in data){
+			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
+				continue;
 			for(i = 0; i < data[name].length; i++){
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
@@ -224,7 +226,6 @@ window.directInput = (function(){
 
 		setHoverElement:function(hover){
 			//ignore if a handle is being hovered
-			console.log(hover);
 			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
 				mouseHover = hover;
 			}
@@ -234,7 +235,6 @@ window.directInput = (function(){
 
 			for(i=0;i<activeElements.length;i++){
 
-				console.log(activeElements.type);
 				if(name == activeElements[i].name && count == activeElements[i].count){
 					if(typeof type=='undefined' || type == activeElements[i].type)
 					return true;

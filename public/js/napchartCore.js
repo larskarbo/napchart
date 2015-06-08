@@ -20,6 +20,7 @@ window.napchartCore=(function(){
 			directInput.initialize(canvas);
 			draw.initialize(canvas);
 			draw.drawUpdate();
+			formInput.initialize(document.getElementById('formInputContainer'));
 		},
 
 		setSchedule:function(data){
@@ -28,6 +29,7 @@ window.napchartCore=(function(){
 
 			//draw
 			draw.drawFrame(scheduleData);
+			formInput.setData(scheduleData);
 		},
 
 		getSchedule:function(){
