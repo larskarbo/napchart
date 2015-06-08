@@ -283,7 +283,6 @@ window.directInput = (function(){
 		},
 
 		mouseIsOverCanvas:function(){
-			console.log(mouseHover);
 			if(typeof mouse.x != 'undefined')
 				return true;
 			else

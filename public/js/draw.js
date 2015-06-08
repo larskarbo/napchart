@@ -495,8 +495,18 @@ window.draw=(function(){
 			drawBlurCircle(ctx);
 			drawSelected(ctx,data);
 			strokeBars(ctx,data);
+
+			ctx.save();
+			ctx.globalAlpha=0.3;
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
+			ctx.restore();
+
+			animate.frameAnimator(function(easing){
+				ctx.save();
+				ctx.globalAlpha=easing;
+				ctx.restore();
+			})
 		},
 		drawUpdate:function(){
 			data = napchartCore.getSchedule();

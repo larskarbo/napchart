@@ -15,7 +15,7 @@ window.formInput=(function(){
 		var className, add;
 		className = name+count;
 		add = '<div class="'+className+' inputBox">';
-		add += name + count;
+		add += name + ' ' + (count+1);
 		add += ':  <input class="clock start" maxlength="4" type="text">';
 		add += ' - <input class="clock end" maxlength="4" type="text">';
 		add += '<input type="hidden" name="name" value="'+name+'">';
@@ -23,7 +23,7 @@ window.formInput=(function(){
 		add += '<button class="remove">remove</button>';
 		add += '</div>';
 
-		container.innerHTML += add;
+		$(container).append(add);
 	}
 
 	function blockExists(name,count){
