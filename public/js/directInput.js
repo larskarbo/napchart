@@ -150,10 +150,14 @@ window.directInput = (function(){
 			name:name,
 			count:count
 		};
+		//notify core module:
+		napchartCore.setSelected(name,count);
 	}
 
 	function deselect(name,count){
 		selected = {};
+		//notify core module:
+		napchartCore.setSelected(name,count);
 	}
 
 	function drag(e){

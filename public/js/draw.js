@@ -341,7 +341,6 @@ window.draw=(function(){
 					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
 					if(directInput.isActive(name,i,['start','end'][s])){
-						console.horse();
 						outerColor = 'red';
 						innerColor = 'green';
 					}

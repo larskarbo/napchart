@@ -6,11 +6,10 @@ It handles low level storing of the current schedule
 
 window.napchartCore=(function(){
 	//private:
-	var scheduleData={
+	var scheduleData, canvas;
 
-	};
-
-	var canvas = document.getElementById("canvas");
+	scheduleData={};
+	canvas = document.getElementById("canvas");
 
 	//public:
 	return {
@@ -24,7 +23,6 @@ window.napchartCore=(function(){
 		},
 
 		setSchedule:function(data){
-			console.dir(data);
 			scheduleData=JSON.parse(JSON.stringify(data));
 
 			//draw
@@ -47,6 +45,7 @@ window.napchartCore=(function(){
 
 		removeFromSchedule:function(name,index){
 			scheduleData[name].splice(index,1);
+			this.setSchedule(scheduleData);
 		},
 
 		start:function(){
@@ -83,11 +82,17 @@ window.napchartCore=(function(){
 			for(var prop in newElement){
 				scheduleData[name][count][prop] = newElement[prop];
 			}
-			draw.drawFrame(scheduleData);
+			this.setSchedule(scheduleData);
 		},
 
 		getCanvas:function(){
 			return canvas;
+		},
+
+		setSelected:function(name,count){
+			//notify forminput module:
+			formInput.setSelected(name,count);
+
 		}
 	};
 
