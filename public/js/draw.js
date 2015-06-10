@@ -82,23 +82,22 @@ window.draw=(function(){
 	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
 		//if they overlap, the superior wins
-		var startInf, endInf, startSup, endSup, startIsInside, endIsInside, newData;
+		var startInf, endInf, startSup, endSup, startIsInside, endIsInside, newData, trim;
 		
 		//if there are no inferior elements, return
 		if(typeof data[inferior] == 'undefined' || data[inferior].length == 0)
-			return;
+			return false//data;
 
 		//if there are no superior elements, return
 		if(typeof data[superior] == 'undefined' || data[superior].length == 0)
-			return;
+			return false//data;
 
-		newData = data;
-
-		newData[inferior] = {}; //will be rebuilt
-
-		for(var i = 0; i < data[inferior].length ; i++){
+		//iterate inferior elements
+		var length = data[inferior].length; //we dont want do iterate array elements that are dynamically added inside the loop
+		for(var i = 0; i < length; i++){
 			startInf = data[inferior][i].start;
 			endInf = data[inferior][i].end;
+			trim = [];
 
 			//iterate superior elements
 			for(var f = 0; f < data[superior].length; f++){
@@ -108,31 +107,67 @@ window.draw=(function(){
 				startIsInside = helpers.pointIsInside(startSup,startInf,endInf);
 				endIsInside = helpers.pointIsInside(endSup,startInf,endInf);
 
-				if(startIsInside && endIsInside){
-					//whole superior element is inside inferior element
-					newData.push({
-						start:startInf,
-						end:startSup
-					});
-					newData.push({
-						start:endSup,
-						end:endInf
-					});
-				}else if(startIsInside){
-					newData.push({
-						start:startInf,
-						end:startSup
-					})
-				}else if(endIsInside){
-					newData.push({
-						start:endSup,
-						end:endInf
+				if(startIsInside || endIsInside){
+					if(startIsInside && endIsInside){
+						//make some extra room if whole element is inside
+						startSup = helpers.calc(startSup,-10);
+						endSup = helpers.calc(endSup,10);
+					}
+
+					trim.push({
+						start:startSup,
+						end:endSup
 					})
 				}
 			}
+
+			if(trim.length > 0){
+				var trimmed = [data[inferior][i]];
+				for(var t = 0; t<trim.length; t++){
+					var start, end;
+					var last = trimmed.length-1;
+
+					start = trimmed[last].start;
+					end = trimmed[last].end;
+
+					var startIsInside = helpers.pointIsInside(trim[t].start,start,end);
+					var endIsInside = helpers.pointIsInside(trim[t].end,start,end);
+					if(startIsInside && endIsInside){
+
+						//split
+						trimmed[last] = {
+							start:start,
+							end:trim[t].start
+						};
+						trimmed.push({
+							start:trim[t].end,
+							end:end
+						})
+					}
+					else if(startIsInside){
+						trimmed[last] = {
+							start:start,
+							end:trim[t].start
+						};
+					}
+					else if(endIsInside){
+						trimmed[last] = {
+							start:trim[t].end,
+							end:end
+						};
+					}
+				}
+				//set the original element empty and set all the new ones to point to the old
+				data[inferior][i]={};
+				for(t=0; t<trimmed.length; t++){
+					trimmed[t].phantom = i;
+				}
+
+				data[inferior] = data[inferior].concat(trimmed);
+			}
 		}
 
-		return newData;
+		return data;
 		
 	}
 	function drawLines(ctx){
@@ -247,6 +282,13 @@ window.draw=(function(){
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
 				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
+				var count;
+
+				if(typeof data[name][i].phantom != 'undefined'){
+					count = data[name][i].phantom;
+				}else{
+					count = i;
+				}
 
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
@@ -255,14 +297,14 @@ window.draw=(function(){
 				ctx.closePath();
 
 				if(ctx.isPointInPath(mouse.x,mouse.y)){
-					mouseHover = {name:name,count:i,type:'whole'};
+					mouseHover = {name:name,count:count,type:'whole'};
 				}
 			
-				if(directInput.isActive(name,i,'whole') || directInput.isSelected(name,i)){
+				if(directInput.isActive(name,count,'whole') || directInput.isSelected(name,count)){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(directInput.isActive(name,i) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,i)) || directInput.isHover(name,i,'whole')){
+				else if(directInput.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,count)) || directInput.isHover(name,count,'whole')){
 					ctx.globalAlpha=hoverOpacity;
 				}
 
@@ -271,7 +313,6 @@ window.draw=(function(){
 				}
 				ctx.fill();
 
-					
 			}
 		}
 		//notify directInput module about which elements are being
@@ -317,22 +358,30 @@ window.draw=(function(){
 			ctx.fillStyle=barConfig[name].color;
 
 			for (var i = 0; i < data[name].length; i++){
-				if(!directInput.isActive(name,i) && !directInput.isSelected(name,i))
+
+				if(typeof data[name][i].phantom != 'undefined'){
+					count = data[name][i].phantom;
+				}else{
+					count = i;
+				}
+
+				if(!directInput.isActive(name,count) && !directInput.isSelected(name,count))
 					continue;
 
+				ctx.save();
 				var startRadians=helpers.minutesToRadians(data[name][i].start);
 				var endRadians=helpers.minutesToRadians(data[name][i].end);
 				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
-
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
 				ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
-
+				console.log(innerRadius,endRadians,startRadians);
 				ctx.globalAlpha=0.1*ctx.globalAlpha;
 
 				ctx.fill();
+				ctx.restore();
 
 					
 			}
@@ -546,8 +595,11 @@ window.draw=(function(){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
 
+			//clone data object
+			data = JSON.parse(JSON.stringify(data));
+
 			// remove overlapping of nap and busy bars
-			data = removeOverlapping(data,'nap','busy');
+			data = removeOverlapping(data,'busy','nap');
 
 			lastData = data;
 			ctx=draw.ctx;
