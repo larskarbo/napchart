@@ -455,10 +455,20 @@ window.draw=(function(){
 				continue;
 
 			for (var i = 0; i < data[name].length; i++){
-				if(!directInput.isSelected(name,i))
+
+				if(typeof data[name][i].phantom != 'undefined'){
+					count = data[name][i].phantom;
+					var element = napchartCore.returnElement(name,count);
+				}else{
+					count = i;
+					var element = data[name][i];
+				}
+
+				if(!directInput.isSelected(name,count))
 					continue;
+
 				for(s=0;s<2;s++){
-					var point=helpers.minutesToXY(data[name][i][['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
+					var point=helpers.minutesToXY(element[['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
 					if(directInput.isActive(name,i,['start','end'][s])){
 						outerColor = 'red';
