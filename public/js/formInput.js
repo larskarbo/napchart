@@ -57,8 +57,9 @@ window.formInput=(function(){
 		$.each($(container).find('.inputBox'), function(key,block){
 			name = $(block).find('[name="name"]').val();
 			count = $(block).find('[name="count"]').val();
-			if(!napchartCore.elementExists(name,count))
+			if(!napchartCore.elementExists(name,count)){
 				$(block).remove();
+			}
 		})
 	}
 

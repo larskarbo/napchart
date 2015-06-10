@@ -37,6 +37,9 @@ window.dom=(function(){
 				name = $(this).parent().find('[name="name"]').val();
 				count = $(this).parent().find('[name="count"]').val();
 				console.log(name,count)
+				if(directInput.isSelected(name,count)){
+					directInput.deselect();
+				}
 				napchartCore.removeElement(name,count);
 			});
 		},

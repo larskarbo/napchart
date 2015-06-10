@@ -427,9 +427,11 @@ color:#c70e0e;
     outline: none;
     padding: 6px;
     margin-bottom: 3px;
+    display:none;
 }
-.inputBox.selected{
-    background-color:yellow;
+.inputBox.selected,.inputBox.selected:hover{
+    background-color:#FAF7A2;
+    display:block;
 }
 .inputBox:hover{
     background-color:#dbdbdb;

@@ -267,6 +267,17 @@ helpers.currentProp = function () {
     return (document.getElementById("canvas").clientHeight / 500);
 };
 
+helpers.pointIsInside = function (point,start,end){
+    if(end > start){
+        if(point < end && point > start)
+            return true;
+    }else if(start < end){
+        if(point > start || point < end)
+            return true;
+    }
+    return false;
+}
+
 helpers.minutesToClock = function (minutes) {
     minutes = Math.floor(minutes);
     if (minutes >= 1440)

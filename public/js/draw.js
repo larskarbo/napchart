@@ -2,10 +2,9 @@ $(document).ready(function(){
 
 window.draw=(function(){
 	//private inside function
-	canvasCont=document.getElementById("canvasCont");
-	mainCont=document.getElementById("main_content");
-	rightPanel=document.getElementById("controlPanelColumn");
-	leftPanel=document.getElementById("leftColumn");
+
+	// used when calling drawUpdate()
+	var lastData = {};
 
 	barConfig = { //used for defining the radius and color of bars
 	core:{
@@ -80,7 +79,18 @@ window.draw=(function(){
 
 		};
 
-	// (also private) functions used by draw.initialize()
+	function removeOverlapping(data,superior,inferior){
+		//this function will prevent two bars from overlapping
+		//if they overlap, the superior wins
+		var start, end, startIsInside, endIsInside;
+
+		for(var i = 0; i < data[inferior].length ; i++){
+			start = data[inferior][i].start;
+			end = data[inferior][i].end;
+		}
+		
+
+	}
 	function drawLines(ctx){
 		var radius=40*draw.ratio;
 		ctx.save();
@@ -482,6 +492,11 @@ window.draw=(function(){
 		drawFrame:function(data){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
+
+			// remove overlapping of nap and busy bars
+			data = removeOverlapping(data,'nap','busy');
+
+			lastData = data;
 			ctx=draw.ctx;
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
@@ -497,7 +512,6 @@ window.draw=(function(){
 			strokeBars(ctx,data);
 
 			ctx.save();
-			console.log(directInput.getSelectedOpacity());
 			ctx.globalAlpha=directInput.getSelectedOpacity();
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
@@ -505,7 +519,7 @@ window.draw=(function(){
 
 		},
 		drawUpdate:function(){
-			data = napchartCore.getSchedule();
+			data = draw.getLastData();
 			draw.drawFrame(data);
 		},
 
