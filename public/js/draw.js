@@ -80,6 +80,7 @@ window.draw=(function(){
 		};
 
 	function removeOverlapping(data,superior,inferior){
+		return data;
 		//this function will prevent two bars from overlapping
 		//if they overlap, the superior wins
 		var start, end, startIsInside, endIsInside;
@@ -145,18 +146,22 @@ window.draw=(function(){
 	}
 
 	function drawClockNumbers(ctx){
-		impfontpixels=helpers.currentProp()*20;
+		var width = ctx.canvas.width;
+		var height = ctx.canvas.height;
+
+		impfontpixels=5*draw.ratio;
 		ctx.fillStyle="black";
-		numberRadius=helpers.totalWidth(44);
+		numberRadius=44*draw.ratio//helpers.totalWidth(44);
 		ctx.font=impfontpixels+"px Verdana";
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
 		ctx.fillStyle="#262626";
+
 		for(i=0;i<24;i++){
 			if(i===0||i==4||i==16||i==20||i==8||i==12){
 			degrees=(helpers.degreesToRadiens((15*i)+270));
-			xval=helpers.totalWidth(50)+Math.cos(degrees)*numberRadius;
-			yval=helpers.totalWidth(50)+Math.sin(degrees)*numberRadius;
+			xval=width/2+Math.cos(degrees)*numberRadius;
+			yval=height/2+Math.sin(degrees)*numberRadius;
 			if(i===0)
 			ctx.fillText("0",xval,yval);
 			else if(i==12)
@@ -167,11 +172,14 @@ window.draw=(function(){
 	}
 
 	function clearClockCircle(ctx,radius){
+		var width = ctx.canvas.width;
+		var height = ctx.canvas.height;
+
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
-		ctx.arc(senter,senter,radius,0,2*Math.PI, false);
-		ctx.lineTo(senter,senter);
+		ctx.arc(width/2,height/2,radius,0,2*Math.PI, false);
+		ctx.lineTo(width/2,height/2);
 		ctx.closePath();
 		ctx.fill();
 		ctx.restore();
@@ -291,20 +299,26 @@ window.draw=(function(){
 	}
 
 	function drawBlurCircle(ctx){
+		var width = ctx.canvas.width;
+		var height = ctx.canvas.height;
+
 		ctx.save();
 		ctx.fillStyle=draw.backgroundColor;
 		ctx.globalAlpha=clockConfig.blurCircle.opacity;
 		ctx.beginPath();
-		ctx.arc(senter,senter,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
+		ctx.arc(width/2,height/2,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
 		ctx.fill();
 		ctx.restore();
 	}
 
 	function clearCircle(ctx,radius){
+		var width = ctx.canvas.width;
+		var height = ctx.canvas.height;
+
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
-		ctx.arc(senter,senter,radius,0,grader(360), false);
+		ctx.arc(width/2,height/2,radius,0,grader(360), false);
 		ctx.fill();
 		ctx.restore();
 	}
@@ -474,10 +488,6 @@ window.draw=(function(){
 			this.backgroundColor="#F4F4F4";
 			this.ctx=canvas.getContext("2d");
 
-			window.center=helpers.totalWidth(50);
-			senter=helpers.totalWidth(50);
-			supportNumbers=helpers.currentProp()*11;
-			durationNumbers=helpers.currentProp()*16;
 			
 			//draw clock
 			drawLines(octx);
@@ -519,7 +529,7 @@ window.draw=(function(){
 
 		},
 		drawUpdate:function(){
-			data = draw.getLastData();
+			data = napchartCore.getSchedule();//soon draw.getLastData();
 			draw.drawFrame(data);
 		},
 
