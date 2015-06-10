@@ -259,13 +259,6 @@ helpers.calc = function (minutes, plus) {
     }
 };
 
-helpers.totalWidth = function (percent) {
-    return (document.getElementById("canvas").clientHeight * (percent / 100));
-};
-
-helpers.currentProp = function () {
-    return (document.getElementById("canvas").clientHeight / 500);
-};
 
 helpers.pointIsInside = function (point,start,end){
     if(end > start){

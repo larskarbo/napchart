@@ -79,18 +79,61 @@ window.draw=(function(){
 
 		};
 
-	function removeOverlapping(data,superior,inferior){
-		return data;
+	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
 		//if they overlap, the superior wins
-		var start, end, startIsInside, endIsInside;
+		var startInf, endInf, startSup, endSup, startIsInside, endIsInside, newData;
+		
+		//if there are no inferior elements, return
+		if(typeof data[inferior] == 'undefined' || data[inferior].length == 0)
+			return;
+
+		//if there are no superior elements, return
+		if(typeof data[superior] == 'undefined' || data[superior].length == 0)
+			return;
+
+		newData = data;
+
+		newData[inferior] = {}; //will be rebuilt
 
 		for(var i = 0; i < data[inferior].length ; i++){
-			start = data[inferior][i].start;
-			end = data[inferior][i].end;
-		}
-		
+			startInf = data[inferior][i].start;
+			endInf = data[inferior][i].end;
 
+			//iterate superior elements
+			for(var f = 0; f < data[superior].length; f++){
+				startSup = data[superior][f].start;
+				endSup = data[superior][f].end;
+
+				startIsInside = helpers.pointIsInside(startSup,startInf,endInf);
+				endIsInside = helpers.pointIsInside(endSup,startInf,endInf);
+
+				if(startIsInside && endIsInside){
+					//whole superior element is inside inferior element
+					newData.push({
+						start:startInf,
+						end:startSup
+					});
+					newData.push({
+						start:endSup,
+						end:endInf
+					});
+				}else if(startIsInside){
+					newData.push({
+						start:startInf,
+						end:startSup
+					})
+				}else if(endIsInside){
+					newData.push({
+						start:endSup,
+						end:endInf
+					})
+				}
+			}
+		}
+
+		return newData;
+		
 	}
 	function drawLines(ctx){
 		var radius=40*draw.ratio;
