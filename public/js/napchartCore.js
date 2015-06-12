@@ -42,6 +42,7 @@ window.napchartCore=(function(){
 			}
 
 			scheduleData[name].push(obj);
+			console.log('set schedule',scheduleData)
 			this.setSchedule(scheduleData);
 		},
 

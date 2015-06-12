@@ -83,14 +83,17 @@ window.draw=(function(){
 		//this function will prevent two bars from overlapping
 		//if they overlap, the superior wins
 		var startInf, endInf, startSup, endSup, startIsInside, endIsInside, newData, trim;
+
+		//clone data object
+		var data = JSON.parse(JSON.stringify(data));
 		
 		//if there are no inferior elements, return
 		if(typeof data[inferior] == 'undefined' || data[inferior].length == 0)
-			return false//data;
+			return data;
 
 		//if there are no superior elements, return
 		if(typeof data[superior] == 'undefined' || data[superior].length == 0)
-			return false//data;
+			return data;
 
 		//iterate inferior elements
 		var length = data[inferior].length; //we dont want do iterate array elements that are dynamically added inside the loop
@@ -120,8 +123,10 @@ window.draw=(function(){
 					})
 				}
 			}
-
 			if(trim.length > 0){
+				trim=trim.sort(function(a, b){
+				 return a.start-b.start
+				})
 				var trimmed = [data[inferior][i]];
 				for(var t = 0; t<trim.length; t++){
 					var start, end;
@@ -165,6 +170,7 @@ window.draw=(function(){
 
 				data[inferior] = data[inferior].concat(trimmed);
 			}
+		
 		}
 
 		return data;
@@ -359,25 +365,20 @@ window.draw=(function(){
 
 			for (var i = 0; i < data[name].length; i++){
 
-				if(typeof data[name][i].phantom != 'undefined'){
-					count = data[name][i].phantom;
-				}else{
-					count = i;
-				}
+				var count = i;
 
 				if(!directInput.isActive(name,count) && !directInput.isSelected(name,count))
 					continue;
 
 				ctx.save();
-				var startRadians=helpers.minutesToRadians(data[name][i].start);
-				var endRadians=helpers.minutesToRadians(data[name][i].end);
-				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
+				var startRadians=helpers.minutesToRadians(data[name][count].start);
+				var endRadians=helpers.minutesToRadians(data[name][count].end);
+				var lineToXY=helpers.minutesToXY(data[name][count].end,innerRadius);
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
 				ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
 				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 				ctx.closePath();
-				console.log(innerRadius,endRadians,startRadians);
 				ctx.globalAlpha=0.1*ctx.globalAlpha;
 
 				ctx.fill();
@@ -456,13 +457,9 @@ window.draw=(function(){
 
 			for (var i = 0; i < data[name].length; i++){
 
-				if(typeof data[name][i].phantom != 'undefined'){
-					count = data[name][i].phantom;
-					var element = napchartCore.returnElement(name,count);
-				}else{
-					count = i;
-					var element = data[name][i];
-				}
+				var element = data[name][i],
+				count = i;
+				
 
 				if(!directInput.isSelected(name,count))
 					continue;
@@ -604,14 +601,16 @@ window.draw=(function(){
 		drawFrame:function(data){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
+			var dataWithPhantoms;
 
 			//clone data object
 			data = JSON.parse(JSON.stringify(data));
 
 			// remove overlapping of nap and busy bars
-			data = removeOverlapping(data,'busy','nap');
+			// this will be used for some functions, while other functions use data
+			dataWithPhantoms = removeOverlapping(data,'busy','nap');
 
-			lastData = data;
+			//lastData = data;
 			ctx=draw.ctx;
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
@@ -619,12 +618,12 @@ window.draw=(function(){
 			cachedBackground=this.cachedBackground;
 
 			ctx.drawImage(cachedBackground,0,0);
-			drawBars(ctx,data);
+			drawBars(ctx,dataWithPhantoms);
 
 			if(typeof clockConfig.blurCircle != "undefined")
 			drawBlurCircle(ctx);
-			drawSelected(ctx,data);
-			strokeBars(ctx,data);
+			drawSelected(ctx,dataWithPhantoms);
+			strokeBars(ctx,dataWithPhantoms);
 
 			ctx.save();
 			ctx.globalAlpha=directInput.getSelectedOpacity();
