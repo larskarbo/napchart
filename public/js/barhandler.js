@@ -51,12 +51,12 @@ window.barhandler = (function(){
 			}
 
 			if(count>0)
-				var start=lastElement.end+rules.distance;
+				var start=helpers.calc(lastElement.end,rules.distance);
 			else{
 				var start = rules.location;
 			}
 			
-			var end = start+rules.size;
+			var end = helpers.calc(start,rules.size);
 
 			obj={
 				start:start,
