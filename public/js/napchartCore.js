@@ -17,7 +17,7 @@ window.napchartCore=(function(){
 
 		initialize:function(){
 			sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
-			directInput.initialize(canvas);
+			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
 			draw.drawUpdate();
 			formInput.initialize(document.getElementById('formInputContainer'));
@@ -115,7 +115,7 @@ window.napchartCore=(function(){
 
 			//animate the appearance of shadow and handles
 			animate.frameAnimator(function(easing){
-				directInput.setSelectedOpacity(easing);
+				interactCanvas.setSelectedOpacity(easing);
 				draw.drawUpdate();
 			});
 

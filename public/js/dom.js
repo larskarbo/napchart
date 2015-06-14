@@ -37,8 +37,8 @@ window.dom=(function(){
 				name = $(this).parent().find('[name="name"]').val();
 				count = $(this).parent().find('[name="count"]').val();
 				console.log(name,count)
-				if(directInput.isSelected(name,count)){
-					directInput.deselect();
+				if(interactCanvas.isSelected(name,count)){
+					interactCanvas.deselect();
 				}
 				napchartCore.removeElement(name,count);
 			});
@@ -48,7 +48,7 @@ window.dom=(function(){
 			$(container).on('mouseenter','.inputBox',function(){
 				name = $(this).find('[name="name"]').val();
 				count = $(this).find('[name="count"]').val();
-				directInput.setHoverElement({
+				interactCanvas.setHoverElement({
 					name:name,
 					count:count,
 					type:'whole'

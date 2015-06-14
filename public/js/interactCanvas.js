@@ -1,271 +1,302 @@
-$(document).ready(function(){
-rangeDebug="no";
-window.handle={x:0,y:0};
-window.mdown ={};
-window.nearest = {};
-alreadySelected=false;
-lockSleep=false;
-snapFive=false;
-
-document.getElementById("lockSleep").addEventListener ("change",checkLockSleep);
-document.getElementById("snapFive").addEventListener ("change",checkSnapFive);
-
-
-function checkLockSleep(){
-	if (document.getElementById('lockSleep').checked) {
-		lockSleep=true;
-	}else{
-		lockSleep=false;
-	}
-}
-function checkSnapFive(){
-	if (document.getElementById('snapFive').checked) {
-		snapFive=true;
-	}else{
-		snapFive=false;
-	}
-}
-
-function getMouseCoordinates(e){
-	window.mx=e.clientX - canvas.getBoundingClientRect().left;
-	window.my=e.clientY - canvas.getBoundingClientRect().top;
-	window.dx=e.clientX - canvas.getBoundingClientRect().left-center;
-	window.dy=e.clientY - canvas.getBoundingClientRect().top-center;
-}
-function getTouchCoordinates(e){
-	touchObj=e.touches[0];
-	window.mx=touchObj.clientX - canvas.getBoundingClientRect().left;
-	window.my=touchObj.clientY - canvas.getBoundingClientRect().top;
-	window.dx=touchObj.clientX - canvas.getBoundingClientRect().left-center;
-	window.dy=touchObj.clientY - canvas.getBoundingClientRect().top-center;
-
-}
-
-document.getElementById("canvas").addEventListener('mousedown',mouseDown);
-document.getElementById("canvas").addEventListener('touchstart',touch);
-document.addEventListener('mousemove',getMouseCoordinates);
-document.addEventListener('touchmove',getTouchCoordinates);
-document.addEventListener('mousemove',move);
-document.addEventListener('touchmove',move);
-document.addEventListener('mouseup',release);
-document.addEventListener('touchend',release);
-
-function touch(e){
-getTouchCoordinates(e);
-checkHit(e);
-}
-function mouseDown(e){
-	e.preventDefault();
-getMouseCoordinates(e);
-checkHit(e);
-}
-
-function checkHit(e){
-dataKeys=Object.keys(data);
-	for(d=0;d<dataKeys.length;d++){
-countKeys=Object.keys(data[dataKeys[d]]);
-	for(i=0;i<countKeys.length;i++){
-		
-	  if(dataKeys[d]=="charlie"){
-		  ctx.beginPath();
-		  ctx.arc(senter, senter,totalWidth(40),klokkegrader(data['charlie'][i].start),klokkegrader(data['charlie'][i].end), false);
-		  f=minutesToXY_OIC(data.charlie[i].end,73);
-		  ctx.lineTo(f.x,f.y);
-		  ctx.arc(senter, senter,sirkel3,klokkegrader(data['charlie'][i].end),klokkegrader(data['charlie'][i].start), true);
-		  ctx.closePath();
-		  if(ctx.isPointInPath(mx,my)){
-		  position=calc(XYtoMinutes({x:dx,y:dy}),-data['charlie'][i].start);
-		console.log(position);
-		  nearest={barHolder:"charlie",count:i,type:"middle",position:position,distance:35}
-		  }
-	  }
-		  
-	  
-		for(l=0;l<startend.length;l++){
-			if(dataKeys[d]=="charlie"){
-				minutes=data.charlie[i][startend[l]];
-				handle=minutesToXY(minutes);
-				distancex=dx-handle.x;
-				distancey=dy-handle.y;
-				distance=Math.sqrt(distancex*distancex+distancey*distancey);
-				if(distance<65){
-				if(typeof nearest.distance=="undefined")
-				nearest={barHolder:"charlie",count:i,type:startend[l],distance:distance};
-				else if(distance<nearest.distance)
-				nearest={barHolder:"charlie",count:i,type:startend[l],distance:distance}
-				}
-				}
-
-		}
-		if(dataKeys[d]=="delta"){
-	minutes=calc(data.delta[i].start,calc(data.delta[i].end,-data.delta[i].start)/2);
-	handle=minutesToXY(minutes);
-	distancex=dx-handle.x;
-	distancey=dy-handle.y;
-	distance=Math.sqrt(distancex*distancex+distancey*distancey);
-		  
-	if(distance<50){
-	if(typeof nearest.distance=="undefined"||distance<nearest.distance){
-	position=calc(XYtoMinutes({x:dx,y:dy}),-data['delta'][i].start);
-	nearest={barHolder:"delta",count:i,type:"middle",position:position,distance:distance};
-	}
-	}		
-	  
-	  }
-	}
-	}
-	mdown=nearest;
-	nearest={};
-	
-}
-
-
-function move(e){
-	if(typeof mdown.barHolder!="undefined"){
-		
-		if(typeof e.touches!="undefined"){
-    e.preventDefault();
-		}
-	var scale = radius / Math.sqrt(dx * dx + dy * dy);
-	var slider = { x : dx * scale , y : dy * scale };
-	//set new value
-	newValue=XYtoMinutes(slider);
-	
-	//snap to some values
-	if(mdown.type!="middle"){
-
-	for(f=-1;f<24;f++){
-	s=(f+0.5)*60;
-	if(newValue<s+5&&newValue>s-5)
-		newValue=s;
-	};
-	for(f=-1;f<24;f++){
-	s=(f+1)*60;
-	if(newValue<s+7&&newValue>s-7)
-	 newValue=s;
-	 };
-	 if(snapFive)
-	newValue=5 * Math.round(newValue/5);
-	
-	}
-
-	if(mdown.type=="start"){
-	  rangeDebug=range(newValue,data[mdown.barHolder][mdown.count].end);
-	  if(rangeDebug<90||rangeDebug>=1180)
-	  newValue=calc(data[mdown.barHolder][mdown.count].end,-90);
-	  if(rangeDebug>720&&rangeDebug<1180)
-	  newValue=calc(data[mdown.barHolder][mdown.count].end,-720);
-	  data[mdown.barHolder][mdown.count].start=newValue;
-	  
-	  inputFieldStart=mdown.type+barConvert(mdown.barHolder)+mdown.count;
-	  document.getElementById(inputFieldStart).value=minutesToClock(newValue);
-	  
-	 }else if(mdown.type=="end"){
-	  rangeDebug=range(data[mdown.barHolder][mdown.count].start,newValue);
-	  if(rangeDebug<90||rangeDebug>=1180)
-	  newValue=calc(data[mdown.barHolder][mdown.count].start,+90);
-	  if(rangeDebug>720&&rangeDebug<1180)
-	  newValue=calc(data[mdown.barHolder][mdown.count].start,+720);
-	  data[mdown.barHolder][mdown.count].end=newValue;
-	  
-	  inputFieldEnd=mdown.type+barConvert(mdown.barHolder)+mdown.count;
-	  document.getElementById(inputFieldEnd).value=minutesToClock(newValue);
-	  
-	}else if(mdown.type=="middle"){
-	  startValue=calc(newValue,-mdown.position);
-	  
-	  for(f=-1;f<24;f++){
-	  s=(f+1)*60;
-	  if(startValue<s+7&&startValue>s-7)
-		 startValue=s;
-	  };
-	  for(f=-1;f<24;f++){
-	s=(f+0.5)*60;
-	if(startValue<s+4&&startValue>s-4)
-		startValue=s;
-	};
-	 if(snapFive)
-	startValue=5 * Math.round(startValue/5);
-	  if(lockSleep){
-		  sleepArr=["charlie","delta"];
-		  oldStartValue=data[mdown.barHolder][mdown.count].start;
-		  for(d=0;d<sleepArr.length;d++){
-		countKeys=Object.keys(data[sleepArr[d]]);
-		for(i=0;i<countKeys.length;i++){
-				
-			distance=range(oldStartValue,data[sleepArr[d]][countKeys[i]].start);
-			val=calc(startValue,distance)
-			data[sleepArr[d]][countKeys[i]].start=val;
-		  	inputFieldStart="start"+barConvert(sleepArr[d])+countKeys[i];
-	  		document.getElementById(inputFieldStart).value=minutesToClock(val);
-			
-			distance=range(oldStartValue,data[sleepArr[d]][countKeys[i]].end);
-			val=calc(startValue,distance)
-			data[sleepArr[d]][countKeys[i]].end=val;
-			if(sleepArr[d]=="charlie"){
-		  	inputFieldEnd="end"+barConvert(sleepArr[d])+countKeys[i];
-	  		document.getElementById(inputFieldEnd).value=minutesToClock(val);
-			}else{
-				
-			}
-		}
-	}
-	  
-	  }
-	  duration=range(data[mdown.barHolder][mdown.count].start,data[mdown.barHolder][mdown.count].end);
-	  data[mdown.barHolder][mdown.count].start=startValue;
-	  data[mdown.barHolder][mdown.count].end=calc(startValue,duration);
-	  
-	  if(lockSleep){
-		  //edit all inputFields
-		  
-		  
-	  }else{ //edit only one field
-	  if(mdown.barHolder=="delta"){
-		  	inputFieldStart="start"+barConvert(mdown.barHolder)+mdown.count;
-	  		document.getElementById(inputFieldStart).value=minutesToClock(startValue);
-	  }else{
-	  inputFieldStart="start"+barConvert(mdown.barHolder)+mdown.count;
-	  inputFieldEnd="end"+barConvert(mdown.barHolder)+mdown.count;
-	  document.getElementById(inputFieldStart).value=minutesToClock(startValue);
-	  document.getElementById(inputFieldEnd).value=minutesToClock(calc(startValue,duration)); 
-	  }
-	}}
-
-
-
-
-	}
-	
-}
-
-
-function release(){
-	mdown={};
-}
-
 /*
 
+This module adds support for modifying a schedule
+directly on the canvas with mouse or touch
 
-}).on('mouseup', function() {
-$(document).off('mousemove');
-mdown = {};
-$('#slider').removeClass('draggable');
-});*/
+*/
 
-function checkMouseover(){
-for(d=0;d<dataKeys.length;d++){
-countKeys=Object.keys(data[dataKeys[d]]);
-for(i=0;i<countKeys.length;i++){
+window.interactCanvas = (function(){
+	//private:
+
+	var mouse = {},
+	mouseHover = {},
+	selected = {},
+	activeElements = [],
+	hoverDistance = 6,
+	selectedOpacity = 1;
+
+	function getRelativePosition(e,canvas){
+		var mouseX, mouseY, boundingRect;
+		if(typeof canvas=='undefined'){
+			canvas = e.target || e.srcElement;
+		}
+		boundingRect = canvas.getBoundingClientRect();
+
+		if (e.touches){
+			mouseX = e.touches[0].clientX - boundingRect.left;
+			mouseY = e.touches[0].clientY - boundingRect.top;
+		}
+
+		else{
+			mouseX = e.clientX - boundingRect.left;
+			mouseY = e.clientY - boundingRect.top;
+		}
+
+		return {
+			x : mouseX,
+			y : mouseY
+		};
+	}
+
+	function getCoordinates(e,canvas){
+		var mouseX,mouseY,
+		//similar to getrelativeposition but here origo is (0,0)
+		boundingRect = canvas.getBoundingClientRect();
+
+		if (e.touches){
+			mouseX = e.touches[0].clientX - boundingRect.left;
+			mouseY = e.touches[0].clientY - boundingRect.top;
+		}
+
+		else{
+			mouseX = e.clientX - boundingRect.left;
+			mouseY = e.clientY - boundingRect.top;
+		}
+
+		return {
+			x : mouseX-canvas.width/2,
+			y : mouseY-canvas.height/2
+		};
+	}
+
+	function hover(e){
+		var canvas = napchartCore.getCanvas(),
+		coordinates = getCoordinates(e,canvas),
+		data = napchartCore.getSchedule(),
+		barConfig = draw.getBarConfig(),
+		points = [], point, value, distance, handlesMouseHover;
+
+		
+		//draws a new frame and checks for hit detection on bars
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+		
+		handlesMouseHover = {};
+		//hit detection of handles (will overwrite current mouseHover object
+		//from draw if hovering a handle):
+		for(var name in data){
+			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
+				continue;
+			for(i = 0; i < data[name].length; i++){
+				if(!interactCanvas.isSelected(name,i))
+					continue;
+				for(s = 0; s < 2; s++){
+					value = data[name][i][['start','end'][s]];
+					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.ratio);
+
+					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
+					if(distance < hoverDistance*draw.ratio){
+						if(typeof handlesMouseHover.distance=='undefined'||distance < handlesMouseHover.distance){
+							//overwrite current hover object
+							handlesMouseHover ={
+								name:name,
+								count:i,
+								type:['start','end'][s],
+								distance:distance
+							};
+						}
+					}
+				}
+			}
+		}
+		if(Object.keys(handlesMouseHover).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
+			mouseHover = {};
+		}else if(Object.keys(handlesMouseHover).length > 0){
+			mouseHover = handlesMouseHover;
+		};
+	}
+
+	function mouseLeave(e){
+		//mouseX = null;
+		//mouseY = null;
+	}
+
+	function down(e){
+		e.preventDefault();
+
+		//return of no hit
+		if(typeof mouseHover.name == 'undefined'){
+			deselect();
+			return;
+		}
+
+		var canvas = e.target || e.srcElement,
+		coordinates = getCoordinates(e,canvas),
+		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
+		name = mouseHover.name,
+		count = mouseHover.count,
+		type = mouseHover.type,
+		element = napchartCore.returnElement(name,count),
+		positionInElement=helpers.calc(minutes,-element.start);
+		
+
+		activeElements.push({
+			name:name,
+			count:count,
+			positionInElement:positionInElement,
+			type:type,
+			canvas:canvas
+		});
+
+		document.addEventListener('mousemove',drag);
+		document.addEventListener('mouseup',function(){
+			document.removeEventListener('mousemove',drag);
+		});
+
+		select(name,count);
+		drag(e); //to  make sure the handles positions to the cursor even before movement
+
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
+
+	function select(name,count){
+		selected = {
+			name:name,
+			count:count
+		};
+		//notify core module:
+		napchartCore.setSelected(name,count);
+	}
+
+	function deselect(name,count){
+		selected = {};
+		//notify core module:
+		napchartCore.setSelected(name,count);
+	}
+
+	function drag(e){
+
+		var dragElement = activeElements[0],
+		coordinates = getCoordinates(e,dragElement.canvas),
+		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
+		name = dragElement.name,
+		count = dragElement.count,
+		element = napchartCore.returnElement(name,count),
+		//newValues is an object that will replace the existing one with new values
+		newValues = {}, positionInElement, duration, start, end;
+
 		
 		
+
+
+		if(dragElement.type=='start'){
+			start = minutes;
+			newValues = {start:start};
+		}
+		else if(dragElement.type=='end'){
+			end = minutes;
+			newValues = {end:end};
+		}
+		else if(dragElement.type=='whole'){
+			positionInElement = dragElement.positionInElement;
+			duration = helpers.range(element.start,element.end);
+			start = helpers.calc(minutes,-positionInElement);
+			end = helpers.calc(start,duration);
+			newValues = {start:start,end:end};
+		}
 		
-}
-}
-}
+		napchartCore.modifyElement(name,count,newValues);
 
 
+	}
 
+	function up(){
+		//function must be modified when adding multitouch support
+		activeElements = [];
 
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
 
-});
+	function setCoordinates(e){
+		var canvas = napchartCore.getCanvas();
+		mouse = getRelativePosition(e,canvas);
+	}
+
+	function leave(){
+		mouse = {};
+	}
+
+	//public:
+	return{
+		initialize:function(canvas){
+			canvas.addEventListener('mousemove',hover);
+			canvas.addEventListener('mousemove',setCoordinates);
+			canvas.addEventListener('mouseleave',leave);
+			canvas.addEventListener('mousedown',down);
+			canvas.addEventListener('touchstart',down);
+			document.addEventListener('mouseup',up);
+
+			/*document.body.addEventListener('touchmove', function(event) {
+			  event.preventDefault();
+			}, false); */
+
+		},
+
+		getCanvasMousePosition:function(canvas){
+			return {x:mouse.x , y:mouse.y};
+		},
+
+		setHoverElement:function(hover){
+			//ignore if a handle is being hovered
+			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
+				mouseHover = hover;
+			};
+		},
+
+		isActive:function(name,count,type){
+
+			for(i=0;i<activeElements.length;i++){
+
+				if(name == activeElements[i].name && count == activeElements[i].count){
+					if(typeof type=='undefined' || type == activeElements[i].type)
+					return true;
+				}
+			}
+			return false;
+		},
+
+		isHover:function(name,count,type){
+			if(name == mouseHover.name && count == mouseHover.count){
+				if(typeof type=='undefined' || type == mouseHover.type)
+				return true;
+			}
+			return false;
+		},
+
+		isSelected:function(name,count){
+			if(name == selected.name && count == selected.count){
+				return true;
+			}
+			return false;
+		},
+
+		returnSelected:function(){
+
+			//check if selected exists or is removed
+			if(typeof selected.name != 'undefined'
+			&& !napchartCore.elementExists(selected.name,selected.count)){
+				selected = {}
+			}
+			return selected;
+		},
+
+		deselect:function(){
+			deselect();
+		},
+
+		mouseIsOverCanvas:function(){
+			if(typeof mouse.x != 'undefined')
+				return true;
+			else
+				return false;
+		},
+
+		getSelectedOpacity:function(){
+			return selectedOpacity;
+		},
+
+		setSelectedOpacity:function(to){
+			selectedOpacity = to;
+		}
+	};
+
+}());

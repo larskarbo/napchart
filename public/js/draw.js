@@ -271,7 +271,7 @@ window.draw=(function(){
 
 	function drawBars(ctx,data){
 		var canvas = ctx.canvas,
-		mouse = directInput.getCanvasMousePosition(canvas),
+		mouse = interactCanvas.getCanvasMousePosition(canvas),
 		mouseHover = {};
 
 		ctx.save();
@@ -306,11 +306,11 @@ window.draw=(function(){
 					mouseHover = {name:name,count:count,type:'whole'};
 				}
 			
-				if(directInput.isActive(name,count,'whole') || directInput.isSelected(name,count)){
+				if(interactCanvas.isActive(name,count,'whole') || interactCanvas.isSelected(name,count)){
 					ctx.globalAlpha = activeOpacity;
 				}
 
-				else if(directInput.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && directInput.isHover(name,count)) || directInput.isHover(name,count,'whole')){
+				else if(interactCanvas.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && interactCanvas.isHover(name,count)) || interactCanvas.isHover(name,count,'whole')){
 					ctx.globalAlpha=hoverOpacity;
 				}
 
@@ -321,10 +321,10 @@ window.draw=(function(){
 
 			}
 		}
-		//notify directInput module about which elements are being
+		//notify interactCanvas module about which elements are being
 		//hovered. Used for hit detection
-		if(directInput.mouseIsOverCanvas()){
-			directInput.setHoverElement(mouseHover);
+		if(interactCanvas.mouseIsOverCanvas()){
+			interactCanvas.setHoverElement(mouseHover);
 		}
 
 		ctx.restore();
@@ -367,7 +367,7 @@ window.draw=(function(){
 
 				var count = i;
 
-				if(!directInput.isActive(name,count) && !directInput.isSelected(name,count))
+				if(!interactCanvas.isActive(name,count) && !interactCanvas.isSelected(name,count))
 					continue;
 
 				ctx.save();
@@ -417,7 +417,7 @@ window.draw=(function(){
 	}
 
 	function drawSelected(ctx,data){
-		var selected = directInput.returnSelected();
+		var selected = interactCanvas.returnSelected();
 		if(typeof selected.name == 'undefined'){
 			return;
 		}
@@ -461,17 +461,17 @@ window.draw=(function(){
 				count = i;
 				
 
-				if(!directInput.isSelected(name,count))
+				if(!interactCanvas.isSelected(name,count))
 					continue;
 
 				for(s=0;s<2;s++){
 					var point=helpers.minutesToXY(element[['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
 
-					if(directInput.isActive(name,i,['start','end'][s])){
+					if(interactCanvas.isActive(name,i,['start','end'][s])){
 						outerColor = 'red';
 						innerColor = 'green';
 					}
-					else if(directInput.isHover(name,i,['start','end'][s]) && !directInput.isActive(name,i)){
+					else if(interactCanvas.isHover(name,i,['start','end'][s]) && !interactCanvas.isActive(name,i)){
 						outerColor = 'white';
 						innerColor = 'blue';
 					}else{
@@ -626,7 +626,7 @@ window.draw=(function(){
 			strokeBars(ctx,dataWithPhantoms);
 
 			ctx.save();
-			ctx.globalAlpha=directInput.getSelectedOpacity();
+			ctx.globalAlpha=interactCanvas.getSelectedOpacity();
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
 			ctx.restore();
