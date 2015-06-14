@@ -261,7 +261,6 @@ helpers.calc = function (minutes, plus) {
 
 
 helpers.pointIsInside = function (point,start,end){
-    console.log(point,start,end);
     if(end > start){
         if(point < end && point > start)
             return true;

@@ -22,14 +22,16 @@ window.napchartCore=(function(){
 			draw.drawUpdate();
 			formInput.initialize(document.getElementById('formInputContainer'));
 			dom.initialize();
+			statistics.initialize(document.getElementById('stat-container'));
 		},
 
 		setSchedule:function(data){
 			scheduleData=JSON.parse(JSON.stringify(data));
 
 			//draw
-			draw.drawFrame(scheduleData);
-			formInput.setData(scheduleData);
+			draw.drawFrame(data);
+			formInput.setData(data);
+			statistics.update(data);
 		},
 
 		getSchedule:function(){

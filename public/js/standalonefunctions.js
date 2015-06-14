@@ -4,9 +4,9 @@ $(document).ready(function(){
 window.countOverlappingExcluder=function(bars){
 
 original=[];
-	/* viss alle e true: sjekka kor du e absolutt heilt fri. returna altså alle der du e opptatt!*/
-	//ta sammen dei arrayane som skal bli merga inn i en array original:
-	
+/* viss alle e true: sjekka kor du e absolutt heilt fri. returna altså alle der du e opptatt!*/
+//ta sammen dei arrayane som skal bli merga inn i en array original:
+
 for(i=0;i<bars.length;i++){
 	for(id in data[bars[i]]){
 	original.push(data[bars[i]][id]);
@@ -55,7 +55,7 @@ return merged;
 
 //easing::
 window.easeInOutQuad=function(t, b, c, d) {
-            return -c * (t/=d)*(t-2) + b;
+        return -c * (t/=d)*(t-2) + b;
 };
 /* DEBUGGING easing
 
@@ -70,22 +70,22 @@ document.write(i+"</td><td>"+easeInOutQuad(i,0,360,100)+"</td></tr><tr><td>");
 */
 
 window.validateClock=function(inputToValidate){
-	val=$(inputToValidate).val();
-	if(val.length==1)val="0"+val+"00";
-	if(val.length==2)val=val+"00";
-	if(val.length==3)val="0"+val;
-	if(val.length==4){
-	firstSecondNumber=val.substring(0,2);
-	thirdFourthNumber=val.substring(2,4);
-	if(firstSecondNumber<=23&&thirdFourthNumber<=59){
-	$(inputToValidate).removeClass("clockFormatBad");
-	$(inputToValidate).addClass("clockFormatOK");
-	$(inputToValidate).val(val);	
-	return true;
-	}else{
-	$(inputToValidate).addClass("clockFormatBad");
-	}
-	}
+val=$(inputToValidate).val();
+if(val.length==1)val="0"+val+"00";
+if(val.length==2)val=val+"00";
+if(val.length==3)val="0"+val;
+if(val.length==4){
+firstSecondNumber=val.substring(0,2);
+thirdFourthNumber=val.substring(2,4);
+if(firstSecondNumber<=23&&thirdFourthNumber<=59){
+$(inputToValidate).removeClass("clockFormatBad");
+$(inputToValidate).addClass("clockFormatOK");
+$(inputToValidate).val(val);	
+return true;
+}else{
+$(inputToValidate).addClass("clockFormatBad");
+}
+}
 }
 
 

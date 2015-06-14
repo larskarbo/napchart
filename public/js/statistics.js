@@ -1,6 +1,48 @@
-$(document).ready(function(){
-	
-window.statistics = function(){
+/**
+
+This module makes statistic information about the current schedule
+
+**/
+
+window.statistics=(function(){
+	//private
+	var container;
+
+	function mergeFuck(data, names){
+		var preMerge = [];
+
+		//go through the specified names in the data object
+		//and save all elements in a new preMerge array
+		for(var i=0; i < names.length; i++){
+			console.log(names[i]);
+			for(count in data[names[i]]){
+				preMerge.push(data[names[i]][count])
+			}
+
+		}
+
+		console.log(preMerge);
+	}
+	//public:
+	return{
+		initialize:function(cont){
+			container = cont;
+
+		},
+		update:function(data){
+			var totalSleep;
+
+			totalSleep = mergeFuck(data,['core']);
+
+
+
+			$(".totalSleep.stat-time").html(totalSleep);
+		}
+	}
+
+}());
+
+window.statisticsOld = function(){
 
 //totalSleep
 totalSleep=0;
@@ -61,4 +103,3 @@ $(".freeTime.stat-time").html(hm[0]+"h "+hm[1]+"m");
 //$("span.totalWork").html(hm[0]+"h "+hm[1]+"m");
 	
 };
-});
