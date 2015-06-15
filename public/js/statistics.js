@@ -54,11 +54,10 @@ window.statistics=(function(){
 			end = preMerge[i].end;
 			prevEnd = merged[merged.length-1].end;
 
-			console.log(start,end,prevEnd);
 			if(start <= prevEnd && end > prevEnd){
 				//start is inside prev. element
 				//merge:
-				prevEnd = end;
+				merged[merged.length-1].end = end;
 			}
 			else if(start > prevEnd){
 				//start is outside prev. element
@@ -69,12 +68,28 @@ window.statistics=(function(){
 				})
 			}
 
-			merged[merged.length-1].end = prevEnd;
 		}
 
-		console.log(JSON.stringify(merged));
-		return "two minutes";
+		return merged;
 	}
+
+	function totalTime(elements,invert){
+		//checks how long time all elements in specified array are totally
+		var minutes = 0;
+
+
+		for(var i = 0; i < elements.length; i++){
+			if(typeof elements[i] != 'undefined')
+				minutes += helpers.calc(elements[i].end,-elements[i].start);
+		}
+
+		if(invert==true){
+			minutes = 1440-minutes;
+		}
+
+		return minutes;
+	}
+
 	//public:
 	return{
 		initialize:function(cont){
@@ -82,13 +97,16 @@ window.statistics=(function(){
 
 		},
 		update:function(data){
-			var totalSleep;
+			var sleep, free;
 
-			totalSleep = merge(data,['core']);
+			sleep = totalTime( merge(data,['core','nap']) );
+			free = totalTime( merge(data,['nap','core','busy']) ,true)
 
 
 
-			$(".totalSleep.stat-time").html(totalSleep);
+			$(".sleep.stat-time").html(sleep);
+			$(".free.stat-time").html(free);
+
 		}
 	}
 
