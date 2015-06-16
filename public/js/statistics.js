@@ -11,8 +11,13 @@ window.statistics=(function(){
 	function merge(data, names){
 		//merges specified bars into a new array where no elements overlap
 		var start,end;
+		var data = helpers.clone(data);
 		var preMerge = [],
 		merged = [];
+
+
+
+		console.log('data: ',JSON.stringify(data));
 
 		//go through the specified names in the data object
 		//and save all elements in a new preMerge array
@@ -22,11 +27,12 @@ window.statistics=(function(){
 			}
 		}
 
+
 		//(example) preMerge = [{start:440,end:460},{start:1100,end:100}]
 
 		//to avoid confusion when the end value is lower than the start value, split up those elements
 
-		for(i = 0; i < preMerge.length; i++){
+		for(var i = 0; i < preMerge.length; i++){
 			start = preMerge[i].start;
 			end = preMerge[i].end;
 
@@ -44,6 +50,7 @@ window.statistics=(function(){
 		preMerge = preMerge.sort(function(a, b){
 			return a.start-b.start
 		});
+
 
 		//push first element
 		merged.push(preMerge[0]);
@@ -69,6 +76,7 @@ window.statistics=(function(){
 			}
 
 		}
+		console.log(JSON.stringify(merged));
 
 		return merged;
 	}
@@ -99,8 +107,12 @@ window.statistics=(function(){
 		update:function(data){
 			var sleep, free;
 
+			console.clear();
+			console.log('sleep: ');
 			sleep = totalTime( merge(data,['core','nap']) );
-			free = totalTime( merge(data,['nap','core','busy']) ,true)
+			console.log('----------')
+			console.log('free: ');
+			free = totalTime( merge(data,['nap','core','busy']) ,true);
 
 
 

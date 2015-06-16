@@ -224,6 +224,11 @@ helpers.easingEffects = {
     }
 },
 
+helpers.clone = function (obj){
+    //clone an object
+    return JSON.parse(JSON.stringify(obj));
+}
+
 helpers.shortestWay = function (s) {
     console.log(s);
     if (s < -720)
