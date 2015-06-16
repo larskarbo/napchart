@@ -13,4 +13,5 @@ window.controlPanel = (function(){
 	return {
 
 	}
+	
 }());
