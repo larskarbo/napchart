@@ -111,11 +111,9 @@ window.draw=(function(){
 				endIsInside = helpers.pointIsInside(endSup,startInf,endInf);
 
 				if(startIsInside || endIsInside){
-					if(startIsInside && endIsInside){
-						//make some extra room if whole element is inside
-						startSup = helpers.calc(startSup,-10);
-						endSup = helpers.calc(endSup,10);
-					}
+					//make some extra room
+					startSup = helpers.calc(startSup,-10);
+					endSup = helpers.calc(endSup,10);
 
 					trim.push({
 						start:startSup,
