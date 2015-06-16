@@ -98,6 +98,19 @@ window.statistics=(function(){
 		return minutes;
 	}
 
+	function prettyTime(min){
+		var hours, minutes;
+
+		hours = Math.floor(min / 60) + "";
+		minutes = min % 60 + "";
+		minutes = Math.floor(minutes);
+
+		return {
+			hours:hours,
+			minutes:minutes
+		};
+	};
+
 	//public:
 	return{
 		initialize:function(cont){
@@ -107,17 +120,16 @@ window.statistics=(function(){
 		update:function(data){
 			var sleep, free;
 
-			console.clear();
-			console.log('sleep: ');
 			sleep = totalTime( merge(data,['core','nap']) );
-			console.log('----------')
-			console.log('free: ');
+			sleep = prettyTime( sleep );
+
 			free = totalTime( merge(data,['nap','core','busy']) ,true);
+			free = prettyTime( free );
 
 
 
-			$(".sleep.stat-time").html(sleep);
-			$(".free.stat-time").html(free);
+			$(".sleep.stat-time").html(sleep.hours + '||' + sleep.minutes);
+			$(".free.stat-time").html(free.hours + '||' + free.minutes);
 
 		}
 	}

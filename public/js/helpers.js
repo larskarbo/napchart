@@ -293,13 +293,6 @@ helpers.minutesToClock = function (minutes) {
 
 };
 
-helpers.minutesToStatistics = function (minutes) {
-    hours = Math.floor(minutes / 60) + "";
-    minutes = minutes % 60 + "";
-    returnArr = [hours, Math.floor(minutes)];
-    return (returnArr);
-
-};
 
 helpers.degreesToRadiens = function (deg) {
     return ((Math.PI / 180) * (deg));
