@@ -1,6 +1,6 @@
 /**
 
-This module handles all dom event listening
+This module handles dom event listening
 
 Requires jQuery
 
@@ -12,7 +12,7 @@ window.dom=(function(){
 
 	//public:
 	return{
-		initialize:function(){
+		bindAddButtons:function(){
 			document.getElementById('addCore').addEventListener('click',function(){
 				barhandler.addBar("core");
 			});

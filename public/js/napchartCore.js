@@ -22,7 +22,7 @@ window.napchartCore=(function(){
 			draw.initialize(canvas);
 			draw.drawUpdate();
 			formInput.initialize(document.getElementById('formInputContainer'));
-			dom.initialize();
+			dom.bindAddButtons();
 			statistics.initialize(document.getElementById('stat-container'));
 
 			//maybe throw this into a chartLoader module?
