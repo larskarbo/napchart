@@ -25,35 +25,12 @@ window.sampleSchedule = (function () {
 		else
 			return "none";
 	}
-	function updateScheduleIndicator(immidiateTo){
-		if(typeof immidiateTo=="undefined"){
-			currentActive=whichSchedule();	
-			if(currentActive=="none"){
-				$("#sampleScheduleActive").fadeOut();
-				return;
-			}
-		}
-		else{
-			currentActive=immidiateTo;}
 
-			prevTop=document.getElementById("sampleSchedules").getBoundingClientRect().top;
-			newTop=document.getElementById(currentActive).getBoundingClientRect().top;
-			travelTop=newTop-prevTop;
-			if(typeof immidiateTo!="undefined"){
-				$("#sampleScheduleActive").css("top",travelTop);
-				$("#sampleScheduleActive").css("display","default");
-			}
-			if($("#sampleScheduleActive").css("display")=="none"){
-				$("#sampleScheduleActive").css("top",travelTop);
-				$("#sampleScheduleActive").fadeIn();
-			}else
-			$("#sampleScheduleActive").animate({top:travelTop});
-	};
-
-	function chooseSchedule(){
-		var schedule=this.id;
+	function chooseSchedule(element,dropDown){
+		var schedule=element.id;
 		if(typeof schedules[schedule] != 'undefined'){
 			napchartCore.setSchedule(schedules[schedule]);
+			dropDown.innerHTML = schedule;
 		}else{
 			throw new Error("Could not find the schedule requested")
 		}
@@ -69,10 +46,15 @@ window.sampleSchedule = (function () {
 
 	//public:
 	return {
-		initialize:function(container,className){
-			var scheduleLinks = container.getElementsByClassName(className);
+		initialize:function(container,dropDown){
+			var scheduleLinks;
+			scheduleLinks = container.getElementsByTagName('li');
+
+
 			for(i=0;i<scheduleLinks.length;i++){
-				scheduleLinks[i].addEventListener('click',chooseSchedule)
+				scheduleLinks[i].addEventListener('click',function(){
+					chooseSchedule(this,dropDown);
+				})
 			}
 		},
 		getSchedules:function(){

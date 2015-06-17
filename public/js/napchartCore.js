@@ -17,7 +17,7 @@ window.napchartCore=(function(){
 
 		initialize:function(){
 
-			sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
+			sampleSchedule.initialize(document.getElementById('sampleSchedules'),document.getElementById('dropdown-title'));
 			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
 			draw.drawUpdate();

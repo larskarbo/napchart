@@ -30,69 +30,37 @@
 /**************************
 1.0   Standardar og sånt
 *******************/
-html{
-	font-size: 62.5%;
-    margin:0;padding:0;height: 100%;
-}
-body,
-button,
-input,
-select,
-textarea {
-	color: black;
-	color: hsl(0, 0%, 0%);
-	font-size: 1.3rem;
-	line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
-	margin:0;padding:0;height:100%;
-}
+
 body{
 	background-color:#F4F4F4;
 	margin:0;
 }
 ::selection {
-  background: #d3d3d3; /* WebKit/Blink Browsers */
+	background: #d3d3d3; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-  background: #d3d3d3; /* Gecko Browsers */
+	background: #d3d3d3; /* Gecko Browsers */
 }
 
-.button {
-    font-size: 16px;
-    outline: none;
-    cursor:pointer;
-    background-color:#dbdbdb;
-    padding: 4px;
-    margin-bottom: 3px;
-    border:none;
-    
-}
-
-.button:hover {
-    background-color:#d1d1d1;
-}
-.button:active {
-    background-color:#b36565;
-}
 
 /**************************
 2.0   Main layout. Gridsystem
 *******************/
 .wrapper {
-  heilght: 100%;
-max-width:1000px;
-  margin: 0 auto;
-position: relative;
-overflow-x: hidden;
+	heilght: 100%;
+	max-width:1000px;
+	margin: 0 auto;
+	position: relative;
+	overflow-x: hidden;
 }
 .menumoverViewport{
-width: 100%;
-height: 100%;
-position: relative;
--webkit-transform: translateX(0);
-transform: translateX(0);
--webkit-transition: .3s ease all;
-transition: .3s ease all;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	-webkit-transition: .3s ease all;
+	transition: .3s ease all;
 }
 .section {
 	clear: both;
@@ -134,10 +102,10 @@ transition: .3s ease all;
 }
 @media screen and (max-width:1000px) {
 	#canvasCont{
-	width: 60.0%;
+		width: 60.0%;
 	}
 	#controlPanelColumn{
-	width: 33.0%;
+		width: 33.0%;
 	}
 }
 
@@ -145,231 +113,70 @@ transition: .3s ease all;
 
 	
 	#canvasCont{
-	width: 100.0%;
+		width: 100.0%;
 	}
-	}
+}
 
 /**************************
 3.0   Header
 *******************/
-#messageBar{
-width:100%;
-background-color:#d7d7d7;
-    border-bottom: 3px solid #666666;
-height:80px;
-line-height:80px;
-vertical-align:middle;
-}
-
-#innerMessageBar{
-max-width:1000px;
-margin:auto;
-padding:0 10px;
-text-align:center;
-}
-
 #logo {
-    font-size: 34px;
-    font-family:Tahoma;
-    letter-spacing: 4px;
-    float:left;
+	font-size: 34px;
+	font-family:Tahoma;
+	letter-spacing: 4px;
+	float:left;
 }
+
 #logo>a:link,#logo>a:visited {
-    color:#a82828;
+	color:white;
 	text-decoration: none;
 }
-
 
 #logo>a:hover {
 }
 
 #logo>a:active {
-    color:#7a1919;
-}
-
-
-#saveform {
-    display: inline-block;
-    margin:0 auto;
-    line-height: 28px;
-	vertical-align: middle;
-    color:#161616;
-}
-
-#savebutton {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    font-size: 25px;
-    font-family: "Roboto";
-    float:left;
-    padding: 4px;
-    background-color: #d7d7d7;
-    margin-right: 10px;
-    cursor:pointer;
-    border:1px solid #7f7f7f;
-}
-#savebutton:hover{
-    background-color:#bfbfbf;
-}
-#savebutton:active{
-    background-color:#a27676;
-}
-#savebutton > i{
-    font-size: 20px;
-    margin-right: 4px;
-}
-
-#saveURL {
-	visibility:hidden;
-	width:0;
-    background:rgb(237,237,237);
-    border: 1px solid black;
-	font-size: 16px;
-	font-weight: 600;
-	line-height: 1;
-    padding:8px;
-    color:black;
-	float: left;
-}
-#saveURL:focus {
-    color:#cb2929;
-    outline-color: #cc2828;
-}
-#copyLink {
-	cursor: pointer;
-	float:left;
-    font-size: 21px;
-    padding: 4px;
-    background-color: #d7d7d7;
-    border:1px solid black;
-	display:none;
-	border-left:none;
-}
-@media screen and (max-width:750px) {
-	#copyLink{
-		visibility:hidden;
-	}
-}
-#copyLink.zeroclipboard-is-active{
-	background-color:#c9c9c9;
-}
-
-#shareButtons {
-    font-size: 30px;
-    letter-spacing: 6px;
-    float:right;
-}
-#shareButtons > a:link,a:visited{
-    text-decoration: none;
-    color:#2c2c2c;
-}
- #shareButtons > a:active {
-    color:#ee0101;
-}
- #shareButtons > a:hover {
-    color:#c11414;
-}
-@media screen and (max-width: 660px){
-    #shareButtons{
-        display: none;
-    }
-    
-}
-@media screen and (max-width: 630px){
-#logo {
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing:normal;
-    float:none;
-    display: block;
-    line-height: 15px;
-}
-    #saveform{
-        vertical-align: top;
-    }
-    #messageBar{
-        height: 60px;   
-    }
+	color:#7a1919;
 }
 
 
 
-/**************************
-4.0   Adderknappar
-*******************/
-
-
-.adderButton {
-    display: inline-block;
-    background-color: #d7d7d7;
-    padding: 6px;
-    text-align: center;
-	cursor:default;
-}
-.adderButton:first-of-type{
-    margin-right: 10px;   
-}
-.adderButton:active{
-	
-    background-color: #666666;
-}
-
-.adderTitle {
-    font-size:2.4rem;
-    font-family: "Roboto";
-    display: block;
-    line-height: normal;
-}
-
-.adderDesc {
-    font-size: 1rem;
-    font-family: Tahoma;
-    font-weight: medium;
-}
-
-#adderContainer {
-    text-align: center;
-    margin-bottom: 10px;
-}
 /**************************
 5.0   Schedule chooser
 *******************/
+
 #sampleSchedules{
 	position:relative;
 }
 .schedule{
-z-index:5;
+	z-index:5;
 	position:relative;
 
-    font-size: 16px;
-    cursor:pointer;
-    padding: 6px;
-    margin-bottom: 3px;
+	font-size: 16px;
+	cursor:pointer;
+	padding: 6px;
+	margin-bottom: 3px;
 	width:90%;
 }
 #sampleScheduleActive{
-display:none;
-position:absolute;
-width:90%;
-z-index:0;
-    background-color:#e1c5c5;
-    font-size: 16px;
-    cursor:pointer;
-    padding: 6px;
+	display:none;
+	position:absolute;
+	width:90%;
+	z-index:0;
+	background-color:#e1c5c5;
+	font-size: 16px;
+	cursor:pointer;
+	padding: 6px;
 	height:24px;
-    margin-bottom: 3px;
+	margin-bottom: 3px;
 }
 
 .schedule:hover {
-    background-color:#dbdbdb;
+	background-color:#dbdbdb;
 }
 .schedule:active {
-    background-color:#b36565;
-    border:none;
+	background-color:#b36565;
+	border:none;
 }
 /**************************
 6.0   Canvas
@@ -381,12 +188,12 @@ z-index:0;
 }
 #clockCanvas{
 	position:absolute;
-	}
+}
 #myCanvas{
 	position:relative;
-	}
+}
 #canvasInnerCont{
-position:relative;
+	position:relative;
 }
 #textDomContainer{
 }
@@ -403,14 +210,14 @@ position:relative;
 	font-size:20px;
 }
 .descriptionText.alfa{
-color:#1f1f1f;
+	color:#1f1f1f;
 }
 .descriptionText.charlie,.descriptionText.delta{
-color:#c70e0e;
+	color:#c70e0e;
 }
 .durationText{
-    color:#dc1818;
-    font-size: 16px;
+	color:#dc1818;
+	font-size: 16px;
 }
 .durationText.delta{
 	background-color:#E8C8C8;
@@ -423,18 +230,18 @@ color:#c70e0e;
 7.0   Forminput
 *******************/
 .inputBox{
-    font-size: 16px;
-    outline: none;
-    padding: 6px;
-    margin-bottom: 3px;
-    display:none;
+	font-size: 16px;
+	outline: none;
+	padding: 6px;
+	margin-bottom: 3px;
+	display:none;
 }
 .inputBox.selected,.inputBox.selected:hover{
-    background-color:#FAF7A2;
-    display:block;
+	background-color:#FAF7A2;
+	display:block;
 }
 .inputBox:hover{
-    background-color:#dbdbdb;
+	background-color:#dbdbdb;
 }
 
 #controlPanelColumn>input,div,button{
@@ -442,18 +249,18 @@ color:#c70e0e;
 	height:auto;
 }
 .remove {
-    font-size: 16px;
-    outline: none;
-    padding: 2px;
-    margin-left:6px;
-    background-color: #bababa;
-    border:none;
+	font-size: 16px;
+	outline: none;
+	padding: 2px;
+	margin-left:6px;
+	background-color: #bababa;
+	border:none;
 }
 .remove:hover{
-    background-color: #cfa0a0;
+	background-color: #cfa0a0;
 }
 .remove:active{
-    background-color: #c57171;
+	background-color: #c57171;
 }
 
 input.clockFormatOK{
@@ -482,21 +289,24 @@ input.desc{
 	padding:2px;
 }
 
+input{
+	border:solid 1px grey !important;
+}
+
 /**************************
 8.0   Statistics
 *******************/
 .stat-block{
-float:left;
-width:25%;
-border-left:5px solid grey;
-padding:5px;
+	width:25%;
+	padding:5px;
+	margin-right:8px !important;
 }
 .stat-title{
-font-size:15px;
+	font-size:15px;
 }
 .stat-time{
-font-size:30px;
-padding-left:15px;
+	font-size:30px;
+	padding-left:15px;
 }
 .stat-desc{
 
@@ -505,18 +315,18 @@ padding-left:15px;
 9.0   Footer
 *******************/
 #footer{
-width:100%;
-   background: #6d6d6d;
-    border-top: 3px solid #666666;
-    color:white;
-    margin-top:10px;
-vertical-align:middle;
+	width:100%;
+	background: #6d6d6d;
+	border-top: 3px solid #666666;
+	color:white;
+	margin-top:10px;
+	vertical-align:middle;
 }
 #innerFooter{
-max-width:1000px;
-margin:auto;
-padding:8px;
-text-align:center;
+	max-width:1000px;
+	margin:auto;
+	padding:8px;
+	text-align:center;
 }
 /**************************
 10.0   Debugger
@@ -531,7 +341,7 @@ div#debugger{
 	color:white;
 	z-index:10;
 	word-wrap: break-word;
-	}
+}
 
 /**************************
 11.0   Sidebar
@@ -542,12 +352,12 @@ div#debugger{
 #leftColumn{
 }
 .wrapper.show-nav-left .menumoverViewport {
--webkit-transform: translateX(200px);
-transform: translateX(200px);
+	-webkit-transform: translateX(200px);
+	transform: translateX(200px);
 }
 .wrapper.show-nav-right .menumoverViewport {
--webkit-transform: translateX(-225px);
-transform: translateX(-225px);
+	-webkit-transform: translateX(-225px);
+	transform: translateX(-225px);
 }
 #toggleRight,#toggleLeft{
 	display:none;
@@ -559,36 +369,36 @@ transform: translateX(-225px);
 	z-index:10
 }
 @media screen and (max-width:1000px) {
-#toggleLeft{
-	display:block;
-	position: absolute;
-	left:0;
-	top:0;
-}	
+	#toggleLeft{
+		display:block;
+		position: absolute;
+		left:0;
+		top:0;
+	}	
 	#leftColumn{
-	position:absolute;
-	top: 0;
-left: -200px;
+		position:absolute;
+		top: 0;
+		left: -200px;
 		width:200px;
-	backg/round: #212121;
-}
+		backg/round: #212121;
+	}
 	#smallscreen{
 		height:20px;
 		display:block;
 	}
 }
 @media screen and (max-width:630px) {
-#toggleRight{
-	display:block;
-	position: absolute;
-	right:0;
-	top:0;
-}
+	#toggleRight{
+		display:block;
+		position: absolute;
+		right:0;
+		top:0;
+	}
 	#controlPanelColumn{
-	position:absolute;
-	top: 0;
-right: -225px;
-	//b/ackground: #212121;
+		position:absolute;
+		top: 0;
+		right: -225px;
+		//b/ackground: #212121;
 	}
 }
 /**************************

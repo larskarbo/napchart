@@ -6,18 +6,18 @@
 </head>
 
 <body>
-    <div id="debugger"></div>
+<nav class="top-nav">
+    <div class="nav-wrapper">
+    <% include ../partials/logo.ejs %>
+    <div class="btn waves-effect waves-light"><i class="mdi-file-cloud left"></i>save</div>
 
-<div id="messageBar">
-<div id="innerMessageBar">
-
-<% include ../partials/logo.ejs %>
-
-<div id="saveform">
-<div id="savebutton"><i id="saveicon" class="fa fa-link"></i>save</div>
-<input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
-	<div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>
+    <!--<input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
+    <div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>-->
     </div>
+
+</nav>
+
+
     
 <% include ../partials/shareButtons.ejs %>
 
@@ -35,26 +35,51 @@
 	<% include ../partials/chart.ejs %>
 
 </div>
-    <div id="footer">
-<div id="innerFooter">
-Created by me. Thanks to everyone who has given feedback. You can find me at reddit or twitter or even real life. Contact at own risk.
-</div>
-</div>
+<footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">
+Created by me. Thanks to everyone who has given feedback. You can find me at reddit or twitter or even real life. Contact at own risk.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+</footer>
 
-<!--<script src="../../js/hidpi-canvas.min.js"></script>-->
+<!--<script src="js/hidpi-canvas.min.js"></script>-->
 
-<script src="../../js/jquery-2.1.4.min.js"></script>
-<script src="../../js/helpers.js"></script>
-<script src="../../js/statistics.js"></script>
-<script src="../../js/draw.js"></script>
-<script src="../../js/server.js"></script>
-<script src="../../js/animate.js"></script>
-<script src="../../js/interactCanvas.js"></script>
-<script src="../../js/formInput.js"></script>
-<script src="../../js/dom.js"></script>
-<script src="../../js/barhandler.js"></script>
-<script src="../../js/sampleSchedules.js"></script>
-<script src="../../js/napchartCore.js"></script>
-<script src="../../zeroclipboard/ZeroClipboard.min.js"></script>
+<script src="js/jquery-2.1.4.min.js"></script>
+
+<script src="materialize/js/materialize.min.js"></script>
+
+
+<script src="js/helpers.js"></script>
+<script src="js/statistics.js"></script>
+<script src="js/draw.js"></script>
+<script src="js/server.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/interactCanvas.js"></script>
+<script src="js/formInput.js"></script>
+<script src="js/dom.js"></script>
+<script src="js/barhandler.js"></script>
+<script src="js/sampleSchedules.js"></script>
+<script src="js/napchartCore.js"></script>
+<script src="zeroclipboard/ZeroClipboard.min.js"></script>
 </body>
 </html>
