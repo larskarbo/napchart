@@ -11,8 +11,17 @@ window.server=(function(){
 
 	//public:
 	return{
-		saveNew:function(){
-			
+		saveNew:function(data){
+			var json = JSON.stringify(data);
+
+			$.post( "post", {data: json })
+			  .done(function() {
+			    alert( "success" );
+			  })
+			  .fail(function() {
+			    alert( "error" );
+			  })
+			  
 		},
 
 		load:function(){

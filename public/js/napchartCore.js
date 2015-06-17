@@ -16,6 +16,7 @@ window.napchartCore=(function(){
 	return {
 
 		initialize:function(){
+
 			sampleSchedule.initialize(document.getElementById('sampleSchedules'),'schedule');
 			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
@@ -23,6 +24,11 @@ window.napchartCore=(function(){
 			formInput.initialize(document.getElementById('formInputContainer'));
 			dom.initialize();
 			statistics.initialize(document.getElementById('stat-container'));
+
+			//maybe throw this into a chartLoader module?
+			if(typeof fromServer != 'undefined'){
+				napchartCore.setSchedule(fromServer.data);
+			}
 		},
 
 		setSchedule:function(data){

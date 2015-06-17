@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='napchart'>
+<html>
 <head>
 <title>Napchart - Polyphasic Sleep Visualizer</title>
 <% include ../partials/head.ejs %>
@@ -11,43 +11,28 @@
 <div id="messageBar">
 <div id="innerMessageBar">
 
-	<span id="logo"><a href="/">napchart</a></span>
+<% include ../partials/logo.ejs %>
+
 <div id="saveform">
 <div id="savebutton"><i id="saveicon" class="fa fa-link"></i>save</div>
 <input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
 	<div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>
     </div>
     
-    <span id="shareButtons">
-    <a href="#"><i class="fa fa-facebook-square"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-google-plus"></i></a>
-        <a href="#"><i class="fa fa-pinterest"></i></a>
-    </span>
-    
+<% include ../partials/shareButtons.ejs %>
 
-<div class"shareButtons"></div>
 
 </div>
 </div>
 
 
-
-</div>
 
 
 
 <div id="wrapper-id" class="wrapper">
     <!-- wraps around all elements-->
-	
 
-
-	<% if(page=='about'){
-    include('../partials/about.ejs')
-}
-    else{
-    include('../partials/chart.ejs')
-    } %>
+	<% include ../partials/chart.ejs %>
 
 </div>
     <div id="footer">

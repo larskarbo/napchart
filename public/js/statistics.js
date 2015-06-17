@@ -17,8 +17,6 @@ window.statistics=(function(){
 
 
 
-		console.log('data: ',JSON.stringify(data));
-
 		//go through the specified names in the data object
 		//and save all elements in a new preMerge array
 		for(var i=0; i < names.length; i++){
@@ -76,7 +74,6 @@ window.statistics=(function(){
 			}
 
 		}
-		console.log(JSON.stringify(merged));
 
 		return merged;
 	}

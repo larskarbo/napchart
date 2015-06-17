@@ -3,10 +3,10 @@ var express = require('express');
 var app = express();
 var bodyParser=require('body-parser');
 var redis = require('redis');
-var client = redis.createClient(); //creates a new client
+var redisClient = redis.createClient(); //creates a new client
 
 
-client.on('connect', function() {
+redisClient.on('connect', function() {
 	console.log('connected');
 });
 
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.get('/get/:chartid', function(req, res) {
 
 	var chartid=req.params.chartid;
-	client.get('chart:'+chartid, function(err, reply) {
+	redisClient.get('chart:'+chartid, function(err, reply) {
 		res.writeHead(200, {"Content-Type": "application/json"});
 		res.end(reply);
 	})
@@ -41,24 +41,28 @@ app.post('/post', function(req, res) {
 
 	chartid=idgen();
 
-	client.set('chart:'+chartid,req.body.data,function(err,reply){
+	redisClient.set('chart:'+chartid,req.body.data,function(err,reply){
 		res.writeHead(200);
 		res.end(chartid);
 	})
 });
 
 app.get('/about', function(req, res) {
-	res.render('pages/index',{page:'about'});
+	res.render('pages/about',{});
 });
 
 app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
 
-	res.render('pages/index',{page:'chart',chartid:req.params.chartid});
+	redisClient.get('chart:'+chartid, function(err, reply) {
+
+		res.render('pages/index',{chartid:chartid,chart:reply});
+	})
+
 });
 
 app.get('/', function (req, res) {
-	res.render('pages/index',{page:'chart',chartid:null});
+	res.render('pages/index',{chartid:null,chart:null});
 });
 
 app.get('*', function (req, res) {

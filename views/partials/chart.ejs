@@ -1,7 +1,13 @@
 
-<script>
-//obj=<%= chartid %>;
-</script>
+<% if(chartid && chart){ %>
+
+	<script>
+		fromServer = {};
+		fromServer.chartid = '<%= chartid %>';
+		fromServer.data = <%- chart %>;
+	</script>
+
+<% } %>
 
 <div class="menumoverViewport">
 	
