@@ -9,65 +9,42 @@ fromServer.data = <%- chart %>;
 
 <% } %>
 
-<div class="menumoverViewport">
-	
-	<div id="smallscreen" class="section group">
-		<div class="col span_4_of_4">
-			<div id="toggleRight">Show control panel</div>
-			<div id="toggleLeft">Show schedules</div>
-		</div></div>
+<div class="row">
+	<div class="col s12 m12 l2">
+		<div class="waves-effect waves-light red btn" id="addNap">Nap</div>
+		<div class="waves-effect waves-light red btn" id="addCore">Core</div>
+		<div class="waves-effect waves-light grey darken-3 btn" id="addBusy">Busy</div>
 
-
-		<div id="main_content" class="section group">
-
-
-
-
-
-			<div id="leftColumn" class="col span_1_of_4">
-				<div id="adderContainer">
-					<input type="text" />
-					<div class="waves-effect waves-light red btn" id="addNap">Nap</div>
-					<div class="waves-effect waves-light red btn" id="addCore">Core</div>
-					<div class="waves-effect waves-light grey darken-3 btn" id="addBusy">Busy</div>
-
-
-				</div>
-				<div id="sampleSchedules">
-					<ul id="dropdown2" class="dropdown-content">
-					
+		<div id="sampleSchedules">
+			<ul id="dropdown2" class="dropdown-content">
 				<script>
-					schedules={
-						"monophasic":"Monophasic",
-						"segmented":"Segmented",
-						"siesta":"Siesta",
-						"dualcore1":"Dual Core 1",
-						"triphasic":"Triphasic",
-						"everyman":"Everyman",
-						"uberman":"Uberman"
-					};
-					for(key in schedules){
-						document.write("<li id='"+key+"'><a>"+schedules[key]+"</a></li>");
-					}
+				schedules={
+					"monophasic":"Monophasic",
+					"segmented":"Segmented",
+					"siesta":"Siesta",
+					"dualcore1":"Dual Core 1",
+					"triphasic":"Triphasic",
+					"everyman":"Everyman",
+					"uberman":"Uberman"
+				};
+				for(key in schedules){
+					document.write("<li id='"+key+"'><a>"+schedules[key]+"</a></li>");
+				}
 				</script>
+			</ul>
+			<a class="btn dropdown-button grey lighten-2" href="#!" data-activates="dropdown2"><span id="dropdown-title">Schedules</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
+		</div>
+	</div>
 
-					</ul>
-					<a class="btn dropdown-button grey lighten-2" href="#!" data-activates="dropdown2"><span id="dropdown-title">Schedules</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
-</div></div>
-<div id="canvasCont" class="col span_2_of_4">
-	<div id="canvasInnerCont">
-		<div id="textDomContainer"></div>
-
-		<div id="canvasImg"></div>
-
+	<div class="col s12 m7 l6">
 		<canvas width="330" height="330" id="canvas">
 		</canvas>
-
 	</div>
-</div>
-<div id="controlPanelColumn" class="col span_1_of_4">
-	<div id="formInputContainer"></div>
-	<div class="card stat-block left">
+
+	<div class="col s12 m5 l4">
+		<div id="formInputContainer"></div>
+
+		<div class="card stat-block left">
 			<div class="stat-title">Sleep time</div>
 			<div class="stat-time sleep"></div>
 			<div class="stat-desc sleep"></div>
@@ -85,31 +62,12 @@ fromServer.data = <%- chart %>;
 			<div class="stat-desc timeSavedYear"></div>
 		</div>
 
-	
-	<br>
-	<input type="checkbox" id="lockSleep"><label for="lockSleep"> Move all sleep simultaneously</label>
-	<br><input type="checkbox" id="snapFive"><label for="snapFive"> Snap to every 5 minutes</label>
-	<br>
 
-	<div id="removeAll" class="btn-flat">>> Remove all</div>
+		<br>
+		<input type="checkbox" id="lockSleep"><label for="lockSleep"> Move all sleep simultaneously</label>
+		<br><input type="checkbox" id="snapFive"><label for="snapFive"> Snap to every 5 minutes</label>
+		<br>
 
-
-</div>
-</div>
-<div class="section group">
-	<div id="stat-container" class="col span_4_of_4">
-
-			
-		
-
-
-
+		<div id="removeAll" class="btn-flat">>> Remove all</div>
 	</div>
-</div>
-
-
-</body>
-
-
-
 </div>
