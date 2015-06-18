@@ -67,28 +67,7 @@ fromServer.data = <%- chart %>;
 </div>
 <div id="controlPanelColumn" class="col span_1_of_4">
 	<div id="formInputContainer"></div>
-	
-	<br>
-	<input type="checkbox" id="lockSleep"><label for="lockSleep"> Move all sleep simultaneously</label>
-	<br><input type="checkbox" id="snapFive"><label for="snapFive"> Snap to every 5 minutes</label>
-	<br>
-
-	<div id="removeAll" class="btn-flat">>> Remove all</div>
-
-	<div id="inputContainerSleeps">
-	</div>
-	<div id="inputContainerNaps"></div>
-	<div id="inputContainerWorks"></div>
-
-
-
-</div>
-</div>
-<div class="section group">
-	<div id="stat-container" class="col span_4_of_4">
-
-			
-		<div class="card stat-block left">
+	<div class="card stat-block left">
 			<div class="stat-title">Sleep time</div>
 			<div class="stat-time sleep"></div>
 			<div class="stat-desc sleep"></div>
@@ -106,14 +85,27 @@ fromServer.data = <%- chart %>;
 			<div class="stat-desc timeSavedYear"></div>
 		</div>
 
+	
+	<br>
+	<input type="checkbox" id="lockSleep"><label for="lockSleep"> Move all sleep simultaneously</label>
+	<br><input type="checkbox" id="snapFive"><label for="snapFive"> Snap to every 5 minutes</label>
+	<br>
+
+	<div id="removeAll" class="btn-flat">>> Remove all</div>
+
+
+</div>
+</div>
+<div class="section group">
+	<div id="stat-container" class="col span_4_of_4">
+
+			
+		
 
 
 
 	</div>
 </div>
-<?php
-
-include ("genius.php") ?>
 
 
 </body>
