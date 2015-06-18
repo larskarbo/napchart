@@ -11,7 +11,7 @@ if (process.env.REDISTOGO_URL) {
 	redis.auth(rtg.auth.split(":")[1]);
 
 } else {
-    //var redis = require("redis").createClient();//creates a new client
+    var redis = require("redis").createClient();//creates a new client
 }
 
 
