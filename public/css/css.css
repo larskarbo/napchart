@@ -297,9 +297,8 @@ input{
 8.0   Statistics
 *******************/
 .stat-block{
-	width:25%;
 	padding:5px;
-	margin-right:8px !important;
+	width:90%;
 }
 .stat-title{
 	font-size:15px;
