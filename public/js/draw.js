@@ -1,65 +1,65 @@
 $(document).ready(function(){
 
-window.draw=(function(){
+	window.draw=(function(){
 	//private inside function
 
 	// used when calling drawUpdate()
 	var lastData = {};
 
 	barConfig = { //used for defining the radius and color of bars
-	core:{
-		stack:0,
-		color:"#c70e0e",
-		innerRadius:29,
-		outerRadius:40,
-		stroke:{
-			lineWidth:2
+		core:{
+			stack:0,
+			color:"#c70e0e",
+			innerRadius:29,
+			outerRadius:40,
+			stroke:{
+				lineWidth:2
+			},
+			rangeHandles:true,
+			opacity:0.6,
+			hoverOpacity:0.5,
+			activeOpacity:0.5,
+			selected:{
+				strokeColor:'#FF6363',
+				lineWidth:1,
+				expand:0.5
+			}
 		},
-		rangeHandles:true,
-		opacity:0.6,
-		hoverOpacity:0.5,
-		activeOpacity:0.5,
-		selected:{
-			strokeColor:'#FF6363',
-			lineWidth:1,
-			expand:0.5
-		}
-	},
-	nap:{
-		stack:1,
-		color:"#c70e0e",
-		innerRadius:29,
-		outerRadius:40,
-		stroke:{
-			lineWidth:2
+		nap:{
+			stack:1,
+			color:"#c70e0e",
+			innerRadius:29,
+			outerRadius:40,
+			stroke:{
+				lineWidth:2
+			},
+			opacity:0.6,
+			hoverOpacity:0.5,
+			activeOpacity:0.5,
+			selected:{
+				strokeColor:'grey',
+				lineWidth:1,
+				expand:0.5
+			}
 		},
-		opacity:0.6,
-		hoverOpacity:0.5,
-		activeOpacity:0.5,
-		selected:{
-			strokeColor:'grey',
-			lineWidth:1,
-			expand:0.5
+		busy:{
+			stack:2,
+			color:"#1f1f1f",
+			innerRadius:29,
+			outerRadius:36,
+			stroke:{
+				lineWidth:2
+			},
+			rangeHandles:true,
+			opacity:0.6,
+			hoverOpacity:0.5,
+			activeOpacity:0.5,
+			selected:{
+				strokeColor:'#FF6363',
+				lineWidth:1,
+				expand:0.5
+			}
 		}
-	},
-	busy:{
-		stack:2,
-		color:"#1f1f1f",
-		innerRadius:29,
-		outerRadius:36,
-		stroke:{
-			lineWidth:2
-		},
-		rangeHandles:true,
-		opacity:0.6,
-		hoverOpacity:0.5,
-		activeOpacity:0.5,
-		selected:{
-			strokeColor:'#FF6363',
-			lineWidth:1,
-			expand:0.5
-		}
-	}
 	};
 
 	clockConfig = { // define how the background clock should be drawn
@@ -71,13 +71,13 @@ window.draw=(function(){
 		],
 		clearCircle: 20,
 		blurCircle:{
-				radius:29,
-				opacity:0.8
-			},
+			radius:29,
+			opacity:0.8
+		},
 		strokeColor:"#C9C9C9",
 		impStrokeColor:"#262626"
 
-		};
+	};
 
 	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
@@ -123,7 +123,7 @@ window.draw=(function(){
 			}
 			if(trim.length > 0){
 				trim=trim.sort(function(a, b){
-				 return a.start-b.start
+					return a.start-b.start
 				})
 				var trimmed = [data[inferior][i]];
 				for(var t = 0; t<trim.length; t++){
@@ -168,7 +168,7 @@ window.draw=(function(){
 
 				data[inferior] = data[inferior].concat(trimmed);
 			}
-		
+
 		}
 
 		return data;
@@ -213,7 +213,7 @@ window.draw=(function(){
 		ctx.closePath();
 		ctx.stroke();
 		ctx.restore();		
-}
+	}
 
 	function drawCircles(ctx){
 
@@ -241,84 +241,84 @@ window.draw=(function(){
 
 		for(i=0;i<24;i++){
 			if(i===0||i==4||i==16||i==20||i==8||i==12){
-			degrees=(helpers.degreesToRadiens((15*i)+270));
-			xval=width/2+Math.cos(degrees)*numberRadius;
-			yval=height/2+Math.sin(degrees)*numberRadius;
-			if(i===0)
-			ctx.fillText("0",xval,yval);
-			else if(i==12)
-			ctx.fillText("12",xval,yval);
-			else
-			ctx.fillText(i,xval,yval);
-		}}
-	}
-
-	function clearClockCircle(ctx,radius){
-		var width = ctx.canvas.width;
-		var height = ctx.canvas.height;
-
-		ctx.save();
-		ctx.globalCompositeOperation = 'destination-out';
-		ctx.beginPath();
-		ctx.arc(width/2,height/2,radius,0,2*Math.PI, false);
-		ctx.lineTo(width/2,height/2);
-		ctx.closePath();
-		ctx.fill();
-		ctx.restore();
-	}
-
-	function drawBars(ctx,data){
-		var canvas = ctx.canvas,
-		mouse = interactCanvas.getCanvasMousePosition(canvas),
-		mouseHover = {};
-
-		ctx.save();
-		for (var name in data){
-			var innerRadius = barConfig[name].innerRadius*draw.ratio,
-			outerRadius = barConfig[name].outerRadius*draw.ratio,
-			opacity = barConfig[name].opacity,
-			hoverOpacity = barConfig[name].hoverOpacity,
-			activeOpacity = barConfig[name].activeOpacity;
-
-			ctx.fillStyle=barConfig[name].color;
-
-			for (var i = 0; i < data[name].length; i++){
-				var startRadians=helpers.minutesToRadians(data[name][i].start);
-				var endRadians=helpers.minutesToRadians(data[name][i].end);
-				var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
-				var count;
-
-				if(typeof data[name][i].phantom != 'undefined'){
-					count = data[name][i].phantom;
-				}else{
-					count = i;
-				}
-
-				ctx.beginPath();
-				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
-				ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
-				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
-				ctx.closePath();
-
-				if(ctx.isPointInPath(mouse.x,mouse.y)){
-					mouseHover = {name:name,count:count,type:'whole'};
-				}
-			
-				if(interactCanvas.isActive(name,count,'whole') || interactCanvas.isSelected(name,count)){
-					ctx.globalAlpha = activeOpacity;
-				}
-
-				else if(interactCanvas.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && interactCanvas.isHover(name,count)) || interactCanvas.isHover(name,count,'whole')){
-					ctx.globalAlpha=hoverOpacity;
-				}
-
-				else{
-					ctx.globalAlpha=opacity;
-				}
-				ctx.fill();
-
-			}
+				degrees=(helpers.degreesToRadiens((15*i)+270));
+				xval=width/2+Math.cos(degrees)*numberRadius;
+				yval=height/2+Math.sin(degrees)*numberRadius;
+				if(i===0)
+					ctx.fillText("0",xval,yval);
+				else if(i==12)
+					ctx.fillText("12",xval,yval);
+				else
+					ctx.fillText(i,xval,yval);
+			}}
 		}
+
+		function clearClockCircle(ctx,radius){
+			var width = ctx.canvas.width;
+			var height = ctx.canvas.height;
+
+			ctx.save();
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.beginPath();
+			ctx.arc(width/2,height/2,radius,0,2*Math.PI, false);
+			ctx.lineTo(width/2,height/2);
+			ctx.closePath();
+			ctx.fill();
+			ctx.restore();
+		}
+
+		function drawBars(ctx,data){
+			var canvas = ctx.canvas,
+			mouse = interactCanvas.getCanvasMousePosition(canvas),
+			mouseHover = {};
+
+			ctx.save();
+			for (var name in data){
+				var innerRadius = barConfig[name].innerRadius*draw.ratio,
+				outerRadius = barConfig[name].outerRadius*draw.ratio,
+				opacity = barConfig[name].opacity,
+				hoverOpacity = barConfig[name].hoverOpacity,
+				activeOpacity = barConfig[name].activeOpacity;
+
+				ctx.fillStyle=barConfig[name].color;
+
+				for (var i = 0; i < data[name].length; i++){
+					var startRadians=helpers.minutesToRadians(data[name][i].start);
+					var endRadians=helpers.minutesToRadians(data[name][i].end);
+					var lineToXY=helpers.minutesToXY(data[name][i].end,innerRadius);
+					var count;
+
+					if(typeof data[name][i].phantom != 'undefined'){
+						count = data[name][i].phantom;
+					}else{
+						count = i;
+					}
+
+					ctx.beginPath();
+					ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+					ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
+					ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+					ctx.closePath();
+
+					if(ctx.isPointInPath(mouse.x,mouse.y)){
+						mouseHover = {name:name,count:count,type:'whole'};
+					}
+
+					if(interactCanvas.isActive(name,count,'whole') || interactCanvas.isSelected(name,count)){
+						ctx.globalAlpha = activeOpacity;
+					}
+
+					else if(interactCanvas.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && interactCanvas.isHover(name,count)) || interactCanvas.isHover(name,count,'whole')){
+						ctx.globalAlpha=hoverOpacity;
+					}
+
+					else{
+						ctx.globalAlpha=opacity;
+					}
+					ctx.fill();
+
+				}
+			}
 		//notify interactCanvas module about which elements are being
 		//hovered. Used for hit detection
 		if(interactCanvas.mouseIsOverCanvas()){
@@ -348,11 +348,11 @@ window.draw=(function(){
 				ctx.closePath();
 				ctx.stroke();
 
-				}
-
 			}
-		ctx.restore();
+
 		}
+		ctx.restore();
+	}
 
 	function drawShadows(ctx,data){
 		ctx.save();
@@ -382,11 +382,11 @@ window.draw=(function(){
 				ctx.fill();
 				ctx.restore();
 
-					
+
 			}
 		}
 		ctx.restore();
-	
+
 	}
 
 	function drawBlurCircle(ctx){
@@ -492,80 +492,96 @@ window.draw=(function(){
 		ctx.restore();
 	}
 
-	function drawTimeHandles(){
-		restacker();
-		dataKeys=Object.keys(data);
-		for(d=0;d<dataKeys.length;d++){
-		countKeys=Object.keys(data[dataKeys[d]]);
-		for(i=0;i<countKeys.length;i++){
-			//durationText
-			duration=range(data[dataKeys[d]][countKeys[i]].start,data[dataKeys[d]][countKeys[i]].end);
-			middlepoint=calc(data[dataKeys[d]][countKeys[i]].start,(duration/2));
-			if(dataKeys[d]=="alfa")
-			o=minutesToXY_OIC(middlepoint,110);
-			else
-			o=minutesToXY_OIC(middlepoint,40);
-			div=document.getElementById('durationText'+dataKeys[d]+countKeys[i]);
-			if(duration>119){
-			m=minutesToStatistics(duration);
-			c=m[0]+"h "+m[1]+"m";
-			div.innerHTML=c;
-			}else{
-			div.innerHTML=Math.floor(duration)+"m";
-			}
-			div.style.left=o.x-div.clientWidth/2+"px";
-			div.style.top=o.y-div.clientHeight/2+"px";
-			//timeHandles
-			if(dataKeys[d]=="charlie"||dataKeys[d]=="alfa")
-			for(f=0;f<2;f++){
-			o=minutesToXY_OIC(data[dataKeys[d]][countKeys[i]][startend[f]],120);
-			div=document.getElementById('timeHandles'+dataKeys[d]+countKeys[i]+startend[f]);
-			div.innerHTML=minutesToClock(data[dataKeys[d]][countKeys[i]][startend[f]]);
-			div.style.left=o.x-div.clientWidth/2+"px";
-			div.style.top=o.y-div.clientHeight/2+"px";
-			}
-			else if(dataKeys[d]=="delta"){
-				o=minutesToXY_OIC(data[dataKeys[d]][countKeys[i]].start,120);
-				div=document.getElementById('timeHandles'+dataKeys[d]+countKeys[i]+"start");
-				div.innerHTML=minutesToClock(data[dataKeys[d]][countKeys[i]].start);
-				div.style.left=o.x-div.clientWidth/2+"px";
-				div.style.top=o.y-div.clientHeight/2+"px";
-				
-			}
-			//descriptionText
-			o=minutesToXY_OIC(middlepoint,130);
-			if(dataKeys[d]=="alfa"){
-			div=document.getElementById('descriptionText'+dataKeys[d]+countKeys[i]);
-			div.innerHTML=data[dataKeys[d]][countKeys[i]].desc;
-			div.style.left=o.x-div.clientWidth/2+"px";
-			div.style.top=o.y-div.clientHeight/2+"px";
-			}else{
+	function drawDistanceToNearElements(ctx,data,selectedElement,bars){
+		// draws the distance to the nearby elements of the selected element
+		var array = [], elementPush, selected, before, after;
 
-			}
-		}
-		}
-	}
+		if(bars.indexOf(selectedElement.name) == -1)
+			return;
 
-	function drawStackedDescriptionText(){
-		dataKeys=["charlie","delta"];
-		for(d=0;d<dataKeys.length;d++){
-			for(i=0;i<stack[dataKeys[d]].length;i++){
-				//ok, denne er litt på kanten lars. her har jeg brukt litt omvendt sykologi. heheheh
-				count=stack[dataKeys[d]][i][1];
-				duration=range(data[dataKeys[d]][count].start,data[dataKeys[d]][count].end);
-				middlepoint=calc(data[dataKeys[d]][count].start,(duration/2));
-				div=document.getElementById('descriptionText'+dataKeys[d]+count);
-				if(dataKeys[d]=="charlie"){
-				div.innerHTML="Core";
-				o=minutesToXY_OIC(middlepoint,120);
+		// FIRST - find the elements near the selected element (max one on each side):
+
+		// loop through the bar types specified
+		for (var i = 0; i < bars.length; i++){
+
+			if(typeof data[bars[i]] == 'undefined')
+				continue;
+
+			//add elements into new array
+			for(var f = 0; f < data[bars[i]].length; f++){
+
+				if(typeof data[bars[i]][f] != 'undefined' ){
+					elementPush = data[bars[i]][f];
+
+					if(interactCanvas.isSelected(bars[i],f)){
+						elementPush.selected = true;
+					}
+
+					array.push(elementPush);
 				}
-				else{
-				div.innerHTML="Nap";
-				o=minutesToXY_OIC(middlepoint,140);
-				}div.style.left=o.x-div.clientWidth/2+"px";
-				div.style.top=o.y-div.clientHeight/2+"px";
 			}
 		}
+
+		//nothing to do if only one element
+		if(array.length == 1)
+			return;
+
+		//sort array
+		array = array.sort(function(a, b){
+			return a.start-b.start
+		});
+
+		//find out which element in new array is the selected one
+		for(var i = 0; i < array.length; i++){
+			if(typeof array[i].selected != 'undefined'){
+				selected = i;
+			}
+		}
+
+		//ok, great we have an array with sorted values and know what element is selected
+		//then all we have to do is to find the two elements besides the selected element in the array, right?
+		before = selected - 1;
+		if(before < 0)
+			before = array.length - 1;
+
+		after = selected + 1;
+		if(after > array.length - 1)
+			after = 0;
+
+		//SECOND - find out if they are close enough, then draw
+		var radius = 45*draw.ratio;
+		var canvas = ctx.canvas;
+		ctx.strokeStyle= 'grey';
+		ctx.lineWidth= 3;
+
+		//push start and endpoints to draw array
+		var drawArr = [];
+		drawArr.push({
+			start:array[before].end,
+			end:array[selected].start
+		});
+		drawArr.push({
+			start:array[selected].end,
+			end:array[after].start
+		});
+
+		drawArr.forEach(function(element){
+			var distance, start, end, startRadians, endRadians;
+
+			distance = helpers.range(element.start,element.end);
+
+			if(distance <= 480){
+				start = element.start;
+				end = element.end;
+				startRadians=helpers.minutesToRadians(start);
+				endRadians=helpers.minutesToRadians(end);
+	
+				ctx.beginPath();
+				ctx.arc(canvas.width/2,canvas.height/2,radius,startRadians,endRadians);
+				ctx.stroke();
+			}
+		});
+			
 	}
 
 	return { //exposed to public
@@ -599,7 +615,7 @@ window.draw=(function(){
 		drawFrame:function(data){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
-			var dataWithPhantoms;
+			var dataWithPhantomsl, selectedElement;
 
 			//clone data object
 			data = JSON.parse(JSON.stringify(data));
@@ -608,7 +624,8 @@ window.draw=(function(){
 			// this will be used for some functions, while other functions use data
 			dataWithPhantoms = removeOverlapping(data,'busy','nap');
 
-			//lastData = data;
+			selectedElement = interactCanvas.returnSelected();
+
 			ctx=draw.ctx;
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
@@ -619,14 +636,21 @@ window.draw=(function(){
 			drawBars(ctx,dataWithPhantoms);
 
 			if(typeof clockConfig.blurCircle != "undefined")
-			drawBlurCircle(ctx);
+				drawBlurCircle(ctx);
 			drawSelected(ctx,dataWithPhantoms);
 			strokeBars(ctx,dataWithPhantoms);
 
 			ctx.save();
 			ctx.globalAlpha=interactCanvas.getSelectedOpacity();
+
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
+
+			if(typeof selectedElement.name != 'undefined'){
+				//something is selected
+				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
+			}
+
 			ctx.restore();
 
 		},
@@ -642,29 +666,6 @@ window.draw=(function(){
 }());
 
 napchartCore.initialize();
-
-
-window.render = function() {
-canvasRound++;
-keys=Object.keys(data.charlie);
-
-if(canvasRound%8===0)
-statistics();
-
-if(cores!=Object.keys(data.charlie).length||naps!=Object.keys(data.delta).length){
-	changeActiveSchedule();
-	cores=Object.keys(data.charlie).length;
-	naps=Object.keys(data.delta).length;
-}
-
-//asdfasdf
-if(debugging)
-debuggerScript();
-
-	  requestAnimationFrame(render);
-   };
-	//render();
-	
 
 
 }); 
