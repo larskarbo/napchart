@@ -26,18 +26,7 @@ window.statistics=(function(){
 		return minutes;
 	}
 
-	function prettyTime(min){
-		var hours, minutes;
 
-		hours = Math.floor(min / 60) + "";
-		minutes = min % 60 + "";
-		minutes = Math.floor(minutes);
-
-		return {
-			hours:hours,
-			minutes:minutes
-		};
-	};
 
 	//public:
 	return{
@@ -49,10 +38,10 @@ window.statistics=(function(){
 			var sleep, free;
 
 			sleep = totalTime( helpers.merge(data,['core','nap']) );
-			sleep = prettyTime( sleep );
+			sleep = helpers.minutesToHoursMinutes( sleep );
 
 			free = totalTime( helpers.merge(data,['nap','core','busy']) ,true);
-			free = prettyTime( free );
+			free = helpers.minutesToHoursMinutes( free );
 
 
 

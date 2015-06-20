@@ -499,6 +499,9 @@ $(document).ready(function(){
 		if(bars.indexOf(selectedElement.name) == -1)
 			return;
 
+		if(!interactCanvas.isActive(selectedElement.name,selectedElement.count))
+			return;
+
 		// FIRST - find the elements near the selected element (max one on each side):
 
 		// loop through the bar types specified
@@ -550,9 +553,15 @@ $(document).ready(function(){
 
 		//SECOND - find out if they are close enough, then draw
 		var radius = 45*draw.ratio;
+		var textRadius = 36*draw.ratio;
 		var canvas = ctx.canvas;
-		ctx.strokeStyle= 'grey';
+		var fontSize = 6 * draw.ratio;
+		ctx.strokeStyle= '#d2d2d2';
 		ctx.lineWidth= 3;
+		ctx.font = fontSize + "px verdana";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.globalAlpha = ctx.globalAlpha*0.5;
 
 		//push start and endpoints to draw array
 		var drawArr = [];
@@ -566,19 +575,27 @@ $(document).ready(function(){
 		});
 
 		drawArr.forEach(function(element){
-			var distance, start, end, startRadians, endRadians;
+			var distance, start, end, middle, startRadians, endRadians, text;
 
 			distance = helpers.range(element.start,element.end);
+			text = helpers.minutesToReadable(distance);
 
-			if(distance <= 480){
+			if(distance <= 720 && distance >= 90){
 				start = element.start;
 				end = element.end;
-				startRadians=helpers.minutesToRadians(start);
-				endRadians=helpers.minutesToRadians(end);
-	
+				middle = helpers.calc(start,distance/2);
+
+				startRadians = helpers.minutesToRadians(start);
+				endRadians = helpers.minutesToRadians(end);
+				middleXY = helpers.minutesToXY(middle, textRadius, canvas.width/2, canvas.height/2)
+				
+				//stroke
 				ctx.beginPath();
 				ctx.arc(canvas.width/2,canvas.height/2,radius,startRadians,endRadians);
 				ctx.stroke();
+
+				//text
+				ctx.fillText(text,middleXY.x,middleXY.y);
 			}
 		});
 			

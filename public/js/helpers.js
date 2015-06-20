@@ -372,9 +372,29 @@ helpers.minutesToRadians = function (minutt) {
     return ((Math.PI / 720) * (minutt - 360));
 };
 
-helpers.radiensTilMinutt = function (deg) {
-    return ((Math.PI / 180) * (deg));
+helpers.minutesToHoursMinutes = function (min){
+
+    hours = Math.floor(min / 60) + "";
+    minutes = min % 60 + "";
+    minutes = Math.floor(minutes);
+
+    return {
+        hours:hours,
+        minutes:minutes
+    };
 };
+
+helpers.minutesToReadable = function (min){
+    //extends minutesToHoursMinutes and adds h and m
+    var hm;
+
+    if(min > 120){
+        hm = helpers.minutesToHoursMinutes(min);
+        return hm.hours + 'h ' + hm.minutes + 'm';
+    }else{
+        return min + 'm';
+    }
+}
 
 helpers.minutesToXY = function (minutes, radius, basewidth, baseheight) {
     if(typeof basewidth == 'undefined')
