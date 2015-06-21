@@ -23,6 +23,7 @@ window.napchartCore=(function(){
 			draw.drawUpdate();
 			formInput.initialize(document.getElementById('formInputContainer'));
 			dom.bindAddButtons();
+			dom.bindSaveButton(document.getElementById('saveContainer'));
 			statistics.initialize(document.getElementById('stat-container'));
 
 			//maybe throw this into a chartLoader module?
@@ -127,6 +128,15 @@ window.napchartCore=(function(){
 				draw.drawUpdate();
 			});
 
+		},
+
+		setURL:function(chartid){
+			//tell dom module to show input field with correct url
+			dom.setURL(chartid);
+
+			/*IF url in browser is wrong*/
+				//change url in browser
+				window.history.pushState({chartid:chartid}, "", '/'+chartid);
 		}
 	};
 

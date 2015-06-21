@@ -11,17 +11,18 @@ window.server=(function(){
 
 	//public:
 	return{
-		saveNew:function(data){
+		saveNew:function(data, callback){
 			var json = JSON.stringify(data);
 
 			$.post( "post", {data: json })
-			  .done(function() {
-			    alert( "success" );
+			  .done(function(chartid) {
+			    callback(true,chartid);
 			  })
-			  .fail(function() {
-			    alert( "error" );
+			  .fail(function(error) { //// TODO check if this works
+			    callback(false,error);
 			  })
-			  
+			
+
 		},
 
 		load:function(){

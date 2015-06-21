@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Napchart - Polyphasic Sleep Visualizer</title>
+<title>Napchart - Polyphasic Sleep Planner</title>
 <% include ../partials/head.ejs %>
 </head>
 
 <body>
 
-<nav class="top-nav red">
+<div class="top-nav grey">
     <div class="nav-wrapper">
     <% include ../partials/logo.ejs %>
-    <div class="btn waves-effect waves-light"><i class="fa fa-copy left"></i>save</div>
-
-    <!--<input spellcheck="false" value="napchart.com/fT6Ty" type="text" id="saveURL">
+    <div class="center" id="saveContainer">
+    	<div class="btn waves-effect waves-light"><i class="fa fa-copy left"></i>save</div>
+    	<input spellcheck="false" type="text" id="urlField" />
+    </div>
+    <!--
     <div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>-->
 
 
@@ -20,7 +22,7 @@
 
     </div>
 
-</nav>
+</div>
 
 
 	<% include ../partials/chart.ejs %>

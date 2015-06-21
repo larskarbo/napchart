@@ -35,6 +35,20 @@ body{
 	background-color:#F4F4F4;
 	margin:0;
 }
+
+body,
+button,
+input,
+select,
+textarea {
+	color: black;
+	color: hsl(0, 0%, 0%);
+	font-size: 1.3rem;
+	line-height: 1.5;
+    font-family: 'Roboto', sans-serif;
+	margin:0;padding:0;height:100%;
+}
+
 ::selection {
 	background: #d3d3d3; /* WebKit/Blink Browsers */
 }
@@ -51,7 +65,6 @@ body{
 	font-size: 34px;
 	font-family:Tahoma;
 	letter-spacing: 4px;
-	float:left;
 }
 
 #logo>a:link,#logo>a:visited {
@@ -67,6 +80,22 @@ body{
 }
 
 
+#urlField {
+	visibility:hidden;
+	width:0;
+    background:rgb(237,237,237);
+    border: 1px solid black;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1;
+    padding:8px;
+    color:black;
+	float: left;
+}
+#urlField:focus {
+    color:#cb2929;
+    outline-color: #cc2828;
+}
 
 
 /**************************
@@ -102,9 +131,6 @@ body{
 	background-color: #c57171;
 }
 
-input{
-	border:solid 1px grey !important;
-}
 
 /**************************
 8.0   Statistics

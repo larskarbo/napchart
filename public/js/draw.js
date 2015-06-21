@@ -580,7 +580,7 @@ $(document).ready(function(){
 			distance = helpers.range(element.start,element.end);
 			text = helpers.minutesToReadable(distance);
 
-			if(distance <= 720 && distance >= 90){
+			if(distance <= 720 && distance >= 60){
 				start = element.start;
 				end = element.end;
 				middle = helpers.calc(start,distance/2);
