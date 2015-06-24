@@ -556,6 +556,9 @@ $(document).ready(function(){
 		var textRadius = 36*draw.ratio;
 		var canvas = ctx.canvas;
 		var fontSize = 6 * draw.ratio;
+
+		ctx.save();
+
 		ctx.strokeStyle= '#d2d2d2';
 		ctx.lineWidth= 3;
 		ctx.font = fontSize + "px verdana";
@@ -598,7 +601,30 @@ $(document).ready(function(){
 				ctx.fillText(text,middleXY.x,middleXY.y);
 			}
 		});
-			
+		
+		ctx.restore();
+	}
+
+	function drawElementInfo(ctx,selected){
+		var element, name, count, text, duration;
+		var canvas = ctx.canvas;
+
+		name = selected.name;
+		count = selected.count;
+		element = napchartCore.returnElement(name,count);
+		text = name + ' ' + (count+1);
+		duration = helpers.minutesToReadable( helpers.range(element.start, element.end) );
+		console.log(duration);
+
+		ctx.save();
+		ctx.font = 5 * draw.ratio + "px verdana";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.globalAlpha = ctx.globalAlpha*0.8;
+
+		ctx.fillText(text + ' | ' + duration,canvas.width/2,canvas.height/2);
+
+		ctx.restore();
 	}
 
 	return { //exposed to public
@@ -666,6 +692,7 @@ $(document).ready(function(){
 			if(typeof selectedElement.name != 'undefined'){
 				//something is selected
 				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
+				drawElementInfo(ctx,selectedElement);
 			}
 
 			ctx.restore();

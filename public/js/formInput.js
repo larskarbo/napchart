@@ -16,11 +16,12 @@ window.formInput=(function(){
 		className = name+count;
 		add = '<div class="'+className+' inputBox">';
 		add += name + ' ' + (count+1);
-		add += ':  <input class="clock start" maxlength="4" type="text">';
-		add += ' - <input class="clock end" maxlength="4" type="text">';
+		add += ':  <input class="clock start" length="4" type="text">';
+		add += ' - <input class="clock end" length="4" type="text">';
 		add += '<input type="hidden" name="name" value="'+name+'">';
 		add += '<input type="hidden" name="count" value="'+count+'">';
 		add += '<button class="remove">remove</button>';
+		add += 'Note: <input type="text" class="note">';
 		add += '</div>';
 
 		$(container).append(add);
