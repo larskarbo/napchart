@@ -59,6 +59,9 @@ $(document).ready(function(){
 				lineWidth:1,
 				expand:0.5
 			}
+		},
+		general:{
+			textSize:5
 		}
 	};
 
@@ -555,7 +558,7 @@ $(document).ready(function(){
 		var radius = 45*draw.ratio;
 		var textRadius = 36*draw.ratio;
 		var canvas = ctx.canvas;
-		var fontSize = 6 * draw.ratio;
+		var fontSize = barConfig.general.textSize * draw.ratio;
 
 		ctx.save();
 
@@ -606,23 +609,81 @@ $(document).ready(function(){
 	}
 
 	function drawElementInfo(ctx,selected){
-		var element, name, count, text, duration;
+		var element, name, count, duration, middle, radius;
+		var position = {};
+		var radius = 14 * draw.ratio;
 		var canvas = ctx.canvas;
 
 		name = selected.name;
 		count = selected.count;
 		element = napchartCore.returnElement(name,count);
-		text = name + ' ' + (count+1);
 		duration = helpers.minutesToReadable( helpers.range(element.start, element.end) );
-		console.log(duration);
+
+		//find position
+		middle = helpers.middle(element.start,element.end);
+		position = helpers.minutesToXY(middle, radius, canvas.width/2, canvas.height/2);
 
 		ctx.save();
-		ctx.font = 5 * draw.ratio + "px verdana";
+
+		//ctx config
+		ctx.font = barConfig.general.textSize * draw.ratio + "px verdana";
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
-		ctx.globalAlpha = ctx.globalAlpha*0.8;
+		ctx.globalAlpha = ctx.globalAlpha*0.6;
 
-		ctx.fillText(text + ' | ' + duration,canvas.width/2,canvas.height/2);
+		//draw
+		ctx.fillText(duration,position.x,position.y);
+
+		ctx.restore();
+	}
+
+	function drawTimeIndicators(ctx,selected){
+		var element, name, count, duration, radius, time;
+		var position = {};
+		var pointsToDraw = [];
+		var canvas = ctx.canvas;
+
+		name = selected.name;
+		count = selected.count;
+		element = napchartCore.returnElement(name,count);
+		duration = helpers.range(element.start, element.end);
+		radius = (barConfig[name].outerRadius + 4) * draw.ratio;
+
+		//push start
+		pointsToDraw.push({
+			minutes:element.start
+		});
+
+		//if element is big enough, push end
+		if(duration > 90){
+			pointsToDraw.push({
+				minutes:element.end
+			});
+		}
+
+		ctx.save();
+
+		//ctx config
+		ctx.font = 3 * draw.ratio + "px verdana";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.globalAlpha = ctx.globalAlpha*0.4;
+
+		for(var i = 0; i < pointsToDraw.length; i++){
+
+			minutes = pointsToDraw[i].minutes;
+
+			//skip if close to 0, 4, 8, 12, 16 or 20 (every 240 minutes)
+			if(minutes%240 <= 15 || minutes%240 >= 225)
+				continue;
+
+			time = helpers.minutesToClock(minutes);
+			position = helpers.minutesToXY(minutes, radius, canvas.width/2, canvas.height/2);
+
+			//draw
+			ctx.fillText(time,position.x,position.y);
+		}
+
 
 		ctx.restore();
 	}
@@ -693,6 +754,7 @@ $(document).ready(function(){
 				//something is selected
 				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
 				drawElementInfo(ctx,selectedElement);
+				drawTimeIndicators(ctx,selectedElement);
 			}
 
 			ctx.restore();

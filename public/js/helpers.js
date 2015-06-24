@@ -316,6 +316,14 @@ helpers.range = function (start, end) {
     }
 };
 
+helpers.middle = function (start, end) {
+    var distance, middle;
+    distance = helpers.range(start, end);
+    middle = helpers.calc(start, distance/2);
+
+    return middle;
+};
+
 helpers.rangeObject = function (arr) {
     return range(arr.start, arr.end);
 };
