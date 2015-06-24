@@ -371,6 +371,20 @@ helpers.minutesToClock = function (minutes) {
 
 };
 
+helpers.clockToMinutes = function (clock) {
+    var hours, minutes, total;
+
+    if(clock.length != 4){
+        console.warn('clock value not correct length');
+        return
+    }
+
+    hours = clock.substring(0,2);
+    minutes = clock.substring(2,4)*1;
+    total = minutes + (hours*60);
+
+    return total;
+}
 
 helpers.degreesToRadiens = function (deg) {
     return ((Math.PI / 180) * (deg));

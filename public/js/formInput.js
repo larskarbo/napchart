@@ -63,6 +63,51 @@ window.formInput=(function(){
 		})
 	}
 
+	function unfocus(){
+		var block, name, count, type, minutes, clock;
+		var newElement = {};
+
+		block = $(this).parent();
+
+		name = $(block).find('[name="name"]').val();
+		count = $(block).find('[name="count"]').val();
+
+		if($(this).hasClass('start'))
+			type = 'start';
+		else if($(this).hasClass('end'))
+			type = 'end';
+
+		clock = validate($(this).val());
+		$(this).val(clock);
+		minutes = helpers.clockToMinutes(clock);
+
+		newElement[type] = minutes;
+
+		napchartCore.modifyElement(name,count,newElement);
+	}
+
+	function validate(value){
+		var hours, minutes;
+
+		if(value.length == 1)
+			value="0"+value+"00";
+		if(value.length == 2)
+			value=value+"00";
+		if(value.length == 3)
+			value="0"+value;
+		
+		hours = value.substring(0,2);
+		minutes = value.substring(2,4);
+
+		if(hours<=23 && minutes<=59){
+			return value;
+		}else{
+			return false;
+		}
+		
+
+	}
+
 	//public:
 	return{
 		initialize:function(containerDiv){
@@ -73,6 +118,9 @@ window.formInput=(function(){
 
 			//bind hover events
 			dom.bindHoverOnFormInput(container);
+
+			//bind unfocus events
+			$(container).on('blur','.clock',unfocus);
 		},
 
 		setData:function(data){
