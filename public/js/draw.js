@@ -584,7 +584,7 @@ $(document).ready(function(){
 			var distance, start, end, middle, startRadians, endRadians, text;
 
 			distance = helpers.range(element.start,element.end);
-			text = helpers.minutesToReadable(distance);
+			text = helpers.minutesToReadable(distance, 120);
 
 			if(distance <= 720 && distance >= 60){
 				start = element.start;
@@ -617,7 +617,7 @@ $(document).ready(function(){
 		name = selected.name;
 		count = selected.count;
 		element = napchartCore.returnElement(name,count);
-		duration = helpers.minutesToReadable( helpers.range(element.start, element.end) );
+		duration = helpers.minutesToReadable( helpers.range(element.start, element.end) ,120);
 
 		//find position
 		middle = helpers.middle(element.start,element.end);

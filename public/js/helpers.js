@@ -392,11 +392,14 @@ helpers.minutesToHoursMinutes = function (min){
     };
 };
 
-helpers.minutesToReadable = function (min){
+helpers.minutesToReadable = function (min,breakpoint){
     //extends minutesToHoursMinutes and adds h and m
     var hm;
+    if(typeof breakpoint == 'undefined'){
+        breakpoint = 60
+    }
 
-    if(min > 120){
+    if(min > breakpoint){
         hm = helpers.minutesToHoursMinutes(min);
         return hm.hours + 'h ' + hm.minutes + 'm';
     }else{

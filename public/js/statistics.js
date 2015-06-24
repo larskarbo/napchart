@@ -38,15 +38,15 @@ window.statistics=(function(){
 			var sleep, free;
 
 			sleep = totalTime( helpers.merge(data,['core','nap']) );
-			sleep = helpers.minutesToHoursMinutes( sleep );
+			sleep = helpers.minutesToReadable( sleep );
 
 			free = totalTime( helpers.merge(data,['nap','core','busy']) ,true);
-			free = helpers.minutesToHoursMinutes( free );
+			free = helpers.minutesToReadable( free );
 
 
 
-			$(".sleep.stat-time").html(sleep.hours + '||' + sleep.minutes);
-			$(".free.stat-time").html(free.hours + '||' + free.minutes);
+			$(".sleep.stat-time").html(sleep);
+			$(".free.stat-time").html(free);
 
 		}
 	}

@@ -21,7 +21,6 @@ window.formInput=(function(){
 		add += '<input type="hidden" name="name" value="'+name+'">';
 		add += '<input type="hidden" name="count" value="'+count+'">';
 		add += '<button class="remove">remove</button>';
-		add += 'Note: <input type="text" class="note">';
 		add += '</div>';
 
 		$(container).append(add);
