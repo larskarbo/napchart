@@ -179,17 +179,18 @@ window.interactCanvas = (function(){
 
 
 		if(dragElement.type=='start'){
-			start = minutes;
+			start = snap(minutes);
 			newValues = {start:start};
 		}
 		else if(dragElement.type=='end'){
-			end = minutes;
+			end = snap(minutes);
 			newValues = {end:end};
 		}
 		else if(dragElement.type=='whole'){
 			positionInElement = dragElement.positionInElement;
 			duration = helpers.range(element.start,element.end);
 			start = helpers.calc(minutes,-positionInElement);
+			start = snap(start);
 			end = helpers.calc(start,duration);
 			newValues = {start:start,end:end};
 		}
@@ -213,6 +214,17 @@ window.interactCanvas = (function(){
 
 	function leave(){
 		mouse = {};
+	}
+
+	function snap(input){
+		var output = input;
+
+		if(input%60 < 7)
+			output = input-input%60;
+		else if(input%60 > 53)
+			output = input+(60-input%60);
+
+		return output;
 	}
 
 	//public:

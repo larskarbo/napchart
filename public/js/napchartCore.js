@@ -15,7 +15,9 @@ window.napchartCore=(function(){
 	//public:
 	return {
 
-		initialize:function(){
+		initialize:function(data){
+			if(typeof data == 'undefined')
+				data = {};
 
 			sampleSchedule.initialize(document.getElementById('sampleSchedules'),document.getElementById('dropdown-title'));
 			interactCanvas.initialize(canvas);
@@ -25,6 +27,10 @@ window.napchartCore=(function(){
 			dom.bindAddButtons();
 			dom.bindSaveButton(document.getElementById('saveContainer'));
 			statistics.initialize(document.getElementById('stat-container'));
+
+			chartHistory.initialize(data);
+
+
 
 			//maybe throw this into a chartLoader module?
 			if(typeof fromServer != 'undefined'){
@@ -51,14 +57,17 @@ window.napchartCore=(function(){
 			}
 
 			scheduleData[name].push(obj);
-			console.log('set schedule',scheduleData)
 			this.setSchedule(scheduleData);
+
+			chartHistory.add(scheduleData,'added '+name)
 		},
 
 		removeElement:function(name,count){
 			scheduleData[name].splice(count,1);
 
 			this.setSchedule(scheduleData);
+
+			chartHistory.add(scheduleData,'removed ' + name + ' ' + (count-1))
 		},
 
 		start:function(){

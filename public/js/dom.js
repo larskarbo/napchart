@@ -87,6 +87,16 @@ window.dom=(function(){
 				$(inputField).animate({width:"220px"});
 			}
 			inputField.value = url;
+		},
+
+		bindBackForward:function(){
+			$(document).on('click','#back',function(){
+				chartHistory.back();
+			});
+
+			$(document).on('click','#forward',function(){
+				chartHistory.forward();
+			});
 		}
 		
 	}
