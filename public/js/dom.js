@@ -63,14 +63,7 @@ window.dom=(function(){
 			$(container).on('click','.btn',function(){
 				data = napchartCore.getSchedule();
 
-				server.saveNew(data, function(success, response){
-					if(success){
-						napchartCore.setURL(response);
-					}else{
-						alert('Something went wrong:\n\n' + response);
-					}
-					console.log(response);
-				})
+				server.saveNew(data, server.callback)
 			})
 		},
 

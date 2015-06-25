@@ -25,6 +25,15 @@ window.server=(function(){
 
 		},
 
+		callback:function(success, response){
+			if(success){
+				napchartCore.setURL(response);
+			}else{
+				alert('Something went wrong:\n\n' + response);
+			}
+			console.log(response);
+		},
+
 		load:function(){
 
 		},
