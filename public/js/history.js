@@ -67,6 +67,11 @@ window.chartHistory=(function(){
 			}
 
 			switchTo(currentElement+1)
+		},
+
+		setChartid:function(chartid){
+			//assign chartid to current history element
+			history[currentElement].chartid = chartid;
 		}
 	}
 

@@ -1,6 +1,5 @@
-$(document).ready(function(){
 
-	window.draw=(function(){
+window.draw=(function(){
 	//private inside function
 
 	// used when calling drawUpdate()
@@ -770,8 +769,3 @@ $(document).ready(function(){
 		}
 	};
 }());
-
-napchartCore.initialize();
-
-
-}); 

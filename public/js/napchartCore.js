@@ -143,9 +143,16 @@ window.napchartCore=(function(){
 			//tell dom module to show input field with correct url
 			dom.setURL(chartid);
 
-			/*IF url in browser is wrong*/
+			// if url in browser is wrong
+			if(window.location.pathname != '/'+chartid){
 				//change url in browser
 				window.history.pushState({chartid:chartid}, "", '/'+chartid);
+			}else{
+				console.info('url was right',chartid)
+			}
+
+			//notify chartHistory that current history elements should be linked with this chartid
+			chartHistory.setChartid(chartid);
 		}
 	};
 
