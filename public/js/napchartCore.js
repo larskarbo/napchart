@@ -59,7 +59,7 @@ window.napchartCore=(function(){
 			scheduleData[name].push(obj);
 			this.setSchedule(scheduleData);
 
-			chartHistory.add(scheduleData,'added '+name)
+			chartHistory.add(scheduleData,'added '+name);
 		},
 
 		removeElement:function(name,count){
@@ -67,7 +67,7 @@ window.napchartCore=(function(){
 
 			this.setSchedule(scheduleData);
 
-			chartHistory.add(scheduleData,'removed ' + name + ' ' + (count-1))
+			chartHistory.add(scheduleData,'removed ' + name + ' ' + (count-1));
 		},
 
 		start:function(){

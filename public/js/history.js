@@ -39,13 +39,15 @@ window.chartHistory=(function(){
 
 			//if currentElement is not at the end, delete the elements after current
 			if(currentElement != history.length-1){
-				//TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				history.splice(currentElement+1,history.length-(currentElement+1));
 			}
 
 			history.push({
 				data:data,
 				action:action
 			});
+
+			console.table(history);
 
 			//add to counter
 			currentElement++;

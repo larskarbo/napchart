@@ -201,10 +201,17 @@ window.interactCanvas = (function(){
 	}
 
 	function up(){
+		if(activeElements.length != 0){
+			console.log(activeElements)
+			chartHistory.add(napchartCore.getSchedule(),'moved ' + activeElements[0].name + ' ' + (activeElements[0].count+1));
+		}
+
+
 		//function must be modified when adding multitouch support
 		activeElements = [];
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+
 	}
 
 	function setCoordinates(e){
