@@ -22,12 +22,42 @@ window.chartHistory=(function(){
 		currentElement = index;
 	}
 
+	function checkBackForwardButtons(){
+
+		var enabledClasses = 'black-text grey lighten-3 waves-effect';
+		var disabledClasses = 'grey-text grey lighten-2 disabled';
+
+		if(currentElement == history.length-1){
+			//disable forward button
+			$('.history#forward').removeClass(enabledClasses);
+			$('.history#forward').addClass(disabledClasses);
+		}else{
+			//enable forward button
+			$('.history#forward').removeClass(disabledClasses);
+			$('.history#forward').addClass(enabledClasses);
+		}
+
+		if(currentElement == 0){
+			//disable back button
+			$('.history#back').removeClass(enabledClasses);
+			$('.history#back').addClass(disabledClasses);
+		}else{
+			//enable back button
+			$('.history#back').removeClass(disabledClasses);
+			$('.history#back').addClass(enabledClasses);
+		}
+
+
+	}
+
 	//public:
 	return{
 		initialize:function(data){
 			chartHistory.add(data,'');
 
 			dom.bindBackForward();
+
+			checkBackForwardButtons();
 		},
 
 		add:function(data,action){
@@ -51,6 +81,8 @@ window.chartHistory=(function(){
 
 			//add to counter
 			currentElement++;
+
+			checkBackForwardButtons();
 		},
 
 		back:function(){
@@ -60,6 +92,8 @@ window.chartHistory=(function(){
 			}
 
 			switchTo(currentElement-1);
+
+			checkBackForwardButtons()
 		},
 
 		forward:function(){
@@ -68,7 +102,9 @@ window.chartHistory=(function(){
 				return;
 			}
 
-			switchTo(currentElement+1)
+			switchTo(currentElement+1);
+
+			checkBackForwardButtons()
 		},
 
 		setChartid:function(chartid){

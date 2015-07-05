@@ -8,16 +8,15 @@
 <body>
 
 <div class="top-nav grey">
-    <div class="nav-wrapper">
+    <div class="nav-wrapper topnav">
     <% include ../partials/logo.ejs %>
-    <div class="center" id="saveContainer">
-    	<div class="btn waves-effect waves-light"><i class="fa fa-copy left"></i>save</div>
-    	<input spellcheck="false" type="text" id="urlField" />
-    </div>
-    <div class="waves-effect waves-light pink btn" id="back">Back</div>
-    <div class="waves-effect waves-light blue btn" id="forward">Forward</div>
+    <div class="btn waves-effect waves-light"><i class="fa fa-link"></i> save</div>
+    <div class=" btn history disabled" id="back"><i class="fa fa-undo"></i></div>
+    <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
     <!--
-    <div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>-->
+    <div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>
+
+        <input spellcheck="false" type="text" id="urlField" />-->
 
 
 <% //include ../partials/shareButtons.ejs %>
@@ -53,7 +52,6 @@
 <script src="js/barhandler.js"></script>
 <script src="js/sampleSchedules.js"></script>
 <script src="js/napchartCore.js"></script>
-<script src="zeroclipboard/ZeroClipboard.min.js"></script>
 
 <script src="js/application.js"></script>
 

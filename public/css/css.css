@@ -61,8 +61,22 @@ textarea {
 /**************************
 3.0   Header
 *******************/
+.topnav {
+	padding:10px;
+	vertical-align: middle;
+}
+
+.history.btn {
+	padding:0 1rem;
+}
+.history.btn.disabled {
+	
+	padding:0 1rem;
+}
+
 #logo {
-	font-size: 34px;
+	display:inline-block;
+	font-size: 24px;
 	font-family:Tahoma;
 	letter-spacing: 4px;
 }
