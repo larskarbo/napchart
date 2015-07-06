@@ -8,7 +8,9 @@ Requires jQuery
 
 window.dom=(function(){
 	//private
-	var SAVE_CONT = document.getElementById('saveContainer');
+	var SAVE_BTN = document.getElementById('saveButton');
+	var URL_FIELD = document.getElementById('urlField');
+	var NAV_EXT = document.getElementById('navExtension');
 
 	//public:
 	return{
@@ -57,29 +59,33 @@ window.dom=(function(){
 			});
 		},
 
-		bindSaveButton:function(container){
-			var data, chartid;
-			SAVE_CONT = container;
-			$(container).on('click','.btn',function(){
-				data = napchartCore.getSchedule();
+		bindSaveButton:function(){
+			$(SAVE_BTN).on('click',function(){
+				var data = napchartCore.getSchedule();
 
-				server.saveNew(data, server.callback)
+				server.saveNew(data)
 			})
 		},
 
-		setURL:function(chartid){
-			var container, inputField, url;
+		showNavExtension:function(){
+			console.log('etnhs');
+			$(NAV_EXT).show();
+		},
 
-			container = SAVE_CONT;
-			inputField = $(container).find('input')[0];
+		setURL:function(chartid){
+			var inputField, url;
+
+			inputField = URL_FIELD;
 
 			url = 'http://napchart.com/' + chartid;
 
-			if( $(inputField).css('visibility') == 'hidden' ){
-				$(inputField).css('visibility','visible');
-				$(inputField).animate({width:"220px"});
+			if( $(NAV_EXT).css('display') == 'none' ){
+				dom.showNavExtension();
+				
 			}
 			inputField.value = url;
+			$(inputField).val('thethne');
+			console.log(inputField.value);
 		},
 
 		bindBackForward:function(){

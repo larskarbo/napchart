@@ -10,13 +10,13 @@
 <div class="top-nav grey">
     <div class="nav-wrapper topnav">
     <% include ../partials/logo.ejs %>
-    <div class="btn waves-effect waves-light"><i class="fa fa-link"></i> save</div>
+    <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
     <div class=" btn history disabled" id="back"><i class="fa fa-undo"></i></div>
     <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
-    <!--
-    <div id="copyLink"><i id="copyLinkIcon" class="fa fa-copy"></i></div>
 
-        <input spellcheck="false" type="text" id="urlField" />-->
+    <div id="navExtension">
+        <input spellcheck="false" type="text" id="urlField" />
+    </div>
 
 
 <% //include ../partials/shareButtons.ejs %>

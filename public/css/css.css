@@ -93,9 +93,11 @@ textarea {
 	color:#7a1919;
 }
 
+#navExtension {
+	display:none;
+}
 
 #urlField {
-	visibility:hidden;
 	width:0;
     background:rgb(237,237,237);
     border: 1px solid black;

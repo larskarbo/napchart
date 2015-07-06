@@ -16,10 +16,10 @@ window.server=(function(){
 
 			$.post( "post", {data: json })
 			  .done(function(chartid) {
-			    callback(true,chartid);
+			    server.callback(true,chartid);
 			  })
 			  .fail(function(error) { //// TODO check if this works
-			    callback(false,error);
+			    server.callback(false,error);
 			  })
 			
 
