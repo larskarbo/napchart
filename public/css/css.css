@@ -95,18 +95,18 @@ textarea {
 
 #navExtension {
 	display:none;
+	padding-top:10px;
 }
 
 #urlField {
 	width:0;
     background:rgb(237,237,237);
     border: 1px solid black;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 600;
 	line-height: 1;
-    padding:8px;
+    padding:5px;
     color:black;
-	float: left;
 }
 #urlField:focus {
     color:#cb2929;

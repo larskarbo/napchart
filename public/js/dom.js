@@ -81,11 +81,9 @@ window.dom=(function(){
 
 			if( $(NAV_EXT).css('display') == 'none' ){
 				dom.showNavExtension();
-				
+				$(inputField).animate({width:"220px"});
 			}
 			inputField.value = url;
-			$(inputField).val('thethne');
-			console.log(inputField.value);
 		},
 
 		bindBackForward:function(){
