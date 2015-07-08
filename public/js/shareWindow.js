@@ -8,11 +8,8 @@ Uses jQuery
 window.shareWindow=(function(){
 	//private
 	var SHARE_WINDOW;
-
-
-	function open(){
-		$(SHARE_WINDOW).show();
-	}
+	var CHART_IMAGE = $('.chart-preview');
+	var URL_FIELD = $('.share-url-field');
 
 	//public:
 	return{
@@ -22,6 +19,22 @@ window.shareWindow=(function(){
 				return
 			}
 			SHARE_WINDOW = window;
+		},
+
+		open:function(url){
+			var img;
+
+			img = draw.getImage();
+			console.log(CHART_IMAGE);
+
+			$(CHART_IMAGE).attr('src',img);
+
+			$(SHARE_WINDOW).show();
+
+		},
+
+		close:function(){
+			$(SHARE_WINDOW).hide();
 		}
 
 	}

@@ -12,6 +12,11 @@ window.dom=(function(){
 	var URL_FIELD = document.getElementById('urlField');
 	var NAV_EXT = document.getElementById('navExtension');
 
+	$('#shareButton').on('click',function(){
+		shareWindow.open();
+	});
+
+
 	//public:
 	return{
 		bindAddButtons:function(){

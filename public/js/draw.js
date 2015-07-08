@@ -766,6 +766,16 @@ window.draw=(function(){
 
 		getBarConfig:function(){
 			return JSON.parse(JSON.stringify(barConfig));
+		},
+
+		getImage:function(){
+			var ctx = draw.ctx;
+			var canvas = ctx.canvas;
+			var img;
+
+			img = canvas.toDataURL();
+
+			return img;
 		}
 	};
 }());

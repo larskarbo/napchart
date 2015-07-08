@@ -114,15 +114,20 @@ textarea {
 }
 
 /**************************
-4.0   Forminput
+4.0   Share Window
 *******************/
+
 #shareWindow {
+	display:none;
 	z-index:20;
 	position:absolute;
 	top:100px;
 	left:10%;
 	width:80%;
 	padding:20px;
+}
+
+.chart-preview {
 }
 
 /**************************
