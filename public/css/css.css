@@ -116,13 +116,20 @@ textarea {
 /**************************
 4.0   Share Window
 *******************/
-
-#shareWindow {
+#overlay {
 	display:none;
 	z-index:20;
-	position:absolute;
-	top:100px;
-	left:10%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width:100%;
+	height:100%;
+	text-align:center;
+
+	background-color:rgba(0,0,0,0.75);
+}
+#shareWindow {
+	margin:100px auto;
 	width:80%;
 	padding:20px;
 }

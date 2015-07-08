@@ -8,6 +8,7 @@ Uses jQuery
 window.shareWindow=(function(){
 	//private
 	var SHARE_WINDOW;
+	var OVERLAY;
 	var CHART_IMAGE = $('.chart-preview');
 	var URL_FIELD = $('.share-url-field');
 
@@ -19,6 +20,7 @@ window.shareWindow=(function(){
 				return
 			}
 			SHARE_WINDOW = window;
+			OVERLAY = $(SHARE_WINDOW).parent()
 		},
 
 		open:function(url){
@@ -29,12 +31,19 @@ window.shareWindow=(function(){
 
 			$(CHART_IMAGE).attr('src',img);
 
-			$(SHARE_WINDOW).show();
+			$(OVERLAY).show();
 
+			$(OVERLAY).on('click',function(){
+				
+				//check if click is outside the actual share window
+				if(! $(SHARE_WINDOW).is(':hover')){
+					shareWindow.close()
+				}
+			});
 		},
 
 		close:function(){
-			$(SHARE_WINDOW).hide();
+			$(OVERLAY).hide();
 		}
 
 	}
