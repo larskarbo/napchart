@@ -391,12 +391,12 @@ window.draw=(function(){
 
 	}
 
-	function drawBlurCircle(ctx){
+	function drawBlurCircle(ctx,backgroundColor){
 		var width = ctx.canvas.width;
 		var height = ctx.canvas.height;
 
 		ctx.save();
-		ctx.fillStyle=draw.backgroundColor;
+		ctx.fillStyle=backgroundColor;
 		ctx.globalAlpha=clockConfig.blurCircle.opacity;
 		ctx.beginPath();
 		ctx.arc(width/2,height/2,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
@@ -715,10 +715,10 @@ window.draw=(function(){
 			this.cachedBackground=offScreenCanvas;
 			
 		},
-		drawFrame:function(data){
+		drawFrame:function(data,thumb){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
-			var dataWithPhantomsl, selectedElement;
+			var dataWithPhantoms, selectedElement, ctx, backgroundColor;
 
 			//clone data object
 			data = JSON.parse(JSON.stringify(data));
@@ -733,13 +733,17 @@ window.draw=(function(){
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 			if(typeof this.cachedBackground=="undefined")
 				throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()");
-			cachedBackground=this.cachedBackground;
 
-			ctx.drawImage(cachedBackground,0,0);
+			ctx.drawImage(this.cachedBackground,0,0);
+
 			drawBars(ctx,dataWithPhantoms);
-
-			if(typeof clockConfig.blurCircle != "undefined")
-				drawBlurCircle(ctx);
+			if(typeof clockConfig.blurCircle != "undefined"){
+				if(typeof thumb != 'undefined')
+					backgroundColor = 'white';
+				else
+					backgroundColor = draw.backgroundColor;
+				drawBlurCircle(ctx,backgroundColor);
+			}
 			drawSelected(ctx,dataWithPhantoms);
 			strokeBars(ctx,dataWithPhantoms);
 
@@ -760,13 +764,14 @@ window.draw=(function(){
 
 		},
 		drawUpdate:function(){
-			data = napchartCore.getSchedule();//soon draw.getLastData();
+			data = napchartCore.getSchedule();
 			draw.drawFrame(data);
 		},
 
 		getBarConfig:function(){
 			return JSON.parse(JSON.stringify(barConfig));
 		},
+
 
 		getImage:function(){
 			var ctx = draw.ctx;

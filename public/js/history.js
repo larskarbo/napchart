@@ -23,7 +23,6 @@ window.chartHistory=(function(){
 			napchartCore.setURL(history[index].chartid);
 		}
 
-		console.log(history,index,history[index].data);
 		napchartCore.setSchedule(history[index].data);
 		currentElement = index;
 	}
@@ -91,7 +90,6 @@ window.chartHistory=(function(){
 				action:action
 			});
 
-			console.table(history);
 
 			//add to counter
 			currentElement++;
