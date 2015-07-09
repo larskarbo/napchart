@@ -108,6 +108,11 @@ textarea {
     padding:5px;
     color:black;
 }
+
+#urlField.loading {
+	color:grey;
+}
+
 #urlField:focus {
     color:#cb2929;
     outline-color: #cc2828;

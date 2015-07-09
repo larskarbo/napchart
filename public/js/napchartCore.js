@@ -154,6 +154,14 @@ window.napchartCore=(function(){
 
 			//notify chartHistory that current history elements should be linked with this chartid
 			chartHistory.setChartid(chartid);
+		},
+
+		startLoading:function(){
+			dom.startLoading();
+		},
+
+		finishLoading:function(){
+			dom.finishLoading();
 		}
 	};
 

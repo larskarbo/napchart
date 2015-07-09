@@ -17,12 +17,18 @@ window.chartHistory=(function(){
 			console.warn('history element does not exist');
 			return;
 		}
+
+		//check if element has chartid
+		if(typeof history[index].chartid != 'undefined'){
+			napchartCore.setURL(history[index].chartid);
+		}
+
 		console.log(history,index,history[index].data);
 		napchartCore.setSchedule(history[index].data);
 		currentElement = index;
 	}
 
-	function checkBackForwardButtons(){
+	function buttonClick(){
 
 		var enabledClasses = 'black-text grey lighten-3 waves-effect';
 		var disabledClasses = 'grey-text grey lighten-2 disabled';
@@ -57,15 +63,23 @@ window.chartHistory=(function(){
 
 			dom.bindBackForward();
 
-			checkBackForwardButtons();
+			buttonClick();
 		},
 
 		add:function(data,action){
 			//adds a history element to the history array
+
+			//clone data
 			data = helpers.clone(data);
 
 			//data = snapshot of all chart data
 			//action = the last action done
+
+			//check if the new data is different from the previous. If not, abort.
+			if(history.length > 0 && JSON.stringify(data) == JSON.stringify(history[history.length-1].data)){
+				console.log('history: nothing changed');
+				return;
+			}
 
 			//if currentElement is not at the end, delete the elements after current
 			if(currentElement != history.length-1){
@@ -82,7 +96,7 @@ window.chartHistory=(function(){
 			//add to counter
 			currentElement++;
 
-			checkBackForwardButtons();
+			buttonClick();
 		},
 
 		back:function(){
@@ -93,7 +107,7 @@ window.chartHistory=(function(){
 
 			switchTo(currentElement-1);
 
-			checkBackForwardButtons()
+			buttonClick();
 		},
 
 		forward:function(){
@@ -104,12 +118,35 @@ window.chartHistory=(function(){
 
 			switchTo(currentElement+1);
 
-			checkBackForwardButtons()
+			buttonClick();
 		},
 
 		setChartid:function(chartid){
 			//assign chartid to current history element
 			history[currentElement].chartid = chartid;
+		},
+
+		checkIfExists:function(data){
+			//takes a data object and checks if the user has saved an identical data object in the history
+			//returns the chartid
+
+			//json may be a bad way to compare two objects (http://stackoverflow.com/questions/201183/how-to-determine-equality-for-two-javascript-objects)
+			var jsondata = JSON.stringify(data);
+			var element;
+
+			for(var index in history){
+				element = history[index];
+
+				if(typeof element.chartid == 'undefined')
+					continue;
+
+				if(JSON.stringify(element.data) == jsondata){
+
+					return element.chartid;
+				}
+			}
+
+			return false;
 		}
 	}
 

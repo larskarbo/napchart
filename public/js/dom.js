@@ -91,6 +91,23 @@ window.dom=(function(){
 			inputField.value = url;
 		},
 
+		startLoading:function(){
+			var inputField;
+
+			inputField = URL_FIELD;
+
+			$(inputField).addClass('loading');
+			inputField.value = 'loading';
+		},
+
+		finishLoading:function(){
+			var inputField;
+
+			inputField = URL_FIELD;
+
+			$(inputField).removeClass('loading');
+		},
+
 		bindBackForward:function(){
 			$(document).on('click','#back',function(){
 				chartHistory.back();
