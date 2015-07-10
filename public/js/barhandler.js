@@ -74,18 +74,20 @@ window.barhandler = (function(){
 			//removes all bars within the specified name object
 			//names could be: ['nap','core']
 
-			//removes all if names==empty
+			//removes all if names is empty
 
-			var data=napchartCore.getSchedule();
+			var data = napchartCore.getSchedule();
 
 			if(typeof names=='undefined'){
-				names=Object.keys(data)
+				names = Object.keys(data)
 			}
 
 			for(i=0;i<names.length;i++){
 				delete data[names[i]];
 			}
 			napchartCore.setSchedule(data);
+
+			chartHistory.add(napchartCore.getSchedule(),'removed all')
 		}
 	}
 
