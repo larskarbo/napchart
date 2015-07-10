@@ -19,7 +19,6 @@ window.napchartCore=(function(){
 			if(typeof data == 'undefined')
 				data = {};
 
-			sampleSchedule.initialize(document.getElementById('sampleSchedules'),document.getElementById('dropdown-title'));
 			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
 			draw.drawUpdate();
