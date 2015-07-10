@@ -11,9 +11,9 @@
 
 4.0   Sharewindow
 
-5.0   Schedule chooser
+5.0   Toolbar
 
-6.0   Canvas
+6.0   
 
 7.0   Forminput
 
@@ -140,6 +140,12 @@ textarea {
 }
 
 .chart-preview {
+}
+/**************************
+5.0   Toolbar
+*******************/
+#toolbar{
+	padding-top:4px;
 }
 
 /**************************
