@@ -30,6 +30,7 @@ window.napchartCore=(function(){
 			chartHistory.initialize(data);
 			shareWindow.initialize(document.getElementById('shareWindow'));
 
+			feedback.initialize();
 
 
 			//maybe throw this into a chartLoader module?

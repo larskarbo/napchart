@@ -39,6 +39,43 @@ fromServer.data = <%- chart %>;
 			<div class="stat-desc free"></div>
 		</div>
 
+		<div class="card stat-block left feedback" id="feedback-card">
+			<div class="step step-1">
+				<p>Did this app work for you?</p>
+				<input type="radio" name="feedback" class="trigger feedback-radio" id="yes" value="yes"> <label for="yes">Yes</label>
+				<br>
+				<input type="radio" name="feedback" class="trigger feedback-radio" id="no" value="no"> <label for="no">No</label>
+			</div>
+
+			<div class="step step-2 step-3">
+				<p>Thank you for your feedback!</p>
+			</div>
+
+			<div class="step step-2">
+					<p>More?</p>
+				<div class="input-field">
+					<textarea id="feedback-descripition" class="materialize-textarea"></textarea>
+					<label for="feedback-description">Description</label>
+					<div class="trigger btn-flat waves-effect">Send</div>
+				</div>
+			</div>
+
+			<div class="step step-3">
+				<p>Do you want to stay in touch?</p>	
+				<div class="input-field">
+					<input id="email" type="email" class="validate">
+					<label for="email">Email</label>
+					<div class="trigger btn-flat waves-effect">Send</div>
+				</div>
+			</div>
+
+			<div class="step step-4">
+				<p>Thanks man!</p>
+				<p>[insert share buttons here]</p>
+			</div>
+			
+		</div>
+
 
 
 		

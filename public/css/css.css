@@ -13,7 +13,7 @@
 
 5.0   Toolbar
 
-6.0   
+6.0   Feedback
 
 7.0   Forminput
 
@@ -148,6 +148,16 @@ textarea {
 	padding-top:4px;
 }
 
+/**************************
+6.0   Feedback
+*******************/
+#feedback-card{
+	padding:15px;
+}
+#feedback-card p{
+	margin-top:0px;
+	margin-bottom:5px;
+}
 /**************************
 7.0   Forminput
 *******************/
