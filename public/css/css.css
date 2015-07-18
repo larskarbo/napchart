@@ -107,6 +107,7 @@ textarea {
 	line-height: 1;
     padding:5px;
     color:black;
+    height:auto;
 }
 
 #urlField.loading {
