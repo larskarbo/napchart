@@ -108,6 +108,7 @@ textarea {
     padding:5px;
     color:black;
     height:auto;
+    margin:0;
 }
 
 #urlField.loading {
@@ -153,7 +154,7 @@ textarea {
 6.0   Feedback
 *******************/
 #feedback-card{
-	padding:15px;
+	//padding:15px;
 }
 #feedback-card p{
 	margin-top:0px;
@@ -204,15 +205,22 @@ textarea {
 	padding:5px;
 	width:100%;
 }
-.stat-title{
-	font-size:15px;
-}
+
 .stat-time{
 	font-size:30px;
-	padding-left:15px;
 }
 .stat-desc{
 
+}
+
+/**************************
+10.0   Cards
+*******************/
+.card-headline{
+	font-size:15px;
+}
+.inner-card{
+	padding:5px 15px;
 }
 
 /**************************

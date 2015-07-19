@@ -76,6 +76,7 @@ window.draw=(function(){
 			radius:29,
 			opacity:0.8
 		},
+		stroke:0.32,
 		strokeColor:"#C9C9C9",
 		impStrokeColor:"#262626"
 
@@ -180,6 +181,7 @@ window.draw=(function(){
 		var radius=40*draw.ratio;
 		ctx.save();
 		ctx.strokeStyle=clockConfig.strokeColor;
+		ctx.lineWidth = clockConfig.stroke *draw.ratio;
 		ctx.beginPath();
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		for(i=0;i<12;i++){
@@ -199,6 +201,7 @@ window.draw=(function(){
 		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
 		ctx.beginPath();
 		ctx.strokeStyle=clockConfig.impStrokeColor;
+		ctx.lineWidth = clockConfig.stroke *draw.ratio;
 
 		c=helpers.minutesToXY(0,radius);
 		ctx.moveTo(c.x,c.y);
@@ -221,6 +224,8 @@ window.draw=(function(){
 
 		var circles=clockConfig.circles;
 		ctx.strokeStyle=clockConfig.strokeColor;
+
+		ctx.lineWidth = clockConfig.stroke *draw.ratio;
 
 		for(i=0;i<circles.length;i++){
 			ctx.beginPath();
@@ -392,6 +397,7 @@ window.draw=(function(){
 	}
 
 	function drawBlurCircle(ctx,backgroundColor){
+		console.log(ctx.canvas.width);
 		var width = ctx.canvas.width;
 		var height = ctx.canvas.height;
 
@@ -702,7 +708,39 @@ window.draw=(function(){
 			var clockWidth=offScreenCanvas.width;
 			this.ratio=clockWidth/100;
 			this.backgroundColor="#F4F4F4";
-			this.ctx=canvas.getContext("2d");
+			var ctx=canvas.getContext("2d");
+			var devicePixelRatio = window.devicePixelRatio || 14;
+			var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+			                            ctx.mozBackingStorePixelRatio ||
+			                            ctx.msBackingStorePixelRatio ||
+			                            ctx.oBackingStorePixelRatio ||
+			                            ctx.backingStorePixelRatio || 1;
+
+			console.log('backingstore:',backingStoreRatio);
+			console.log('dpr:',devicePixelRatio);
+
+			var backingRatio = devicePixelRatio / backingStoreRatio;
+
+			// upscale the canvas if the two ratios don't match
+		    if (devicePixelRatio !== backingStoreRatio) {
+
+		        var oldWidth = canvas.width;
+		        var oldHeight = canvas.height;
+
+		        canvas.width = oldWidth * backingRatio;
+		        canvas.height = oldHeight * backingRatio;
+
+		        canvas.style.width = oldWidth + 'px';
+		        canvas.style.height = oldHeight + 'px';
+
+		        // now scale the context to counter
+		        // the fact that we've manually scaled
+		        // our canvas element
+		        ctx.scale(backingRatio, backingRatio);
+
+		    }
+
+		    this.ctx = ctx;
 
 			
 			//draw clock
