@@ -5,6 +5,7 @@ console.horse=function(){
 };
 
 
+
 helpers.merge = function(data, names){
     //merges specified bars into a new array where no elements overlap
     var start,end;

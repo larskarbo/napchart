@@ -46,6 +46,7 @@ window.napchartCore=(function(){
 			draw.drawFrame(data);
 			formInput.setData(data);
 			statistics.update(data);
+			textSerialize.update(data);
 		},
 
 		getSchedule:function(){
@@ -143,6 +144,8 @@ window.napchartCore=(function(){
 		setURL:function(chartid){
 			//tell dom module to show input field with correct url
 			dom.setURL(chartid);
+
+			textSerialize.setChartid(chartid);
 
 			// if url in browser is wrong
 			if(window.location.pathname != '/'+chartid){

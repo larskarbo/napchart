@@ -209,8 +209,11 @@ textarea {
 .stat-time{
 	font-size:30px;
 }
-.stat-desc{
 
+#textSchedule{
+	font-size: 12px;
+	resize:none;
+	height: 80px;
 }
 
 /**************************
