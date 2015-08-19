@@ -3,6 +3,8 @@
 This module handles the shareWindow
 Uses jQuery
 
+THIS MODULE WILL NOT BE USED, but I didn't want to delete it just in case I needed the code to something else
+
 **/
 
 window.shareWindow=(function(){

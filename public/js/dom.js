@@ -11,12 +11,7 @@ window.dom=(function(){
 	var SAVE_BTN = document.getElementById('saveButton');
 	var URL_FIELD = document.getElementById('urlField');
 	var NAV_EXT = document.getElementById('navExtension');
-
-	$('#shareButton').on('click',function(){
-		shareWindow.open();
-	});
-
-
+	
 	//public:
 	return{
 		bindAddButtons:function(){

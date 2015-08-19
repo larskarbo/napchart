@@ -28,7 +28,6 @@ window.napchartCore=(function(){
 			statistics.initialize(document.getElementById('stat-container'));
 
 			chartHistory.initialize(data);
-			shareWindow.initialize(document.getElementById('shareWindow'));
 
 			feedback.initialize();
 
