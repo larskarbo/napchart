@@ -42,7 +42,7 @@ window.napchartCore=(function(){
 		setSchedule:function(data){
 			scheduleData=JSON.parse(JSON.stringify(data));
 
-			//draw
+			
 			draw.drawFrame(data);
 			formInput.setData(data);
 			statistics.update(data);
