@@ -1,4 +1,5 @@
 {
+
   "name": "napchart",
   "version": "0.6.0",
   "description": "Bra program",
@@ -24,4 +25,5 @@
     "type": "git",
     "url": "git://bitbucket.org/gaptrast/napchart"
   }
+  
 }
