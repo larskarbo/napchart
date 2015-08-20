@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node script.js"
   },
-  "main": "script.js"
+  "main": "script.js",
   "name": "napchart",
   "version": "0.6.0",
   "description": "Bra program",
