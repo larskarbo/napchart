@@ -1,18 +1,12 @@
 
 var express = require('express');
 var app = express();
-var bodyParser=require('body-parser');
+var bodyParser = require('body-parser');
 
-if (process.env.REDISTOGO_URL) {
-	// inside if statement
-	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-	var redis = require("redis").createClient(rtg.port, rtg.hostname);
+var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
+var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
+var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
 
-	redis.auth(rtg.auth.split(":")[1]);
-
-} else {
-    var redis = require("redis").createClient();//creates a new client
-}
 
 
 redis.on('connect', function() {
@@ -83,6 +77,6 @@ app.get('*', function (req, res) {
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
-var server = app.listen(server_port);
+var server = app.listen(server_port,server_ip_address);
 
 console.log('server.address()',server.address());
