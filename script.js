@@ -31,7 +31,7 @@ app.get('/get/:chartid', function(req, res) {
 
 });
 
-app.post('/post', function(req, res) {
+app.post('/post', function (req, res) {
 
 	function idgen(){
 		alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
@@ -49,7 +49,7 @@ app.post('/post', function(req, res) {
 	})
 });
 
-app.get('/about', function(req, res) {
+app.get('/about', function (req, res) {
 	res.render('pages/about',{});
 });
 
@@ -63,20 +63,18 @@ app.get('/:chartid', function (req, res) {
 
 });
 
-app.post('/email-feedback-post', function(){
+app.post('/email-feedback-post', function (req,res){
 	var nodemailer = require('nodemailer');
-	var transporter = nodemailer.createTransport({
-	    service: 'gmail',
-	    auth: {
-	        user: 'sender@gmail.com',
-	        pass: 'password'
-	    }
-	});
+	var transporter = nodemailer.createTransport();
+	console.log(req.body.message);
 	transporter.sendMail({
-	    from: 'sender@address',
-	    to: 'receiver@address',
-	    subject: 'hello',
-	    text: 'hello world!'
+    	from: 'larskarbo@gmail.com',
+	    to: 'larskarbo@gmail.com',
+	    subject: 'feeeeeedback',
+	    text: req.body.message
+	}, function(){
+		res.writeHead(200);
+		res.end('success');
 	});
 });
 	
