@@ -153,13 +153,17 @@ textarea {
 /**************************
 6.0   Feedback
 *******************/
-#feedback-card{
-	//padding:15px;
-}
 #feedback-card p{
 	margin-top:0px;
 	margin-bottom:5px;
 }
+#feedback-text{
+	display:none;
+}
+#thankyou, #feedback-text-question{
+	display:none;
+}
+
 /**************************
 7.0   Forminput
 *******************/

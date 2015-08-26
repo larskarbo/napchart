@@ -7,29 +7,23 @@ Uses jQuery and handles DOM by itself
 
 window.feedback=(function(){
 	//private
-	var container;
-	var totalSteps, currentStep = 1;
 
-	function nextStep(){
-		//hide all current steps
-		$(container).find('.step-' + currentStep).hide();
-
-		//increment counter
-		currentStep++;
-
-		//show
-		$(container).find('.step-' + currentStep).show();
-
+	function answer(){
+		$('#question').hide();
+		$('#thankyou').show();
+		setTimeout(showTextbox,400);
 	}
 
-	function trigger(){
-		//wait
-		setTimeout(nextStep,400);
+	function showTextbox(){
+		$('#feedback-text-question').show();
+		$('#feedback-text').show();
 	}
 
 	//public:
 	return{
 		initialize:function(){
+			var alreadyAnswered = false;
+
 			if($('.feedback').length == 0){
 				console.warn('could not find feedback container')
 				return
@@ -37,27 +31,11 @@ window.feedback=(function(){
 
 			container = $('.feedback')[0];
 
-			//find out how many steps there are:
-			for(var i = 0; true; i++){
-				if( $(container).find('.step.step-' + (i+1) ).length == 0 ){
-					totalSteps = i;
-					break;
-				}
-			}
+			//search for cookie containing info
+			//alreadyAnswered = true;
 
-			if(totalSteps == 0){
-				console.warn('could not find any step blocks');
-			}
-
-			//hide all steps
-			$('.step').hide();
-
-			//add event listeners to all triggers
-			$(container).on('click','.trigger', trigger);
-
-			//show first step
-			$('.step-' + currentStep).show();
-
+			//add event listeners to all radios
+			$(container).on('change','input', answer);
 
 		}
 	}

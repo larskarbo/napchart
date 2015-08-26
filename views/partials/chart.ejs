@@ -55,20 +55,26 @@ fromServer.data = <%- chart %>;
 		<div class="card stat-block left feedback" id="feedback-card">
 			
 			<div class="card-headline">
-				<div class="step step-1">Did this app work for you?</div>
-				<div class="step step-2 step-3">Thank you for your feedback</div>
+				<div id="question">Did this app work for you?</div>
+				<div id="thankyou">Thank you for your feedback</div>
 			</div>
 			
 
 			<div class="inner-card">
-				<div class="step step-1">
+				<div id="feedback-question">
 					<input type="radio" name="feedback" class="trigger feedback-radio" id="yes" value="yes"> <label for="yes">Yes</label>
 					<br>
 					<input type="radio" name="feedback" class="trigger feedback-radio" id="no" value="no"> <label for="no">No</label>
 				</div>
+			</div>
 
-				<div class="step step-2">
-					[insert share buttons here]
+			<div class="card-headline">
+				<div id="feedback-text-question">You want to write something more?</div>
+			</div>
+
+			<div class="inner-card">
+				<div id="feedback-text">
+					<textarea></textarea>
 				</div>
 			</div>
 
