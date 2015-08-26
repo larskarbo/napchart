@@ -7,16 +7,50 @@ Uses jQuery and handles DOM by itself
 
 window.feedback=(function(){
 	//private
+	var container;
 
 	function answer(){
-		$('#question').hide();
-		$('#thankyou').show();
+		$(container).find('#question').hide();
+		$(container).find('#thankyou').show();
 		setTimeout(showTextbox,400);
 	}
 
 	function showTextbox(){
-		$('#feedback-text-question').show();
-		$('#feedback-text').show();
+		$(container).find('#feedback-text-question').show();
+		$(container).find('#feedback-text').show();
+		$(container).find('.loading-wheel').hide();
+
+		$('#send-feedback').click(submit);
+	}
+
+	function submit(){
+		var message = $(container).find('textarea').val();
+
+		loading();
+		$(container).find('#thankyou').hide();
+		$(container).find('#feedback-question').hide();
+
+		//ajax
+		server.sendMail(message,function(response){
+			console.info(response);
+			if(response != 'success'){
+				$(container).find('#feedback-error').show();
+			}else{
+				$(container).find('#feedback-devthanks').show();
+			}
+
+			finishedLoading();
+		});
+	}
+
+	function loading(){
+		$(container).find('.loading-wheel').show();
+		$(container).find('.arm').hide();
+	}
+
+	function finishedLoading(){
+		$(container).find('.loading-wheel').hide();
+		$(container).find('.arm').show();
 	}
 
 	//public:

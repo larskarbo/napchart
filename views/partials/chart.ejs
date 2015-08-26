@@ -56,7 +56,8 @@ fromServer.data = <%- chart %>;
 			
 			<div class="card-headline">
 				<div id="question">Did this app work for you?</div>
-				<div id="thankyou">Thank you for your feedback</div>
+				<div id="thankyou" class="hidden">Thank you for your feedback</div>
+				<div id="feedback-error" class="hidden">Something went wrong. Please try again</div>
 			</div>
 			
 
@@ -69,14 +70,22 @@ fromServer.data = <%- chart %>;
 			</div>
 
 			<div class="card-headline">
-				<div id="feedback-text-question">You want to write something more?</div>
+				<div id="feedback-text-question" class="hidden">Issues, ideas or compliments:</div>
 			</div>
 
 			<div class="inner-card">
 				<div id="feedback-text">
 					<textarea></textarea>
+					<div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
+					<i class="fa fa-hand-o-right arm"></i>
+					<i class="fa fa-refresh fa-spin loading-wheel"></i>
+					</div>
 				</div>
 			</div>
+
+			<div id="feedback-devthanks" class="card-headline hidden">Your feedback is sent to the developer. Thank you!</div>
+
+			
 
 			
 			

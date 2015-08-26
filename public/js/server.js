@@ -54,6 +54,16 @@ window.server=(function(){
 
 		},
 
+		sendMail:function(message,callback){
+			$.post( "email-feedback-post", {message: message })
+			  .done(function() {
+			    callback('success');
+			  })
+			  .fail(function(error) {
+			    callback(error);
+			  })
+		},
+
 
 		load:function(){
 

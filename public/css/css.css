@@ -49,6 +49,8 @@ textarea {
 	margin:0;padding:0;height:100%;
 }
 
+
+
 ::selection {
 	background: #d3d3d3; /* WebKit/Blink Browsers */
 }
@@ -160,10 +162,12 @@ textarea {
 #feedback-text{
 	display:none;
 }
-#thankyou, #feedback-text-question{
+.hidden{
 	display:none;
 }
-
+#feedback-card textarea{
+	font-size:16px;
+}
 /**************************
 7.0   Forminput
 *******************/
