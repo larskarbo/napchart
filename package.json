@@ -12,7 +12,8 @@
 	"ejs":"*",
 	"angular":"*",
 	"redis":"*",
-	"body-parser":"*"
+	"body-parser":"*",
+	"nodemailer":"*"
 	},
   "devDependencies": {
     "grunt": "^0.4.5",

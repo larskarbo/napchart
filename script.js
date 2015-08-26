@@ -8,7 +8,6 @@ var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
 var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
 
 
-
 redis.on('connect', function() {
 	console.log('connected');
 });
@@ -63,6 +62,25 @@ app.get('/:chartid', function (req, res) {
 	})
 
 });
+
+app.post('/email-feedback-post', function(){
+	var nodemailer = require('nodemailer');
+	var transporter = nodemailer.createTransport({
+	    service: 'gmail',
+	    auth: {
+	        user: 'sender@gmail.com',
+	        pass: 'password'
+	    }
+	});
+	transporter.sendMail({
+	    from: 'sender@address',
+	    to: 'receiver@address',
+	    subject: 'hello',
+	    text: 'hello world!'
+	});
+});
+	
+
 
 app.get('/', function (req, res) {
 	res.render('pages/index',{chartid:null,chart:null});
