@@ -9,8 +9,6 @@ Requires jQuery
 window.dom=(function(){
 	//private
 	var SAVE_BTN = document.getElementById('saveButton');
-	var URL_FIELD = document.getElementById('urlField');
-	var NAV_EXT = document.getElementById('navExtension');
 	
 	//public:
 	return{

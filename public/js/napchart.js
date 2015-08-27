@@ -1,4 +1,0 @@
-window.napchartCore=(function(){
-
-	
-})

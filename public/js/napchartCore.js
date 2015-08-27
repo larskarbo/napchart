@@ -141,8 +141,6 @@ window.napchartCore=(function(){
 		},
 
 		setURL:function(chartid){
-			//tell dom module to show input field with correct url
-			dom.setURL(chartid);
 
 			textSerialize.setChartid(chartid);
 
@@ -159,11 +157,11 @@ window.napchartCore=(function(){
 		},
 
 		startLoading:function(){
-			dom.startLoading();
+			//dom.startLoading();
 		},
 
 		finishLoading:function(){
-			dom.finishLoading();
+			//dom.finishLoading();
 		}
 	};
 

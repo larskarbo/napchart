@@ -58,7 +58,9 @@ textarea {
 	background: #d3d3d3; /* Gecko Browsers */
 }
 
-
+.row {
+	max-width: 800px;
+}
 
 /**************************
 3.0   Header
