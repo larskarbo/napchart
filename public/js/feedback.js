@@ -26,6 +26,10 @@ window.feedback=(function(){
 	function submit(){
 		var message = $(container).find('textarea').val();
 
+		if(message.length == 0)
+			return
+		
+
 		loading();
 		$(container).find('#thankyou').hide();
 		$(container).find('#feedback-question').hide();
@@ -51,6 +55,7 @@ window.feedback=(function(){
 	function finishedLoading(){
 		$(container).find('.loading-wheel').hide();
 		$(container).find('.arm').show();
+		$(container).find('textarea').val('');
 	}
 
 	//public:
