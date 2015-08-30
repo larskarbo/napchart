@@ -59,35 +59,42 @@ window.interactCanvas = (function(){
 		};
 	}
 
-	function hover(e){
-		var canvas = napchartCore.getCanvas(),
-		coordinates = getCoordinates(e,canvas),
-		data = napchartCore.getSchedule(),
-		barConfig = draw.getBarConfig(),
-		points = [], point, value, distance, handlesMouseHover;
+	function hitDetect(coordinates){
+		var canvas = napchartCore.getCanvas();
+		var data = data = napchartCore.getSchedule();
+		var barConfig = draw.getBarConfig();
 
-		
-		//draws a new frame and checks for hit detection on bars
-		helpers.requestAnimFrame.call(window,draw.drawUpdate);
-		
-		handlesMouseHover = {};
+
+		// will return:
+		// name (core, nap, busy)
+		// count (0, 1, 2 ..)
+		// type (start, end, or middle)
+
+
+		var handlesHit = {};
+		var value, point, i, distance;
+
 		//hit detection of handles (will overwrite current mouseHover object
 		//from draw if hovering a handle):
 		for(var name in data){
 			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
 				continue;
+
 			for(i = 0; i < data[name].length; i++){
+
+				// if element is not selected, continue
 				if(!interactCanvas.isSelected(name,i))
 					continue;
+
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
 					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.ratio);
 
 					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
 					if(distance < hoverDistance*draw.ratio){
-						if(typeof handlesMouseHover.distance=='undefined'||distance < handlesMouseHover.distance){
+						if(typeof handlesHit.distance=='undefined'||distance < handlesHit.distance){
 							//overwrite current hover object
-							handlesMouseHover ={
+							handlesHit ={
 								name:name,
 								count:i,
 								type:['start','end'][s],
@@ -98,16 +105,55 @@ window.interactCanvas = (function(){
 				}
 			}
 		}
-		if(Object.keys(handlesMouseHover).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
+		
+
+		return handlesHit;
+	}
+
+	function hover(e){
+		var canvas = napchartCore.getCanvas(),
+		coordinates = getCoordinates(e,canvas),
+		data = napchartCore.getSchedule(),
+		barConfig = draw.getBarConfig();
+
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+
+		var handlesHit = hitDetect(coordinates);
+
+		if(Object.keys(handlesHit).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
 			mouseHover = {};
-		}else if(Object.keys(handlesMouseHover).length > 0){
-			mouseHover = handlesMouseHover;
+		}else if(Object.keys(handlesHit).length > 0){
+			mouseHover = handlesHit;
 		};
+		
 	}
 
 	function mouseLeave(e){
 		//mouseX = null;
 		//mouseY = null;
+	}
+
+	function touchDown(e){
+
+		var canvas = e.target || e.srcElement,
+		coordinates = getCoordinates(e,canvas),
+		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
+
+		name = mouseHover.name,
+		count = mouseHover.count,
+		type = mouseHover.type,
+		element = napchartCore.returnElement(name,count),
+		positionInElement = helpers.calc(minutes,-element.start);
+
+		console.log(coordinates, minutes);
+		console.log(e);
+
+
+
+	}
+
+	function touchDrag(e){
+
 	}
 
 	function down(e){
@@ -126,7 +172,7 @@ window.interactCanvas = (function(){
 		count = mouseHover.count,
 		type = mouseHover.type,
 		element = napchartCore.returnElement(name,count),
-		positionInElement=helpers.calc(minutes,-element.start);
+		positionInElement = helpers.calc(minutes,-element.start);
 		
 
 		activeElements.push({
@@ -237,16 +283,15 @@ window.interactCanvas = (function(){
 	//public:
 	return{
 		initialize:function(canvas){
+			
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousemove',setCoordinates);
 			canvas.addEventListener('mouseleave',leave);
-			canvas.addEventListener('mousedown',down);
-			canvas.addEventListener('touchstart',down);
+			document.addEventListener('mousedown',down);
 			document.addEventListener('mouseup',up);
 
-			/*document.body.addEventListener('touchmove', function(event) {
-			  event.preventDefault();
-			}, false); */
+			canvas.addEventListener('touchstart',touchDown);
+
 
 		},
 

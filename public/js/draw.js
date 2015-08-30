@@ -397,7 +397,6 @@ window.draw=(function(){
 	}
 
 	function drawBlurCircle(ctx,backgroundColor){
-		console.log(ctx.canvas.width);
 		var width = ctx.canvas.width;
 		var height = ctx.canvas.height;
 
@@ -723,20 +722,27 @@ window.draw=(function(){
 
 			// upscale the canvas if the two ratios don't match
 		    if (devicePixelRatio !== backingStoreRatio) {
+		    	console.log('upscaling');
 
 		        var oldWidth = canvas.width;
 		        var oldHeight = canvas.height;
 
-		        canvas.width = oldWidth * backingRatio;
-		        canvas.height = oldHeight * backingRatio;
+		        //DIG INTO THIS SHIT SOME TIME 
 
-		        canvas.style.width = oldWidth + 'px';
-		        canvas.style.height = oldHeight + 'px';
+		        //now disabled
+
+
+
+		        // canvas.width = oldWidth * backingRatio;
+		        // canvas.height = oldHeight * backingRatio;
+
+		        // canvas.style.width = oldWidth + 'px';
+		        // canvas.style.height = oldHeight + 'px';
 
 		        // now scale the context to counter
 		        // the fact that we've manually scaled
 		        // our canvas element
-		        ctx.scale(backingRatio, backingRatio);
+		        // ctx.scale(backingRatio, backingRatio);
 
 		    }
 
