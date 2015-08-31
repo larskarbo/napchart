@@ -70,8 +70,7 @@ window.interactCanvas = (function(){
 		// count (0, 1, 2 ..)
 		// type (start, end, or middle)
 
-
-		var handlesHit = {};
+		var hit = {};
 		var value, point, i, distance;
 
 		//hit detection of handles (will overwrite current mouseHover object
@@ -92,9 +91,9 @@ window.interactCanvas = (function(){
 
 					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
 					if(distance < hoverDistance*draw.ratio){
-						if(typeof handlesHit.distance=='undefined'||distance < handlesHit.distance){
+						if(typeof hit.distance=='undefined'||distance < hit.distance){
 							//overwrite current hover object
-							handlesHit ={
+							hit = {
 								name:name,
 								count:i,
 								type:['start','end'][s],
@@ -105,9 +104,52 @@ window.interactCanvas = (function(){
 				}
 			}
 		}
+
+		//if no handle is hit, check for middle hit
+
+		if(Object.keys(hit).length == 0){
+			var minutes, distanceToCenter;
+			var start, end;
+			var outerRadius, innerRadius;
+
+			var positionInElement;
+
+
+			minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y);
+			distanceToCenter = helpers.distance(coordinates.x,coordinates.y,0,0);
+
+			//loop through elements
+			for(var name in data){
+				for(i = 0; i < data[name].length; i++){
+					//check if point is inside element horizontally
+					start = data[name][i].start;
+					end = data[name][i].end;
+					if(helpers.pointIsInside(minutes,start,end)){
+
+						//check if point is inside element vertically
+						innerRadius = barConfig[name].innerRadius*draw.ratio;
+						outerRadius = barConfig[name].outerRadius*draw.ratio;
+						if(distanceToCenter > innerRadius && distanceToCenter < outerRadius){
+
+							console.log("point is inside ",name,i);
+							positionInElement = helpers.calc(minutes,-start);
+							hit = {
+								name:name,
+								count:i,
+								type:'middle',
+								positionInElement:positionInElement
+							};
+						}
+
+
+					}
+
+				}
+			}
+		}
 		
 
-		return handlesHit;
+		return hit;
 	}
 
 	function hover(e){
@@ -138,10 +180,7 @@ window.interactCanvas = (function(){
 		var canvas = e.target || e.srcElement,
 		coordinates = getCoordinates(e,canvas),
 		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
-
-		name = mouseHover.name,
-		count = mouseHover.count,
-		type = mouseHover.type,
+		hit = hitDete
 		element = napchartCore.returnElement(name,count),
 		positionInElement = helpers.calc(minutes,-element.start);
 
