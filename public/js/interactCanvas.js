@@ -131,7 +131,6 @@ window.interactCanvas = (function(){
 						outerRadius = barConfig[name].outerRadius*draw.ratio;
 						if(distanceToCenter > innerRadius && distanceToCenter < outerRadius){
 
-							console.log("point is inside ",name,i);
 							positionInElement = helpers.calc(minutes,-start);
 							hit = {
 								name:name,
@@ -148,6 +147,8 @@ window.interactCanvas = (function(){
 			}
 		}
 		
+		if(Object.keys(hit).length == 0)
+			return false;
 
 		return hit;
 	}
@@ -188,40 +189,48 @@ window.interactCanvas = (function(){
 
 	function down(e){
 		e.preventDefault();
+		e.stopPropagation();
+
+		var canvas = e.target || e.srcElement;
+		var coordinates = getCoordinates(e,canvas);
+		var hit = hitDetect(coordinates);
 
 		//return of no hit
-		if(typeof mouseHover.name == 'undefined'){
+		if(!hit){
 			deselect();
 			return;
 		}
 
-		var canvas = e.target || e.srcElement,
-		coordinates = getCoordinates(e,canvas),
-		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
-		name = mouseHover.name,
-		count = mouseHover.count,
-		type = mouseHover.type,
-		element = napchartCore.returnElement(name,count),
-		positionInElement = helpers.calc(minutes,-element.start);
-		
+		hit.canvas = canvas;
 
-		activeElements.push({
-			name:name,
-			count:count,
-			positionInElement:positionInElement,
-			type:type,
-			canvas:canvas
-		});
+		console.log(hit);
+
+		activeElements.push(hit);
 
 		document.addEventListener('mousemove',drag);
 		document.addEventListener('mouseup',function(){
 			document.removeEventListener('mousemove',drag);
 		});
 
-		select(name,count);
+		select(hit.name,hit.count);
 		drag(e); //to  make sure the handles positions to the cursor even before movement
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
+	}
+
+	function unfocus(e){
+		// checks if click is on a part of the site that should make the
+		// current selected elements be deselected
+
+		var x, y;
+		var domElement
+
+		x = e.clientX;
+		y = e.clientY;
+
+		var domElement = document.elementFromPoint(x, y);
+
+		console.log(domElement);
 	}
 
 	function select(name,count){
@@ -233,10 +242,10 @@ window.interactCanvas = (function(){
 		napchartCore.setSelected(name,count);
 	}
 
-	function deselect(name,count){
+	function deselect(){
 		selected = {};
 		//notify core module:
-		napchartCore.setSelected(name,count);
+		napchartCore.setSelected();
 	}
 
 	function drag(e){
@@ -317,7 +326,8 @@ window.interactCanvas = (function(){
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousemove',setCoordinates);
 			canvas.addEventListener('mouseleave',leave);
-			document.addEventListener('mousedown',down);
+			canvas.addEventListener('mousedown',down);
+			document.addEventListener('mousedown',deselect);
 			document.addEventListener('mouseup',up);
 
 			canvas.addEventListener('touchstart',touchDown);

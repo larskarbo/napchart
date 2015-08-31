@@ -123,8 +123,14 @@ window.napchartCore=(function(){
 			//if already the same, exit
 			if(typeof selected.name != 'undefined' 
 				&& selected.name == name 
-				&& selected.count == count)
+				&& selected.count == count){}
 				return;
+
+			//if empty
+			if(name.length == 0 || count.length == 0){
+				selected = {};
+				return////hmmmmmmmmmmm does the formInput module need to be notified about this??????
+			}
 
 			selected.name = name;
 			selected.count = count;
