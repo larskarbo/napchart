@@ -275,9 +275,7 @@ window.draw=(function(){
 		}
 
 		function drawBars(ctx,data){
-			var canvas = ctx.canvas,
-			mouse = interactCanvas.getCanvasMousePosition(canvas),
-			mouseHover = {};
+			var canvas = ctx.canvas;
 
 			ctx.save();
 			for (var name in data){
@@ -307,15 +305,12 @@ window.draw=(function(){
 					ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
 					ctx.closePath();
 
-					if(ctx.isPointInPath(mouse.x,mouse.y)){
-						mouseHover = {name:name,count:count,type:'whole'};
-					}
 
 					if(interactCanvas.isActive(name,count,'whole') || interactCanvas.isSelected(name,count)){
 						ctx.globalAlpha = activeOpacity;
 					}
 
-					else if(interactCanvas.isActive(name,count) || (ctx.isPointInPath(mouse.x,mouse.y) && interactCanvas.isHover(name,count)) || interactCanvas.isHover(name,count,'whole')){
+					else if(interactCanvas.isActive(name,count) || interactCanvas.isHover(name,count,'whole')){
 						ctx.globalAlpha=hoverOpacity;
 					}
 
@@ -326,12 +321,6 @@ window.draw=(function(){
 
 				}
 			}
-		//notify interactCanvas module about which elements are being
-		//hovered. Used for hit detection
-		if(interactCanvas.mouseIsOverCanvas()){
-			interactCanvas.setHoverElement(mouseHover);
-		}
-
 		ctx.restore();
 	}
 

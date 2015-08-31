@@ -136,7 +136,7 @@ window.interactCanvas = (function(){
 							hit = {
 								name:name,
 								count:i,
-								type:'middle',
+								type:'whole',
 								positionInElement:positionInElement
 							};
 						}
@@ -160,19 +160,10 @@ window.interactCanvas = (function(){
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 
-		var handlesHit = hitDetect(coordinates);
+		var hit = hitDetect(coordinates);
 
-		if(Object.keys(handlesHit).length==0 && (mouseHover.type == 'start' || mouseHover.type == 'end')){
-			mouseHover = {};
-		}else if(Object.keys(handlesHit).length > 0){
-			mouseHover = handlesHit;
-		};
-		
-	}
+		mouseHover = hit;
 
-	function mouseLeave(e){
-		//mouseX = null;
-		//mouseY = null;
 	}
 
 	function touchDown(e){
