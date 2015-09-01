@@ -39,7 +39,7 @@ window.textSerialize=(function(){
 	}
 
 	function flash(){
-		$(TEXTAREA).flash();
+		// $(TEXTAREA).flash();
 	}
 
 	//public:
@@ -51,7 +51,6 @@ window.textSerialize=(function(){
 				prevData = data;
 			}
 
-			console.log('updating started');
 			var text = dataToText(data);
 
 			TEXTAREA.innerHTML = text;

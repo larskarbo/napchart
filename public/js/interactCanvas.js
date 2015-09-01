@@ -203,8 +203,6 @@ window.interactCanvas = (function(){
 
 		hit.canvas = canvas;
 
-		console.log(hit);
-
 		activeElements.push(hit);
 
 		document.addEventListener('mousemove',drag);
@@ -287,7 +285,6 @@ window.interactCanvas = (function(){
 
 	function up(){
 		if(activeElements.length != 0){
-			console.log(activeElements)
 			chartHistory.add(napchartCore.getSchedule(),'moved ' + activeElements[0].name + ' ' + (activeElements[0].count+1));
 		}
 
