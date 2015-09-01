@@ -132,7 +132,10 @@ window.napchartCore=(function(){
 			//if empty
 			if(typeof name == 'undefined' || typeof count == 'undefined'){
 				selected = {};
-				return////hmmmmmmmmmmm does the formInput module need to be notified about this??????
+
+				formInput.setSelected('','');
+
+				return;
 			}
 
 			selected.name = name;
