@@ -1,7 +1,7 @@
 /**
 
 This module serializes the schedule to a easily readable and understandable form in text
-
+Uses jQuery for the flash effect
 
 **/
 
@@ -37,6 +37,11 @@ window.textSerialize=(function(){
 		}
 		return output;
 	}
+
+	function flash(){
+		$(TEXTAREA).flash();
+	}
+
 	//public:
 	return{
 		update:function(data){
@@ -55,6 +60,7 @@ window.textSerialize=(function(){
 		setChartid:function(chartid){
 			textSerialize.update();
 			TEXTAREA.innerHTML += 'http://napchart.com/' + chartid;
+			flash();
 		}
 
 	}
