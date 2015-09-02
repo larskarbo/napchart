@@ -40,6 +40,10 @@ window.textSerialize=(function(){
 
 	function flash(){
 		// $(TEXTAREA).flash();
+		$(TEXTAREA).parent().parent().addClass('flash');
+		setTimeout(function(){
+			$(TEXTAREA).parent().parent().removeClass('flash');
+		},2000)
 	}
 
 	//public:

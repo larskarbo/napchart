@@ -129,6 +129,10 @@ window.formInput=(function(){
 		},
 
 		setSelected:function(name,count){
+			if(typeof name == 'undefined'){
+				selected = {};
+				return
+			}
 			selected ={
 				name:name,
 				count:count
