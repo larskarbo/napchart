@@ -133,7 +133,7 @@ window.napchartCore=(function(){
 			if(typeof name == 'undefined' || typeof count == 'undefined'){
 				selected = {};
 
-				formInput.setSelected('','');
+				formInput.setSelected();
 
 				return;
 			}
