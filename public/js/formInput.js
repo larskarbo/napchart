@@ -136,6 +136,11 @@ window.formInput=(function(){
 			//bind unfocus events
 			$(container).on('blur','.clock',unfocus);
 
+			//prevent deselecting
+			container.addEventListener('mousedown',function(e){
+				e.stopPropagation();
+			});
+
 			setDisplayMode(false);
 		},
 

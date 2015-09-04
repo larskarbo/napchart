@@ -60,7 +60,7 @@ window.draw=(function(){
 			}
 		},
 		general:{
-			textSize:5
+			textSize:4
 		}
 	};
 
@@ -604,7 +604,7 @@ window.draw=(function(){
 	function drawElementInfo(ctx,selected){
 		var element, name, count, duration, middle, radius;
 		var position = {};
-		var radius = 14 * draw.ratio;
+		var radius = 22 * draw.ratio;
 		var canvas = ctx.canvas;
 
 		name = selected.name;
@@ -780,6 +780,15 @@ window.draw=(function(){
 			drawSelected(ctx,dataWithPhantoms);
 			strokeBars(ctx,dataWithPhantoms);
 
+			for(var name in data){
+				if(name == 'busy')
+					continue;
+				for(var i = 0; i < data[name].length; i++){
+					drawElementInfo(ctx,{name:name,count:i});
+					drawTimeIndicators(ctx,{name:name,count:i});
+				}
+			}
+
 			ctx.save();
 			ctx.globalAlpha=interactCanvas.getSelectedOpacity();
 
@@ -789,8 +798,12 @@ window.draw=(function(){
 			if(typeof selectedElement.name != 'undefined'){
 				//something is selected
 				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
-				drawElementInfo(ctx,selectedElement);
-				drawTimeIndicators(ctx,selectedElement);
+
+				if(selectedElement.name
+				 == 'busy'){
+					drawElementInfo(ctx,selectedElement);
+					drawTimeIndicators(ctx,selectedElement);
+				}
 			}
 
 			ctx.restore();
