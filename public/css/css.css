@@ -206,11 +206,11 @@ textarea {
 7.0   Forminput
 *******************/
 .inputBox{
+	background-color:#EBEBEB;
 	font-size: 16px;
 	outline: none;
 	padding: 6px;
 	margin-bottom: 3px;
-	display:none;
 }
 .inputBox.selected,.inputBox.selected:hover{
 	background-color:#FAF7A2;

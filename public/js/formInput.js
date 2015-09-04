@@ -9,7 +9,7 @@ window.formInput=(function(){
 	//private
 	var container, onlySelected;
 
-	onlySelected = false;
+	onlySelected = true;
 
 	function createBlock(name,count){
 		var className, add;
@@ -24,6 +24,7 @@ window.formInput=(function(){
 		add += '</div>';
 
 		$(container).append(add);
+
 	}
 
 	function blockExists(name,count){
@@ -47,6 +48,10 @@ window.formInput=(function(){
 				block.find('.start').val(start);
 				block.find('.end').val(end);
 			}
+		}
+
+		if(onlySelected){
+			$(container).children().addClass('hidden');
 		}
 	}
 
@@ -110,6 +115,13 @@ window.formInput=(function(){
 
 	}
 
+	function setDisplayMode(onlySelected){
+		if(onlySelected){
+			$('.remove').css('display','block');
+		}else{
+		}
+	}
+
 	//public:
 	return{
 		initialize:function(containerDiv){
@@ -123,6 +135,8 @@ window.formInput=(function(){
 
 			//bind unfocus events
 			$(container).on('blur','.clock',unfocus);
+
+			setDisplayMode(false);
 		},
 
 		setData:function(data){
@@ -133,7 +147,7 @@ window.formInput=(function(){
 		setSelected:function(name,count){
 
 			$(container).children().removeClass('selected');
-			
+
 			if(typeof name == 'undefined'){
 				selected = {};
 				return
@@ -144,7 +158,8 @@ window.formInput=(function(){
 				count:count
 			};
 
-			$(container).find('.'+name+count).addClass('selected');
+			$(container).find('.'+name+count).addClass('selected').removeClass('hidden');
+
 		}
 	}
 
