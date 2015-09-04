@@ -236,12 +236,15 @@ window.interactCanvas = (function(){
 			name:name,
 			count:count
 		};
+
+		document.addEventListener('mousedown',deselect);
 		//notify core module:
 		napchartCore.setSelected(name,count);
 	}
 
 	function deselect(){
 		selected = {};
+		document.removeEventListener('mousedown',deselect);
 		//notify core module:
 		napchartCore.setSelected();
 	}
@@ -324,7 +327,6 @@ window.interactCanvas = (function(){
 			canvas.addEventListener('mousemove',setCoordinates);
 			canvas.addEventListener('mouseleave',leave);
 			canvas.addEventListener('mousedown',down);
-			document.addEventListener('mousedown',deselect);
 			document.addEventListener('mouseup',up);
 
 			canvas.addEventListener('touchstart',touchDown);
