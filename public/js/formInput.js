@@ -9,7 +9,7 @@ window.formInput=(function(){
 	//private
 	var container, onlySelected;
 
-	onlySelected = true;
+	onlySelected = false;
 
 	function createBlock(name,count){
 		var className, add;
@@ -54,9 +54,11 @@ window.formInput=(function(){
 		//removes blocks not specified in the data objects
 		var blocks, name, count;
 
-		$.each($(container).find('.inputBox'), function(key,block){
+		$.each( $(container).find('.inputBox') , function(key,block){
+
 			name = $(block).find('[name="name"]').val();
 			count = $(block).find('[name="count"]').val();
+
 			if(!napchartCore.elementExists(name,count)){
 				$(block).remove();
 			}
@@ -129,16 +131,19 @@ window.formInput=(function(){
 		},
 
 		setSelected:function(name,count){
+
+			$(container).children().removeClass('selected');
+			
 			if(typeof name == 'undefined'){
 				selected = {};
 				return
 			}
+
 			selected ={
 				name:name,
 				count:count
 			};
 
-			$(container).children().removeClass('selected');
 			$(container).find('.'+name+count).addClass('selected');
 		}
 	}

@@ -120,7 +120,6 @@ window.napchartCore=(function(){
 		},
 
 		setSelected:function(name,count){
-			console.info(name,count);
 			//if already the same, exit
 			if(typeof selected.name != 'undefined' 
 				&& selected.name == name 
