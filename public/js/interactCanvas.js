@@ -311,10 +311,21 @@ window.interactCanvas = (function(){
 	function snap(input){
 		var output = input;
 
+		//hour
 		if(input%60 < 7)
 			output = input-input%60;
 		else if(input%60 > 53)
 			output = input+(60-input%60);
+
+		//half hours
+		else{
+			input += 30;
+
+			if(input%60 < 5)
+				output = input-input%60-30;
+			else if(input%60 > 55)
+				output = input+(60-input%60)-30;
+		}
 
 		return output;
 	}
