@@ -257,7 +257,7 @@ p{
 #textSchedule{
 	font-size: 12px;
 	resize:none;
-	height: 80px;
+	height: auto;
 }
 
 /**************************

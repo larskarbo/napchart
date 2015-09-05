@@ -84,6 +84,10 @@ window.dom=(function(){
 			inputField.value = url;
 		},
 
+		setOG:function(image){
+			$('meta[name=og\\:image]').attr('content', image);
+		},
+
 		startLoading:function(){
 			var inputField;
 

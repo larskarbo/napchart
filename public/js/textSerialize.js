@@ -31,7 +31,12 @@ window.textSerialize=(function(){
 				start = helpers.minutesToClock(data[name][i].start);
 				end = helpers.minutesToClock(data[name][i].end);
 
-				output += nameCap + ' ' + (i+1) + ': ' + start + ' - ' + end + '\n';
+				if(output.length > 0){
+					output += '\n';
+				}
+
+				output += nameCap + ' ' + (i+1) + ': ' + start + ' - ' + end;
+
 			}
 
 		}
@@ -46,24 +51,47 @@ window.textSerialize=(function(){
 		},2000)
 	}
 
+	function resize(){
+		var lineBreaks = (TEXTAREA.value.match(/\n/g)||[]).length;
+
+		if(lineBreaks < 4)
+			lineBreaks = 4;
+		else
+			lineBreaks++;
+
+		TEXTAREA.rows = lineBreaks;
+	}
+
 	//public:
 	return{
 		update:function(data){
 			if(typeof data == 'undefined'){
 				var data = prevData;
-			}else{
-				prevData = data;
 			}
-
 			var text = dataToText(data);
 
+			if(helpers.compare(data,prevData)){
+				//if nothing changed
+				return
+			}
+
 			TEXTAREA.innerHTML = text;
+			resize();
+
+			prevData = data;
 		},
 
 		setChartid:function(chartid){
+			var string = 'http://napchart.com/' + chartid;
 			textSerialize.update();
-			TEXTAREA.innerHTML += 'http://napchart.com/' + chartid;
+
 			flash();
+
+			if(TEXTAREA.innerHTML.search(string) >= 0)
+				return;
+
+			TEXTAREA.innerHTML += '\n' + string;
+			resize();
 		}
 
 	}

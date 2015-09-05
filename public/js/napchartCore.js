@@ -46,6 +46,7 @@ window.napchartCore=(function(){
 			formInput.setData(data);
 			statistics.update(data);
 			textSerialize.update(data);
+			dom.setOG(draw.getImage);
 		},
 
 		getSchedule:function(){

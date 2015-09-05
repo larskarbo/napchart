@@ -298,7 +298,17 @@ helpers.easingEffects = {
     helpers.clone = function (obj){
     //clone an object
     return JSON.parse(JSON.stringify(obj));
-}
+    };
+
+
+    helpers.compare = function (obj1, obj2){
+    //check if they are alike
+    //using json.stringify isn't always bullet-proof
+    if(JSON.stringify(obj1) == JSON.stringify(obj2))
+        return true;
+    else
+        return false
+    };
 
 helpers.shortestWay = function (s) {
     console.log(s);
