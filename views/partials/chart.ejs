@@ -14,7 +14,7 @@ fromServer.data = <%- chart %>;
 		<div class="waves-effect grey lighten-1 btn-flat black-text" id="addNap">Nap <i class="fa fa-plus-square-o"></i></div>
 		<div class="waves-effect grey lighten-1 btn-flat black-text" id="addCore">Core <i class="fa fa-plus-square-o"></i></div>
 		<div class="waves-effect waves-light grey darken-3 btn-flat white-text" id="addBusy">Busy <i class="fa fa-plus-square-o"></i></div>
-        <div id="removeAll" class="btn-flat waves-effect">Remove all <i class="fa fa-square-o"></i></div>
+		<div id="removeAll" class="btn-flat waves-effect">Remove all <i class="fa fa-square-o"></i></div>
 
 
 	</div>
@@ -23,7 +23,7 @@ fromServer.data = <%- chart %>;
 		<canvas width="330" height="330" id="canvas">
 		</canvas>
 		<!--<canvas width="330" height="330" id="canvas">
-		</canvas>-->
+	</canvas>-->
 	</div>
 
 	<div class="col s12 m5 l5">
@@ -52,14 +52,82 @@ fromServer.data = <%- chart %>;
 			</div>
 		</div>
 
+	</div>
+</div>
+<div class="row">
+	<div class="col s12 m4 l4">
+		<div class="card stat-block">
+			<div class="card-headline">Settings</div>
+			<div class="inner-card">
+				
+				<div class="switch">
+				    <label>
+				    Link sleep
+				      <input type="checkbox" id="moveSim">
+				      <span class="lever"></span>
+				    </label>
+				</div>
+				
+				<div class="switch">
+				    <label>
+				    Dark-mode
+				      <input type="checkbox" id="dark">
+				      <span class="lever"></span>
+				    </label>
+				</div>
+
+				<div class="switch">
+				    <label>
+				    Show all elements
+				      <input type="checkbox" id="dark">
+				      <span class="lever"></span>
+				    </label>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 m4 l4">
+		<div class="card stat-block">
+			<div class="card-headline">About</div>
+			<div class="inner-card">
+				<p>
+					Napchart is a tool created for people that want to experiment with polyphasic sleep.
+				</p>
+
+				<script src="http://coinwidget.com/widget/coin.js"></script>
+				<script>
+				CoinWidgetCom.go({
+					wallet_address: "3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"
+					, currency: "bitcoin"
+					, counter: "count"
+					, alignment: "bc"
+					, qrcode: true
+					, auto_show: false
+					, lbl_button: "Donate"
+					, lbl_address: "My Bitcoin Address:"
+					, lbl_count: "donations"
+					, lbl_amount: "BTC"
+				});
+				</script>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col s12 m4 l4">
+
 		<div class="card stat-block left feedback" id="feedback-card">
-			
+
 			<div class="card-headline">
 				<div id="question">Did this app work for you?</div>
 				<div id="thankyou" class="hidden">Thank you for your feedback</div>
 				<div id="feedback-error" class="hidden">Something went wrong. Please try again</div>
 			</div>
-			
+
 
 			<div class="inner-card">
 				<div id="feedback-question">
@@ -77,61 +145,13 @@ fromServer.data = <%- chart %>;
 				<div id="feedback-text">
 					<textarea></textarea>
 					<div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
-					<i class="fa fa-hand-o-right arm"></i>
-					<i class="fa fa-refresh fa-spin loading-wheel"></i>
+						<i class="fa fa-hand-o-right arm"></i>
+						<i class="fa fa-refresh fa-spin loading-wheel"></i>
 					</div>
 					<span id="feedback-devthanks" class="hidden">Thank you!</span>
 				</div>
 			</div>
 
-		</div>
-
-
-		
-	</div>
-
-	<div class="col s12 m4 l4">
-		<div class="card stat-block">
-			<div class="card-headline">About</div>
-			<div class="inner-card">
-				<p>
-					Napchart is a tool created for people that want to experiment with polyphasic sleep.
-				</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="col s12 m4 l4">
-		<div class="card stat-block">
-			<div class="card-headline">Changelog</div>
-			<div class="inner-card">
-				<p>
-					v 1.0 - A new version
-				</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="col s12 m4 l4">
-		<div class="card stat-block">
-			<div class="card-headline">Donate</div>
-			<div class="inner-card">
-				<script src="http://coinwidget.com/widget/coin.js"></script>
-				<script>
-				CoinWidgetCom.go({
-					wallet_address: "ENTER-YOUR-BITCOIN-WALLET-ADDRESS"
-					, currency: "bitcoin"
-					, counter: "count"
-					, alignment: "bc"
-					, qrcode: true
-					, auto_show: false
-					, lbl_button: "Donate"
-					, lbl_address: "My Bitcoin Address:"
-					, lbl_count: "donations"
-					, lbl_amount: "BTC"
-				});
-				</script>
-			</div>
 		</div>
 	</div>
 </div>
