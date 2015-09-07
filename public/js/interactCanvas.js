@@ -167,8 +167,11 @@ window.interactCanvas = (function(){
 
 	}
 
-	function touchDown(e){
+
+	function down(e){
 		e.stopPropagation();
+
+		console.info('down');
 
 		var canvas = e.target || e.srcElement;
 		var coordinates = getCoordinates(e,canvas);
@@ -182,12 +185,14 @@ window.interactCanvas = (function(){
 			return;
 		}
 
-		//set identifier
-		hit.identifier = e.changedTouches[0].identifier;
-
-		console.log(hit);
-		console.info('touchdown!!', e)
 		e.preventDefault();
+
+		//set identifier
+		if(typeof e.changedTouches != 'undefined'){
+			hit.identifier = e.changedTouches[0].identifier;
+		}else{
+			hit.identifier = 'mouse';
+		}
 
 		hit.canvas = canvas;
 
@@ -198,17 +203,23 @@ window.interactCanvas = (function(){
 
 		activeElements.push(hit);
 
-		document.addEventListener('touchmove',drag);
+		if(typeof e.changedTouches != 'undefined'){
+			document.addEventListener('touchmove',drag);
+		}else{
+			document.addEventListener('mousemove',drag);
+		}
 
 		select(hit.name,hit.count);
-
+		
 		drag(e); //to  make sure the handles positions to the cursor even before movement
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
 	function drag(e){
-		var identifier = e.changedTouches[0].identifier;
+		var identifier;
+		identifier = findIdentifier(e);
+
 		var dragElement, name, count, element, coordinates, minutes;
 
 		
@@ -217,10 +228,9 @@ window.interactCanvas = (function(){
 		var newValues = {}, positionInElement, duration, start, end;
 
 		
-		for(i = 0; i < activeElements.length; i++){
-			if(activeElements[i].identifier == identifier){
-				dragElement = activeElements[i];
-			}
+		dragElement = getActiveElement(identifier);
+		if(!dragElement){
+			return
 		}
 
 		name = dragElement.name;
@@ -248,39 +258,6 @@ window.interactCanvas = (function(){
 		}
 		
 		napchartCore.modifyElement(name,count,newValues);
-	}
-
-	function down(e){
-		e.preventDefault();
-		e.stopPropagation();
-
-		console.info('down');
-
-		var canvas = e.target || e.srcElement;
-		var coordinates = getCoordinates(e,canvas);
-		var hit;
-
-		hit = hitDetect(coordinates);
-
-		//return of no hit
-		if(!hit){
-			deselect();
-			return;
-		}
-
-		hit.canvas = canvas;
-
-		activeElements.push(hit);
-
-		document.addEventListener('mousemove',drag);
-		document.addEventListener('mouseup',function(){
-			document.removeEventListener('mousemove',drag);
-		});
-
-		select(hit.name,hit.count);
-		drag(e); //to  make sure the handles positions to the cursor even before movement
-
-		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
 	function unfocus(e){
@@ -314,23 +291,42 @@ window.interactCanvas = (function(){
 		napchartCore.deselect(name,count);
 	}
 
-
-	function up(e){
-		console.log('activeElements:',JSON.stringify(activeElements));
-		console.log(e);
-		var identifier = e.changedTouches[0].identifier;
-		if(activeElements.length != 0){
-			chartHistory.add(napchartCore.getSchedule(),'moved ' + activeElements[0].name + ' ' + (activeElements[0].count+1));
+	function findIdentifier(e){
+		if(e.type.search('mouse') <= 0){
+			return 'mouse';
+		}else{
+			console.log(e);
+			return e.changedTouches[0].identifier;
 		}
+	}
 
-
-		//find the shit to remove
+	function getActiveElement(identifier){
 		for(var i = 0; i < activeElements.length; i++){
+			if(activeElements[i].identifier == identifier){
+				return activeElements[i];
+			}
+		}
+		return false;
+	}
 
+	function removeActiveElement(identifier){
+		for(var i = 0; i < activeElements.length; i++){
 			if(activeElements[i].identifier == identifier){
 				activeElements.splice(i,1);
 			}
 		}
+	}
+
+	function up(e){
+		var identifier = findIdentifier(e);
+		var element = getActiveElement(identifier);
+
+		if(activeElements.length != 0){
+			chartHistory.add(napchartCore.getSchedule(),'moved ' + element.name + ' ' + (element.count+1));
+		}
+
+		//find the shit to remove
+		removeActiveElement(identifier);
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 
@@ -374,10 +370,10 @@ window.interactCanvas = (function(){
 			// canvas.addEventListener('mousemove',hover);
 			// canvas.addEventListener('mousemove',setCoordinates);
 			// canvas.addEventListener('mouseleave',leave);
-			// canvas.addEventListener('mousedown',down);
-			// document.addEventListener('mouseup',up);
+			canvas.addEventListener('mousedown',down);
+			canvas.addEventListener('touchstart',down);
+			document.addEventListener('mouseup',up);
 			document.addEventListener('touchend',up);
-			canvas.addEventListener('touchstart',touchDown);
 			document.addEventListener('touchstart',deselect);
 
 
