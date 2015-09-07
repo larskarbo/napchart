@@ -42,9 +42,9 @@ window.interactCanvas = (function(){
 		//similar to getrelativeposition but here origo is (0,0)
 		boundingRect = canvas.getBoundingClientRect();
 
-		if (e.touches){
-			mouseX = e.touches[0].clientX - boundingRect.left;
-			mouseY = e.touches[0].clientY - boundingRect.top;
+		if (e.changedTouches){
+			mouseX = e.changedTouches[0].clientX - boundingRect.left;
+			mouseY = e.changedTouches[0].clientY - boundingRect.top;
 		}
 
 		else{
@@ -97,8 +97,7 @@ window.interactCanvas = (function(){
 								name:name,
 								count:i,
 								type:['start','end'][s],
-								distance:distance,
-								identifier
+								distance:distance
 							};
 						}
 					}
@@ -184,7 +183,7 @@ window.interactCanvas = (function(){
 		}
 
 		//set identifier
-		hit.identifier = e.touches[0].identifier;
+		hit.identifier = e.changedTouches[0].identifier;
 
 		console.log(hit);
 		console.info('touchdown!!', e)
@@ -192,19 +191,63 @@ window.interactCanvas = (function(){
 
 		hit.canvas = canvas;
 
+		//deselect other elements if they are not being touched
+		if(activeElements.length === 0){
+			deselect();
+		}
+
 		activeElements.push(hit);
 
-		document.addEventListener('touchmove',touchDrag);
+		document.addEventListener('touchmove',drag);
 
 		select(hit.name,hit.count);
 
-		touchDrag(e); //to  make sure the handles positions to the cursor even before movement
+		drag(e); //to  make sure the handles positions to the cursor even before movement
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
-	function touchDrag(e){
+	function drag(e){
+		var identifier = e.changedTouches[0].identifier;
+		var dragElement, name, count, element, coordinates, minutes;
 
+		
+
+		//newValues is an object that will replace the existing one with new values
+		var newValues = {}, positionInElement, duration, start, end;
+
+		
+		for(i = 0; i < activeElements.length; i++){
+			if(activeElements[i].identifier == identifier){
+				dragElement = activeElements[i];
+			}
+		}
+
+		name = dragElement.name;
+		count = dragElement.count;
+		element = napchartCore.returnElement(name,count);
+		coordinates = getCoordinates(e,dragElement.canvas);
+		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y);
+
+
+		if(dragElement.type=='start'){
+			start = snap(minutes);
+			newValues = {start:start};
+		}
+		else if(dragElement.type=='end'){
+			end = snap(minutes);
+			newValues = {end:end};
+		}
+		else if(dragElement.type=='whole'){
+			positionInElement = dragElement.positionInElement;
+			duration = helpers.range(element.start,element.end);
+			start = helpers.calc(minutes,-positionInElement);
+			start = snap(start);
+			end = helpers.calc(start,duration);
+			newValues = {start:start,end:end};
+		}
+		
+		napchartCore.modifyElement(name,count,newValues);
 	}
 
 	function down(e){
@@ -264,53 +307,18 @@ window.interactCanvas = (function(){
 		if(typeof name == 'undefined'){
 			//deselect all
 			napchartCore.deselect();
+			document.removeEventListener('touchmove',drag);
+			document.removeEventListener('mousemove',drag);
 		}
 		//deselect one
 		napchartCore.deselect(name,count);
 	}
 
-	function drag(e){
-		new err;
-		console.log('dragging with mouse')
-		var dragElement = activeElements[0],
-		coordinates = getCoordinates(e,dragElement.canvas),
-		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
-		name = dragElement.name,
-		count = dragElement.count,
-		element = napchartCore.returnElement(name,count),
-		//newValues is an object that will replace the existing one with new values
-		newValues = {}, positionInElement, duration, start, end;
-
-		
-		
-
-
-		if(dragElement.type=='start'){
-			start = snap(minutes);
-			newValues = {start:start};
-		}
-		else if(dragElement.type=='end'){
-			end = snap(minutes);
-			newValues = {end:end};
-		}
-		else if(dragElement.type=='whole'){
-			positionInElement = dragElement.positionInElement;
-			duration = helpers.range(element.start,element.end);
-			start = helpers.calc(minutes,-positionInElement);
-			start = snap(start);
-			end = helpers.calc(start,duration);
-			newValues = {start:start,end:end};
-		}
-		
-		napchartCore.modifyElement(name,count,newValues);
-
-
-	}
 
 	function up(e){
 		console.log('activeElements:',JSON.stringify(activeElements));
 		console.log(e);
-		var identifier = e.touches[0].identifier;
+		var identifier = e.changedTouches[0].identifier;
 		if(activeElements.length != 0){
 			chartHistory.add(napchartCore.getSchedule(),'moved ' + activeElements[0].name + ' ' + (activeElements[0].count+1));
 		}
@@ -319,6 +327,9 @@ window.interactCanvas = (function(){
 		//find the shit to remove
 		for(var i = 0; i < activeElements.length; i++){
 
+			if(activeElements[i].identifier == identifier){
+				activeElements.splice(i,1);
+			}
 		}
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);

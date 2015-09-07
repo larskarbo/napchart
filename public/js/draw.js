@@ -308,12 +308,10 @@ window.draw=(function(){
 
 					if(interactCanvas.isActive(name,count,'whole') || napchartCore.isSelected(name,count)){
 						ctx.globalAlpha = activeOpacity;
-						console.info('drawing active element', name, count)
 					}
 
 					else if(interactCanvas.isActive(name,count) || interactCanvas.isHover(name,count,'whole')){
 						ctx.globalAlpha=hoverOpacity;
-						console.info('drawing hover element', name, count)
 					}
 
 					else{

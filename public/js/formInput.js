@@ -159,12 +159,10 @@ window.formInput=(function(){
 				return
 			}
 
-			selected ={
-				name:name,
-				count:count
-			};
-
-			$(container).find('.'+name+count).addClass('selected').removeClass('hidden');
+			array.forEach(function(k){
+				$(container).find('.'+k.name+k.count).addClass('selected').removeClass('hidden');
+			})
+			
 
 		},
 

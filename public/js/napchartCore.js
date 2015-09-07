@@ -127,6 +127,7 @@ window.napchartCore=(function(){
 			//if already exists, exit
 			for(var i = 0; i < selected.length; i++){
 				if(selected[i].name == name && selected[i].count == count){
+					console.log('sh');
 					return;
 				}
 			};
@@ -135,6 +136,7 @@ window.napchartCore=(function(){
 				name:name,
 				count:count
 			});
+
 
 			//notify modules:
 			formInput.setSelected(selected);
