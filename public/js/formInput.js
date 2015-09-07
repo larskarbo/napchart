@@ -1,15 +1,14 @@
 /**
 
 This module handles input through html forms.
-This module uses JQuery
+This module uses jQuery
 
 **/
 
 window.formInput=(function(){
 	//private
-	var container, onlySelected;
-
-	onlySelected = true;
+	var container, showAllElements;
+	var prevData;
 
 	function createBlock(name,count){
 		var className, add;
@@ -37,6 +36,10 @@ window.formInput=(function(){
 	function updateValues(data){
 		var block,start,end;
 
+		if(typeof data == 'undefined'){
+			var data = prevData;
+		}
+
 		for(var name in data){
 			for(i = 0; i < data[name].length; i++){
 				if(!blockExists(name,i)){
@@ -50,9 +53,13 @@ window.formInput=(function(){
 			}
 		}
 
-		if(onlySelected){
+		if(!showAllElements){
 			$(container).children().addClass('hidden');
+		}else{
+			$(container).children().removeClass('hidden');
 		}
+
+		prevData = data;
 	}
 
 	function prune(data){
@@ -115,12 +122,6 @@ window.formInput=(function(){
 
 	}
 
-	function setDisplayMode(onlySelected){
-		if(onlySelected){
-			$('.remove').css('display','block');
-		}else{
-		}
-	}
 
 	//public:
 	return{
@@ -141,7 +142,7 @@ window.formInput=(function(){
 				e.stopPropagation();
 			});
 
-			setDisplayMode(false);
+			formInput.setSettings();
 		},
 
 		setData:function(data){
@@ -149,12 +150,12 @@ window.formInput=(function(){
 			prune(data);
 		},
 
-		setSelected:function(name,count){
+		setSelected:function(array){
 
 			$(container).children().removeClass('selected');
 
-			if(typeof name == 'undefined'){
-				selected = {};
+			if(typeof array == 'undefined'){
+				selected = [];
 				return
 			}
 
@@ -165,6 +166,12 @@ window.formInput=(function(){
 
 			$(container).find('.'+name+count).addClass('selected').removeClass('hidden');
 
+		},
+
+		setSettings:function(){
+			showAllElements = settings.getValue('showAllElements');
+			console.log(showAllElements);
+			updateValues();
 		}
 	}
 

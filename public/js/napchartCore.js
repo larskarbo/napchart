@@ -9,7 +9,7 @@ window.napchartCore=(function(){
 	var scheduleData, canvas, selected;
 
 	scheduleData={};
-	selected = {};
+	selected = [];
 	canvas = document.getElementById("canvas");
 
 	//public:
@@ -22,6 +22,7 @@ window.napchartCore=(function(){
 			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
 			draw.drawUpdate();
+			settings.initialize(document.getElementById('settings'));
 			formInput.initialize(document.getElementById('formInputContainer'));
 			dom.bindAddButtons();
 			dom.bindSaveButton(document.getElementById('saveContainer'));
@@ -121,28 +122,22 @@ window.napchartCore=(function(){
 		},
 
 		setSelected:function(name,count){
-			//if already the same, exit
-			if(typeof selected.name != 'undefined' 
-				&& selected.name == name 
-				&& selected.count == count)
-				return;
 
 
+			//if already exists, exit
+			for(var i = 0; i < selected.length; i++){
+				if(selected[i].name == name && selected[i].count == count){
+					return;
+				}
+			};
 
-			//if empty
-			if(typeof name == 'undefined' || typeof count == 'undefined'){
-				selected = {};
+			selected.push({
+				name:name,
+				count:count
+			});
 
-				formInput.setSelected();
-
-				return;
-			}
-
-			selected.name = name;
-			selected.count = count;
-
-			//notify forminput module:
-			formInput.setSelected(name,count);
+			//notify modules:
+			formInput.setSelected(selected);
 
 			//animate the appearance of shadow and handles
 			animate.frameAnimator(function(easing){
@@ -150,6 +145,42 @@ window.napchartCore=(function(){
 				draw.drawUpdate();
 			});
 
+		},
+
+
+		isSelected:function(name,count){
+			for(var i = 0; i < selected.length; i++){
+				if(name == selected[i].name && count == selected[i].count){
+					return true;
+				}
+			}
+			return false;
+		},
+
+		deselect:function(name,count){
+
+			//if you want to disable all
+			if(typeof name == 'undefined'){
+				selected = [];
+				formInput.setSelected();
+
+				return;
+			}
+
+			//search and destroy
+			for(var i = 0; i < selected.length; i++){
+				if(selected[i].name == name && selected[i].count == count){
+					selected.splice(i,1);
+				}
+			};
+
+			formInput.setSelected(selected);
+
+		},
+
+		returnSelected:function(){
+
+			return selected;
 		},
 
 		setURL:function(chartid){

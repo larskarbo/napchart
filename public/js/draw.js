@@ -306,12 +306,14 @@ window.draw=(function(){
 					ctx.closePath();
 
 
-					if(interactCanvas.isActive(name,count,'whole') || interactCanvas.isSelected(name,count)){
+					if(interactCanvas.isActive(name,count,'whole') || napchartCore.isSelected(name,count)){
 						ctx.globalAlpha = activeOpacity;
+						console.info('drawing active element', name, count)
 					}
 
 					else if(interactCanvas.isActive(name,count) || interactCanvas.isHover(name,count,'whole')){
 						ctx.globalAlpha=hoverOpacity;
+						console.info('drawing hover element', name, count)
 					}
 
 					else{
@@ -361,7 +363,7 @@ window.draw=(function(){
 
 				var count = i;
 
-				if(!interactCanvas.isActive(name,count) && !interactCanvas.isSelected(name,count))
+				if(!interactCanvas.isActive(name,count) && !napchartCore.isSelected(name,count))
 					continue;
 
 				ctx.save();
@@ -411,33 +413,34 @@ window.draw=(function(){
 	}
 
 	function drawSelected(ctx,data){
-		var selected = interactCanvas.returnSelected();
-		if(typeof selected.name == 'undefined'){
-			return;
-		}
+		// this should loop through all selected elements instead
+		// var selected = napchartCore.returnSelected();
+		// if(typeof selected.name == 'undefined'){
+		// 	return;
+		// }
 
-		var name, count, stroke, lineWidth, innerRadius, expand, outerRadius, startRadians, endRadians;
-		name = selected.name;
-		count = selected.count;
-		strokeColor = barConfig[name].selected.strokeColor;
-		lineWidth = barConfig[name].selected.lineWidth*draw.ratio;
-		expand = barConfig[name].selected.expand;
-		innerRadius = barConfig[name].innerRadius*draw.ratio - expand;
-		outerRadius = barConfig[name].outerRadius*draw.ratio + expand;
-		startRadians=helpers.minutesToRadians(data[name][count].start - expand);
-		endRadians=helpers.minutesToRadians(data[name][count].end + expand);
+		// var name, count, stroke, lineWidth, innerRadius, expand, outerRadius, startRadians, endRadians;
+		// name = selected.name;
+		// count = selected.count;
+		// strokeColor = barConfig[name].selected.strokeColor;
+		// lineWidth = barConfig[name].selected.lineWidth*draw.ratio;
+		// expand = barConfig[name].selected.expand;
+		// innerRadius = barConfig[name].innerRadius*draw.ratio - expand;
+		// outerRadius = barConfig[name].outerRadius*draw.ratio + expand;
+		// startRadians=helpers.minutesToRadians(data[name][count].start - expand);
+		// endRadians=helpers.minutesToRadians(data[name][count].end + expand);
 
-		ctx.save();
+		// ctx.save();
 
-		ctx.beginPath();
-		ctx.lineWidth = lineWidth;
-		ctx.strokeStyle = strokeColor;
-		ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
-		ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
-		ctx.closePath();
-		ctx.stroke();
+		// ctx.beginPath();
+		// ctx.lineWidth = lineWidth;
+		// ctx.strokeStyle = strokeColor;
+		// ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+		// ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+		// ctx.closePath();
+		// ctx.stroke();
 
-		ctx.restore();
+		// ctx.restore();
 	}
 
 	function drawHandles(ctx,data){
@@ -455,7 +458,7 @@ window.draw=(function(){
 				count = i;
 				
 
-				if(!interactCanvas.isSelected(name,count))
+				if(!napchartCore.isSelected(name,count))
 					continue;
 
 				for(s=0;s<2;s++){
@@ -512,7 +515,7 @@ window.draw=(function(){
 				if(typeof data[bars[i]][f] != 'undefined' ){
 					elementPush = data[bars[i]][f];
 
-					if(interactCanvas.isSelected(bars[i],f)){
+					if(napchartCore.isSelected(bars[i],f)){
 						elementPush.selected = true;
 					}
 
@@ -760,7 +763,7 @@ window.draw=(function(){
 			// this will be used for some functions, while other functions use data
 			dataWithPhantoms = removeOverlapping(data,'busy','nap');
 
-			selectedElement = interactCanvas.returnSelected();
+			selectedElement = napchartCore.returnSelected()[0];
 
 			ctx=draw.ctx;
 			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -795,7 +798,7 @@ window.draw=(function(){
 			drawShadows(ctx,data);
 			drawHandles(ctx,data);
 
-			if(typeof selectedElement.name != 'undefined'){
+			if(typeof selectedElement != 'undefined'){
 				//something is selected
 				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
 

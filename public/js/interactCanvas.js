@@ -10,7 +10,6 @@ window.interactCanvas = (function(){
 
 	var mouse = {},
 	mouseHover = {},
-	selected = {},
 	activeElements = [],
 	hoverDistance = 6,
 	selectedOpacity = 1;
@@ -82,7 +81,7 @@ window.interactCanvas = (function(){
 			for(i = 0; i < data[name].length; i++){
 
 				// if element is not selected, continue
-				if(!interactCanvas.isSelected(name,i))
+				if(!napchartCore.isSelected(name,i))
 					continue;
 
 				for(s = 0; s < 2; s++){
@@ -91,13 +90,15 @@ window.interactCanvas = (function(){
 
 					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
 					if(distance < hoverDistance*draw.ratio){
+
 						if(typeof hit.distance=='undefined'||distance < hit.distance){
-							//overwrite current hover object
+							//overwrite current hit object
 							hit = {
 								name:name,
 								count:i,
 								type:['start','end'][s],
-								distance:distance
+								distance:distance,
+								identifier
 							};
 						}
 					}
@@ -168,19 +169,38 @@ window.interactCanvas = (function(){
 	}
 
 	function touchDown(e){
+		e.stopPropagation();
 
-		var canvas = e.target || e.srcElement,
-		coordinates = getCoordinates(e,canvas),
-		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
-		hit = hitDete
-		element = napchartCore.returnElement(name,count),
-		positionInElement = helpers.calc(minutes,-element.start);
+		var canvas = e.target || e.srcElement;
+		var coordinates = getCoordinates(e,canvas);
+		var hit;
 
-		console.log(coordinates, minutes);
-		console.log(e);
+		hit = hitDetect(coordinates);
 
+		//return of no hit
+		if(!hit){
+			deselect();
+			return;
+		}
 
+		//set identifier
+		hit.identifier = e.touches[0].identifier;
 
+		console.log(hit);
+		console.info('touchdown!!', e)
+		e.preventDefault();
+
+		hit.canvas = canvas;
+
+		activeElements.push(hit);
+
+		document.addEventListener('touchmove',touchDrag);
+
+		select(hit.name,hit.count);
+
+		touchDrag(e); //to  make sure the handles positions to the cursor even before movement
+
+		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 	}
 
 	function touchDrag(e){
@@ -191,9 +211,13 @@ window.interactCanvas = (function(){
 		e.preventDefault();
 		e.stopPropagation();
 
+		console.info('down');
+
 		var canvas = e.target || e.srcElement;
 		var coordinates = getCoordinates(e,canvas);
-		var hit = hitDetect(coordinates);
+		var hit;
+
+		hit = hitDetect(coordinates);
 
 		//return of no hit
 		if(!hit){
@@ -232,25 +256,22 @@ window.interactCanvas = (function(){
 	}
 
 	function select(name,count){
-		selected = {
-			name:name,
-			count:count
-		};
-
-		document.addEventListener('mousedown',deselect);
 		//notify core module:
 		napchartCore.setSelected(name,count);
 	}
 
-	function deselect(){
-		selected = {};
-		document.removeEventListener('mousedown',deselect);
-		//notify core module:
-		napchartCore.setSelected();
+	function deselect(name,count){
+		if(typeof name == 'undefined'){
+			//deselect all
+			napchartCore.deselect();
+		}
+		//deselect one
+		napchartCore.deselect(name,count);
 	}
 
 	function drag(e){
-
+		new err;
+		console.log('dragging with mouse')
 		var dragElement = activeElements[0],
 		coordinates = getCoordinates(e,dragElement.canvas),
 		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y),
@@ -286,14 +307,19 @@ window.interactCanvas = (function(){
 
 	}
 
-	function up(){
+	function up(e){
+		console.log('activeElements:',JSON.stringify(activeElements));
+		console.log(e);
+		var identifier = e.touches[0].identifier;
 		if(activeElements.length != 0){
 			chartHistory.add(napchartCore.getSchedule(),'moved ' + activeElements[0].name + ' ' + (activeElements[0].count+1));
 		}
 
 
-		//function must be modified when adding multitouch support
-		activeElements = [];
+		//find the shit to remove
+		for(var i = 0; i < activeElements.length; i++){
+
+		}
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
 
@@ -334,13 +360,14 @@ window.interactCanvas = (function(){
 	return{
 		initialize:function(canvas){
 			
-			canvas.addEventListener('mousemove',hover);
-			canvas.addEventListener('mousemove',setCoordinates);
-			canvas.addEventListener('mouseleave',leave);
-			canvas.addEventListener('mousedown',down);
-			document.addEventListener('mouseup',up);
-
+			// canvas.addEventListener('mousemove',hover);
+			// canvas.addEventListener('mousemove',setCoordinates);
+			// canvas.addEventListener('mouseleave',leave);
+			// canvas.addEventListener('mousedown',down);
+			// document.addEventListener('mouseup',up);
+			document.addEventListener('touchend',up);
 			canvas.addEventListener('touchstart',touchDown);
+			document.addEventListener('touchstart',deselect);
 
 
 		},
@@ -376,26 +403,6 @@ window.interactCanvas = (function(){
 			return false;
 		},
 
-		isSelected:function(name,count){
-			if(name == selected.name && count == selected.count){
-				return true;
-			}
-			return false;
-		},
-
-		returnSelected:function(){
-
-			//check if selected exists or is removed
-			if(typeof selected.name != 'undefined'
-			&& !napchartCore.elementExists(selected.name,selected.count)){
-				selected = {}
-			}
-			return selected;
-		},
-
-		deselect:function(){
-			deselect();
-		},
 
 		mouseIsOverCanvas:function(){
 			if(typeof mouse.x != 'undefined')
