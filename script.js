@@ -8,6 +8,7 @@ console.log(redis_port);
 var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
 console.log(redis_host);
 var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
+redis.auth(process.env.PASSWORD);
 console.log('we got this far v2');
 
 
