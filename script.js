@@ -2,15 +2,19 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-console.log('we got this far');
-var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
-console.log(redis_port);
-var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
-console.log(redis_host);
-var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
-redis.auth(process.env.PASSWORD);
-console.log('we got this far v2');
 
+var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
+var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
+var redis_pass = process.env.PASSWORD;
+
+var r = require('redis');
+function createClient(port, host, pass) {
+    var redis = r.createClient(port, host);
+    redis.auth(pass);
+    return redis;
+}
+
+var redis = createClient(redis_port, redis_host, redis_pass);
 
 redis.on('connect', function() {
 	console.log('connected');
