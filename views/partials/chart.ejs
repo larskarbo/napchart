@@ -55,7 +55,7 @@ fromServer.data = <%- chart %>;
 	</div>
 </div>
 <div class="row">
-	<div class="col s12 m4 l4">
+	<div class="col s12 m6 l4">
 		<div class="card stat-block" id="settings">
 			<div class="card-headline">Settings</div>
 			<div class="inner-card">
@@ -89,51 +89,7 @@ fromServer.data = <%- chart %>;
 		</div>
 	</div>
 
-	<div class="col s12 m4 l4">
-		<div class="card stat-block">
-			<div class="card-headline">About</div>
-			<div class="inner-card">
-				<p>
-					Napchart is a tool created for people that want to experiment with polyphasic sleep.
-				</p>
-
-				<!-- <div class="btn-flat grey lighten-2 waves-effect"><i class="fa fa-paypal"></i>aypal</div>
-				<br />
-				<div class="btn-flat grey lighten-2 waves-effect"><i class="fa fa-btc"></i>itCoin</div>
- -->
- 			
- 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
- 				<input type="hidden" name="cmd" value="_s-xclick">
- 				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
- 				">
- 				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
- 				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
- 				</form>
-
-
-
-				<script src="http://coinwidget.com/widget/coin.js"></script>
-				<script>
-				CoinWidgetCom.go({
-					wallet_address: "3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"
-					, currency: "bitcoin"
-					, counter: "hide"
-					, alignment: "bc"
-					, qrcode: true
-					, auto_show: false
-					, lbl_button: "Donate"
-					, lbl_address: "My Bitcoin Address:"
-					, lbl_count: "donations"
-					, lbl_amount: "BTC"
-				});
-				</script>
-
-			</div>
-		</div>
-	</div>
-
-
-	<div class="col s12 m4 l4">
+	<div class="col s12 m6 l4 right">
 
 		<div class="card stat-block left feedback" id="feedback-card">
 
@@ -169,4 +125,51 @@ fromServer.data = <%- chart %>;
 
 		</div>
 	</div>
+
+
+	<div class="col s12 m12 l4">
+		<div class="card stat-block">
+			<div class="card-headline">About</div>
+			<div class="inner-card">
+				<p>
+					Napchart is a tool created for people that want to experiment with polyphasic sleep.
+				</p>
+
+				<!-- <div class="btn-flat grey lighten-2 waves-effect"><i class="fa fa-paypal"></i>aypal</div>
+				<br />
+				<div class="btn-flat grey lighten-2 waves-effect"><i class="fa fa-btc"></i>itCoin</div>
+ -->
+
+ 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+ 				<input type="hidden" name="cmd" value="_s-xclick">
+ 				<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+ 				">
+ 				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+ 				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+ 				</form>
+
+
+
+				<script src="http://coinwidget.com/widget/coin.js"></script>
+				<script>
+				CoinWidgetCom.go({
+					wallet_address: "3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"
+					, currency: "bitcoin"
+					, counter: "hide"
+					, alignment: "bc"
+					, qrcode: true
+					, auto_show: false
+					, lbl_button: "Donate"
+					, lbl_address: "My Bitcoin Address:"
+					, lbl_count: "donations"
+					, lbl_amount: "BTC"
+				});
+				</script>
+
+			</div>
+		</div>
+	</div>
+
+
+
 </div>
