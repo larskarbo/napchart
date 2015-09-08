@@ -4,11 +4,27 @@ var app = express();
 var bodyParser = require('body-parser');
 
 var mysql      = require('mysql');
+
+var host, user, pass, db;
+if(process.env.OPENSHIFT_MYSQL_DB_HOST){
+	//on openshift
+	host = process.env.OPENSHIFT_MYSQL_DB_HOST;
+	user = process.env.OPENSHIFT_MYSQL_DB_USERNAME;
+	pass = process.env.OPENSHIFT_MYSQL_DB_PASSWORD;
+	db = 'napcharttestapp';
+}else{
+	//local
+	host = 'localhost';
+	user = 'napchart';
+	pass = 'hest';
+	db = 'napchart';
+}
+
 var connection = mysql.createConnection({
-	host     : 'localhost',
-	user: 'napchart',
-	password: 'l17)=&?]92B2 )??/83u',
-database: 'napchart'
+	host: host,
+	user: user,
+	password: pass,
+	database: db
 });
 
 connection.connect(function(err) {
