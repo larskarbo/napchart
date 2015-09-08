@@ -3,23 +3,51 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
-var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
-var redis_pass = process.env.PASSWORD;
-
-var r = require('redis');
-function createClient(port, host, pass) {
-    var redis = r.createClient(port, host);
-    redis.auth(pass);
-    return redis;
-}
-
-var redis = createClient(redis_port, redis_host, redis_pass);
-
-redis.on('connect', function() {
-	console.log('connected');
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+	host     : 'localhost',
+	user: 'napchart',
+	password: 'l17)=&?]92B2 )??/83u',
+database: 'napchart'
 });
 
+connection.connect(function(err) {
+	if (err) {
+		console.error('error connecting: ' + err.stack);
+		return;
+	}
+
+	console.log('connected as id ' + connection.threadId);
+});
+
+function getObject(chartid,callback){
+	connection.query('SELECT type,text,start,end FROM chartitem WHERE chartid = ?',chartid, function(err,rows){
+		if(err) throw err;
+
+		var output;
+		var codes = {
+			0:'core',
+			1:'nap',
+			2:'busy'
+		}
+
+		output = {
+			core:[],
+			nap:[],
+			busy:[]
+		};
+
+		for(var i = 0; i < rows.length; i++){
+			output[codes[rows[i].type]].push({
+				start:rows[i].start,
+				end:rows[i].end
+			});
+		};
+
+		console.log(output);
+		callback(output);
+	});
+}
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -31,11 +59,16 @@ app.set('view engine', 'ejs');
 
 app.get('/get/:chartid', function(req, res) {
 
-	var chartid=req.params.chartid;
-	redis.get('chart:'+chartid, function(err, reply) {
+	var chartid = req.params.chartid;
+
+	getObject(chartid,function(object){
+
 		res.writeHead(200, {"Content-Type": "application/json"});
-		res.end(reply);
-	})
+		res.end(JSON.stringify(output));
+
+	});
+
+
 
 });
 
@@ -51,23 +84,75 @@ app.post('/post', function (req, res) {
 
 	chartid=idgen();
 
-	redis.set('chart:'+chartid,req.body.data,function(err,reply){
-		res.writeHead(200);
-		res.end(chartid);
-	})
+	var chartid, chartinfo, chartitem;
+	var data = JSON.parse(req.body.data);
+	//first add chartid in chart
+	function setChartID(){
+		var chartid = idgen();
+
+		connection.query('SELECT chartid FROM chart WHERE chartid=?', chartid, function(err,res){
+			if(err) throw err;
+			if(res.length > 0){
+	      	//try new one
+	      	setChartID();
+	      }
+	      console.log('We found ',chartid)
+	      console.log('Last insert ID:', res.insertId);
+	  });
+
+		return chartid;
+	}
+
+	chartid = setChartID();
+	chartinfo = {
+		chartid:chartid,
+		visits:0
+	}
+	connection.query('INSERT INTO chart SET ?', chartinfo, function(err,res){
+		if(err) throw err;
+
+		console.log('chartinfo: Last insert ID:', res.insertId);
+	});
+
+	var codes = {
+		'core':0,
+		'nap':1,
+		'busy':2
+	}
+
+	var text;
+	Object.keys(data).forEach(function(name) {
+		for(var i = 0; i < data[name].length; i++){
+			var text = data[name][i].text || '';
+			chartitem = {
+				chartid:chartid,
+				type:codes[name],
+				start:data[name][i].start,
+				end:data[name][i].end,
+				text:text
+			};
+			connection.query('INSERT INTO chartitem SET ?', chartitem, function(err,res){
+				if(err) throw err;
+
+				console.log('chartitem: Last insert ID:', res.insertId);
+			});
+		}
+	});
+
+	res.writeHead(200);
+	res.end(chartid);
 });
 
-app.get('/about', function (req, res) {
-	res.render('pages/about',{});
-});
+// app.get('/about', function (req, res) {
+// 	res.render('pages/about',{});
+// });
 
 app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
+	getObject(chartid, function(object){
 
-	redis.get('chart:'+chartid, function(err, reply) {
-
-		res.render('pages/index',{chartid:chartid,chart:reply});
-	})
+		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object)});
+	});
 
 });
 
@@ -85,7 +170,7 @@ app.post('/email-feedback-post', function (req,res){
 		res.end('success');
 	});
 });
-	
+
 
 
 app.get('/', function (req, res) {

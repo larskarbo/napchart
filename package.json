@@ -11,7 +11,7 @@
     "express": "*",
 	"ejs":"*",
 	"angular":"*",
-	"redis":"*",
+	"mysql":"*",
 	"body-parser":"*",
 	"nodemailer":"*"
 	},
