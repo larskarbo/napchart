@@ -12,9 +12,9 @@ redis.auth(process.env.PASSWORD);
 console.log('we got this far v2');
 
 
-// redis.on('connect', function() {
-// 	console.log('connected');
-// });
+redis.on('connect', function() {
+	console.log('connected');
+});
 
 
 app.use(express.static('public'));
@@ -25,47 +25,47 @@ app.use(bodyParser.urlencoded({
 
 app.set('view engine', 'ejs');
 
-// app.get('/get/:chartid', function(req, res) {
+app.get('/get/:chartid', function(req, res) {
 
-// 	var chartid=req.params.chartid;
-// 	redis.get('chart:'+chartid, function(err, reply) {
-// 		res.writeHead(200, {"Content-Type": "application/json"});
-// 		res.end(reply);
-// 	})
+	var chartid=req.params.chartid;
+	redis.get('chart:'+chartid, function(err, reply) {
+		res.writeHead(200, {"Content-Type": "application/json"});
+		res.end(reply);
+	})
 
-// });
+});
 
-// app.post('/post', function (req, res) {
+app.post('/post', function (req, res) {
 
-// 	function idgen(){
-// 		alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
-// 		id='';
-// 		for( var i=0; i < 5; i++ )
-// 			id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-// 		return id;
-// 	}
+	function idgen(){
+		alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
+		id='';
+		for( var i=0; i < 5; i++ )
+			id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+		return id;
+	}
 
-// 	chartid=idgen();
+	chartid=idgen();
 
-// 	redis.set('chart:'+chartid,req.body.data,function(err,reply){
-// 		res.writeHead(200);
-// 		res.end(chartid);
-// 	})
-// });
+	redis.set('chart:'+chartid,req.body.data,function(err,reply){
+		res.writeHead(200);
+		res.end(chartid);
+	})
+});
 
 app.get('/about', function (req, res) {
 	res.render('pages/about',{});
 });
 
-// app.get('/:chartid', function (req, res) {
-// 	var chartid = req.params.chartid;
+app.get('/:chartid', function (req, res) {
+	var chartid = req.params.chartid;
 
-// 	redis.get('chart:'+chartid, function(err, reply) {
+	redis.get('chart:'+chartid, function(err, reply) {
 
-// 		res.render('pages/index',{chartid:chartid,chart:reply});
-// 	})
+		res.render('pages/index',{chartid:chartid,chart:reply});
+	})
 
-//});
+});
 
 app.post('/email-feedback-post', function (req,res){
 	var nodemailer = require('nodemailer');
