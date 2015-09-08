@@ -2,10 +2,13 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-
+console.log('we got this far');
 var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
+console.log(redis_port);
 var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
+console.log(redis_host);
 var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
+console.log('we got this far v2');
 
 
 // redis.on('connect', function() {
