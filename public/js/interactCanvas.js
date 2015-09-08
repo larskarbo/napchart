@@ -8,8 +8,7 @@ directly on the canvas with mouse or touch
 window.interactCanvas = (function(){
 	//private:
 
-	var mouse = {},
-	mouseHover = {},
+	var mouseHover = {},
 	activeElements = [],
 	hoverDistance = 6,
 	selectedOpacity = 1;
@@ -332,15 +331,6 @@ window.interactCanvas = (function(){
 
 	}
 
-	function setCoordinates(e){
-		var canvas = napchartCore.getCanvas();
-		mouse = getRelativePosition(e,canvas);
-	}
-
-	function leave(){
-		mouse = {};
-	}
-
 	function snap(input){
 		var output = input;
 
@@ -367,9 +357,7 @@ window.interactCanvas = (function(){
 	return{
 		initialize:function(canvas){
 			
-			// canvas.addEventListener('mousemove',hover);
-			// canvas.addEventListener('mousemove',setCoordinates);
-			// canvas.addEventListener('mouseleave',leave);
+			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousedown',down);
 			canvas.addEventListener('touchstart',down);
 			document.addEventListener('mouseup',up);
@@ -377,10 +365,6 @@ window.interactCanvas = (function(){
 			document.addEventListener('touchstart',deselect);
 
 
-		},
-
-		getCanvasMousePosition:function(canvas){
-			return {x:mouse.x , y:mouse.y};
 		},
 
 		setHoverElement:function(hover){
@@ -408,14 +392,6 @@ window.interactCanvas = (function(){
 				return true;
 			}
 			return false;
-		},
-
-
-		mouseIsOverCanvas:function(){
-			if(typeof mouse.x != 'undefined')
-				return true;
-			else
-				return false;
 		},
 
 		getSelectedOpacity:function(){
