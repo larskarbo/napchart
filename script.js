@@ -3,9 +3,9 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-// var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
-// var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
-// var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
+var redis_port = process.env.OPENSHIFT_REDIS_DB_PORT || '6379';
+var redis_host = process.env.OPENSHIFT_REDIS_DB_HOST || '127.0.0.1';
+var redis = require("redis").createClient(redis_port,redis_host); //creates a new client
 
 
 // redis.on('connect', function() {
