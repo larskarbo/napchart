@@ -41,7 +41,7 @@ function getObject(chartid,callback){
 		if(err){
 			console.error('################################# ERROR ');
 			console.log('err');
-			throw.err;
+			throw err;
 		}
 
 		var output;
@@ -114,7 +114,7 @@ app.post('/post', function (req, res) {
 			if(err){
 				console.error('################################# ERROR ');
 				console.log('err');
-				throw.err;
+				throw err;
 			}
 			if(res.length > 0){
 	      	//try new one
