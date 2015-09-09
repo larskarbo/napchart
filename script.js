@@ -12,8 +12,8 @@ if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 	credentials = {
 		host:process.env.OPENSHIFT_MYSQL_DB_HOST,
 		user:process.env.OPENSHIFT_MYSQL_DB_USERNAME,
-		pass:process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
-		db:'napcharttestapp',
+		password:process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+		database:'napcharttestapp',
 		port:process.env.OPENSHIFT_MYSQL_DB_PORT
 	}
 }else{
@@ -21,19 +21,14 @@ if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 	credentials = {
 		host:'localhost',
 		user:'napchart',
-		pass:'hest',
-		db:'napchart'
+		password:'hest',
+		database:'napchart'
 	}
 }
 
 var connection = mysql.createConnection(credentials);
 
-console.log('######################',{
-	host: host,
-	user: user,
-	password: pass,
-	database: db
-})
+console.log('######################',credentials)
 
 connection.connect(function(err) {
 	if (err) {
