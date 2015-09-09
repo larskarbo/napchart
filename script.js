@@ -28,7 +28,6 @@ if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 
 var connection = mysql.createConnection(credentials);
 
-console.log('######################',credentials)
 
 connection.connect(function(err) {
 	if (err) {
@@ -39,8 +38,36 @@ connection.connect(function(err) {
 	console.log('connected as id ' + connection.threadId);
 });
 
+function dot2num(dot) 
+{
+    var d = dot.split('.');
+    return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
+}
+
+function num2dot(num) 
+{
+    var d = num%256;
+    for (var i = 3; i > 0; i--) 
+    { 
+        num = Math.floor(num/256);
+        d = num%256 + '.' + d;
+    }
+    return d;
+}
+
+
+
+function visit(chartid){
+	connection.query('UPDATE chart SET visits=visits+1 WHERE chartid=?',chartid,function(err){
+		if(err)
+			throw err;
+
+		return true;
+	})
+}
+
 function getObject(chartid,callback){
-	connection.query('SELECT type,text,start,end FROM napcharttestapp.chartitem WHERE chartid = ?',chartid, function(err,rows){
+	connection.query('SELECT type,text,start,end FROM chartitem WHERE chartid = ?',chartid, function(err,rows){
 		if(err){
 			console.error('################################# ERROR ');
 			console.log(err);
@@ -66,6 +93,8 @@ function getObject(chartid,callback){
 				end:rows[i].end
 			});
 		};
+
+		visit(chartid);
 
 		console.log(output);
 		callback(output);
@@ -113,7 +142,7 @@ app.post('/post', function (req, res) {
 	function setChartID(){
 		var chartid = idgen();
 
-		connection.query('SELECT chartid FROM napcharttestapp.chart WHERE chartid=?', chartid, function(err,res){
+		connection.query('SELECT chartid FROM chart WHERE chartid=?', chartid, function(err,res){
 			if(err){
 				console.error('################################# ERROR ');
 				console.log(err);
@@ -129,13 +158,21 @@ app.post('/post', function (req, res) {
 
 		return chartid;
 	}
+	
+	var ip = req.headers['x-forwarded-for'] || 
+	     req.connection.remoteAddress || 
+	     req.socket.remoteAddress ||
+	     req.connection.socket.remoteAddress;
+
+	var numIp = dot2num(ip);
 
 	chartid = setChartID();
 	chartinfo = {
 		chartid:chartid,
-		visits:0
+		visits:0,
+		ip:numIp
 	}
-	connection.query('INSERT INTO napcharttestapp.chart SET ?', chartinfo, function(err,res){
+	connection.query('INSERT INTO chart SET ?', chartinfo, function(err,res){
 		if(err) throw err;
 
 		console.log('chartinfo: Last insert ID:', res.insertId);
@@ -158,7 +195,7 @@ app.post('/post', function (req, res) {
 				end:data[name][i].end,
 				text:text
 			};
-			connection.query('INSERT INTO napcharttestapp.chartitem SET ?', chartitem, function(err,res){
+			connection.query('INSERT INTO chartitem SET ?', chartitem, function(err,res){
 				if(err) throw err;
 
 				console.log('chartitem: Last insert ID:', res.insertId);
@@ -190,7 +227,7 @@ app.post('/email-feedback-post', function (req,res){
 	}
 
 	//post to database
-	connection.query('INSERT INTO napcharttestapp.feedback SET ?', feedback, function(err,res){
+	connection.query('INSERT INTO feedback SET ?', feedback, function(err,res){
 		if(err) throw err;
 
 		console.log('feedback: Last insert ID:', res.insertId);
