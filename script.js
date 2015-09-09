@@ -38,7 +38,11 @@ connection.connect(function(err) {
 
 function getObject(chartid,callback){
 	connection.query('SELECT type,text,start,end FROM napcharttestapp.chartitem WHERE chartid = ?',chartid, function(err,rows){
-		if(err) throw err;
+		if(err){
+			console.error('################################# ERROR ');
+			console.log('err');
+			throw.err;
+		}
 
 		var output;
 		var codes = {
@@ -107,7 +111,11 @@ app.post('/post', function (req, res) {
 		var chartid = idgen();
 
 		connection.query('SELECT chartid FROM napcharttestapp.chart WHERE chartid=?', chartid, function(err,res){
-			if(err) throw err;
+			if(err){
+				console.error('################################# ERROR ');
+				console.log('err');
+				throw.err;
+			}
 			if(res.length > 0){
 	      	//try new one
 	      	setChartID();
