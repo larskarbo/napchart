@@ -5,27 +5,28 @@ var bodyParser = require('body-parser');
 
 var mysql      = require('mysql');
 
-var host, user, pass, db;
+var credentials = {};
+
 if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 	//on openshift
-	host = process.env.OPENSHIFT_MYSQL_DB_HOST;
-	user = process.env.OPENSHIFT_MYSQL_DB_USERNAME;
-	pass = process.env.OPENSHIFT_MYSQL_DB_PASSWORD;
-	db = 'napcharttestapp';
+	credentials = {
+		host:process.env.OPENSHIFT_MYSQL_DB_HOST,
+		user:process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+		pass:process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+		db:'napcharttestapp',
+		port:process.env.OPENSHIFT_MYSQL_DB_PORT
+	}
 }else{
 	//local
-	host = 'localhost';
-	user = 'napchart';
-	pass = 'hest';
-	db = 'napchart';
+	credentials = {
+		host:'localhost',
+		user:'napchart',
+		pass:'hest',
+		db:'napchart'
+	}
 }
 
-var connection = mysql.createConnection({
-	host: host,
-	user: user,
-	password: pass,
-	database: db
-});
+var connection = mysql.createConnection(credentials);
 
 console.log('######################',{
 	host: host,
