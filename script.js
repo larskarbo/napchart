@@ -27,9 +27,16 @@ var connection = mysql.createConnection({
 	database: db
 });
 
+console.log('######################',{
+	host: host,
+	user: user,
+	password: pass,
+	database: db
+})
+
 connection.connect(function(err) {
 	if (err) {
-		console.error('error connecting: ' + err.stack);
+		console.error('################### error connecting: ' + err.stack);
 		return;
 	}
 
