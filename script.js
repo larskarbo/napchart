@@ -173,19 +173,24 @@ app.get('/:chartid', function (req, res) {
 });
 
 app.post('/email-feedback-post', function (req,res){
-	var nodemailer = require('nodemailer');
-	var transporter = nodemailer.createTransport();
-	console.log(req.body.message);
-	transporter.sendMail({
-    	from: 'larskarbo@gmail.com',
-	    to: 'larskarbo@gmail.com',
-	    subject: 'feeeeeedback',
-	    text: req.body.message
-	}, function(){
-		res.writeHead(200);
-		res.end('success');
+	var text = req.body.message;
+	var feedback = {
+		text: text
+	}
+
+	//post to database
+	connection.query('INSERT INTO feedback SET ?', feedback, function(err,res){
+		if(err) throw err;
+
+		console.log('feedback: Last insert ID:', res.insertId);
 	});
+
+	res.writeHead(200);
+	res.end('success');
+
+
 });
+
 
 
 
