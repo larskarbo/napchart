@@ -40,7 +40,7 @@ function getObject(chartid,callback){
 	connection.query('SELECT type,text,start,end FROM napcharttestapp.chartitem WHERE chartid = ?',chartid, function(err,rows){
 		if(err){
 			console.error('################################# ERROR ');
-			console.log('err');
+			console.log(err);
 			throw err;
 		}
 
@@ -113,7 +113,7 @@ app.post('/post', function (req, res) {
 		connection.query('SELECT chartid FROM napcharttestapp.chart WHERE chartid=?', chartid, function(err,res){
 			if(err){
 				console.error('################################# ERROR ');
-				console.log('err');
+				console.log(err);
 				throw err;
 			}
 			if(res.length > 0){
