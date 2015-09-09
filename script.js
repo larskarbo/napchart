@@ -37,7 +37,7 @@ connection.connect(function(err) {
 });
 
 function getObject(chartid,callback){
-	connection.query('SELECT type,text,start,end FROM chartitem WHERE chartid = ?',chartid, function(err,rows){
+	connection.query('SELECT type,text,start,end FROM napcharttestapp.chartitem WHERE chartid = ?',chartid, function(err,rows){
 		if(err) throw err;
 
 		var output;
@@ -106,7 +106,7 @@ app.post('/post', function (req, res) {
 	function setChartID(){
 		var chartid = idgen();
 
-		connection.query('SELECT chartid FROM chart WHERE chartid=?', chartid, function(err,res){
+		connection.query('SELECT chartid FROM napcharttestapp.chart WHERE chartid=?', chartid, function(err,res){
 			if(err) throw err;
 			if(res.length > 0){
 	      	//try new one
@@ -124,7 +124,7 @@ app.post('/post', function (req, res) {
 		chartid:chartid,
 		visits:0
 	}
-	connection.query('INSERT INTO chart SET ?', chartinfo, function(err,res){
+	connection.query('INSERT INTO napcharttestapp.chart SET ?', chartinfo, function(err,res){
 		if(err) throw err;
 
 		console.log('chartinfo: Last insert ID:', res.insertId);
@@ -147,7 +147,7 @@ app.post('/post', function (req, res) {
 				end:data[name][i].end,
 				text:text
 			};
-			connection.query('INSERT INTO chartitem SET ?', chartitem, function(err,res){
+			connection.query('INSERT INTO napcharttestapp.chartitem SET ?', chartitem, function(err,res){
 				if(err) throw err;
 
 				console.log('chartitem: Last insert ID:', res.insertId);
@@ -179,7 +179,7 @@ app.post('/email-feedback-post', function (req,res){
 	}
 
 	//post to database
-	connection.query('INSERT INTO feedback SET ?', feedback, function(err,res){
+	connection.query('INSERT INTO napcharttestapp.feedback SET ?', feedback, function(err,res){
 		if(err) throw err;
 
 		console.log('feedback: Last insert ID:', res.insertId);
