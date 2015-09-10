@@ -16,9 +16,9 @@ window.formInput=(function(){
 		add = '<div class="'+className+' inputBox">';
 		add += name + ' ' + (count+1);
 		add += ':  <input class="clock start" length="4" type="text">';
-		
+
 		if(name == 'nap')
-			add += ' - <input class="duration" type="number">'
+			add += ' - <input class="duration" type="number" min="10" max="90" value="20"> min'
 		else
 			add += ' - <input class="clock end" length="4" type="text">';
 
@@ -146,8 +146,6 @@ window.formInput=(function(){
 			container.addEventListener('mousedown',function(e){
 				e.stopPropagation();
 			});
-
-			formInput.setSettings();
 		},
 
 		setData:function(data){
@@ -171,8 +169,8 @@ window.formInput=(function(){
 
 		},
 
-		setSettings:function(){
-			showAllElements = settings.getValue('showAllElements');
+		setSettings:function(object){
+			showAllElements = object.showAllElements;
 			console.log(showAllElements);
 			updateValues();
 		}

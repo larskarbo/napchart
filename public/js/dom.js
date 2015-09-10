@@ -37,8 +37,8 @@ window.dom=(function(){
 				name = $(this).parent().find('[name="name"]').val();
 				count = $(this).parent().find('[name="count"]').val();
 				console.log(name,count)
-				if(interactCanvas.isSelected(name,count)){
-					interactCanvas.deselect();
+				if(napchartCore.isSelected(name,count)){
+					napchartCore.deselect(name,count);
 				}
 				napchartCore.removeElement(name,count);
 			});

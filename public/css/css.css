@@ -241,6 +241,10 @@ p{
 	width:50px;
 }
 
+.duration{
+	width:40px;
+}
+
 
 /**************************
 8.0   Statistics
@@ -286,9 +290,11 @@ div#debugger{
 }
 
 /**************************
-11.0   Sidebar
+11.0   Settings
 *******************/
-
+.settingsElement:not(:first-child){
+	padding-top: 18px
+}
 
 /**************************
 Thank you for reading this stylesheet

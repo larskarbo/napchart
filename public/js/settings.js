@@ -12,26 +12,45 @@ window.settings=(function(){
 
 	var showAllElements;
 
+	function addEventListeners(){
+
+		$(switchBox).find('#showAllElements').on('change',function(){
+			formInput.setSettings({
+				showAllElements:settings.getValue('showAllElements')
+			});
+		});
+
+
+		$(switchBox).find('#napDuration').on('change',function(){
+			barhandler.setSettings({
+				napDuration:settings.getValue('napDuration')
+			});
+		});
+	}
+
 	//public:
 	return{
 		initialize:function(container){
 			switchBox = container;
 
 			console.log($(switchBox).find('#showAllElements').length);
-			$(switchBox).find('#showAllElements').on('change',function(){
-				formInput.setSettings();
-			});
+
+			addEventListeners();
 		},
 
 		getValue:function(id){
-			console.log(switchBox);
-			var value = $(switchBox).find('#' + id).attr('checked');
+			var element = $(switchBox).find('#' + id)[0];
+			var value;
+			console.log(element);
 
-			if(value)
-				return true;
-			else
-				return false;
+			if(element.type == 'checkbox'){
+				value = element.checked;
+			}else{
+				value = element.value;
 			}
+
+			return value;
 		}
+	}
 
 }())

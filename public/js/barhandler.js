@@ -26,7 +26,7 @@ window.barhandler = (function(){
 				}
 			}
 		}
-	}
+	};
 
 	//public:
 	return {
@@ -88,6 +88,11 @@ window.barhandler = (function(){
 			napchartCore.setSchedule(data);
 
 			chartHistory.add(napchartCore.getSchedule(),'removed all')
+		},
+
+		setSettings:function(object){
+			console.log(object);
+			barAddRules.nap.size = object.napDuration*1;
 		}
 	}
 
