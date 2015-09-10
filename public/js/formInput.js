@@ -17,15 +17,22 @@ window.formInput=(function(){
 		add += name + ' ' + (count+1);
 		add += ':  <input class="clock start" length="4" type="text">';
 
-		if(name == 'nap')
-			add += ' - <input class="duration" type="number" min="10" max="90" value="20"> min'
-		else
+		if(name == 'nap'){
+			//set duration value once now because it can't be changed from outside
+			//and therefore don't need to be included in the update function
+			var element = napchartCore.returnElement(name,count);
+			var duration = helpers.calc(element.end,-element.start);
+
+			add += ' - <input class="duration" type="number" min="10" max="90" value="'+duration+'"> min'
+		}else
 			add += ' - <input class="clock end" length="4" type="text">';
 
 		add += '<input type="hidden" name="name" value="'+name+'">';
 		add += '<input type="hidden" name="count" value="'+count+'">';
 		add += '<button class="remove">remove</button>';
 		add += '</div>';
+
+
 
 		$(container).append(add);
 
@@ -95,10 +102,18 @@ window.formInput=(function(){
 			type = 'start';
 		else if($(this).hasClass('end'))
 			type = 'end';
+		else if($(this).hasClass('duration'))
+			type = 'duration';
 
-		clock = validate($(this).val());
-		$(this).val(clock);
-		minutes = helpers.clockToMinutes(clock);
+		if(type == 'duration'){
+			var start = napchartCore.returnElement(name,count).start;
+			minutes = helpers.calc(start,this.value*1);
+			type = 'end'; // value is start + duration = end
+		}else{
+			clock = validate($(this).val());
+			$(this).val(clock);
+			minutes = helpers.clockToMinutes(clock);
+		}
 
 		newElement[type] = minutes;
 
@@ -141,6 +156,7 @@ window.formInput=(function(){
 
 			//bind unfocus events
 			$(container).on('blur','.clock',unfocus);
+			$(container).on('change','.duration',unfocus);
 
 			//prevent deselecting
 			container.addEventListener('mousedown',function(e){
