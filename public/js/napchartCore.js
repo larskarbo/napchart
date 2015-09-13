@@ -197,16 +197,18 @@ window.napchartCore=(function(){
 				console.info('url was right',chartid)
 			}
 
+			dom.setURL(chartid);
+
 			//notify chartHistory that current history elements should be linked with this chartid
 			chartHistory.setChartid(chartid);
 		},
 
 		startLoading:function(){
-			//dom.startLoading();
+			dom.startLoading();
 		},
 
 		finishLoading:function(){
-			//dom.finishLoading();
+			dom.finishLoading();
 		}
 	};
 

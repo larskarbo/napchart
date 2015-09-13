@@ -131,11 +131,6 @@ p{
 	color:#7a1919;
 }
 
-#navExtension {
-	display:none;
-	padding-top:10px;
-}
-
 #urlField {
 	width:0;
     background:rgb(237,237,237);
@@ -146,7 +141,8 @@ p{
     padding:5px;
     color:black;
     height:auto;
-    margin:0;
+    margin:20px 0 0;
+    display:none;
 }
 
 #urlField.loading {

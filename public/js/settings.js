@@ -10,22 +10,39 @@ window.settings=(function(){
 	//private
 	var switchBox;
 
-	var showAllElements;
+	// var items = {
+	// 	showAllElements:false,
+	// 	napDuration:20
+	// }
 
 	function addEventListeners(){
 
 		$(switchBox).find('#showAllElements').on('change',function(){
 			formInput.setSettings({
-				showAllElements:settings.getValue('showAllElements')
+				showAllElements:getValue('showAllElements')
 			});
 		});
 
 
 		$(switchBox).find('#napDuration').on('change',function(){
 			barhandler.setSettings({
-				napDuration:settings.getValue('napDuration')
+				napDuration:getValue('napDuration')
 			});
 		});
+	}
+
+	function getValue(id){
+		var element = $(switchBox).find('#' + id)[0];
+		var value;
+		console.log(element);
+
+		if(element.type == 'checkbox'){
+			value = element.checked;
+		}else{
+			value = element.value;
+		}
+
+		return value;
 	}
 
 	//public:
@@ -36,21 +53,9 @@ window.settings=(function(){
 			console.log($(switchBox).find('#showAllElements').length);
 
 			addEventListeners();
-		},
-
-		getValue:function(id){
-			var element = $(switchBox).find('#' + id)[0];
-			var value;
-			console.log(element);
-
-			if(element.type == 'checkbox'){
-				value = element.checked;
-			}else{
-				value = element.value;
-			}
-
-			return value;
 		}
+
+		
 	}
 
 }())

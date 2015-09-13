@@ -9,6 +9,7 @@ Requires jQuery
 window.dom=(function(){
 	//private
 	var SAVE_BTN = document.getElementById('saveButton');
+	var URL_FIELD = document.getElementById('urlField');
 	
 	//public:
 	return{
@@ -71,17 +72,15 @@ window.dom=(function(){
 		},
 
 		setURL:function(chartid){
-			var inputField, url;
-
-			inputField = URL_FIELD;
+			var url;
 
 			url = 'http://napchart.com/' + chartid;
 
-			if( $(NAV_EXT).css('display') == 'none' ){
-				dom.showNavExtension();
-				$(inputField).animate({width:"220px"});
+			if( $(URL_FIELD).css('display') == 'none' ){
+				$(URL_FIELD).show();
+				$(URL_FIELD).css('width','220px');
 			}
-			inputField.value = url;
+			URL_FIELD.value = url;
 		},
 
 		setOG:function(image){
@@ -89,20 +88,12 @@ window.dom=(function(){
 		},
 
 		startLoading:function(){
-			var inputField;
-
-			inputField = URL_FIELD;
-
-			$(inputField).addClass('loading');
-			inputField.value = 'loading';
+			$(URL_FIELD).addClass('loading');
+			URL_FIELD.value = 'loading';
 		},
 
 		finishLoading:function(){
-			var inputField;
-
-			inputField = URL_FIELD;
-
-			$(inputField).removeClass('loading');
+			$(URL_FIELD).removeClass('loading');
 		},
 
 		bindBackForward:function(){

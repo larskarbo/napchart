@@ -76,7 +76,6 @@ window.chartHistory=(function(){
 
 			//check if the new data is different from the previous. If not, abort.
 			if(history.length > 0 && JSON.stringify(data) == JSON.stringify(history[history.length-1].data)){
-				console.log('history: nothing changed');
 				return;
 			}
 

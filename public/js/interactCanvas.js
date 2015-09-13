@@ -216,6 +216,7 @@ window.interactCanvas = (function(){
 	}
 
 	function drag(e){
+		console.log('drag');
 		var identifier;
 		identifier = findIdentifier(e);
 
@@ -226,7 +227,7 @@ window.interactCanvas = (function(){
 		//newValues is an object that will replace the existing one with new values
 		var newValues = {}, positionInElement, duration, start, end;
 
-		
+
 		dragElement = getActiveElement(identifier);
 		if(!dragElement){
 			return
@@ -291,7 +292,7 @@ window.interactCanvas = (function(){
 	}
 
 	function findIdentifier(e){
-		if(e.type.search('mouse') <= 0){
+		if(e.type.search('mouse') >= 0){
 			return 'mouse';
 		}else{
 			console.log(e);
