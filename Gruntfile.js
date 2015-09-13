@@ -4,23 +4,49 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-        separator: ';'
+        separator: '\n'
       },
       dist: {
         src: [
-		'public/js/*.js',],
-        dest: 'public/js/<%= pkg.name %>.js'
+		'public/js/helpers.js',
+		'public/js/statistics.js',
+		'public/js/draw.js',
+		'public/js/server.js',
+		'public/js/animate.js',
+		'public/js/settings.js',
+		'public/js/history.js',
+		'public/js/interactCanvas.js',
+		'public/js/forminput.js',
+		'public/js/dom.js',
+		'public/js/barhandler.js',
+		'public/js/feedback.js',
+		'public/js/textSerialize.js',
+		'public/js/napchartCore.js',
+		'public/js/application.js'],
+        dest: 'public/js/dest/napchart.js'
       }
     },
     uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-      },
-      dist: {
-        files: {
-          'public/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-        }
+    my_target: {
+      files: {
+        'public/js/dest/napchart.min.js': [
+		'public/js/helpers.js',
+		'public/js/statistics.js',
+		'public/js/draw.js',
+		'public/js/server.js',
+		'public/js/animate.js',
+		'public/js/settings.js',
+		'public/js/history.js',
+		'public/js/interactCanvas.js',
+		'public/js/forminput.js',
+		'public/js/dom.js',
+		'public/js/barhandler.js',
+		'public/js/feedback.js',
+		'public/js/textSerialize.js',
+		'public/js/napchartCore.js',
+		'public/js/application.js']
       }
+     }
     },
     qunit: {
       files: ['test/**/*.html']
@@ -61,6 +87,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint', 'qunit']);
 
-  grunt.registerTask('default', ['jshint', 'beautify']);
+  grunt.registerTask('default', ['uglify']);
 
 };
