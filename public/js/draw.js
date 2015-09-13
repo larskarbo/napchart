@@ -183,7 +183,7 @@ window.draw=(function(){
 		ctx.strokeStyle=clockConfig.strokeColor;
 		ctx.lineWidth = clockConfig.stroke *draw.ratio;
 		ctx.beginPath();
-		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
+		ctx.translate(draw.w/2,draw.h/2);
 		for(i=0;i<12;i++){
 			c=helpers.minutesToXY(i*60,radius);
 			ctx.moveTo(c.x,c.y);
@@ -198,7 +198,7 @@ window.draw=(function(){
 	function drawImpLines(ctx){
 		var radius=40*draw.ratio;
 		ctx.save();
-		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
+		ctx.translate(draw.w/2,draw.h/2);
 		ctx.beginPath();
 		ctx.strokeStyle=clockConfig.impStrokeColor;
 		ctx.lineWidth = clockConfig.stroke *draw.ratio;
@@ -229,14 +229,14 @@ window.draw=(function(){
 
 		for(i=0;i<circles.length;i++){
 			ctx.beginPath();
-			ctx.arc(ctx.canvas.width/2,ctx.canvas.height/2,circles[i].radius*draw.ratio,0, 2*Math.PI);
+			ctx.arc(draw.w/2,draw.h/2,circles[i].radius*draw.ratio,0, 2*Math.PI);
 			ctx.stroke();
 		}
 	}
 
 	function drawClockNumbers(ctx){
-		var width = ctx.canvas.width;
-		var height = ctx.canvas.height;
+		var width = draw.w;
+		var height = draw.h;
 
 		impfontpixels=5*draw.ratio;
 		ctx.fillStyle="black";
@@ -261,8 +261,8 @@ window.draw=(function(){
 		}
 
 		function clearClockCircle(ctx,radius){
-			var width = ctx.canvas.width;
-			var height = ctx.canvas.height;
+			var width = draw.w;
+			var height = draw.h;
 
 			ctx.save();
 			ctx.globalCompositeOperation = 'destination-out';
@@ -386,8 +386,8 @@ window.draw=(function(){
 	}
 
 	function drawBlurCircle(ctx,backgroundColor){
-		var width = ctx.canvas.width;
-		var height = ctx.canvas.height;
+		var width = draw.w;
+		var height = draw.h;
 
 		ctx.save();
 		ctx.fillStyle=backgroundColor;
@@ -399,8 +399,8 @@ window.draw=(function(){
 	}
 
 	function clearCircle(ctx,radius){
-		var width = ctx.canvas.width;
-		var height = ctx.canvas.height;
+		var width = draw.w;
+		var height = draw.h;
 
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
@@ -445,7 +445,7 @@ window.draw=(function(){
 		var outerColor, innerColor;
 		ctx.save();
 
-		ctx.translate(ctx.canvas.width/2,ctx.canvas.height/2);
+		ctx.translate(draw.w/2,draw.h/2);
 		for (var name in data) {
 			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
 				continue;
@@ -687,15 +687,14 @@ window.draw=(function(){
 			// the initialize function draws the background clock to an off-screen canvas.
 			// This increases performance because the browser doesn't need to redraw everything, every frame
 			offScreenCanvas=document.createElement('canvas');
-			offScreenCanvas.height=canvas.width;
-			offScreenCanvas.width=canvas.width;
 			octx=offScreenCanvas.getContext('2d');
 
 			window.clockWidth=offScreenCanvas.height;
 			window.clockBasepoint=(offScreenCanvas.clientWidth-clockWidth)/2;
 
 			var clockWidth=offScreenCanvas.width;
-			this.ratio=clockWidth/100;
+			console.log(offScreenCanvas.style);
+			this.ratio = clockWidth/100;
 			this.backgroundColor="#F4F4F4";
 			var ctx=canvas.getContext("2d");
 			var devicePixelRatio = window.devicePixelRatio || 14;
@@ -717,26 +716,23 @@ window.draw=(function(){
 		        var oldWidth = canvas.width;
 		        var oldHeight = canvas.height;
 
-		        //DIG INTO THIS SHIT SOME TIME 
+		        canvas.width = oldWidth * backingRatio;
+		        canvas.height = oldHeight * backingRatio;
 
-		        //now disabled
+		        canvas.style.width = oldWidth + 'px';
+		        canvas.style.height = oldHeight + 'px';
 
-
-
-		        // canvas.width = oldWidth * backingRatio;
-		        // canvas.height = oldHeight * backingRatio;
-
-		        // canvas.style.width = oldWidth + 'px';
-		        // canvas.style.height = oldHeight + 'px';
-
-		        // now scale the context to counter
-		        // the fact that we've manually scaled
-		        // our canvas element
-		        // ctx.scale(backingRatio, backingRatio);
-
+		        this.ratio *= backingRatio;
 		    }
 
+
 		    this.ctx = ctx;
+		    this.w = canvas.width;
+		    this.h = canvas.height;
+
+		    
+		    offScreenCanvas.height=canvas.width;
+		    offScreenCanvas.width=canvas.width;
 
 			
 			//draw clock
@@ -764,7 +760,7 @@ window.draw=(function(){
 			selectedElement = napchartCore.returnSelected()[0];
 
 			ctx=draw.ctx;
-			ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+			ctx.clearRect(0,0,draw.w,draw.h);
 			if(typeof this.cachedBackground=="undefined")
 				throw new Error("Could not find the initialized off-screen canvas. Try running draw.initialize()");
 
