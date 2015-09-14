@@ -694,7 +694,10 @@ window.draw=(function(){
 
 			var clockWidth=offScreenCanvas.width;
 			console.log(offScreenCanvas.style);
-			this.ratio = clockWidth/100;
+
+			this.ratio = clockWidth/87; //what the computer thinks
+			this.drawRatio = this.ratio; //what you see
+
 			this.backgroundColor="#F4F4F4";
 			var ctx=canvas.getContext("2d");
 			var devicePixelRatio = window.devicePixelRatio || 14;
@@ -730,7 +733,7 @@ window.draw=(function(){
 		    this.w = canvas.width;
 		    this.h = canvas.height;
 
-		    
+
 		    offScreenCanvas.height=canvas.width;
 		    offScreenCanvas.width=canvas.width;
 

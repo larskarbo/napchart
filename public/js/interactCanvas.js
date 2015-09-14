@@ -68,10 +68,10 @@ window.interactCanvas = (function(){
 
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
-					point = helpers.minutesToXY(value,barConfig[name].outerRadius*interactCanvas.ratio);
+					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.drawRatio);
 
 					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
-					if(distance < hoverDistance*interactCanvas.ratio){
+					if(distance < hoverDistance*draw.drawRatio){
 
 						if(typeof hit.distance=='undefined'||distance < hit.distance){
 							//overwrite current hit object
@@ -109,8 +109,8 @@ window.interactCanvas = (function(){
 					if(helpers.pointIsInside(minutes,start,end)){
 
 						//check if point is inside element vertically
-						innerRadius = barConfig[name].innerRadius*interactCanvas.ratio;
-						outerRadius = barConfig[name].outerRadius*interactCanvas.ratio;
+						innerRadius = barConfig[name].innerRadius*draw.drawRatio;
+						outerRadius = barConfig[name].outerRadius*draw.drawRatio;
 						if(distanceToCenter > innerRadius && distanceToCenter < outerRadius){
 
 							positionInElement = helpers.calc(minutes,-start);
@@ -348,15 +348,10 @@ window.interactCanvas = (function(){
 			document.addEventListener('touchend',up);
 			document.addEventListener('touchstart',deselect);
 
-			//create a ratio variable
-			//differs from the interactCanvas.ratio because sometimes, the draw ratio is higher because
-			//of hidpi displays
 
 			var canvasStyles = window.getComputedStyle(canvas);
 			var width = canvasStyles.getPropertyValue('width').replace('px','');
 			var height = canvasStyles.getPropertyValue('height').replace('px','');
-
-			interactCanvas.ratio = width/100;
 
 			interactCanvas.canvas = {
 				width:width,
