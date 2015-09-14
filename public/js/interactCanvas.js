@@ -13,33 +13,14 @@ window.interactCanvas = (function(){
 	hoverDistance = 6,
 	selectedOpacity = 1;
 
-	function getRelativePosition(e,canvas){
-		var mouseX, mouseY, boundingRect;
-		if(typeof canvas=='undefined'){
-			canvas = e.target || e.srcElement;
-		}
-		boundingRect = canvas.getBoundingClientRect();
-
-		if (e.touches){
-			mouseX = e.touches[0].clientX - boundingRect.left;
-			mouseY = e.touches[0].clientY - boundingRect.top;
-		}
-
-		else{
-			mouseX = e.clientX - boundingRect.left;
-			mouseY = e.clientY - boundingRect.top;
-		}
-
-		return {
-			x : mouseX,
-			y : mouseY
-		};
-	}
 
 	function getCoordinates(e,canvas){
-		var mouseX,mouseY,
-		//similar to getrelativeposition but here origo is (0,0)
-		boundingRect = canvas.getBoundingClientRect();
+		var mouseX,mouseY;
+		//origo is (0,0)
+		var boundingRect = canvas.getBoundingClientRect();
+		
+		var width = interactCanvas.canvas.width;
+		var height = interactCanvas.canvas.height;
 
 		if (e.changedTouches){
 			mouseX = e.changedTouches[0].clientX - boundingRect.left;
@@ -51,9 +32,11 @@ window.interactCanvas = (function(){
 			mouseY = e.clientY - boundingRect.top;
 		}
 
+		console.log(mouseX-width/2,mouseY-height/2)
+
 		return {
-			x : mouseX-canvas.width/2,
-			y : mouseY-canvas.height/2
+			x : mouseX-width/2,
+			y : mouseY-height/2
 		};
 	}
 
@@ -85,10 +68,10 @@ window.interactCanvas = (function(){
 
 				for(s = 0; s < 2; s++){
 					value = data[name][i][['start','end'][s]];
-					point = helpers.minutesToXY(value,barConfig[name].outerRadius*draw.ratio);
+					point = helpers.minutesToXY(value,barConfig[name].outerRadius*interactCanvas.ratio);
 
 					distance = helpers.distance(point.x,point.y,coordinates.x,coordinates.y);
-					if(distance < hoverDistance*draw.ratio){
+					if(distance < hoverDistance*interactCanvas.ratio){
 
 						if(typeof hit.distance=='undefined'||distance < hit.distance){
 							//overwrite current hit object
@@ -126,8 +109,8 @@ window.interactCanvas = (function(){
 					if(helpers.pointIsInside(minutes,start,end)){
 
 						//check if point is inside element vertically
-						innerRadius = barConfig[name].innerRadius*draw.ratio;
-						outerRadius = barConfig[name].outerRadius*draw.ratio;
+						innerRadius = barConfig[name].innerRadius*interactCanvas.ratio;
+						outerRadius = barConfig[name].outerRadius*interactCanvas.ratio;
 						if(distanceToCenter > innerRadius && distanceToCenter < outerRadius){
 
 							positionInElement = helpers.calc(minutes,-start);
@@ -364,6 +347,21 @@ window.interactCanvas = (function(){
 			document.addEventListener('mouseup',up);
 			document.addEventListener('touchend',up);
 			document.addEventListener('touchstart',deselect);
+
+			//create a ratio variable
+			//differs from the interactCanvas.ratio because sometimes, the draw ratio is higher because
+			//of hidpi displays
+
+			var canvasStyles = window.getComputedStyle(canvas);
+			var width = canvasStyles.getPropertyValue('width').replace('px','');
+			var height = canvasStyles.getPropertyValue('height').replace('px','');
+
+			interactCanvas.ratio = width/100;
+
+			interactCanvas.canvas = {
+				width:width,
+				height:height
+			};
 
 
 		},
