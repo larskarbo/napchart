@@ -213,9 +213,11 @@ app.post('/post', function (req, res) {
 
 app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
+	var url = req.headers.host;
+
 	getObject(chartid, function(object){
 
-		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object)});
+		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
 	});
 
 });
@@ -243,7 +245,9 @@ app.post('/email-feedback-post', function (req,res){
 
 
 app.get('/', function (req, res) {
-	res.render('pages/index',{chartid:null,chart:null});
+	var url = req.headers.host;
+
+	res.render('pages/index',{chartid:null,chart:null, url:url});
 });
 
 app.get('*', function (req, res) {
