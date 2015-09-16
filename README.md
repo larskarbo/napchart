@@ -1,1 +1,1 @@
-A very good tool
+An interactive app where you can plan polyphasic sleep schedules
