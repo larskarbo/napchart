@@ -207,10 +207,6 @@ app.post('/post', function (req, res) {
 	res.end(chartid);
 });
 
-// app.get('/about', function (req, res) {
-// 	res.render('pages/about',{});
-// });
-
 app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
 	var url = req.headers.host;
@@ -241,17 +237,17 @@ app.post('/email-feedback-post', function (req,res){
 
 });
 
-
-
-
 app.get('/', function (req, res) {
 	var url = req.headers.host;
 
 	res.render('pages/index',{chartid:null,chart:null, url:url});
 });
 
+
 app.get('*', function (req, res) {
-	res.status(404).send('404');
+	var url = req.headers.host;
+
+	res.status(404).render('pages/index',{chartid:null,chart:null, url:url});
 });
 
 
