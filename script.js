@@ -224,6 +224,7 @@ app.get('/:chartid', function (req, res) {
 			res.writeHead(302,{
 				'Location': '/'
 			});
+			res.render('pages/index',{chartid:null,chart:null, url:url});
 			res.end();
 		}
 		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
@@ -263,6 +264,7 @@ app.get('*', function (req, res) {
 	res.writeHead(302,{
 		'Location': '/'
 	});
+	res.render('pages/index',{chartid:null,chart:null, url:url});
 	res.end();
 });
 
