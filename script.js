@@ -87,7 +87,14 @@ function getObject(chartid,callback){
 			busy:[]
 		};
 
+		if(rows.length == 0){
+			var none = true;
+		}else{
+			var none = false;
+		}
+
 		for(var i = 0; i < rows.length; i++){
+
 			output[codes[rows[i].type]].push({
 				start:rows[i].start,
 				end:rows[i].end
@@ -97,7 +104,7 @@ function getObject(chartid,callback){
 		visit(chartid);
 
 		console.log(output);
-		callback(output);
+		callback(output,none);
 	});
 }
 
@@ -211,8 +218,14 @@ app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
 	var url = req.headers.host;
 
-	getObject(chartid, function(object){
+	getObject(chartid, function(object,none){
 
+		if(none){
+			res.writeHead(302,{
+				'Location': '/'
+			});
+			res.end();
+		}
 		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
 	});
 
@@ -247,7 +260,10 @@ app.get('/', function (req, res) {
 app.get('*', function (req, res) {
 	var url = req.headers.host;
 
-	res.status(404).render('pages/index',{chartid:null,chart:null, url:url});
+	res.writeHead(302,{
+		'Location': '/'
+	});
+	res.end();
 });
 
 
