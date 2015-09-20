@@ -1,11 +1,11 @@
-
+// Dependencies
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
+var favicon = require('serve-favicon');
 
-var mysql      = require('mysql');
-
-var credentials = {};
+var credentials;
 
 if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 	//on openshift
@@ -28,34 +28,31 @@ if(process.env.OPENSHIFT_MYSQL_DB_HOST){
 
 var connection = mysql.createConnection(credentials);
 
-
 connection.connect(function(err) {
 	if (err) {
-		console.error('################### error connecting: ' + err.stack);
+		console.error('### error connecting to mysql server: ' + err.stack);
 		return;
 	}
-
 	console.log('connected as id ' + connection.threadId);
 });
 
-function dot2num(dot) 
-{
-	var d = dot.split('.');
-	return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
-}
 
-function num2dot(num) 
-{
-	var d = num%256;
-	for (var i = 3; i > 0; i--) 
-	{ 
-		num = Math.floor(num/256);
-		d = num%256 + '.' + d;
+var ipFunctions = {
+	dot2num:function(dot){
+		var d = dot.split('.');
+		return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
+	},
+
+	num2dot:function(num){
+		var d = num%256;
+		for (var i = 3; i > 0; i--) 
+		{ 
+			num = Math.floor(num/256);
+			d = num%256 + '.' + d;
+		}
+		return d;
 	}
-	return d;
 }
-
-
 
 function visit(chartid){
 	connection.query('UPDATE chart SET visits=visits+1 WHERE chartid=?',chartid,function(err){
@@ -104,11 +101,12 @@ function getObject(chartid,callback){
 		visit(chartid);
 
 		console.log(output);
-		callback(output,none);
+		return callback(output,none);
 	});
 }
 
 app.use(express.static('public'));
+app.use(favicon(__dirname + '/public/img/favicon.ico')); //serve favicon
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -116,28 +114,25 @@ app.use(bodyParser.urlencoded({
 
 app.set('view engine', 'ejs');
 
-//routes
+//Routes:
 
 //index
 app.get('/', function (req, res) {
-	var url = req.headers.host;
-	console.log('index')
+	var host = req.headers.host;
 
-	res.render('pages/index',{chartid:null,chart:null, url:url});
+	res.render('pages/index',{chartid:null,chart:null, url:host});
 });
 
 //chart
 app.get('/:chartid', function (req, res) {
 	var chartid = req.params.chartid;
-	var url = req.headers.host;
-	console.log('chart')
+	var host = req.headers.host;
 
 	getObject(chartid, function(object,none){
-		console.log('222')
 		if(none){
-			console.log('none')
+			res.redirect('/');
 		}
-		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
+		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:host});
 	});
 });
 
@@ -174,8 +169,7 @@ app.post('/post', function (req, res) {
 
 		connection.query('SELECT chartid FROM chart WHERE chartid=?', chartid, function(err,res){
 			if(err){
-				console.error('################################# ERROR ');
-				console.log(err);
+				console.error('### ERROR ', err);
 				throw err;
 			}
 			if(res.length > 0){
@@ -194,7 +188,7 @@ app.post('/post', function (req, res) {
 	req.socket.remoteAddress ||
 	req.connection.socket.remoteAddress;
 
-	var numIp = dot2num(ip);
+	var numIp = ipFunctions.dot2num(ip);
 
 	chartid = setChartID();
 	chartinfo = {
@@ -202,9 +196,9 @@ app.post('/post', function (req, res) {
 		visits:0,
 		ip:numIp
 	}
+
 	connection.query('INSERT INTO chart SET ?', chartinfo, function(err,res){
 		if(err) throw err;
-
 		console.log('chartinfo: Last insert ID:', res.insertId);
 	});
 
@@ -252,20 +246,14 @@ app.post('/email-feedback-post', function (req,res){
 
 	res.writeHead(200);
 	res.end('success');
-
-
 });
 
 app.get('*', function (req, res) {
-
 	res.redirect('/');
 });
-
 
 
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 var server = app.listen(server_port,server_ip_address);
-
-console.log('server.address()',server.address());

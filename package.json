@@ -13,9 +13,10 @@
     "express": "~4.0.0",
   	"ejs":"*",
   	"mysql":"*",
-  	"body-parser":"*"
+    "body-parser":"*",
+    "serve-favicon":"*"
 	},
-  
+
   "repository": {
     "type": "git",
     "url": "https://github.com/larskarbo/napchart"
