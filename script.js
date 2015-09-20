@@ -40,19 +40,19 @@ connection.connect(function(err) {
 
 function dot2num(dot) 
 {
-    var d = dot.split('.');
-    return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
+	var d = dot.split('.');
+	return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
 }
 
 function num2dot(num) 
 {
-    var d = num%256;
-    for (var i = 3; i > 0; i--) 
-    { 
-        num = Math.floor(num/256);
-        d = num%256 + '.' + d;
-    }
-    return d;
+	var d = num%256;
+	for (var i = 3; i > 0; i--) 
+	{ 
+		num = Math.floor(num/256);
+		d = num%256 + '.' + d;
+	}
+	return d;
 }
 
 
@@ -116,8 +116,33 @@ app.use(bodyParser.urlencoded({
 
 app.set('view engine', 'ejs');
 
-app.get('/get/:chartid', function(req, res) {
+//routes
 
+//index
+app.get('/', function (req, res) {
+	var url = req.headers.host;
+	console.log('index')
+
+	res.render('pages/index',{chartid:null,chart:null, url:url});
+});
+
+//chart
+app.get('/:chartid', function (req, res) {
+	var chartid = req.params.chartid;
+	var url = req.headers.host;
+	console.log('chart')
+
+	getObject(chartid, function(object,none){
+		console.log('222')
+		if(none){
+			console.log('none')
+		}
+		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
+	});
+});
+
+//get schedule data
+app.get('/get/:chartid', function(req, res) {
 	var chartid = req.params.chartid;
 
 	getObject(chartid,function(object){
@@ -126,11 +151,9 @@ app.get('/get/:chartid', function(req, res) {
 		res.end(JSON.stringify(output));
 
 	});
-
-
-
 });
 
+//save schedule
 app.post('/post', function (req, res) {
 
 	function idgen(){
@@ -167,9 +190,9 @@ app.post('/post', function (req, res) {
 	}
 	
 	var ip = req.headers['x-forwarded-for'] || 
-	     req.connection.remoteAddress || 
-	     req.socket.remoteAddress ||
-	     req.connection.socket.remoteAddress;
+	req.connection.remoteAddress || 
+	req.socket.remoteAddress ||
+	req.connection.socket.remoteAddress;
 
 	var numIp = dot2num(ip);
 
@@ -214,24 +237,6 @@ app.post('/post', function (req, res) {
 	res.end(chartid);
 });
 
-app.get('/:chartid', function (req, res) {
-	var chartid = req.params.chartid;
-	var url = req.headers.host;
-
-	getObject(chartid, function(object,none){
-
-		if(none){
-			res.writeHead(302,{
-				'Location': '/'
-			});
-			res.render('pages/index',{chartid:null,chart:null, url:url});
-			res.end();
-		}
-		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:url});
-	});
-
-});
-
 app.post('/email-feedback-post', function (req,res){
 	var text = req.body.message;
 	var feedback = {
@@ -251,21 +256,9 @@ app.post('/email-feedback-post', function (req,res){
 
 });
 
-app.get('/', function (req, res) {
-	var url = req.headers.host;
-
-	res.render('pages/index',{chartid:null,chart:null, url:url});
-});
-
-
 app.get('*', function (req, res) {
-	var url = req.headers.host;
 
-	res.writeHead(302,{
-		'Location': '/'
-	});
-	res.render('pages/index',{chartid:null,chart:null, url:url});
-	res.end();
+	res.redirect('/');
 });
 
 

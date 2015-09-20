@@ -4,7 +4,7 @@ Here is a guide on how to understand the code base of napchart
 
 ## Modules
 
-Napchart is written with javascript modules. All modules are stored in the /js folder.
+Napchart is written with javascript modules. All modules are stored in the `/js` folder.
 
 ### napchartCore.js
 
@@ -13,9 +13,10 @@ The data object containing info about the present schedule is stored here.
 
 #### Data object
 
-Like this [(result)](http://napchart.com/0nd11)
+Like this [result](http://napchart.com/0nd11):
+`
 var data = {
 nap:[],
 core:[{start:1410,end:480}],
 busy:[]}
-
+`
