@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Napchart</title>
+    <% include ../partials/head.ejs %>
+
+    <% if(url == 'www.napchart.com' || url == 'napchart.com'){ %>
+
+    <% include ../partials/analytics.ejs %>
+
+    <% } %>
+
+</head>
+
+<body>
+
+
+
+
+    <% if(chartid && chart){ %>
+
+    <script>
+    fromServer = {};
+    fromServer.chartid = '<%= chartid %>';
+    fromServer.data = <%- chart %>;
+    </script>
+
+    <% } %>
+
+
+    <div class="top-nav grey">
+        <div class="nav-wrapper topnav">
+            <div class="row">
+                <div class="col s12 m3">
+                    <div id="logo"><a href="/">napchart</a></div>
+                </div>
+                <div class="col s12 m9">
+                    <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
+                    <div class="btn history disabled" id="back"><i class="fa fa-undo"></i></div>
+                    <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
+                    <input spellcheck="false" type="text" id="urlField" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m12 l12" id="toolbar">
+            <div class="waves-effect grey lighten-1 btn-flat black-text" id="addNap">Nap <i class="fa fa-plus-square-o"></i></div>
+            <div class="waves-effect grey lighten-1 btn-flat black-text" id="addCore">Core <i class="fa fa-plus-square-o"></i></div>
+            <div class="waves-effect waves-light grey darken-3 btn-flat white-text" id="addBusy">Busy <i class="fa fa-plus-square-o"></i></div>
+            <div id="removeAll" class="btn-flat waves-effect">Remove all <i class="fa fa-square-o"></i></div>
+
+
+        </div>
+
+        <div class="col s12 m7 l7">
+            <canvas width="330" height="330" id="canvas">
+            </canvas>
+        </div>
+
+        <div class="col s12 m5 l5">
+            <div id="formInputContainer"></div>
+
+            <div class="card stat-block left">
+                <div class="card-headline">Sleep time</div>
+                <div class="inner-card">
+                    <span class="stat-time sleep"></span>
+                    <div class="stat-desc sleep"></div>
+                </div>
+            </div>
+
+            <!--<div class="card stat-block left">
+                <div class="card-headline">Free time</div>
+                <div class="inner-card">
+                    <span class="stat-time free"></span>
+                    <div class="stat-desc free"></div>
+                </div>
+            </div>-->
+
+            <div class="card stat-block left">
+                <div class="card-headline">Schedule:</div>
+                <div class="inner-card">
+                    <textarea  id="textSchedule" rows="4"  readonly></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m6 l4">
+            <div class="card stat-block" id="settings">
+                <div class="card-headline">Settings</div>
+                <div class="inner-card">
+
+                    <!-- <div class="switch">
+                        <label>
+                        Link sleep
+                          <input type="checkbox" id="moveSim">
+                          <span class="lever"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="switch">
+                        <label>
+                        Dark-mode
+                          <input type="checkbox" id="dark">
+                          <span class="lever"></span>
+                        </label>
+                    </div> -->
+
+                    <div class="switch settingsElement">
+                        <label>
+                            Show all elements
+                            <input type="checkbox" id="showAllElements">
+                            <span class="lever"></span>
+                        </label>
+                    </div>
+
+                    <div class="settingsElement">
+                        <label>Nap default duration <input id="napDuration" class="duration" type="number" min="10" max="90" value="20"> min</label>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4 right">
+
+            <div class="card stat-block left feedback" id="feedback-card">
+
+                <div class="card-headline">
+                    <div id="question">Did this app work for you?</div>
+                    <div id="thankyou" class="hidden">Thank you for your feedback</div>
+                    <div id="feedback-error" class="hidden">Something went wrong. Please try again</div>
+                </div>
+
+
+                <div class="inner-card">
+                    <div id="feedback-question">
+                        <input type="radio" name="feedback" class="trigger feedback-radio" id="yes" value="yes"> <label for="yes">Yes</label>
+                        <br>
+                        <input type="radio" name="feedback" class="trigger feedback-radio" id="no" value="no"> <label for="no">No</label>
+                    </div>
+                </div>
+
+                <div class="card-headline">
+                    <div id="feedback-text-question" class="hidden">Issues, ideas or compliments:</div>
+                </div>
+
+                <div class="inner-card">
+                    <div id="feedback-text">
+                        <textarea></textarea>
+                        <div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
+                            <i class="fa fa-hand-o-right arm"></i>
+                            <i class="fa fa-refresh fa-spin loading-wheel"></i>
+                        </div>
+                        <span id="feedback-devthanks" class="hidden">Thank you!</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col s12 m12 l4">
+            <div class="card stat-block">
+                <div class="card-headline">About</div>
+                <div class="inner-card">
+                    <p>
+                        Napchart is a tool created for people that want to experiment with <i>polyphasic sleep</i>.
+                    </p>
+
+                    <p>
+                        If you find this site useful, please consider donating to keep this site and me alive.
+                    </p>
+
+                    
+                    <form style="display:inline" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+                        ">
+                        <p>PayPal:
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </p>
+                    </form>
+
+
+                    <p>Bitcoin:
+                        <script src="http://coinwidget.com/widget/coin.js"></script>
+                        <script>
+                        CoinWidgetCom.go({
+                            wallet_address: "3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"
+                            , currency: "bitcoin"
+                            , counter: "hide"
+                            , alignment: "bc"
+                            , qrcode: true
+                            , auto_show: false
+                            , lbl_button: "Donate"
+                            , lbl_address: "My Bitcoin Address:"
+                            , lbl_count: "donations"
+                            , lbl_amount: "BTC"
+                        });
+                        </script>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <% include ../partials/footer.ejs %>
+
+    <% include ../partials/scripts.ejs %>
+
+
+
+
+
+</body>
+</html>

@@ -120,7 +120,7 @@ app.set('view engine', 'ejs');
 app.get('/', function (req, res) {
 	var host = req.headers.host;
 
-	res.render('pages/index',{chartid:null,chart:null, url:host});
+	res.render('pages/main',{chartid:null,chart:null, url:host});
 });
 
 //chart
@@ -132,7 +132,7 @@ app.get('/:chartid', function (req, res) {
 		if(none){
 			res.redirect('/');
 		}
-		res.render('pages/index',{chartid:chartid,chart:JSON.stringify(object), url:host});
+		res.render('pages/main',{chartid:chartid,chart:JSON.stringify(object), url:host});
 	});
 });
 
