@@ -1,8 +1,8 @@
 /**
-*
-*
-*
-*
+
+This module handles sampleSchedules
+*Not in use right now
+
 **/
 
 window.sampleSchedule = (function () {
