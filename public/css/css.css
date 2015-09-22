@@ -96,6 +96,7 @@ p{
     100% {background-color:none;}
 }
 
+
 /**************************
 3.0   Header
 *******************/
@@ -233,11 +234,20 @@ p{
 	background-color: #c57171;
 }
 
-.clock{
+.formInput[type=text], .formInput[type=number]{
+	background-color: white;
+	margin: 0;
+	border: solid black thin;
+	border-bottom: solid black thin;
+	padding: 0;
+	height: 1.5rem;
+}
+
+.clock[type=text]{
 	width:50px;
 }
 
-.duration{
+.duration[type=number]{
 	width:40px;
 }
 
