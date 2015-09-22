@@ -15,7 +15,7 @@ window.formInput=(function(){
 		className = name+count;
 		add = '<div class="'+className+' inputBox">';
 		add += name + ' ' + (count+1);
-		add += ':  <input class="clock start" length="4" type="text">';
+		add += ':  <input class="clock start formInput" length="4" type="text">';
 
 		if(name == 'nap'){
 			//set duration value once now because it can't be changed from outside
@@ -23,9 +23,9 @@ window.formInput=(function(){
 			var element = napchartCore.returnElement(name,count);
 			var duration = helpers.calc(element.end,-element.start);
 
-			add += ' - <input class="duration" type="number" min="10" max="90" value="'+duration+'"> min'
+			add += ' - <input class="duration formInput" type="number" min="10" max="90" value="'+duration+'"> min'
 		}else
-			add += ' - <input class="clock end" length="4" type="text">';
+			add += ' - <input class="clock end formInput" length="4" type="text">';
 
 		add += '<input type="hidden" name="name" value="'+name+'">';
 		add += '<input type="hidden" name="count" value="'+count+'">';
