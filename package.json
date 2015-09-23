@@ -14,7 +14,10 @@
   	"ejs":"*",
   	"mysql":"*",
     "body-parser":"*",
-    "serve-favicon":"*"
+    "serve-favicon":"*",
+    "winston":"*",
+    "nconf":"*",
+    "prompt":"*"
 	},
 
   "repository": {
