@@ -17,7 +17,9 @@
     "serve-favicon":"*",
     "winston":"*",
     "nconf":"*",
-    "prompt":"*"
+    "prompt":"*",
+    "sequelize":"*",
+    "sequelize-import":"*"
 	},
 
   "repository": {

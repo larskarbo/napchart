@@ -24,20 +24,20 @@ if(nconf.get('setup')){
 
 function setup() {
 	var install = require('./install.js')
+	
+	install.setup(function(credentials){
 
-	install.setup(function(err){
+		install.mysql(credentials,function(){
 
-		if (err) {
-			winston.error('There was a problem completing Napchart setup: ', err.message);
-		}
-
-		process.exit();
+			process.exit();
+		})
 	});
 }
 
 function start(){
 	var credentials = nconf.get('mysql');
 	console.log(credentials);
+
 	var connection = mysql.createConnection(credentials);
 
 	connection.connect(function(err) {
@@ -67,6 +67,7 @@ function start(){
 	}
 
 	function visit(chartid){
+
 		connection.query('UPDATE chart SET visits=visits+1 WHERE chartid=?',chartid,function(err){
 			if(err)
 				throw err;

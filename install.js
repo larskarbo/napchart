@@ -1,6 +1,6 @@
 var install = {};
 
-install.setup = function(){
+install.setup = function(callback){
 
 
 	var prompt = require('prompt'),
@@ -9,7 +9,7 @@ install.setup = function(){
 	nconf = require('nconf');
 
 	nconf.argv()
-	  .file({ file: 'config.json' });
+	.file({ file: 'config.json' });
 
 	var questions = [
 	{
@@ -37,6 +37,7 @@ install.setup = function(){
 	{
 		name: 'mysql:password',
 		description: 'MySQL user password',
+		default: nconf.get('mysql:password'),
 		hidden: true
 	}
 	];
@@ -60,10 +61,42 @@ install.setup = function(){
 			}
 		});
 
-	});
+		if(nconf.get('mysql'))
+			return callback(nconf.get('mysql'));
 
+	});
 
 }
 
+install.mysql = function(credentials){
+
+	var Sequelize = require('sequelize');
+	var sequelize = new Sequelize(credentials.database, credentials.user, credentials.password, {
+		host: credentials.host,
+		port: credentials.port,
+		dialect: 'mysql',
+
+		pool: {
+			max: 5,
+			min: 0,
+			idle: 10000
+		},
+		define: {
+			freezeTableName: true
+		}
+
+	});
+
+	var feedback = sequelize.import(__dirname + '/models/feedback');
+	feedback.sync();
+
+	var chart = sequelize.import(__dirname + '/models/chart');
+	chart.sync();
+
+	var chartitem = sequelize.import(__dirname + '/models/chartitem');
+	chartitem.sync();
+
+
+}
 
 module.exports = install;
