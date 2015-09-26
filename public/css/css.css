@@ -49,7 +49,7 @@ textarea {
 	margin:0;padding:0;height:100%;
 }
 
-p{
+p,.list li{
 	font-size: 15px
 }
 
@@ -153,6 +153,13 @@ p{
 #urlField:focus {
     color:#cb2929;
     outline-color: #cc2828;
+}
+
+.list li{
+	list-style-type: disc;
+}
+.list {
+	padding-left: 14px
 }
 
 /**************************
