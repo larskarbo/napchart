@@ -46,10 +46,7 @@ window.sampleSchedule = (function () {
 
 	//public:
 	return {
-		initialize:function(container,dropDown){
-			var scheduleLinks;
-			scheduleLinks = container.getElementsByTagName('li');
-
+		initialize:function(container){
 
 			for(i=0;i<scheduleLinks.length;i++){
 				scheduleLinks[i].addEventListener('click',function(){
