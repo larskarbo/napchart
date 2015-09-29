@@ -13,11 +13,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     visits: {
       type: DataTypes.INTEGER(6),
-      allowNull: true,
+      allowNull: false,
+      defaultValue: 0
     },
     IP: {
       type: DataTypes.INTEGER(10),
-      allowNull: true,
+      allowNull: false
     }
   });
 };

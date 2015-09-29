@@ -1,3 +1,9 @@
+/**
+
+This module handles database initializing
+
+**/
+
 var install = {};
 
 install.setup = function(callback){
