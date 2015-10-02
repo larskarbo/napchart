@@ -24,7 +24,7 @@ var logger = new (winston.Logger)({
     new (winston.transports.File)({
       filename: logDir + '/warn.log',
       level: 'warn',
-      json: false
+      json: true
     })
   ]
 });

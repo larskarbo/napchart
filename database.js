@@ -31,13 +31,13 @@ models.chartitem = sequelize.import(__dirname + '/models/chartitem');
 
 var connection = mysql.createConnection(credentials);
 
-// connection.connect(function(err) {
-// 	if (err) {
-// 		logger.error('### error connecting to mysql server: ' + err.stack);
-// 		return;
-// 	}
-// 	logger.verbose('connected as id ' + connection.threadId);
-// });
+connection.connect(function(err) {
+	if (err) {
+		logger.error('### error connecting to mysql server: ' + err.stack);
+		return;
+	}
+	logger.verbose('connected as id ' + connection.threadId);
+});
 
 var ipFunctions = {
 	dot2num:function(dot){
@@ -66,58 +66,77 @@ var ipFunctions = {
 }
 
 
-function visit(chartid){
+function visit(chartid, callback){
 
-	connection.query('UPDATE chart SET visits=visits+1 WHERE chartid=?',chartid,function(err){
-		if(err)
-			throw err;
+	models.chart.findById(chartid).then(function(chart) {
 
-		return true;
-	})
+		chart.increment('visits', {by: 1}).then(function(chart){
+			logger.verbose('Incremented chart %s visit field by to %d', chartid, chart.dataValues.visits);
+
+			return callback();
+		});
+
+	}).catch(function(error){
+	logger.warn('Error when trying to increment visit field at chart %s', chartid);
+	logger.warn(error);
+
+	return callback();
+	});
+
 }
 
 
-database.getChart = function(){
-	function getObject(chartid,callback){
-		connection.query('SELECT type,text,start,end FROM chartitem WHERE chartid = ?',chartid, function(err,rows){
-			if(err){
-				logger.error(err);
-				throw err;
-			}
+database.getChart = function(chartid,callback){
+	models.chartitem.findAll({
+		where:{
+			chartid:chartid
+		}
+	}).then(function(result){
 
-			var output;
+		if(!result){
+			logger.warn('Could not find chart %s.', chartid);
+
+			callback('',404)
+		}else{
+			logger.verbose('Found %d rows', result.length);
+
+
 			var codes = {
 				0:'core',
 				1:'nap',
 				2:'busy'
-			}
+			};
 
-			output = {
+			var output = {
 				core:[],
 				nap:[],
 				busy:[]
 			};
 
-			if(rows.length == 0){
-				var none = true;
-			}else{
-				var none = false;
+			var item;
+
+			for(var i = 0; i < result.length; i++){
+				item = result[i].dataValues;
+				output[codes[item.type]].push({
+					start:item.start,
+					end:item.end
+				});
 			}
 
-			for(var i = 0; i < rows.length; i++){
+			visit(chartid,function(){
+				logger.verbose('Delivering chartData');
+				return callback(output);
+			});
 
-				output[codes[rows[i].type]].push({
-					start:rows[i].start,
-					end:rows[i].end
-				});
-			};
+		}
 
-			visit(chartid);
+	}).catch(function(error){
+		logger.error('There was a problem when adding chart to index');
 
-			logger.verbose('output: %s', output);
-			return callback(output,none);
-		});
-	}
+		return callback('',error);
+
+	})
+
 }
 
 
@@ -173,18 +192,18 @@ database.newChart = function(req,data,callback){
 		}
 
 		models.chart.create(chart)
-		  .then(function(response){
+		.then(function(response){
 			logger.verbose('Successfully added chart to index');
 
 			return callback(chartid);
 
-		  })
-		  .catch(function(error){
-		  	logger.error('There was a problem when adding chart to index');
+		})
+		.catch(function(error){
+			logger.error('There was a problem when adding chart to index');
 
-		  	return callback('',error);
+			return callback('',error);
 
-		  });
+		});
 
 	}
 
@@ -212,16 +231,16 @@ database.newChart = function(req,data,callback){
 		});
 
 		models.chartitem.bulkCreate(itemArray)
-		  .then(function(response){
+		.then(function(response){
 			logger.verbose('Successfully added chart to database');
 
 			return callback(chartid);
-		  })
-		  .catch(function(error){
-		  	logger.error('There was a problem when adding chartitems to the database');
-		  	
-		  	return callback('',error);
-		  });
+		})
+		.catch(function(error){
+			logger.error('There was a problem when adding chartitems to the database');
+
+			return callback('',error);
+		});
 
 		
 	}

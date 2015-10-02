@@ -58,11 +58,14 @@ function start(){
 		var host = req.headers.host;
 		var database = require('./database.js');
 
-		database.getObject(chartid, function(object,none){
-			if(none){
-				res.redirect('/');
+		database.getChart(chartid, function(chartData,error){
+			if(error){
+				logger.error("There was a problem when creating a new chart:", error);
+				res.writeHead(503);
+				res.end("error");
+			}else{
+				res.render('pages/main',{chartid:chartid,chart:JSON.stringify(chartData), url:host});
 			}
-			res.render('pages/main',{chartid:chartid,chart:JSON.stringify(object), url:host});
 		});
 		
 	});
