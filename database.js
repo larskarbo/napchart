@@ -82,8 +82,8 @@ database.getChart = function(chartid,callback){
 			chartid:chartid
 		}
 	}).then(function(result){
-
-		if(!result){
+		logger.warn(result.length)
+		if(result.length == 0){
 			logger.warn('Could not find chart %s.', chartid);
 
 			callback('',404)
