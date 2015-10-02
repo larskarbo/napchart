@@ -6,25 +6,38 @@ This module handles database interaction
 
 var database = {};
 
-//connect
-
-
 var nconf = require('nconf');
+var logger = require('./logger.js');
 var mysql = require('mysql');
+var Sequelize = require('sequelize');
 
 nconf.argv()
-  .file({ file: 'config.json' });
+.file({ file: 'config.json' });
 
 var credentials = nconf.get('mysql');
+
+var sequelize = new Sequelize(credentials.database, credentials.user, credentials.password, {
+	host: credentials.host,
+	port: credentials.port,
+	dialect: 'mysql',
+	define: {
+		freezeTableName: true
+	}
+});
+
+models = {};
+models.chart = sequelize.import(__dirname + '/models/chart');
+models.chartitem = sequelize.import(__dirname + '/models/chartitem');
+
 var connection = mysql.createConnection(credentials);
 
-connection.connect(function(err) {
-	if (err) {
-		console.error('### error connecting to mysql server: ' + err.stack);
-		return;
-	}
-	console.log('connected as id ' + connection.threadId);
-});
+// connection.connect(function(err) {
+// 	if (err) {
+// 		logger.error('### error connecting to mysql server: ' + err.stack);
+// 		return;
+// 	}
+// 	logger.verbose('connected as id ' + connection.threadId);
+// });
 
 var ipFunctions = {
 	dot2num:function(dot){
@@ -68,8 +81,7 @@ database.getChart = function(){
 	function getObject(chartid,callback){
 		connection.query('SELECT type,text,start,end FROM chartitem WHERE chartid = ?',chartid, function(err,rows){
 			if(err){
-				console.error('################################# ERROR ');
-				console.log(err);
+				logger.error(err);
 				throw err;
 			}
 
@@ -102,7 +114,7 @@ database.getChart = function(){
 
 			visit(chartid);
 
-			console.log(output);
+			logger.verbose('output: %s', output);
 			return callback(output,none);
 		});
 	}
@@ -117,64 +129,102 @@ function idgen(){
 	return id;
 }
 
-database.newChart = function(req,data){
-	var chart, chartid, chartitem, ip;
+database.newChart = function(req,data,callback){
 
-	function findChartID(){
+	function findChartID(callback){
 		//find a chartid that is not in use
 		var chartid = idgen();
 
-		connection.query('SELECT chartid FROM chart WHERE chartid=?', chartid, function(err,res){
-			if(err){
-				console.error('### ERROR ', err);
-				throw err;
+		logger.verbose('Search for %s in database', chartid);
+
+		models.chart.findById(chartid).then(function(chart) {
+			if(chart){
+				logger.verbose('Chartid %s already in use.');
+				findChartID();
+			}else{
+				logger.verbose('Chartid %s is available.', chartid);
 			}
-			if(res.length > 0){
-	      	//try new one
-	      	setChartID();
-	      }
-	      console.log('Chart id for new chart: ',chartid);
-	  	});
 
-		return chartid;
+			return callback(chartid);
+		});
+
 	}
 
-	chartid = findChartID();
-	ip = ipFunctions.getIp(req);
+	findChartID(function(chartid){
 
-	chart = {
-		chartid:chartid,
-		ip:ipFunctions.dot2num(ip)
-	}
-
-	connection.query('INSERT INTO chart SET ?', chart, function(err,res){
-		if(err) throw err;
-	});
-
-	var codes = {
-		'core':0,
-		'nap':1,
-		'busy':2
-	}
-
-	var text;
-	Object.keys(data).forEach(function(name) {
-		for(var i = 0; i < data[name].length; i++){
-			text = data[name][i].text || '';
-			chartitem = {
-				chartid:chartid,
-				type:codes[name],
-				start:data[name][i].start,
-				end:data[name][i].end,
-				text:text
-			};
-
-			connection.query('INSERT INTO chartitem SET ?', chartitem, function(err,res){
-				if(err) throw err;
+		addChartToIndex(chartid,function(){
+			addChartItems(chartid,function(){
+				logger.info("New chart %s successfully added to database", chartid)
+				return callback(chartid);
 			});
-		}
+		});
+
 	});
 
+	function addChartToIndex(chartid, callback){
+		var chart;
+
+		ip = ipFunctions.getIp(req);
+		logger.verbose('Client IP: %s', ip);
+
+		chart = {
+			chartid:chartid,
+			ip:ipFunctions.dot2num(ip)
+		}
+
+		models.chart.create(chart)
+		  .then(function(response){
+			logger.verbose('Successfully added chart to index');
+
+			return callback(chartid);
+
+		  })
+		  .catch(function(error){
+		  	logger.error('There was a problem when adding chart to index');
+
+		  	return callback('',error);
+
+		  });
+
+	}
+
+	function addChartItems(chartid, callback){
+		var codes = {
+			'core':0,
+			'nap':1,
+			'busy':2
+		}
+
+		var itemArray = [];
+		var text;
+
+		Object.keys(data).forEach(function(name) {
+			for(var i = 0; i < data[name].length; i++){
+				text = data[name][i].text || '';
+				itemArray.push({
+					chartid:chartid,
+					type:codes[name],
+					start:data[name][i].start,
+					end:data[name][i].end,
+					text:text
+				});
+			}
+		});
+
+		models.chartitem.bulkCreate(itemArray)
+		  .then(function(response){
+			logger.verbose('Successfully added chart to database');
+
+			return callback(chartid);
+		  })
+		  .catch(function(error){
+		  	logger.error('There was a problem when adding chartitems to the database');
+		  	
+		  	return callback('',error);
+		  });
+
+		
+	}
 }
 
 module.exports = database;

@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
-var winston = require('winston');
+var logger = require('./logger.js');
 var nconf = require('nconf');
 
 
@@ -83,11 +83,15 @@ function start(){
 	app.post('/post', function (req, res) {
 		var database = require('./database.js');
 		var data = JSON.parse(req.body.data);
-		database.newChart(req,data, function(success,chartid){
-
-			var chartid = 'thent';
-			res.writeHead(200);
-			res.end(chartid);
+		database.newChart(req,data, function(chartid,error){
+			if(error){
+				logger.error("There was a problem when creating a new chart:", error);
+				res.writeHead(503);
+				res.end("error");
+			}else{
+				res.writeHead(200);
+				res.end(chartid);
+			}
 		});
 
 	});

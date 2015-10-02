@@ -5,18 +5,14 @@ module.exports = function(sequelize, DataTypes) {
     chartid: {
       type: 'CHAR(5)',
       allowNull: false,
-    },
-    timestamp: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+      primaryKey: true
     },
     visits: {
       type: DataTypes.INTEGER(6),
       allowNull: false,
       defaultValue: 0
     },
-    IP: {
+    ip: {
       type: DataTypes.INTEGER(10),
       allowNull: false
     }

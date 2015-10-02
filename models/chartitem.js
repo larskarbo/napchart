@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     itemid: {
       type: DataTypes.INTEGER(9),
       allowNull: false,
+      primaryKey: true
     },
     chartid: {
       type: 'CHAR(5)',
