@@ -29,16 +29,6 @@ models = {};
 models.chart = sequelize.import(__dirname + '/models/chart');
 models.chartitem = sequelize.import(__dirname + '/models/chartitem');
 
-var connection = mysql.createConnection(credentials);
-
-connection.connect(function(err) {
-	if (err) {
-		logger.error('### error connecting to mysql server: ' + err.stack);
-		return;
-	}
-	logger.verbose('connected as id ' + connection.threadId);
-});
-
 var ipFunctions = {
 	dot2num:function(dot){
 		var d = dot.split('.');
@@ -244,6 +234,24 @@ database.newChart = function(req,data,callback){
 
 		
 	}
+}
+
+database.postFeedback = function(text, callback){
+
+	models.feedback = sequelize.import(__dirname + '/models/feedback');
+
+	models.feedback.create({
+		text:text
+	}).then(function(){
+		logger.verbose('Feedback successfully posted');
+
+		callback(true);
+
+	}).catch(function(error){
+		logger.error('Error when posting feedback', error);
+
+		callback('', error)
+	});
 }
 
 module.exports = database;

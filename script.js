@@ -8,7 +8,7 @@ var nconf = require('nconf');
 
 
 nconf.argv()
-  .file({ file: 'config.json' });
+.file({ file: 'config.json' });
 
 if(nconf.get('setup')){
 	setup();
@@ -101,19 +101,19 @@ function start(){
 
 	app.post('/email-feedback-post', function (req,res){
 		var text = req.body.message;
-		var feedback = {
-			text: text
-		}
+		var database = require('./database.js');
 
-		//post to database
-		connection.query('INSERT INTO feedback SET ?', feedback, function(err,res){
-			if(err) throw err;
+		database.postFeedback(text, function(result, error){
+			if(error){
+				logger.error("There was a problem when posting feedback:", error);
+				res.writeHead(503);
+				res.end("error");
+			}else{
+				res.writeHead(200);
+				res.end('success');
+			}
+		})
 
-			console.log('feedback: Last insert ID:', res.insertId);
-		});
-
-		res.writeHead(200);
-		res.end('success');
 	});
 
 	app.get('*', function (req, res) {
