@@ -11,6 +11,8 @@ nconf.argv()
 
 if(nconf.get('setup')){
 	setup();
+}else if(nconf.get('create-tables')){
+	createTables();
 }else if(!nconf.get('mysql')){
 	logger.info('No mysql credentials found');
 	logger.info('To set up a server, run node script --setup');
@@ -22,15 +24,19 @@ if(nconf.get('setup')){
 }
 
 function setup() {
-	var install = require('./install.js')
+	var install = require('./install.js');
 	
-	install.setup(function(credentials){
-
-		install.mysql(credentials,function(){
-
-			process.exit();
-		})
+	install.setup(function(){
+		process.exit();
 	});
+}
+
+function createTables() {
+	var install = require('./install.js');
+	
+	install.createTables(function(){
+		process.exit();
+	})
 }
 
 function start(database){

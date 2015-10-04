@@ -1,6 +1,6 @@
 /**
 
-This module handles database initializing
+This module handles database config
 
 **/
 
@@ -10,7 +10,7 @@ install.setup = function(callback){
 
 
 	var prompt = require('prompt'),
-	winston = require('winston'),
+	logger = require('./logger.js'),
 	fs = require('fs'),
 	nconf = require('nconf');
 
@@ -48,11 +48,11 @@ install.setup = function(callback){
 	}
 	];
 
-	winston.info('Napchart Setup Triggered via Command Line');
+	logger.info('Napchart Setup Triggered via Command Line');
 
-	process.stdout.write('\nWelcome to Napchart!\n');
-	process.stdout.write('\nYou\'ll have to answer a few questions about your environment before we can proceed.\n');
-	process.stdout.write('Press enter to accept the default setting (shown in brackets).\n');
+	logger.info('Welcome to Napchart!');
+	logger.info('This interactive setup will create a config.json file with your mysql connection credentials');
+	logger.info('Press enter to accept the default setting (shown in brackets).');
 
 	prompt.start();
 	prompt.get(questions, function (err, result) {
@@ -63,44 +63,105 @@ install.setup = function(callback){
 
 		nconf.save(function (err) {
 			if(err){
-				winston.error(err);
+				logger.error(err);
+			}
+
+
+			if(nconf.get('mysql')){
+				logger.info('Config completed successfully');
+				logger.info('To create tables, please run node script --create-tables');
+
+				return callback();
 			}
 		});
 
-		if(nconf.get('mysql'))
-			return callback(nconf.get('mysql'));
 
 	});
 
 }
 
-install.mysql = function(credentials){
+install.createTables = function(callback){
 
+	var prompt = require('prompt');
+	var nconf = require('nconf');
 	var Sequelize = require('sequelize');
-	var sequelize = new Sequelize(credentials.database, credentials.user, credentials.password, {
-		host: credentials.host,
-		port: credentials.port,
-		dialect: 'mysql',
+	var sequelize;
+	var credentials;
+	var logger = require('./logger.js')
 
-		pool: {
-			max: 5,
-			min: 0,
-			idle: 10000
-		},
-		define: {
-			freezeTableName: true
-		}
+	nconf.argv()
+	.file({ file: 'config.json' });
+
+	if(!nconf.get('mysql')){
+		logger.error('No credentials found. Please run node script --setup');
+
+		return callback();
+	}
+
+	var questions = [
+	{
+		name: 'force',
+		description: 'Do you want to remove existing tables before you create new ones?',
+		default: nconf.get('deleteTables') || 'no',
+		required: true,
+		before: function(value) {
+			if(value == 'yes')
+				return true;
+			else
+				return false;
+		} 
+	}
+	];
+
+	logger.info('Here you can create tables for the napchart database');
+
+	prompt.start();
+	prompt.get(questions, function (err, result) {
+
+		logger.info('Delete tables: %s', result.force);
+
+		createTables(result.force);
 
 	});
 
-	var feedback = sequelize.import(__dirname + '/models/feedback');
-	feedback.sync();
+	function createTables(force){
+		credentials = nconf.get('mysql');
+		sequelize = new Sequelize(credentials.database, credentials.user, credentials.password, {
+			host: credentials.host,
+			port: credentials.port,
+			dialect: 'mysql',
 
-	var chart = sequelize.import(__dirname + '/models/chart');
-	chart.sync();
+			pool: {
+				max: 5,
+				min: 0,
+				idle: 10000
+			},
+			define: {
+				freezeTableName: true
+			}
 
-	var chartitem = sequelize.import(__dirname + '/models/chartitem');
-	chartitem.sync();
+		});
+
+		var config = {
+			force : force
+		}
+
+		var feedback = sequelize.import(__dirname + '/models/feedback');
+		var chart = sequelize.import(__dirname + '/models/chart');
+		var chartitem = sequelize.import(__dirname + '/models/chartitem');
+
+		feedback.sync().then(function(){
+			chart.sync().then(function(){
+				chartitem.sync().then(function(){
+
+				})
+			})
+		});
+	}
+	
+	
+
+	
 
 
 }
