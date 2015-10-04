@@ -161,8 +161,20 @@ database.newChart = function(req,data,callback){
 
 	findChartID(function(chartid){
 
-		addChartToIndex(chartid,function(){
-			addChartItems(chartid,function(){
+		addChartToIndex(chartid,function(chartid,error){
+			if(error){
+				logger.error('error')
+				callback('',error);
+				return;
+			}
+
+			addChartItems(chartid,function(chartid,error){
+				if(error){
+					logger.error(error);
+					callback('',error);
+					return;
+				}
+
 				logger.info("New chart %s successfully added to database", chartid)
 				return callback(chartid);
 			});
@@ -228,7 +240,7 @@ database.newChart = function(req,data,callback){
 		})
 		.catch(function(error){
 			logger.error('There was a problem when adding chartitems to the database');
-
+			logger.error(error);
 			return callback('',error);
 		});
 
@@ -252,6 +264,98 @@ database.postFeedback = function(text, callback){
 
 		callback('', error)
 	});
+}
+
+database.exportJson = function(callback){
+	var fs = require('fs');
+
+	var feedback = sequelize.import(__dirname + '/models/feedback');
+	var chart = sequelize.import(__dirname + '/models/chart');
+	var chartitem = sequelize.import(__dirname + '/models/chartitem');
+
+	var json = {};
+
+
+	var codes = {
+		0:'core',
+		1:'nap',
+		2:'busy'
+	};
+
+	var output = {};
+
+	logger.info('Exporting chart data');
+
+	json.chart = {};
+
+	models.chart.findAll().then(function(result){
+		var chartid;
+
+		var i = 0;
+		function next(callback){
+			chartid = result[i].dataValues.chartid;
+
+			logger.verbose('Exporting %s', chartid);
+			findChartData(chartid,function(data){
+				json.chart[chartid] = data;
+
+
+				i++;
+				if(i < result.length){
+					next(callback);
+				}else{
+					callback();
+				}
+			})
+		}
+
+		function findChartData(chartid,callback){
+
+			models.chartitem.findAll({
+				where: {
+					chartid:chartid
+				}
+			}).then(function(result){
+
+				output = {
+					core:[],
+					nap:[],
+					busy:[]
+				};
+
+				for(var i = 0; i < result.length; i++){
+					item = result[i].dataValues;
+					output[codes[item.type]].push({
+						start:item.start,
+						end:item.end,
+						text:item.text
+					});
+				}
+
+				return callback(output);
+
+			})
+
+		}
+
+		logger.info('Starting export');
+		if(result.length > 0){
+			next(function(){
+				logger.info('Exported data: ', json);
+				callback();
+			});
+		}else{
+			logger.info('Found no chart data')
+			callback();
+		}
+
+	}).catch(function(error){
+		logger.error('There was a problem when exporting chart data');
+
+		return callback('',error);
+
+	})
+
 }
 
 module.exports = database;

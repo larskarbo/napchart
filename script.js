@@ -15,6 +15,8 @@ if(nconf.get('setup')){
 	setup();
 }else if(nconf.get('create-tables')){
 	createTables();
+}else if(nconf.get('exportJson')){
+	exportJson();
 }else if(!nconf.get('mysql')){
 	logger.info('No mysql credentials found');
 	logger.info('To set up a server, run node script --setup');
@@ -38,6 +40,19 @@ function createTables() {
 	
 	install.createTables(function(){
 		process.exit();
+	})
+}
+
+function exportJson() {
+	var database = require('./database.js');
+	
+	database.exportJson(function(horse,error){
+		if(error){
+			logger.error(error);
+		}else{
+			logger.verbose('finished')
+			process.exit();
+		}
 	})
 }
 
