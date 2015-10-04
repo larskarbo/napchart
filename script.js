@@ -6,6 +6,8 @@ var favicon = require('serve-favicon');
 var logger = require('./logger.js');
 var nconf = require('nconf');
 
+var environment = process.env.NODE_ENV || 'development';
+
 nconf.argv()
 .file({ file: 'config.json' });
 
