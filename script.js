@@ -55,7 +55,7 @@ function start(database){
 	app.get('/', function (req, res) {
 		var host = req.headers.host;
 
-		res.render('pages/main',{chartid:null,chart:null, url:host});
+		res.render('pages/main',{chartid:null,chart:null, url:host, db:database});
 	});
 
 	if(database){
@@ -69,7 +69,7 @@ function start(database){
 			database.getChart(chartid, function(chartData,error){
 				if(error){
 					if(error == 404){
-						res.render('pages/main',{chartid:null,chart:null, url:host});
+						res.render('pages/main',{chartid:null,chart:null, url:host, db:database});
 					}else{
 						logger.error("There was a problem when creating a new chart:", error);
 						res.writeHead(503);
