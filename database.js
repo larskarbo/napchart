@@ -275,7 +275,7 @@ database.exportJson = function(callback){
 	var chart = sequelize.import(__dirname + '/models/chart');
 	var chartitem = sequelize.import(__dirname + '/models/chartitem');
 
-	var json = {};
+	var databaseData = {};
 
 
 	var codes = {
@@ -288,7 +288,7 @@ database.exportJson = function(callback){
 
 	logger.info('Exporting chart data');
 
-	json.chart = {};
+	databaseData.chart = {};
 
 	models.chart.findAll().then(function(result){
 		var chartid;
@@ -299,8 +299,7 @@ database.exportJson = function(callback){
 
 			logger.verbose('Exporting %s', chartid);
 			findChartData(chartid,function(data){
-				json.chart[chartid] = data;
-
+				databaseData.chart[chartid] = data;
 
 				i++;
 				if(i < result.length){
@@ -343,8 +342,12 @@ database.exportJson = function(callback){
 		logger.info('Starting export');
 		if(result.length > 0){
 			next(function(){
-				logger.info('Exported data: ', json);
-				callback();
+				logger.info('Exported data: ', databaseData);
+				fs.writeFile('export.json', JSON.stringify(databaseData), function (err) {
+					if (err) return logger.error(err);
+
+					callback();
+				});
 			});
 		}else{
 			logger.info('Found no chart data')
