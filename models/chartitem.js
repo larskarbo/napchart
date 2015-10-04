@@ -2,11 +2,6 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('chartitem', { 
-    itemid: {
-      type: DataTypes.INTEGER(9),
-      allowNull: false,
-      primaryKey: true
-    },
     chartid: {
       type: 'CHAR(5)',
       allowNull: false,

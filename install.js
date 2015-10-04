@@ -150,9 +150,9 @@ install.createTables = function(callback){
 		var chart = sequelize.import(__dirname + '/models/chart');
 		var chartitem = sequelize.import(__dirname + '/models/chartitem');
 
-		feedback.sync().then(function(){
-			chart.sync().then(function(){
-				chartitem.sync().then(function(){
+		feedback.sync(config).then(function(){
+			chart.sync(config).then(function(){
+				chartitem.sync(config).then(function(){
 
 				})
 			})

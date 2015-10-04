@@ -56,7 +56,7 @@ function exportJson() {
 	})
 }
 
-function start(database){
+function start(db){
 	app.use(express.static('public'));
 	app.use(favicon(__dirname + '/public/img/favicon.ico')); //serve favicon
 	app.use(bodyParser.json());
@@ -72,10 +72,10 @@ function start(database){
 	app.get('/', function (req, res) {
 		var host = req.headers.host;
 
-		res.render('pages/main',{chartid:null,chart:null, url:host, db:database});
+		res.render('pages/main',{chartid:null,chart:null, url:host, db:db});
 	});
 
-	if(database){
+	if(db){
 
 		//chart
 		app.get('/:chartid', function (req, res) {
@@ -86,14 +86,14 @@ function start(database){
 			database.getChart(chartid, function(chartData,error){
 				if(error){
 					if(error == 404){
-						res.render('pages/main',{chartid:null,chart:null, url:host, db:database});
+						res.render('pages/main',{chartid:null,chart:null, url:host, db:db});
 					}else{
 						logger.error("There was a problem when creating a new chart:", error);
 						res.writeHead(503);
 						res.end("error");
 					}
 				}else{
-					res.render('pages/main',{chartid:chartid,chart:JSON.stringify(chartData), url:host});
+					res.render('pages/main',{chartid:chartid,chart:JSON.stringify(chartData), url:host, db:db});
 				}
 			});
 			

@@ -232,6 +232,8 @@ database.newChart = function(req,data,callback){
 			}
 		});
 
+		logger.warn(itemArray);
+
 		models.chartitem.bulkCreate(itemArray)
 		.then(function(response){
 			logger.verbose('Successfully added chart to database');
