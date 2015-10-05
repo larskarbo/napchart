@@ -67,10 +67,10 @@ function visit(chartid, callback){
 		});
 
 	}).catch(function(error){
-	logger.warn('Error when trying to increment visit field at chart %s', chartid);
-	logger.warn(error);
+		logger.warn('Error when trying to increment visit field at chart %s', chartid);
+		logger.warn(error);
 
-	return callback();
+		return callback();
 	});
 
 }
@@ -82,7 +82,6 @@ database.getChart = function(chartid,callback){
 			chartid:chartid
 		}
 	}).then(function(result){
-		logger.warn(result.length)
 		if(result.length == 0){
 			logger.warn('Could not find chart %s.', chartid);
 
@@ -121,7 +120,8 @@ database.getChart = function(chartid,callback){
 		}
 
 	}).catch(function(error){
-		logger.error('There was a problem when adding chart to index');
+		logger.error('There was a problem when adding getting chart');
+		logger.error(error);
 
 		return callback('',error);
 
@@ -138,73 +138,32 @@ function idgen(){
 	return id;
 }
 
-database.newChart = function(req,data,callback){
+function addChart(chartid,data,ip,callback){
 
-	function findChartID(callback){
-		//find a chartid that is not in use
-		var chartid = idgen();
-
-		logger.verbose('Search for %s in database', chartid);
-
-		models.chart.findById(chartid).then(function(chart) {
-			if(chart){
-				logger.verbose('Chartid %s already in use.');
-				findChartID();
-			}else{
-				logger.verbose('Chartid %s is available.', chartid);
-			}
-
-			return callback(chartid);
-		});
-
-	}
-
-	findChartID(function(chartid){
-
-		addChartToIndex(chartid,function(chartid,error){
-			if(error){
-				logger.error('error')
-				callback('',error);
-				return;
-			}
-
-			addChartItems(chartid,function(chartid,error){
-				if(error){
-					logger.error(error);
-					callback('',error);
-					return;
-				}
-
-				logger.info("New chart %s successfully added to database", chartid)
-				return callback(chartid);
-			});
-		});
-
-	});
-
-	function addChartToIndex(chartid, callback){
+	logger.info(ip);
+	function addChartToIndex(chartid,ip,callback){
 		var chart;
 
-		ip = ipFunctions.getIp(req);
-		logger.verbose('Client IP: %s', ip);
+		logger.verbose('Client IP: %d', ip);
 
 		chart = {
 			chartid:chartid,
-			ip:ipFunctions.dot2num(ip)
+			ip:ip
 		}
 
 		models.chart.create(chart)
 		.then(function(response){
 			logger.verbose('Successfully added chart to index');
 
+
 			return callback(chartid);
 
 		})
 		.catch(function(error){
 			logger.error('There was a problem when adding chart to index');
+			logger.error(error);
 
 			return callback('',error);
-
 		});
 
 	}
@@ -232,7 +191,6 @@ database.newChart = function(req,data,callback){
 			}
 		});
 
-		logger.warn(itemArray);
 
 		models.chartitem.bulkCreate(itemArray)
 		.then(function(response){
@@ -246,8 +204,58 @@ database.newChart = function(req,data,callback){
 			return callback('',error);
 		});
 
-		
 	}
+
+	addChartToIndex(chartid,ip,function(chartid,error){
+		if(error){
+			logger.error('error')
+			callback('',error);
+			return;
+		}
+
+		addChartItems(chartid,function(chartid,error){
+			if(error){
+				logger.error(error);
+				callback('',error);
+				return;
+			}
+
+			logger.info("New chart %s successfully added to database", chartid)
+			return callback(chartid);
+		});
+	});
+}
+
+database.newChart = function(req,data,callback){
+
+	var ip = ipFunctions.dot2num(ipFunctions.getIp(req));
+
+	function findChartID(callback){
+		//find a chartid that is not in use
+		var chartid = idgen();
+
+		logger.verbose('Search for %s in database', chartid);
+
+		models.chart.findById(chartid).then(function(chart) {
+			if(chart){
+				logger.verbose('Chartid %s already in use.');
+				findChartID();
+			}else{
+				logger.verbose('Chartid %s is available.', chartid);
+			}
+
+			return callback(chartid);
+		});
+
+	}
+
+	findChartID(function(chartid){
+		addChart(chartid,data,ip, function(){
+			logger.info("New chart successfully created");
+			return callback(chartid);
+		})
+	});
+
 }
 
 database.postFeedback = function(text, callback){
@@ -361,6 +369,57 @@ database.exportJson = function(callback){
 
 	})
 
+}
+
+database.importJson = function(file,callback){
+	var fs = require('fs');
+
+	function readJson(file,callback){
+		fs.readFile(file, function read(err, data) {
+			if (err) {
+				logger.error("Couldn't read json file");
+				logger.error(err);
+				throw err;
+			}
+
+			return callback(JSON.parse(data));
+		});
+	};
+
+	function saveData(data,callback){
+		var charts = Object.keys(data.chart);
+		var chartid, chartdata;
+		var i = 0;
+		function next(){
+			chartid = charts[i];
+			chartdata = data[charts[i]];
+			addChart(chartid, chartdata, 0, function(){
+
+				i++;
+				if(i < charts.length){
+					next(callback);
+				}else{
+					callback(charts.length);
+				}
+			})
+		}
+
+
+		next(function(charts){
+			logger.info("Imported %d charts", charts);
+			callback();
+		});
+	}
+
+
+
+	readJson('export.json', function(data){
+		logger.info(Object.keys(data.chart).length);
+		saveData(data,function(){
+
+			callback();
+		});
+	})
 }
 
 module.exports = database;
