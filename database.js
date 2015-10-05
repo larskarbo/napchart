@@ -75,8 +75,30 @@ function visit(chartid, callback){
 
 }
 
-
 database.getChart = function(chartid,callback){
+	loadChart(chartid, function(data,error){
+		if(error){
+			return callback('',error);
+		}
+
+		visit(chartid,function(){
+			return callback(data);
+		});
+
+	})
+}
+
+
+function idgen(){
+	alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
+	id='';
+	for( var i=0; i < 5; i++ )
+		id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+	return id;
+}
+
+function loadChart(chartid,callback){
+
 	models.chartitem.findAll({
 		where:{
 			chartid:chartid
@@ -85,7 +107,7 @@ database.getChart = function(chartid,callback){
 		if(result.length == 0){
 			logger.warn('Could not find chart %s.', chartid);
 
-			callback('',404)
+			callback('',404);
 		}else{
 			logger.verbose('Found %d rows', result.length);
 
@@ -108,14 +130,14 @@ database.getChart = function(chartid,callback){
 				item = result[i].dataValues;
 				output[codes[item.type]].push({
 					start:item.start,
-					end:item.end
+					end:item.end,
+					text:item.text
 				});
 			}
 
-			visit(chartid,function(){
-				logger.verbose('Delivering chartData');
-				return callback(output);
-			});
+
+			logger.verbose('Chart data for %s loaded', chartid);
+			return callback(output);
 
 		}
 
@@ -126,21 +148,25 @@ database.getChart = function(chartid,callback){
 		return callback('',error);
 
 	})
-
 }
 
+function saveChart(chartid,data,ip,callback){
 
-function idgen(){
-	alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
-	id='';
-	for( var i=0; i < 5; i++ )
-		id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-	return id;
-}
+	function checkIfExists(chartid, callback){
 
-function addChart(chartid,data,ip,callback){
+		models.chart.findById(chartid).then(function(data){
 
-	logger.info(ip);
+			if(data == null){
+				return callback(false, chartid);
+			}else{
+				return callback(true, chartid);
+			}
+
+		}).catch(function(error){
+			logger.error('Something went wrong when checking if chartid exists');
+			logger.error(error);
+		})
+	}
 	function addChartToIndex(chartid,ip,callback){
 		var chart;
 
@@ -205,25 +231,33 @@ function addChart(chartid,data,ip,callback){
 		});
 
 	}
-
-	addChartToIndex(chartid,ip,function(chartid,error){
-		if(error){
-			logger.error('error')
-			callback('',error);
-			return;
+	checkIfExists(chartid,function(exists, chartid){
+		if(exists){
+			logger.warn('%s already exists', chartid);
+			return callback();
 		}
 
-		addChartItems(chartid,function(chartid,error){
+		addChartToIndex(chartid,ip,function(chartid,error){
 			if(error){
-				logger.error(error);
+				logger.error('error')
 				callback('',error);
 				return;
 			}
 
-			logger.info("New chart %s successfully added to database", chartid)
-			return callback(chartid);
+			addChartItems(chartid,function(chartid,error){
+				if(error){
+					logger.error(error);
+					callback('',error);
+					return;
+				}
+
+				logger.info("New chart %s successfully added to database", chartid)
+				return callback(chartid);
+			});
 		});
+
 	});
+	
 }
 
 database.newChart = function(req,data,callback){
@@ -250,7 +284,7 @@ database.newChart = function(req,data,callback){
 	}
 
 	findChartID(function(chartid){
-		addChart(chartid,data,ip, function(){
+		saveChart(chartid,data,ip, function(){
 			logger.info("New chart successfully created");
 			return callback(chartid);
 		})
@@ -306,7 +340,7 @@ database.exportJson = function(callback){
 			chartid = result[i].dataValues.chartid;
 
 			logger.verbose('Exporting %s', chartid);
-			findChartData(chartid,function(data){
+			loadChart(chartid,function(data){
 				databaseData.chart[chartid] = data;
 
 				i++;
@@ -318,34 +352,6 @@ database.exportJson = function(callback){
 			})
 		}
 
-		function findChartData(chartid,callback){
-
-			models.chartitem.findAll({
-				where: {
-					chartid:chartid
-				}
-			}).then(function(result){
-
-				output = {
-					core:[],
-					nap:[],
-					busy:[]
-				};
-
-				for(var i = 0; i < result.length; i++){
-					item = result[i].dataValues;
-					output[codes[item.type]].push({
-						start:item.start,
-						end:item.end,
-						text:item.text
-					});
-				}
-
-				return callback(output);
-
-			})
-
-		}
 
 		logger.info('Starting export');
 		if(result.length > 0){
@@ -392,8 +398,8 @@ database.importJson = function(file,callback){
 		var i = 0;
 		function next(){
 			chartid = charts[i];
-			chartdata = data[charts[i]];
-			addChart(chartid, chartdata, 0, function(){
+			chartdata = data.chart[charts[i]];
+			saveChart(chartid, chartdata, 0, function(){
 
 				i++;
 				if(i < charts.length){
@@ -406,7 +412,7 @@ database.importJson = function(file,callback){
 
 
 		next(function(charts){
-			logger.info("Imported %d charts", charts);
+			logger.info("Imported %d charts", charts.length);
 			callback();
 		});
 	}
