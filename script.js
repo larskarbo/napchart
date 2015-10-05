@@ -102,7 +102,8 @@ function start(db){
 			database.getChart(chartid, function(chartData,error){
 				if(error){
 					if(error == 404){
-						res.render('pages/main',{chartid:null,chart:null, url:host, db:db});
+						res.redirect('/');
+						//res.render('pages/main',{chartid:null,chart:null, url:host, db:db});
 					}else{
 						logger.error("There was a problem when creating a new chart:", error);
 						res.writeHead(503);

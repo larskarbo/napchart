@@ -263,6 +263,10 @@ function saveChart(chartid,data,ip,callback){
 database.newChart = function(req,data,callback){
 
 	var ip = ipFunctions.dot2num(ipFunctions.getIp(req));
+	if(isNan(ip)){
+		logger.error(ip);
+		ip = 1;
+	}
 
 	function findChartID(callback){
 		//find a chartid that is not in use
