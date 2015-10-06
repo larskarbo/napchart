@@ -231,7 +231,7 @@ Schedule chooser
 }
 
 @media (max-width: 600px) {
-  #sampleSchedules {
+  .sampleSchedules-col {
     display: none;
   }
 }

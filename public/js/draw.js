@@ -684,15 +684,22 @@ window.draw=(function(){
 
 	return { //exposed to public
 		initialize:function(canvas){
-			// the initialize function draws the background clock to an off-screen canvas.
+			//first determine canvas size
+			var resizeDiv = canvas.parentNode;
+			var clockSize = Math.min(resizeDiv.clientWidth, resizeDiv.clientHeight);
+
+			canvas.width = clockSize;
+			canvas.height = clockSize;
+			console.log(clockSize);
+
+			// draws the background clock to an off-screen canvas.
 			// This increases performance because the browser doesn't need to redraw everything, every frame
-			offScreenCanvas=document.createElement('canvas');
-			octx=offScreenCanvas.getContext('2d');
+			var offScreenCanvas=document.createElement('canvas');
+			var octx=offScreenCanvas.getContext('2d');
 
-			var clockWidth=canvas.clientWidth;
-			console.log(clockWidth);
 
-			this.ratio = clockWidth/96; //what the computer thinks
+
+			this.ratio = clockSize/96; //what the computer thinks
 			this.drawRatio = this.ratio; //what you see
 
 			this.backgroundColor="#F4F4F4";
