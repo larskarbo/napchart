@@ -358,7 +358,7 @@ div#debugger{
 11.0   Settings
 *******************/
 .settingsElement:not(:first-child){
-	padding-top: 18px
+	padding-top: 10px
 }
 
 /**************************
