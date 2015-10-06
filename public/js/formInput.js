@@ -29,7 +29,7 @@ window.formInput=(function(){
 
 		add += '<input type="hidden" name="name" value="'+name+'">';
 		add += '<input type="hidden" name="count" value="'+count+'">';
-		add += '<button class="remove">remove</button>';
+		add += '<button class="remove"> <i class="fa fa-trash-o"></i> </button>';
 		add += '</div>';
 
 
