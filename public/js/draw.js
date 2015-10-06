@@ -689,13 +689,10 @@ window.draw=(function(){
 			offScreenCanvas=document.createElement('canvas');
 			octx=offScreenCanvas.getContext('2d');
 
-			window.clockWidth=offScreenCanvas.height;
-			window.clockBasepoint=(offScreenCanvas.clientWidth-clockWidth)/2;
+			var clockWidth=canvas.clientWidth;
+			console.log(clockWidth);
 
-			var clockWidth=offScreenCanvas.width;
-			console.log(offScreenCanvas.style);
-
-			this.ratio = clockWidth/87; //what the computer thinks
+			this.ratio = clockWidth/96; //what the computer thinks
 			this.drawRatio = this.ratio; //what you see
 
 			this.backgroundColor="#F4F4F4";
