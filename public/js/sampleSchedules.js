@@ -28,7 +28,15 @@ window.sampleSchedule = (function () {
 	function chooseSchedule(element){
 		var schedule=element.id;
 		if(typeof schedules[schedule] != 'undefined'){
-			napchartCore.setSchedule(schedules[schedule]);
+			// we don't want to remove busy elements
+			var currentSchedule = napchartCore.getSchedule();
+			var newSchedule = schedules[schedule];
+
+			if(typeof currentSchedule.busy != 'undefined'){
+				newSchedule.busy = currentSchedule.busy;
+			}
+			
+			napchartCore.setSchedule(newSchedule);
 
 		}else{
 			throw new Error("Could not find the schedule requested")
