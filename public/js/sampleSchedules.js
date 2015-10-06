@@ -49,6 +49,7 @@ window.sampleSchedule = (function () {
 
 			setIndicator(schedule, false);
 			napchartCore.setSchedule(newSchedule);
+			chartHistory.add(newSchedule,'changed to preset scedule ' + schedule);
 
 		}else{
 			throw new Error("Could not find the schedule requested")

@@ -89,7 +89,7 @@ window.barhandler = (function(){
 
 
 			sampleSchedule.detectSchedule(data);
-			chartHistory.add(napchartCore.getSchedule(),'removed all')
+			chartHistory.add(napchartCore.getSchedule(),'removed all');
 		},
 
 		setSettings:function(object){
