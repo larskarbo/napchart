@@ -32,7 +32,6 @@ window.interactCanvas = (function(){
 			mouseY = e.clientY - boundingRect.top;
 		}
 
-		console.log(mouseX-width/2,mouseY-height/2)
 
 		return {
 			x : mouseX-width/2,

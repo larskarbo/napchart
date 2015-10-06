@@ -45,7 +45,7 @@ textarea {
 	color: hsl(0, 0%, 0%);
 	font-size: 1.3rem;
 	line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	margin:0;padding:0;height:100%;
 }
 
@@ -67,33 +67,33 @@ p,.list li{
 
 .flash{
 
-  -moz-animation: flash 1s ease-out;
-  -moz-animation-iteration-count: 1;
+	-moz-animation: flash 1s ease-out;
+	-moz-animation-iteration-count: 1;
 
-  -webkit-animation: flash 1s ease-out;
-  -webkit-animation-iteration-count: 1;
+	-webkit-animation: flash 1s ease-out;
+	-webkit-animation-iteration-count: 1;
 
-  -ms-animation: flash 1s ease-out;
-  -ms-animation-iteration-count: 1;
+	-ms-animation: flash 1s ease-out;
+	-ms-animation-iteration-count: 1;
 
 }
 
 @-webkit-keyframes flash {
-    0% { background-color:#fbf8b2;}
-    50% { background-color:#fbf8b2;}        
-    100% {background-color:none;}
+	0% { background-color:#fbf8b2;}
+	50% { background-color:#fbf8b2;}        
+	100% {background-color:none;}
 }
 
 @-moz-keyframes flash {
-    0% { background-color:none;}
-    50% { background-color:#fbf8b2;}        
-    100% {background-color:none;}
+	0% { background-color:none;}
+	50% { background-color:#fbf8b2;}        
+	100% {background-color:none;}
 }
 
 @-ms-keyframes flash {
-    0% { background-color:#fbf8b2;}
-    50% { background-color:#fbf8b2;}        
-    100% {background-color:none;}
+	0% { background-color:#fbf8b2;}
+	50% { background-color:#fbf8b2;}        
+	100% {background-color:none;}
 }
 
 
@@ -134,16 +134,16 @@ p,.list li{
 
 #urlField {
 	width:0;
-    background:rgb(237,237,237);
-    border: 1px solid black;
+	background:rgb(237,237,237);
+	border: 1px solid black;
 	font-size: 13px;
 	font-weight: 600;
 	line-height: 1;
-    padding:5px;
-    color:black;
-    height:auto;
-    margin:20px 0 0;
-    display:none;
+	padding:5px;
+	color:black;
+	height:auto;
+	margin:20px 0 0;
+	display:none;
 }
 
 #urlField.loading {
@@ -151,8 +151,8 @@ p,.list li{
 }
 
 #urlField:focus {
-    color:#cb2929;
-    outline-color: #cc2828;
+	color:#cb2929;
+	outline-color: #cc2828;
 }
 
 .list li{
@@ -160,6 +160,11 @@ p,.list li{
 }
 .list {
 	padding-left: 14px
+}
+
+.transparent{
+	background: transparent !important;
+	box-shadow: none !important;
 }
 
 /**************************
@@ -185,6 +190,43 @@ p,.list li{
 
 .chart-preview {
 }
+
+
+/**************************
+Schedule chooser
+*******************/
+#sampleSchedules{
+	position:relative;
+}
+.sampleSchedule{
+	position:relative;
+	font-size: 16px;
+	cursor:pointer;
+	padding: 6px;
+	margin-bottom: 3px;
+}
+
+#sampleScheduleActive{
+	display:none;
+	position:absolute;
+	z-index:0;
+	background-color:#e1c5c5;
+	font-size: 16px;
+	cursor:pointer;
+	padding: 6px;
+	height:24px;
+	margin-bottom: 3px;
+}
+
+.sampleSchedule:hover {
+	background-color:#dbdbdb;
+}
+.sampleSchedule:active {
+	background-color:#b36565;
+	border:none;
+}
+
+
 /**************************
 5.0   Toolbar
 *******************/

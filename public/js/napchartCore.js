@@ -27,6 +27,7 @@ window.napchartCore=(function(){
 			dom.bindAddButtons();
 			dom.bindSaveButton(document.getElementById('saveContainer'));
 			statistics.initialize(document.getElementById('stat-container'));
+			sampleSchedule.initialize(document.getElementById('sampleSchedules'))
 
 			chartHistory.initialize(data);
 

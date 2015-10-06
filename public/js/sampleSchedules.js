@@ -1,7 +1,6 @@
 /**
 
 This module handles sampleSchedules
-*Not in use right now
 
 **/
 
@@ -26,15 +25,40 @@ window.sampleSchedule = (function () {
 			return "none";
 	}
 
-	function chooseSchedule(element,dropDown){
+	function chooseSchedule(element){
 		var schedule=element.id;
 		if(typeof schedules[schedule] != 'undefined'){
 			napchartCore.setSchedule(schedules[schedule]);
-			dropDown.innerHTML = schedule;
+
 		}else{
 			throw new Error("Could not find the schedule requested")
 		}
 	}
+
+	changeActiveSchedule = function(immidiateTo){
+		if(typeof immidiateTo=="undefined"){
+		currentActive=whichSchedule();	
+			if(currentActive=="none"){
+				$("#sampleScheduleActive").fadeOut();
+				return;
+			}
+		}
+		else{
+	currentActive=immidiateTo;}
+
+		prevTop=document.getElementById("sampleSchedules").getBoundingClientRect().top;
+		newTop=document.getElementById(currentActive).getBoundingClientRect().top;
+		travelTop=newTop-prevTop;
+		if(typeof immidiateTo!="undefined"){
+			$("#sampleScheduleActive").css("top",travelTop);
+			$("#sampleScheduleActive").css("display","default");
+		}
+		if($("#sampleScheduleActive").css("display")=="none"){
+			$("#sampleScheduleActive").css("top",travelTop);
+			$("#sampleScheduleActive").fadeIn();
+		}else
+		$("#sampleScheduleActive").animate({top:travelTop});
+	};
 	
 	var schedules={
 		monophasic:	{core:[{start:120, end:330 }, {start:360, end:450 } ], nap:[{start:960, end:980 } ] , busy:[{start:600, end:844 } ]},
@@ -47,12 +71,14 @@ window.sampleSchedule = (function () {
 	//public:
 	return {
 		initialize:function(container){
+			scheduleLinks = container.getElementsByClassName('sampleSchedule');
 
 			for(i=0;i<scheduleLinks.length;i++){
 				scheduleLinks[i].addEventListener('click',function(){
-					chooseSchedule(this,dropDown);
+					chooseSchedule(this);
 				})
-			}
+			};
+
 		},
 		getSchedules:function(){
 			return schedules;
