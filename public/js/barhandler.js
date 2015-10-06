@@ -87,6 +87,8 @@ window.barhandler = (function(){
 			}
 			napchartCore.setSchedule(data);
 
+
+			sampleSchedule.detectSchedule(data);
 			chartHistory.add(napchartCore.getSchedule(),'removed all')
 		},
 

@@ -11,10 +11,10 @@ window.sampleSchedule = (function () {
 	function whichSchedule(data){
 		var naps = 0, cores = 0; 
 
-		if(data.naps != 'undefined')
+		if(typeof data.nap != 'undefined')
 			naps = data.nap.length;
 
-		if(data.cores != 'undefined')
+		if(typeof data.core != 'undefined')
 			cores = data.core.length;
 
 
@@ -116,7 +116,7 @@ window.sampleSchedule = (function () {
 
 		detectSchedule:function(data){
 			var schedule = whichSchedule(data);
-			
+
 			setIndicator(schedule, true);
 		}
 	}
