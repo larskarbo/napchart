@@ -4,7 +4,7 @@ Here is a guide on how to understand the code base of napchart
 
 ## Modules
 
-Napchart is written with javascript modules. All modules are stored in the `/js` folder.
+Napchart is written with javascript modules. All modules are stored in the `public/js` folder.
 
 ### napchartCore.js
 
