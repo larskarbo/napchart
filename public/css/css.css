@@ -61,7 +61,7 @@ p,.list li{
 }
 
 .row {
-	max-width: 800px;
+	max-width: 1000px;
 }
 
 
@@ -212,7 +212,7 @@ p,.list li{
 7.0   Forminput
 *******************/
 .inputBox{
-	background-color:#EBEBEB;
+	background-color:transparent;
 	font-size: 16px;
 	outline: none;
 	padding: 6px;
