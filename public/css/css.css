@@ -206,20 +206,24 @@ Schedule chooser
 	margin-bottom: 3px;
 }
 
-#sampleScheduleActive{
+#scheduleIndicator{
 	display:none;
 	position:absolute;
+	width: 100%;
 	z-index:0;
 	background-color:#e1c5c5;
 	font-size: 16px;
 	cursor:pointer;
 	padding: 6px;
-	height:24px;
+	height:36px;
 	margin-bottom: 3px;
 }
 
 .sampleSchedule:hover {
 	background-color:#dbdbdb;
+}
+.sampleSchedule.selected:hover {
+	background-color:#e1c5c5;
 }
 .sampleSchedule:active {
 	background-color:#b36565;

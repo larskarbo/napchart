@@ -27,7 +27,8 @@ window.napchartCore=(function(){
 			dom.bindAddButtons();
 			dom.bindSaveButton(document.getElementById('saveContainer'));
 			statistics.initialize(document.getElementById('stat-container'));
-			sampleSchedule.initialize(document.getElementById('sampleSchedules'))
+			sampleSchedule.initialize(document.getElementById('sampleSchedules'));
+			sampleSchedule.detectSchedule(data);
 
 			chartHistory.initialize(data);
 
@@ -62,6 +63,7 @@ window.napchartCore=(function(){
 
 			scheduleData[name].push(obj);
 			this.setSchedule(scheduleData);
+			sampleSchedule.detectSchedule(scheduleData);
 
 			chartHistory.add(scheduleData,'added '+name);
 		},
@@ -70,6 +72,7 @@ window.napchartCore=(function(){
 			scheduleData[name].splice(count,1);
 
 			this.setSchedule(scheduleData);
+			sampleSchedule.detectSchedule(scheduleData);
 
 			chartHistory.add(scheduleData,'removed ' + name + ' ' + (count-1));
 		},

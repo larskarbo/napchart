@@ -6,7 +6,18 @@ This module handles sampleSchedules
 
 window.sampleSchedule = (function () {
 	//private:
+	var CONTAINER;
+
 	function whichSchedule(data){
+		var naps = 0, cores = 0; 
+
+		if(data.naps != 'undefined')
+			naps = data.nap.length;
+
+		if(data.cores != 'undefined')
+			cores = data.core.length;
+
+
 		if(cores===1&&naps===0)
 			return "monophasic";
 		else if(cores===2&&naps===0)
@@ -35,7 +46,8 @@ window.sampleSchedule = (function () {
 			if(typeof currentSchedule.busy != 'undefined'){
 				newSchedule.busy = currentSchedule.busy;
 			}
-			
+
+			setIndicator(schedule, false);
 			napchartCore.setSchedule(newSchedule);
 
 		}else{
@@ -43,30 +55,35 @@ window.sampleSchedule = (function () {
 		}
 	}
 
-	changeActiveSchedule = function(immidiateTo){
-		if(typeof immidiateTo=="undefined"){
-			currentActive=whichSchedule();	
-			if(currentActive=="none"){
-				$("#sampleScheduleActive").fadeOut();
-				return;
-			}
-		}
-		else{
-			currentActive=immidiateTo;}
+	function setIndicator(schedule, animate){
+		var container = CONTAINER;
+		var indicator = container.querySelector('#scheduleIndicator');
 
-			prevTop=document.getElementById("sampleSchedules").getBoundingClientRect().top;
-			newTop=document.getElementById(currentActive).getBoundingClientRect().top;
-			travelTop=newTop-prevTop;
-			if(typeof immidiateTo!="undefined"){
-				$("#sampleScheduleActive").css("top",travelTop);
-				$("#sampleScheduleActive").css("display","default");
-			}
-			if($("#sampleScheduleActive").css("display")=="none"){
-				$("#sampleScheduleActive").css("top",travelTop);
-				$("#sampleScheduleActive").fadeIn();
-			}else
-			$("#sampleScheduleActive").animate({top:travelTop});
-		};
+		var targetDiv = container.querySelector('#' + schedule);
+
+		var containerTop = container.getBoundingClientRect().top;
+		var targetTop = targetDiv.getBoundingClientRect().top;
+		var travel = targetTop - containerTop;
+
+		$(container).children().removeClass('selected');
+
+		if(schedule == 'none'){
+			$(indicator).fadeOut();
+			return;
+		}
+
+		indicator.style.display = "block";
+
+		$(targetDiv).addClass('selected');
+
+		if(animate){
+			//use when determined schedule
+			$(indicator).animate({top:travel});
+		}else{
+			//use when click on schedule
+			indicator.style.top = travel + 'px';
+		}
+	};
 
 		var schedules={
 			monophasic:	{core:[{start:1410, end:450 }]},
@@ -82,7 +99,8 @@ window.sampleSchedule = (function () {
 	//public:
 	return {
 		initialize:function(container){
-			scheduleLinks = container.getElementsByClassName('sampleSchedule');
+			CONTAINER = container;
+			var scheduleLinks = container.getElementsByClassName('sampleSchedule');
 
 			for(i=0;i<scheduleLinks.length;i++){
 				scheduleLinks[i].addEventListener('click',function(){
@@ -90,9 +108,16 @@ window.sampleSchedule = (function () {
 				})
 			};
 
+
 		},
 		getSchedules:function(){
 			return schedules;
+		},
+
+		detectSchedule:function(data){
+			var schedule = whichSchedule(data);
+			
+			setIndicator(schedule, true);
 		}
 	}
 
