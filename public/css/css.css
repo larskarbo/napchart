@@ -167,6 +167,23 @@ p,.list li{
 	box-shadow: none !important;
 }
 
+@media (max-width: 600px) {
+  .hideSmall {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .showSmall {
+    display: block;
+  }
+}
+
+/*#canvasResizer {
+	width:100%;
+	height:100%;
+}*/
+
 /**************************
 4.0   Share Window
 *******************/

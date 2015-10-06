@@ -686,11 +686,12 @@ window.draw=(function(){
 		initialize:function(canvas){
 			//first determine canvas size
 			var resizeDiv = canvas.parentNode;
-			var clockSize = Math.min(resizeDiv.clientWidth, resizeDiv.clientHeight);
+			var clockSize = Math.min(resizeDiv.clientWidth, 400);
+			console.log(resizeDiv.clientWidth, 400);
 
 			canvas.width = clockSize;
 			canvas.height = clockSize;
-			console.log(clockSize);
+			console.log('size',clockSize);
 
 			// draws the background clock to an off-screen canvas.
 			// This increases performance because the browser doesn't need to redraw everything, every frame

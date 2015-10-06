@@ -19,8 +19,8 @@ window.napchartCore=(function(){
 			if(typeof data == 'undefined')
 				data = {};
 
-			interactCanvas.initialize(canvas);
 			draw.initialize(canvas);
+			interactCanvas.initialize(canvas);
 			draw.drawUpdate();
 			settings.initialize(document.getElementById('settings'));
 			formInput.initialize(document.getElementById('formInputContainer'));

@@ -40,6 +40,7 @@ window.interactCanvas = (function(){
 	}
 
 	function hitDetect(coordinates){
+		console.log(coordinates);
 		var canvas = napchartCore.getCanvas();
 		var data = data = napchartCore.getSchedule();
 		var barConfig = draw.getBarConfig();
