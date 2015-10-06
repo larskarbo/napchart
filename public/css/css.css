@@ -230,6 +230,12 @@ Schedule chooser
 	border:none;
 }
 
+@media (max-width: 600px) {
+  #sampleSchedules {
+    display: none;
+  }
+}
+
 
 /**************************
 5.0   Toolbar
