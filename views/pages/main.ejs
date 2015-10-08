@@ -6,7 +6,7 @@
 
     <% if(url == 'www.napchart.com' || url == 'napchart.com'){ %>
 
-    <% include ../partials/analytics.ejs %>
+        <% include ../partials/analytics.ejs %>
 
     <% } %>
 
@@ -109,6 +109,11 @@
                     <div class="settingsElement">
                         <input type="checkbox" id="showAllElements" />
                         <label for="showAllElements">Show all elements</label>
+                    </div>
+
+                    <div class="settingsElement">
+                        <input type="checkbox" id="moveSim" />
+                        <label for="moveSim">Move sleep simoultanously</label>
                     </div>
 
                     <div class="settingsElement">

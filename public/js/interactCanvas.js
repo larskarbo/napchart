@@ -40,7 +40,6 @@ window.interactCanvas = (function(){
 	}
 
 	function hitDetect(coordinates){
-		console.log(coordinates);
 		var canvas = napchartCore.getCanvas();
 		var data = data = napchartCore.getSchedule();
 		var barConfig = draw.getBarConfig();
@@ -106,6 +105,7 @@ window.interactCanvas = (function(){
 					//check if point is inside element horizontally
 					start = data[name][i].start;
 					end = data[name][i].end;
+
 					if(helpers.pointIsInside(minutes,start,end)){
 
 						//check if point is inside element vertically
@@ -121,17 +121,51 @@ window.interactCanvas = (function(){
 								positionInElement:positionInElement
 							};
 						}
-
-
 					}
-
 				}
+			}
+			if(settings.getValue('moveSim') && (hit.name == 'core' ||  hit.name == 'nap')){
+				// we have to add all sleep elements as hit
+
+				var data = napchartCore.getSchedule();
+				var original = {
+					name:hit.name,
+					count:hit.count
+				}
+
+				// adding (possibly) many elements, so we add a property elements
+				hit = {};
+				hit.elements = [];
+
+				// which element is the directly hit one?
+				// used for snapping
+				hit.direct = {
+					name:original.name,
+					count:original.count
+				}
+
+
+
+				for(var name in data){
+					if(name == 'busy')
+						continue;
+
+					for(var i = 0; i < data[name].length; i++){
+						start = data[name][i].start;
+
+						positionInElement = helpers.calc(minutes,-start);
+						hit.elements.push({
+							name:name,
+							count:i,
+							type:'whole',
+							positionInElement:positionInElement
+						});
+					}
+				}
+
 			}
 		}
 		
-		if(Object.keys(hit).length == 0)
-			return false;
-
 		return hit;
 	}
 
@@ -153,14 +187,12 @@ window.interactCanvas = (function(){
 	function down(e){
 		e.stopPropagation();
 
-		console.info('down');
-
 		var canvas = e.target || e.srcElement;
 		var coordinates = getCoordinates(e,canvas);
-		var hit;
+		var hit = {};
 
 		hit = hitDetect(coordinates);
-
+		console.log(hit);
 		//return of no hit
 		if(!hit){
 			deselect();
@@ -177,6 +209,7 @@ window.interactCanvas = (function(){
 		}
 
 		hit.canvas = canvas;
+
 
 		//deselect other elements if they are not being touched
 		if(activeElements.length === 0){
@@ -199,7 +232,6 @@ window.interactCanvas = (function(){
 	}
 
 	function drag(e){
-		console.log('drag');
 		var identifier;
 		identifier = findIdentifier(e);
 
@@ -212,35 +244,53 @@ window.interactCanvas = (function(){
 
 
 		dragElement = getActiveElement(identifier);
+
 		if(!dragElement){
 			return
 		}
 
-		name = dragElement.name;
-		count = dragElement.count;
-		element = napchartCore.returnElement(name,count);
+		// expose minutes variable to moveElement function
 		coordinates = getCoordinates(e,dragElement.canvas);
 		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y);
 
+		if(typeof dragElement.elements != 'undefined'){
+			// many elements linked
+			console.log(dragElement);
 
-		if(dragElement.type=='start'){
-			start = snap(minutes);
-			newValues = {start:start};
-		}
-		else if(dragElement.type=='end'){
-			end = snap(minutes);
-			newValues = {end:end};
-		}
-		else if(dragElement.type=='whole'){
-			positionInElement = dragElement.positionInElement;
-			duration = helpers.range(element.start,element.end);
-			start = helpers.calc(minutes,-positionInElement);
-			start = snap(start);
-			end = helpers.calc(start,duration);
-			newValues = {start:start,end:end};
+			dragElement.elements.some(moveElement);
+		}else{
+
+			moveElement(dragElement);
 		}
 		
-		napchartCore.modifyElement(name,count,newValues);
+
+
+		function moveElement(dragElement){
+			console.log('I want to drag ', dragElement.name, dragElement.count)
+			name = dragElement.name;
+			count = dragElement.count;
+			element = napchartCore.returnElement(name,count);
+
+
+			if(dragElement.type=='start'){
+				start = snap(minutes);
+				newValues = {start:start};
+			}
+			else if(dragElement.type=='end'){
+				end = snap(minutes);
+				newValues = {end:end};
+			}
+			else if(dragElement.type=='whole'){
+				positionInElement = dragElement.positionInElement;
+				duration = helpers.range(element.start,element.end);
+				start = helpers.calc(minutes,-positionInElement);
+
+				end = helpers.calc(start,duration);
+				newValues = {start:start,end:end};
+			}
+			
+			napchartCore.modifyElement(name,count,newValues);
+		}
 	}
 
 	function unfocus(e){
@@ -259,6 +309,19 @@ window.interactCanvas = (function(){
 	}
 
 	function select(name,count){
+		if(settings.getValue('moveSim') && name != 'busy'){
+			//select all
+			var data = napchartCore.getSchedule();
+
+			for(var name in data){
+				if(name == 'busy')
+					continue;
+
+				for(var i = 0; i < data[name].length; i++){
+					napchartCore.setSelected(name,i);
+				}
+			}
+		}
 		//notify core module:
 		napchartCore.setSelected(name,count);
 	}
@@ -337,6 +400,25 @@ window.interactCanvas = (function(){
 		return output;
 	}
 
+	function checkState(element,name,count,type){
+		// checks if 
+		function check(element){
+			if(name == element.name && count == element.count){
+				if(typeof type=='undefined' || type == element.type){
+					return true;
+				}
+			};
+		};
+
+		if(typeof element.elements != 'undefined'){
+			// there are more than one element
+			return element.elements.some(check);
+		}else{
+			// one element
+			return check(element)
+		};
+	}
+
 	//public:
 	return{
 		initialize:function(canvas){
@@ -361,31 +443,18 @@ window.interactCanvas = (function(){
 
 		},
 
-		setHoverElement:function(hover){
-			//ignore if a handle is being hovered
-			if(mouseHover.type != 'start' && mouseHover.type != 'end'){
-				mouseHover = hover;
-			};
-		},
 
 		isActive:function(name,count,type){
 
-			for(i=0;i<activeElements.length;i++){
+			return activeElements.some(function(element){
+				return checkState(element,name,count,type);
+			});
 
-				if(name == activeElements[i].name && count == activeElements[i].count){
-					if(typeof type=='undefined' || type == activeElements[i].type)
-					return true;
-				}
-			}
-			return false;
 		},
 
 		isHover:function(name,count,type){
-			if(name == mouseHover.name && count == mouseHover.count){
-				if(typeof type=='undefined' || type == mouseHover.type)
-				return true;
-			}
-			return false;
+
+			return checkState(mouseHover,name,count,type);
 		},
 
 		getSelectedOpacity:function(){

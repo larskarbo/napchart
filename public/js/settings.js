@@ -34,7 +34,6 @@ window.settings=(function(){
 	function getValue(id){
 		var element = $(switchBox).find('#' + id)[0];
 		var value;
-		console.log(element);
 
 		if(element.type == 'checkbox'){
 			value = element.checked;
@@ -53,6 +52,10 @@ window.settings=(function(){
 			console.log($(switchBox).find('#showAllElements').length);
 
 			addEventListeners();
+		},
+
+		getValue:function(id){
+			return getValue(id);
 		}
 
 		
