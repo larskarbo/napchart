@@ -40,6 +40,15 @@ window.settings=(function(){
 			}
 			draw.reInit();
 		});
+
+		$(switchBox).find('#darkmode').on('change',function(){
+			if(this.checked == true){
+				napchartCore.dmToggle(true);
+			}else{
+				napchartCore.dmToggle(false);
+			}
+			draw.reInit();
+		});
 	}
 
 	function getValue(id){

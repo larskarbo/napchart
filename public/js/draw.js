@@ -652,7 +652,6 @@ window.draw=(function(){
 		element = napchartCore.returnElement(name,count);
 		duration = helpers.range(element.start, element.end);
 		timeLocation = clockConfig.timeLocation;
-		console.log(timeLocation);
 		radius = (barConfig[name].outerRadius + timeLocation) * draw.ratio;
 
 		//push start

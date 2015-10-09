@@ -206,6 +206,11 @@ window.napchartCore=(function(){
 			chartHistory.setChartid(chartid);
 		},
 
+		dmToggle:function(state){
+			dom.dmToggle(state);
+
+		},
+
 		startLoading:function(){
 			dom.startLoading();
 		},
