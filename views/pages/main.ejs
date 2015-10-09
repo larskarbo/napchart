@@ -17,16 +17,19 @@
 
 
 
-    <% if(chartid && chart){ %>
 
     <script>
     fromServer = {};
-    fromServer.chartid = '<%= chartid %>';
-    fromServer.data = <%- chart %>;
+
+    <% if(chartid && chart){ %>
+        fromServer.chartid = '<%= chartid %>';
+        fromServer.data = <%- chart %>;
+    <% } %>
+
     fromServer.hasDatabase = <%= db %>;
+    fromServer.url = '<%= url %>';
     </script>
 
-    <% } %>
 
 
     <div class="top-nav grey">

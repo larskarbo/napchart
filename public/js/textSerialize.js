@@ -82,7 +82,7 @@ window.textSerialize=(function(){
 		},
 
 		setChartid:function(chartid){
-			var string = 'http://napchart.com/' + chartid;
+			var string = 'http://' + fromServer.url + '/' + chartid;
 			textSerialize.update();
 
 			flash();

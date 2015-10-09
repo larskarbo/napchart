@@ -74,7 +74,7 @@ window.dom=(function(){
 		setURL:function(chartid){
 			var url;
 
-			url = 'http://napchart.com/' + chartid;
+			url = 'http://'+fromServer.url+'/' + chartid;
 
 			if( $(URL_FIELD).css('display') == 'none' ){
 				$(URL_FIELD).show();
