@@ -55,11 +55,11 @@ window.interactCanvas = (function(){
 
 		//hit detection of handles (will overwrite current mouseHover object
 		//from draw if hovering a handle):
-		for(var name in data){
-			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
-				continue;
+for(var name in data){
+	if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
+		continue;
 
-			for(i = 0; i < data[name].length; i++){
+	for(i = 0; i < data[name].length; i++){
 
 				// if element is not selected, continue
 				if(!napchartCore.isSelected(name,i))
@@ -139,7 +139,7 @@ window.interactCanvas = (function(){
 
 				// which element is the directly hit one?
 				// used for snapping
-				hit.direct = {
+				hit.master = {
 					name:original.name,
 					count:original.count
 				}
@@ -192,7 +192,7 @@ window.interactCanvas = (function(){
 		var hit = {};
 
 		hit = hitDetect(coordinates);
-		console.log(hit);
+
 		//return of no hit
 		if(!hit){
 			deselect();
@@ -249,24 +249,66 @@ window.interactCanvas = (function(){
 			return
 		}
 
-		// expose minutes variable to moveElement function
+		// expose minutes variable to getMoveValues() function
 		coordinates = getCoordinates(e,dragElement.canvas);
 		minutes = helpers.XYtoMinutes(coordinates.x,coordinates.y);
 
 		if(typeof dragElement.elements != 'undefined'){
 			// many elements linked
-			console.log(dragElement);
 
-			dragElement.elements.some(moveElement);
+			var newElements = [];
+			var master = {};
+			dragElement.elements.some(function(element){
+				getMoveValues(element, function(name,count,newValues){
+					// all this fuzz because we need to make the dragging snappable
+					// and the snapping should only listen to the element you are clicking on
+					// and all other have to follow
+
+					if(name == dragElement.master.name && count == dragElement.master.count){
+						master = newValues;
+					}
+					newElements.push({
+						name: name,
+						count: count,
+						values: newValues
+					})
+					
+				})
+			});
+
+			// run through newElements array and snap values
+
+			var masterStart = master.start;
+			// find out how much the snap function did
+			var shift = snap(masterStart) - masterStart;
+
+			// do the same impact to the other elements
+			for(var i = 0; i < newElements.length; i++){
+				newElements[i].values.start = helpers.calc(newElements[i].values.start,shift);
+				newElements[i].values.end = helpers.calc(newElements[i].values.end,shift);
+			};
+
+			console.log(newElements);
+
+			// send all the shiny new elements to the core for modification :-)
+			newElements.forEach(modify);
+			
+			function modify(newValueElement){
+				napchartCore.modifyElement(newValueElement.name,newValueElement.count,newValueElement.values);
+			}
+
+
 		}else{
 
-			moveElement(dragElement);
+			getMoveValues(dragElement, function(name,count,newValues){
+
+				napchartCore.modifyElement(name,count,newValues);
+			});
 		}
 		
 
 
-		function moveElement(dragElement){
-			console.log('I want to drag ', dragElement.name, dragElement.count)
+		function getMoveValues(dragElement, callback){
 			name = dragElement.name;
 			count = dragElement.count;
 			element = napchartCore.returnElement(name,count);
@@ -288,8 +330,8 @@ window.interactCanvas = (function(){
 				end = helpers.calc(start,duration);
 				newValues = {start:start,end:end};
 			}
-			
-			napchartCore.modifyElement(name,count,newValues);
+
+			callback(name, count, newValues);
 		}
 	}
 
