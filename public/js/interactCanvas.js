@@ -424,20 +424,29 @@ for(var name in data){
 	function snap(input){
 		var output = input;
 
-		//hour
-		if(input%60 < 7)
-			output = input-input%60;
-		else if(input%60 > 53)
-			output = input+(60-input%60);
+		if(settings.getValue('snap10')){
+			output = 10 * Math.round(input / 10)
 
-		//half hours
-		else{
-			input += 30;
+		}else if(settings.getValue('snap5')){
+			output = 5 * Math.round(input / 5)
 
-			if(input%60 < 5)
-				output = input-input%60-30;
-			else if(input%60 > 55)
-				output = input+(60-input%60)-30;
+		}else{
+
+			//hour
+			if(input%60 < 7)
+				output = input-input%60;
+			else if(input%60 > 53)
+				output = input+(60-input%60);
+
+			//half hours
+			else{
+				input += 30;
+
+				if(input%60 < 5)
+					output = input-input%60-30;
+				else if(input%60 > 55)
+					output = input+(60-input%60)-30;
+			}
 		}
 
 		return output;
