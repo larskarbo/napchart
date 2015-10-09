@@ -97,7 +97,7 @@ window.napchartCore=(function(){
 		},
 
 		returnElement:function(name,count){
-			if(typeof scheduleData[name][count]=='undefined'){
+			if(typeof scheduleData[name] == 'undefined' && typeof scheduleData[name][count] == 'undefined'){
 				console.warn('Specified element does not exist');
 			}
 			return scheduleData[name][count];

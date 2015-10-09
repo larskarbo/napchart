@@ -194,7 +194,7 @@ for(var name in data){
 		hit = hitDetect(coordinates);
 
 		//return of no hit
-		if(!hit){
+		if(Object.keys(hit).length == 0){
 			deselect();
 			return;
 		}
@@ -299,7 +299,7 @@ for(var name in data){
 
 
 		}else{
-
+			var snapAll = true;
 			getMoveValues(dragElement, function(name,count,newValues){
 
 				napchartCore.modifyElement(name,count,newValues);
@@ -326,7 +326,8 @@ for(var name in data){
 				positionInElement = dragElement.positionInElement;
 				duration = helpers.range(element.start,element.end);
 				start = helpers.calc(minutes,-positionInElement);
-
+				if(typeof snapAll != 'undefined')
+					start = snap(start);
 				end = helpers.calc(start,duration);
 				newValues = {start:start,end:end};
 			}

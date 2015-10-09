@@ -151,9 +151,6 @@ window.formInput=(function(){
 			//bind remove buttons
 			dom.bindRemoveButtons(container);
 
-			//bind hover events
-			dom.bindHoverOnFormInput(container);
-
 			//bind unfocus events
 			$(container).on('blur','.clock',unfocus);
 			$(container).on('change','.duration',unfocus);
