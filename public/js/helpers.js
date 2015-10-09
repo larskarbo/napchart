@@ -378,8 +378,21 @@ helpers.minutesToClock = function (minutes) {
         minutes = "0" + minutes;
     }
 
+    if(settings.getValue('ampm')){
+        return helpers.clockToAMPM(hours + minutes);
+    }
+
     return (hours + minutes);
 
+};
+
+helpers.clockToAMPM = function (clock){
+    var hours24 = parseInt(clock.substring(0,2), 10);
+    var hours = ((hours24 + 11) % 12) + 1;
+    var amPm = hours24 > 11 ? 'pm' : 'am';
+    var minutes = clock.substring(2);
+
+    return hours + ':' + minutes + amPm;
 };
 
 helpers.clockToMinutes = function (clock) {

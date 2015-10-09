@@ -29,6 +29,17 @@ window.settings=(function(){
 				napDuration:getValue('napDuration')
 			});
 		});
+
+		$(switchBox).find('#ampm').on('change',function(){
+			if(this.checked == true){
+				draw.changeClockConfig('numberRadius',46);
+				draw.changeClockConfig('timeLocation',6);
+			}else{
+				draw.changeClockConfig('numberRadius',44);
+				draw.changeClockConfig('timeLocation',4);
+			}
+			draw.reInit();
+		});
 	}
 
 	function getValue(id){

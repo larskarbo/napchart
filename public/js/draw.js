@@ -78,7 +78,9 @@ window.draw=(function(){
 		},
 		stroke:0.32,
 		strokeColor:"#C9C9C9",
-		impStrokeColor:"#262626"
+		impStrokeColor:"#262626",
+		numberRadius:44,
+		timeLocation:4, //how far away from the bar the time indicators should be
 
 	};
 
@@ -234,27 +236,35 @@ window.draw=(function(){
 		}
 	}
 
-	function drawClockNumbers(ctx){
+	function drawClockNumbers(ctx, ampm){
 		var width = draw.w;
 		var height = draw.h;
 
 		impfontpixels=5*draw.ratio;
 		ctx.fillStyle="black";
-		numberRadius=44*draw.ratio//helpers.totalWidth(44);
+		numberRadius=clockConfig.numberRadius*draw.ratio;
 		ctx.font=impfontpixels+"px Verdana";
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
 		ctx.fillStyle="#262626";
+
+		var ampmTable = {
+			0: 'Midnight',
+			4: '4 AM',
+			8: '8 AM',
+			12: 'Noon',
+			16: '4 PM',
+			20: '8 PM'
+		}
 
 		for(i=0;i<24;i++){
 			if(i===0||i==4||i==16||i==20||i==8||i==12){
 				degrees=(helpers.degreesToRadiens((15*i)+270));
 				xval=width/2+Math.cos(degrees)*numberRadius;
 				yval=height/2+Math.sin(degrees)*numberRadius;
-				if(i===0)
-					ctx.fillText("0",xval,yval);
-				else if(i==12)
-					ctx.fillText("12",xval,yval);
+				if(ampm){
+					ctx.fillText(ampmTable[i],xval,yval);
+				}
 				else
 					ctx.fillText(i,xval,yval);
 			}}
@@ -632,7 +642,7 @@ window.draw=(function(){
 	}
 
 	function drawTimeIndicators(ctx,selected){
-		var element, name, count, duration, radius, time;
+		var element, name, count, duration, timeLocation, radius, time;
 		var position = {};
 		var pointsToDraw = [];
 		var canvas = ctx.canvas;
@@ -641,7 +651,9 @@ window.draw=(function(){
 		count = selected.count;
 		element = napchartCore.returnElement(name,count);
 		duration = helpers.range(element.start, element.end);
-		radius = (barConfig[name].outerRadius + 4) * draw.ratio;
+		timeLocation = clockConfig.timeLocation;
+		console.log(timeLocation);
+		radius = (barConfig[name].outerRadius + timeLocation) * draw.ratio;
 
 		//push start
 		pointsToDraw.push({
@@ -699,8 +711,15 @@ window.draw=(function(){
 			var octx=offScreenCanvas.getContext('2d');
 
 
+			var ampm;
+			if(settings.getValue('ampm')){
+				ampm = true;
+				this.ratio = clockSize/103; // clock is a little bit smaller when ampm enabled
+			}else{
+				this.ratio = clockSize/96; //what the computer thinks
+			}
 
-			this.ratio = clockSize/96; //what the computer thinks
+
 			this.drawRatio = this.ratio; //what you see
 
 			this.backgroundColor="#F4F4F4";
@@ -748,11 +767,16 @@ window.draw=(function(){
 			clearClockCircle(octx,clockConfig.clearCircle*draw.ratio);
 			drawCircles(octx);
 			drawImpLines(octx);
-			drawClockNumbers(octx);
+			drawClockNumbers(octx, ampm);
 			//saves to a variable used in drawFrame()
 			this.cachedBackground=offScreenCanvas;
 			
 		},
+
+		reInit:function(){
+			draw.initialize(draw.ctx.canvas);
+		},
+
 		drawFrame:function(data,thumb){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
@@ -832,6 +856,10 @@ window.draw=(function(){
 			img = canvas.toDataURL();
 
 			return img;
+		},
+
+		changeClockConfig:function(attribute,value){
+			clockConfig[attribute] = value;
 		}
 	};
 }());

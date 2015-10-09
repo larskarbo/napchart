@@ -19,10 +19,10 @@ window.napchartCore=(function(){
 			if(typeof data == 'undefined')
 				data = {};
 
+			settings.initialize(document.getElementById('settings'));
 			draw.initialize(canvas);
 			interactCanvas.initialize(canvas);
 			draw.drawUpdate();
-			settings.initialize(document.getElementById('settings'));
 			formInput.initialize(document.getElementById('formInputContainer'));
 			dom.bindAddButtons();
 			dom.bindSaveButton(document.getElementById('saveContainer'));
