@@ -25,3 +25,5 @@ If you want to enable chart saving, you will need to set up your MySQL configura
 Chart saving should now be enabled and will show up on the site.
 
 ## How to contribute
+
+Read [CONTRIBUTING.md]('CONTRIBUTING.md')
