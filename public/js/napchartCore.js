@@ -105,7 +105,7 @@ window.napchartCore=(function(){
 
 		elementExists:function(name,count){
 			if(typeof scheduleData[name] != 'undefined'
-			&& typeof scheduleData[name][count] != 'undefined')
+				&& typeof scheduleData[name][count] != 'undefined')
 				return true;
 			return false;
 		},
@@ -204,6 +204,11 @@ window.napchartCore=(function(){
 
 			//notify chartHistory that current history elements should be linked with this chartid
 			chartHistory.setChartid(chartid);
+		},
+
+		dmToggle:function(state){
+			dom.dmToggle(state);
+			draw.dmToggle(state);
 		},
 
 		startLoading:function(){

@@ -37,8 +37,16 @@ window.settings=(function(){
 			}else{
 				draw.changeClockConfig('numberRadius',44);
 				draw.changeClockConfig('timeLocation',4);
-			}
+			};
 			draw.reInit();
+		});
+
+		$(switchBox).find('#darkmode').on('change',function(){
+			if(this.checked == true){
+				napchartCore.dmToggle(true);
+			}else{
+				napchartCore.dmToggle(false);
+			}
 		});
 	}
 

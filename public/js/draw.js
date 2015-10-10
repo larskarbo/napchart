@@ -5,7 +5,7 @@ window.draw=(function(){
 	// used when calling drawUpdate()
 	var lastData = {};
 
-	barConfig = { //used for defining the radius and color of bars
+	var barConfig = { //used for defining the radius and color of bars
 		core:{
 			stack:0,
 			color:"#c70e0e",
@@ -60,11 +60,54 @@ window.draw=(function(){
 			}
 		},
 		general:{
-			textSize:4
+			textSize:4,
+			color:'black'
 		}
 	};
 
-	clockConfig = { // define how the background clock should be drawn
+
+	var darkBarConfig = { //when darkmode is on
+		core:{
+			color:"#c70e0e",
+			opacity:0.7,
+			hoverOpacity:0.7,
+			activeOpacity:0.7,
+			selected:{
+				strokeColor:'#FF6363',
+				lineWidth:1,
+				expand:0.5
+			}
+		},
+		nap:{
+			color:"#c70e0e",
+			opacity:0.7,
+			hoverOpacity:0.7,
+			activeOpacity:0.7,
+			selected:{
+				strokeColor:'#FF6363',
+				lineWidth:1,
+				expand:0.5
+			}
+		},
+		busy:{
+			color:"#9E9E9E",
+			opacity:0.6,
+			hoverOpacity:0.5,
+			activeOpacity:0.5,
+			selected:{
+				strokeColor:'#FF6363',
+				lineWidth:1,
+				expand:0.5
+			}
+		},
+		general:{
+			color:'white'
+		}
+	};
+
+
+	var clockConfig = { // define how the background clock should be drawn
+		background:'#F4F4F4',
 		circles:[
 		{radius:36},
 		{radius:29},
@@ -79,10 +122,32 @@ window.draw=(function(){
 		stroke:0.32,
 		strokeColor:"#C9C9C9",
 		impStrokeColor:"#262626",
-		numberRadius:44,
+		clockNumbers:{
+			radius:44,
+			color:'#262626'
+		},
+		between:{
+			strokeColor: '#d2d2d2',
+			textColor: 'black'
+		},
 		timeLocation:4, //how far away from the bar the time indicators should be
 
 	};
+
+	var darkClockConfig = {
+		background:'#0F0F0F',
+		blurCircle:{
+			opacity:1
+		},
+		impStrokeColor:"white",
+		clockNumbers:{
+			color:'white'
+		},
+		between:{
+			strokeColor: '#8F8F8F',
+			textColor: 'white'
+		},
+	}
 
 	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
@@ -241,12 +306,11 @@ window.draw=(function(){
 		var height = draw.h;
 
 		impfontpixels=5*draw.ratio;
-		ctx.fillStyle="black";
-		numberRadius=clockConfig.numberRadius*draw.ratio;
+		ctx.fillStyle=clockConfig.clockNumbers.color;
+		numberRadius=clockConfig.clockNumbers.radius*draw.ratio;
 		ctx.font=impfontpixels+"px Verdana";
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
-		ctx.fillStyle="#262626";
 
 		var ampmTable = {
 			0: 'Midnight',
@@ -331,175 +395,137 @@ window.draw=(function(){
 
 				}
 			}
-		ctx.restore();
-	}
+			ctx.restore();
+		}
 
-	function strokeBars(ctx,data){
-		ctx.save();
-		ctx.lineJoin = 'mittel';
-		for (var name in data){
-			if(typeof barConfig[name].stroke=="undefined")
-				continue;
-			ctx.lineWidth=barConfig[name].stroke.lineWidth;
-			var innerRadius = barConfig[name].innerRadius*draw.ratio;
-			var outerRadius = barConfig[name].outerRadius*draw.ratio;
-			ctx.strokeStyle=barConfig[name].color;
+		function strokeBars(ctx,data){
+			ctx.save();
+			ctx.lineJoin = 'mittel';
+			for (var name in data){
+				if(typeof barConfig[name].stroke=="undefined")
+					continue;
+				ctx.lineWidth=barConfig[name].stroke.lineWidth;
+				var innerRadius = barConfig[name].innerRadius*draw.ratio;
+				var outerRadius = barConfig[name].outerRadius*draw.ratio;
+				ctx.strokeStyle=barConfig[name].color;
 
-			for (var i = 0; i < data[name].length; i++){
-				var startRadians=helpers.minutesToRadians(data[name][i].start);
-				var endRadians=helpers.minutesToRadians(data[name][i].end);
-				ctx.beginPath();
-				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
-				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
-				ctx.closePath();
-				ctx.stroke();
+				for (var i = 0; i < data[name].length; i++){
+					var startRadians=helpers.minutesToRadians(data[name][i].start);
+					var endRadians=helpers.minutesToRadians(data[name][i].end);
+					ctx.beginPath();
+					ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+					ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+					ctx.closePath();
+					ctx.stroke();
+
+				}
 
 			}
-
+			ctx.restore();
 		}
-		ctx.restore();
-	}
 
-	function drawShadows(ctx,data){
-		ctx.save();
-		for (var name in data) {
-			var innerRadius = 0;
-			var outerRadius = barConfig[name].innerRadius*draw.ratio;
-			ctx.fillStyle=barConfig[name].color;
+		function drawShadows(ctx,data){
+			ctx.save();
+			for (var name in data) {
+				var innerRadius = 0;
+				var outerRadius = barConfig[name].innerRadius*draw.ratio;
+				ctx.fillStyle=barConfig[name].color;
 
-			for (var i = 0; i < data[name].length; i++){
+				for (var i = 0; i < data[name].length; i++){
 
-				var count = i;
+					var count = i;
 
-				if(!interactCanvas.isActive(name,count) && !napchartCore.isSelected(name,count))
-					continue;
+					if(!interactCanvas.isActive(name,count) && !napchartCore.isSelected(name,count))
+						continue;
 
-				ctx.save();
-				var startRadians=helpers.minutesToRadians(data[name][count].start);
-				var endRadians=helpers.minutesToRadians(data[name][count].end);
-				var lineToXY=helpers.minutesToXY(data[name][count].end,innerRadius);
-				ctx.beginPath();
-				ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
-				ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
-				ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
-				ctx.closePath();
-				ctx.globalAlpha=0.1*ctx.globalAlpha;
-
-				ctx.fill();
-				ctx.restore();
-
-
-			}
-		}
-		ctx.restore();
-
-	}
-
-	function drawBlurCircle(ctx,backgroundColor){
-		var width = draw.w;
-		var height = draw.h;
-
-		ctx.save();
-		ctx.fillStyle=backgroundColor;
-		ctx.globalAlpha=clockConfig.blurCircle.opacity;
-		ctx.beginPath();
-		ctx.arc(width/2,height/2,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
-		ctx.fill();
-		ctx.restore();
-	}
-
-	function clearCircle(ctx,radius){
-		var width = draw.w;
-		var height = draw.h;
-
-		ctx.save();
-		ctx.globalCompositeOperation = 'destination-out';
-		ctx.beginPath();
-		ctx.arc(width/2,height/2,radius,0,grader(360), false);
-		ctx.fill();
-		ctx.restore();
-	}
-
-	function drawSelected(ctx,data){
-		// this should loop through all selected elements instead
-		// var selected = napchartCore.returnSelected();
-		// if(typeof selected.name == 'undefined'){
-		// 	return;
-		// }
-
-		// var name, count, stroke, lineWidth, innerRadius, expand, outerRadius, startRadians, endRadians;
-		// name = selected.name;
-		// count = selected.count;
-		// strokeColor = barConfig[name].selected.strokeColor;
-		// lineWidth = barConfig[name].selected.lineWidth*draw.ratio;
-		// expand = barConfig[name].selected.expand;
-		// innerRadius = barConfig[name].innerRadius*draw.ratio - expand;
-		// outerRadius = barConfig[name].outerRadius*draw.ratio + expand;
-		// startRadians=helpers.minutesToRadians(data[name][count].start - expand);
-		// endRadians=helpers.minutesToRadians(data[name][count].end + expand);
-
-		// ctx.save();
-
-		// ctx.beginPath();
-		// ctx.lineWidth = lineWidth;
-		// ctx.strokeStyle = strokeColor;
-		// ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
-		// ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
-		// ctx.closePath();
-		// ctx.stroke();
-
-		// ctx.restore();
-	}
-
-	function drawHandles(ctx,data){
-		var outerColor, innerColor;
-		ctx.save();
-
-		ctx.translate(draw.w/2,draw.h/2);
-		for (var name in data) {
-			if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
-				continue;
-
-			for (var i = 0; i < data[name].length; i++){
-
-				var element = data[name][i],
-				count = i;
-				
-
-				if(!napchartCore.isSelected(name,count))
-					continue;
-
-				for(s=0;s<2;s++){
-					var point=helpers.minutesToXY(element[['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
-
-					if(interactCanvas.isActive(name,i,['start','end'][s])){
-						outerColor = 'red';
-						innerColor = 'green';
-					}
-					else if(interactCanvas.isHover(name,i,['start','end'][s]) && !interactCanvas.isActive(name,i)){
-						outerColor = 'white';
-						innerColor = 'blue';
-					}else{
-						outerColor = 'white';
-						innerColor = barConfig[name].color;
-					}
-					ctx.fillStyle = outerColor;
+					ctx.save();
+					var startRadians=helpers.minutesToRadians(data[name][count].start);
+					var endRadians=helpers.minutesToRadians(data[name][count].end);
+					var lineToXY=helpers.minutesToXY(data[name][count].end,innerRadius);
 					ctx.beginPath();
-					ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
-					ctx.fill();
+					ctx.arc(canvas.width/2,canvas.height/2,outerRadius,startRadians,endRadians);
+					ctx.lineTo(lineToXY.x+canvas.width/2,lineToXY.y+canvas.height/2);
+					ctx.arc(canvas.width/2,canvas.height/2,innerRadius,endRadians,startRadians,true);
+					ctx.closePath();
+					ctx.globalAlpha=0.1*ctx.globalAlpha;
 
-					
-					ctx.fillStyle = innerColor;
-					ctx.beginPath();
-					ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
 					ctx.fill();
+					ctx.restore();
+
+
 				}
 			}
-		}
-		ctx.restore();
-	}
+			ctx.restore();
 
-	function drawDistanceToNearElements(ctx,data,selectedElement,bars){
+		}
+
+		function drawBlurCircle(ctx){
+			var width = draw.w;
+			var height = draw.h;
+
+			if(clockConfig.blurCircle.opacity == 1){
+				// then its better just to make a hole
+				return clearClockCircle(ctx,clockConfig.blurCircle.radius*draw.ratio);
+			}
+
+			ctx.save();
+			ctx.fillStyle=clockConfig.background;
+			ctx.globalAlpha=clockConfig.blurCircle.opacity;
+			ctx.beginPath();
+			ctx.arc(width/2,height/2,clockConfig.blurCircle.radius*draw.ratio,0,2*Math.PI, false);
+			ctx.fill();
+			ctx.restore();
+		}
+
+		function drawHandles(ctx,data){
+			var outerColor, innerColor;
+			ctx.save();
+
+			ctx.translate(draw.w/2,draw.h/2);
+			for (var name in data) {
+				if(typeof barConfig[name].rangeHandles == 'undefined' || !barConfig[name].rangeHandles)
+					continue;
+
+				for (var i = 0; i < data[name].length; i++){
+
+					var element = data[name][i],
+					count = i;
+
+
+					if(!napchartCore.isSelected(name,count))
+						continue;
+
+					for(s=0;s<2;s++){
+						var point=helpers.minutesToXY(element[['start','end'][s]], barConfig[name].outerRadius*draw.ratio);
+
+						if(interactCanvas.isActive(name,i,['start','end'][s])){
+							outerColor = 'red';
+							innerColor = 'green';
+						}
+						else if(interactCanvas.isHover(name,i,['start','end'][s]) && !interactCanvas.isActive(name,i)){
+							outerColor = 'white';
+							innerColor = 'blue';
+						}else{
+							outerColor = 'white';
+							innerColor = barConfig[name].color;
+						}
+						ctx.fillStyle = outerColor;
+						ctx.beginPath();
+						ctx.arc(point.x,point.y,1*draw.ratio,0, 2 * Math.PI, false);
+						ctx.fill();
+
+
+						ctx.fillStyle = innerColor;
+						ctx.beginPath();
+						ctx.arc(point.x,point.y,0.7*draw.ratio,0, 2 * Math.PI, false);
+						ctx.fill();
+					}
+				}
+			}
+			ctx.restore();
+		}
+
+		function drawDistanceToNearElements(ctx,data,selectedElement,bars){
 		// draws the distance to the nearby elements of the selected element
 		var array = [], elementPush, selected, before, after;
 
@@ -567,6 +593,8 @@ window.draw=(function(){
 		ctx.save();
 
 		ctx.strokeStyle= '#d2d2d2';
+		ctx.strokeStyle= clockConfig.between.strokeColor;
+		ctx.fillStyle= clockConfig.between.textColor;
 		ctx.lineWidth= 3;
 		ctx.font = fontSize + "px verdana";
 		ctx.textAlign="center";
@@ -591,8 +619,8 @@ window.draw=(function(){
 			text = helpers.minutesToReadable(distance, 120);
 
 			if(distance <= 720 && distance >= 60){
-				start = element.start;
-				end = element.end;
+				start = helpers.calc(element.start,15);
+				end = helpers.calc(element.end,-15);
 				middle = helpers.calc(start,distance/2);
 
 				startRadians = helpers.minutesToRadians(start);
@@ -631,6 +659,7 @@ window.draw=(function(){
 
 		//ctx config
 		ctx.font = barConfig.general.textSize * draw.ratio + "px verdana";
+		ctx.fillStyle = barConfig.general.color;
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
 		ctx.globalAlpha = ctx.globalAlpha*0.6;
@@ -652,7 +681,6 @@ window.draw=(function(){
 		element = napchartCore.returnElement(name,count);
 		duration = helpers.range(element.start, element.end);
 		timeLocation = clockConfig.timeLocation;
-		console.log(timeLocation);
 		radius = (barConfig[name].outerRadius + timeLocation) * draw.ratio;
 
 		//push start
@@ -671,6 +699,7 @@ window.draw=(function(){
 
 		//ctx config
 		ctx.font = 3 * draw.ratio + "px verdana";
+		ctx.fillStyle = barConfig.general.color;
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
 		ctx.globalAlpha = ctx.globalAlpha*0.4;
@@ -722,14 +751,13 @@ window.draw=(function(){
 
 			this.drawRatio = this.ratio; //what you see
 
-			this.backgroundColor="#F4F4F4";
 			var ctx=canvas.getContext("2d");
 			var devicePixelRatio = window.devicePixelRatio || 14;
 			var backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
-			                            ctx.mozBackingStorePixelRatio ||
-			                            ctx.msBackingStorePixelRatio ||
-			                            ctx.oBackingStorePixelRatio ||
-			                            ctx.backingStorePixelRatio || 1;
+			ctx.mozBackingStorePixelRatio ||
+			ctx.msBackingStorePixelRatio ||
+			ctx.oBackingStorePixelRatio ||
+			ctx.backingStorePixelRatio || 1;
 
 			console.log('backingstore:',backingStoreRatio);
 			console.log('dpr:',devicePixelRatio);
@@ -737,29 +765,29 @@ window.draw=(function(){
 			var backingRatio = devicePixelRatio / backingStoreRatio;
 
 			// upscale the canvas if the two ratios don't match
-		    if (devicePixelRatio !== backingStoreRatio) {
-		    	console.log('upscaling');
+			if (devicePixelRatio !== backingStoreRatio) {
+				console.log('upscaling');
 
-		        var oldWidth = canvas.width;
-		        var oldHeight = canvas.height;
+				var oldWidth = canvas.width;
+				var oldHeight = canvas.height;
 
-		        canvas.width = oldWidth * backingRatio;
-		        canvas.height = oldHeight * backingRatio;
+				canvas.width = oldWidth * backingRatio;
+				canvas.height = oldHeight * backingRatio;
 
-		        canvas.style.width = oldWidth + 'px';
-		        canvas.style.height = oldHeight + 'px';
+				canvas.style.width = oldWidth + 'px';
+				canvas.style.height = oldHeight + 'px';
 
-		        this.ratio *= backingRatio;
-		    }
-
-
-		    this.ctx = ctx;
-		    this.w = canvas.width;
-		    this.h = canvas.height;
+				this.ratio *= backingRatio;
+			}
 
 
-		    offScreenCanvas.height=canvas.width;
-		    offScreenCanvas.width=canvas.width;
+			this.ctx = ctx;
+			this.w = canvas.width;
+			this.h = canvas.height;
+
+
+			offScreenCanvas.height=canvas.width;
+			offScreenCanvas.width=canvas.width;
 
 			
 			//draw clock
@@ -780,7 +808,7 @@ window.draw=(function(){
 		drawFrame:function(data,thumb){
 			if(typeof data=='undefined')
 				throw new Error("drawFrame did not receive data in argument");
-			var dataWithPhantoms, selectedElement, ctx, backgroundColor;
+			var dataWithPhantoms, selectedElement, ctx;
 
 			//clone data object
 			data = JSON.parse(JSON.stringify(data));
@@ -799,14 +827,9 @@ window.draw=(function(){
 			ctx.drawImage(this.cachedBackground,0,0);
 
 			drawBars(ctx,dataWithPhantoms);
-			if(typeof clockConfig.blurCircle != "undefined"){
-				if(typeof thumb != 'undefined')
-					backgroundColor = 'white';
-				else
-					backgroundColor = draw.backgroundColor;
-				drawBlurCircle(ctx,backgroundColor);
-			}
-			drawSelected(ctx,dataWithPhantoms);
+
+			drawBlurCircle(ctx);
+			
 			strokeBars(ctx,dataWithPhantoms);
 
 			for(var name in data){
@@ -829,37 +852,54 @@ window.draw=(function(){
 				drawDistanceToNearElements(ctx,data,selectedElement,['nap','core']);
 
 				if(selectedElement.name
-				 == 'busy'){
+					== 'busy'){
 					drawElementInfo(ctx,selectedElement);
-					drawTimeIndicators(ctx,selectedElement);
-				}
+				drawTimeIndicators(ctx,selectedElement);
 			}
-
-			ctx.restore();
-
-		},
-		drawUpdate:function(){
-			data = napchartCore.getSchedule();
-			draw.drawFrame(data);
-		},
-
-		getBarConfig:function(){
-			return JSON.parse(JSON.stringify(barConfig));
-		},
-
-
-		getImage:function(){
-			var ctx = draw.ctx;
-			var canvas = ctx.canvas;
-			var img;
-
-			img = canvas.toDataURL();
-
-			return img;
-		},
-
-		changeClockConfig:function(attribute,value){
-			clockConfig[attribute] = value;
 		}
-	};
+
+		ctx.restore();
+
+	},
+	drawUpdate:function(){
+		data = napchartCore.getSchedule();
+		draw.drawFrame(data);
+	},
+
+	getBarConfig:function(){
+		return JSON.parse(JSON.stringify(barConfig));
+	},
+
+
+	getImage:function(){
+		var ctx = draw.ctx;
+		var canvas = ctx.canvas;
+		var img;
+
+		img = canvas.toDataURL();
+
+		return img;
+	},
+
+	changeClockConfig:function(attribute,value){
+		clockConfig[attribute] = value;
+	},
+
+	dmToggle:function(state){
+		if(state){
+			// save current configs in case you will switch back
+			normalBarConfig = helpers.clone(barConfig);
+			normalClockConfig = helpers.clone(clockConfig);
+
+			barConfig = helpers.overwrite(barConfig, darkBarConfig);
+			clockConfig = helpers.overwrite(clockConfig, darkClockConfig);
+		}else{
+			barConfig = helpers.overwrite(barConfig, normalBarConfig);
+			clockConfig = helpers.overwrite(clockConfig, normalClockConfig);
+		}
+
+		draw.reInit();
+		draw.drawUpdate();
+	}
+};
 }());

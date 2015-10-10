@@ -35,6 +35,18 @@ body{
 	background-color:#F4F4F4;
 	margin:0;
 }
+body.dark{
+	background-color:#0F0F0F;
+	color: white;
+}
+
+.dark, .darkoff {
+	-webkit-transition: background-color 1000ms linear;
+	-moz-transition: background-color 1000ms linear;
+	-o-transition: background-color 1000ms linear;
+	-ms-transition: background-color 1000ms linear;
+	transition: background-color 1000ms linear;
+}
 
 body,
 button,
@@ -48,6 +60,7 @@ textarea {
 	font-family: 'Roboto', sans-serif;
 	margin:0;padding:0;height:100%;
 }
+
 
 p,.list li{
 	font-size: 15px
@@ -63,6 +76,23 @@ p,.list li{
 .row {
 	max-width: 1000px;
 }
+
+.top-nav {
+	background-color: #9e9e9e;
+}
+
+.top-nav.dark {
+	background-color: #5E5E5E;
+}
+
+.card.dark {
+	background-color: #2A0F0D !important;
+}
+
+.card-headline.dark {
+	color: #FFDDDB;
+}
+
 
 
 .flash{
@@ -184,30 +214,13 @@ p,.list li{
 	height:100%;
 }*/
 
-/**************************
-4.0   Share Window
-*******************/
-#overlay {
-	display:none;
-	z-index:20;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width:100%;
-	height:100%;
-	text-align:center;
-
-	background-color:rgba(0,0,0,0.75);
-}
-#shareWindow {
-	margin:100px auto;
-	width:80%;
-	padding:20px;
+#footer{
+	background-color: #F44336;
 }
 
-.chart-preview {
+#footer.dark{
+	background-color: transparent;
 }
-
 
 /**************************
 Schedule chooser
@@ -234,6 +247,10 @@ Schedule chooser
 	padding: 6px;
 	height:36px;
 	margin-bottom: 3px;
+}
+
+#scheduleIndicator.dark{
+	background-color:#594242;
 }
 
 .sampleSchedule:hover {
@@ -356,20 +373,6 @@ Schedule chooser
 	padding:5px 15px;
 }
 
-/**************************
-10.0   Debugger
-*******************/
-div#debugger{
-	position:fixed;
-	width:0px;
-	height:0px;
-	background-color:#666;
-	bottom:0px;
-	right:0px;
-	color:white;
-	z-index:10;
-	word-wrap: break-word;
-}
 
 /**************************
 11.0   Settings

@@ -104,6 +104,19 @@ window.dom=(function(){
 			$(document).on('click','#forward',function(){
 				chartHistory.forward();
 			});
+		},
+
+		dmToggle:function(state){
+
+			if(state == true){
+				$("body").addClass("dark");
+				$("body *").addClass("dark");
+			}else{
+				$("body").removeClass("dark");
+				$("body *").removeClass("dark");
+				$("body").addClass("darkoff");
+				$("body *").addClass("darkoff");
+			}
 		}
 		
 	}
