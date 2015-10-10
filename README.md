@@ -26,4 +26,4 @@ Chart saving should now be enabled and will show up on the site.
 
 ## How to contribute
 
-Read [CONTRIBUTING.md]('CONTRIBUTING.md')
+Read [CONTRIBUTING.md](CONTRIBUTING.md)
