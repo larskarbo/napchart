@@ -208,7 +208,7 @@ window.napchartCore=(function(){
 
 		dmToggle:function(state){
 			dom.dmToggle(state);
-
+			draw.dmToggle(state);
 		},
 
 		startLoading:function(){
