@@ -105,7 +105,7 @@ window.napchartCore=(function(){
 
 		elementExists:function(name,count){
 			if(typeof scheduleData[name] != 'undefined'
-			&& typeof scheduleData[name][count] != 'undefined')
+				&& typeof scheduleData[name][count] != 'undefined')
 				return true;
 			return false;
 		},

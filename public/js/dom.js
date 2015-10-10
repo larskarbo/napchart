@@ -114,6 +114,8 @@ window.dom=(function(){
 			}else{
 				$("body").removeClass("dark");
 				$("body *").removeClass("dark");
+				$("body").addClass("darkoff");
+				$("body *").addClass("darkoff");
 			}
 		}
 		

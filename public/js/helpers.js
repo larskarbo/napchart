@@ -301,6 +301,12 @@ helpers.clone = function (obj){
     return JSON.parse(JSON.stringify(obj));
 };
 
+helpers.overwrite = function (inferior, superior){
+    //let the superior object overwrite all inferior properties
+
+    return $.extend(true, inferior, superior);
+};
+
 
 helpers.compare = function (obj1, obj2){
     //check if they are alike

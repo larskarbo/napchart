@@ -37,7 +37,7 @@ window.settings=(function(){
 			}else{
 				draw.changeClockConfig('numberRadius',44);
 				draw.changeClockConfig('timeLocation',4);
-			}
+			};
 			draw.reInit();
 		});
 
@@ -47,7 +47,6 @@ window.settings=(function(){
 			}else{
 				napchartCore.dmToggle(false);
 			}
-			draw.reInit();
 		});
 	}
 
