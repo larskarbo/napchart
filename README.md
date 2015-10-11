@@ -1,6 +1,6 @@
 # Welcome to napchart
 
-Napchart is an online visualization tool for creating polyphasic sleep schedules. It lets you design your sleep patterns by creating sleep blocks and dragging them around. Hopefully, this tool will help making polyphasic sleep easier to experiement with, and maybe contribute to more research on the subject.
+Napchart is an online visualization tool for creating polyphasic sleep schedules. It lets you design your sleep patterns by creating sleep blocks and dragging them around. Hopefully, this tool will help making polyphasic sleep easier to experiement with, and contribute to more research on the subject.
 
 ## How to install
 
@@ -24,9 +24,14 @@ If you want to enable chart saving, you will need to set up your MySQL configura
 
 Chart saving should now be enabled and will show up on the site.
 
-## Understanding the code
+## Planned features
 
-----
+* Add text/description to elements on the chart
+* Add title and description to chart
+* Interactive animated tour to show you what polyphasic sleep is
+* For bugs see *issues*
+
+## Understanding the code
 
 Napchart is written with javascript modules. All modules are stored in the `public/js` folder.
 
@@ -73,7 +78,9 @@ for (var name in data){
 ```
 
 `element` = a elment like `{start:1410,end:480}`
+
 `name` = nap, core or busy arrays containing elements
+
 `count` = the index of the element in the array
 
 ### Modules
@@ -141,3 +148,11 @@ The text created should make it easy for people to share their schedules with ot
 #### animate.js
 
 Right now the animate module only does one function, `frameAnimator`. It makes the the indicators fade in when you click an element
+
+#### dom.js
+
+This module handles some of the dom handling. Some modules use the functions here, other use their own functions for dom handling. Ideally, all dom handling should be done here (?)
+
+#### feedback.js
+
+Handles the functionality of the feedback form. Handles DOM by itself
