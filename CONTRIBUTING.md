@@ -2,7 +2,7 @@
 
 Here is a guide on how to understand the code base of napchart
 
-## Modules
+----
 
 Napchart is written with javascript modules. All modules are stored in the `public/js` folder.
 
@@ -34,7 +34,8 @@ window.module=(function(){
 var data = {
 nap:[],
 core:[{start:1410,end:480}],
-busy:[]}
+busy:[]
+}
 ```
 You can find this object structure all over the project. It defines a *chart*.
 
@@ -42,7 +43,7 @@ They are iterated like this:
 ```
 for (var name in data){
 	for (var i; i < data[name].length; i++){
-		console.log(data[name].start);
+		console.log(data[name][i].start);
 	}
 }
 ```
@@ -50,6 +51,8 @@ for (var name in data){
 `element` = a elment like `{start:1410,end:480}`
 `name` = nap, core or busy arrays containing elements
 `count` = the index of the element in the array
+
+## Modules
 
 ### application.js
 
@@ -70,11 +73,11 @@ Makes the canvas created by `draw` clickable and touchable. With this module you
 
 ### formInput.js
 
-As an alternative to modify your chart with `interactCanvas` , you can use this module with simple input elements. Creates input elements in a specified container.
+As an alternative to modify your chart with `interactCanvas` , you can use this module with simple dom input elements. Creates input elements in a specified container.
 
 ### settings.js
 
-Gets values from a `div` with checkboxes or input elements. Other modules can call `settings.getValue()` to get a value.
+Gets values from a `div` with checkboxes or input elements. Other modules can call `settings.getValue(id)` to get a value.
 
 ### barHandler.js
 
@@ -84,7 +87,9 @@ When you add an element, this module makes sure the element is placed on a place
 
 This module has some handy functions to make common calculations easier.
 Some of the most used are:
+
 `helpers.calc(minutes, plus)` - Takes the first argument and adds it with the other. Then it makes sure the numer is more than 0 and less than 1439. (because there are 1440 minutes in 24 hours)
+
 `helpers.minutesToXY(minutes, radius, basewidth, baseheight)` - Gives you x and y values of a point on canvas.  `basewidth` and `baseheight` can be used to move origo to center. Example: `helpers.minutesToXY(720, 20, canvas.width/2, canvas.height/2)`
 
 ### history.js
@@ -93,7 +98,7 @@ Handles history. When other modules `history.add()` a current state, the user ca
 
 ### sampleSchedules.js
 
-Handles some preset schedules. It also handles schedule detection, and will highlight the schedule that you have. (If you have one core, monophasic will hightlight. If you have two cores, segmented will highlight, etc)
+Handles some preset schedules. It also handles schedule detection, and will highlight the schedule that you are on. (If you have one core, monophasic will hightlight. If you have two cores, segmented will highlight, etc)
 
 ### server.js
 
