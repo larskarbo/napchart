@@ -8,7 +8,7 @@ To install napchart you will need the following:
 
 * Node.js
 * npm
-* (optional) A MySQL server
+* Optional: MySQL server
 
 1. Run `npm install` from the command line in the napchart directory
 2. Start the server `node script`
@@ -26,6 +26,7 @@ Chart saving should now be enabled and will show up on the site.
 
 ## Planned features
 
+* Preserve settings when revisiting site
 * Add text/description to elements on the chart
 * Add title and description to chart
 * Interactive animated tour to show you what polyphasic sleep is
