@@ -182,34 +182,19 @@
 
             <div class="card stat-block right feedback" id="feedback-card">
 
-                <div class="card-headline">
-                    <div id="question">Did this app work for you?</div>
-                    <div id="thankyou" class="hidden">Thank you for your feedback</div>
-                    <div id="feedback-error" class="hidden">Something went wrong. Please try again</div>
-                </div>
-
-
-                <div class="inner-card">
-                    <div id="feedback-question">
-                        <input type="radio" name="feedback" class="trigger feedback-radio" id="yes" value="yes"> <label for="yes">Yes</label>
-                        <br>
-                        <input type="radio" name="feedback" class="trigger feedback-radio" id="no" value="no"> <label for="no">No</label>
-                    </div>
-                </div>
 
                 <div class="card-headline">
-                    <div id="feedback-text-question" class="hidden">Issues, ideas or compliments:</div>
+                    <div id="feedback-text-question">Issues, ideas or compliments:</div>
                 </div>
 
                 <div class="inner-card">
-                    <div id="feedback-text">
-                        <textarea></textarea>
-                        <div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
-                            <i class="fa fa-hand-o-right arm"></i>
-                            <i class="fa fa-refresh fa-spin loading-wheel"></i>
-                        </div>
-                        <span id="feedback-devthanks" class="hidden">Thank you!</span>
+                    <textarea></textarea>
+                    <div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
+                        <i class="fa fa-hand-o-right arm"></i>
+                        <i class="fa fa-refresh fa-spin loading-wheel hidden"></i>
                     </div>
+                    <span id="feedback-devthanks" class="hidden">Thank you!</span>
+                    <span id="feedback-error" class="hidden">Something went wrong</span>
                 </div>
             </div>
 

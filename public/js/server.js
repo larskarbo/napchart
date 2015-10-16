@@ -48,6 +48,7 @@ window.server=(function(){
 			    callback(true,chartid);
 			  })
 			  .fail(function(error) {
+			  	console.error(error);
 			    callback(false,JSON.stringify(error));
 			  })
 			

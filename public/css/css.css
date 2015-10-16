@@ -285,11 +285,8 @@ Schedule chooser
 	margin-top:0px;
 	margin-bottom:5px;
 }
-#feedback-text{
-	display:none;
-}
 .hidden{
-	display:none;
+	display:none !important;
 }
 #feedback-card textarea{
 	font-size:16px;
