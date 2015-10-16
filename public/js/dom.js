@@ -45,19 +45,6 @@ window.dom=(function(){
 			});
 		},
 
-		// bindHoverOnFormInput:function(container){
-		// 	$(container).on('mouseenter','.inputBox',function(){
-		// 		var name = $(this).find('[name="name"]').val();
-		// 		var count = $(this).find('[name="count"]').val();
-		// 		interactCanvas.setHoverElement({
-		// 			name:name,
-		// 			count:count,
-		// 			type:'whole'
-		// 		});
-		// 		draw.drawUpdate();
-		// 	});
-		// },
-
 		bindSaveButton:function(){
 			$(SAVE_BTN).on('click',function(){
 				var data = napchartCore.getSchedule();
