@@ -75,6 +75,11 @@ window.dom=(function(){
 		},
 
 		startLoading:function(){
+			if( $(URL_FIELD).css('display') == 'none' ){
+				$(URL_FIELD).show();
+				$(URL_FIELD).css('width','220px');
+			}
+			
 			$(URL_FIELD).addClass('loading');
 			URL_FIELD.value = 'loading';
 		},
