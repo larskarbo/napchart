@@ -298,7 +298,13 @@ helpers.easingEffects = {
 
 helpers.clone = function (obj){
     //clone an object
-    return JSON.parse(JSON.stringify(obj));
+    var stringified = JSON.stringify(obj);
+    console.log(typeof stringified);
+    if(typeof stringified != 'undefined'){
+        return JSON.parse(stringified);
+    }else{
+        return {};
+    }
 };
 
 helpers.overwrite = function (inferior, superior){
