@@ -42,12 +42,13 @@ window.napchartCore=(function(){
 		},
 
 		setSchedule:function(data){
-			scheduleData=JSON.parse(JSON.stringify(data));
 
-			draw.drawFrame(data);
-			formInput.setData(data);
-			statistics.update(data);
-			textSerialize.update(data);
+			scheduleData=helpers.clone(data);
+
+			draw.drawFrame(scheduleData);
+			formInput.setData(scheduleData);
+			statistics.update(scheduleData);
+			textSerialize.update(scheduleData);
 			dom.setOG(draw.getImage);
 		},
 
