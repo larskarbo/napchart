@@ -18,7 +18,7 @@ window.interactCanvas = (function(){
 		var mouseX,mouseY;
 		//origo is (0,0)
 		var boundingRect = canvas.getBoundingClientRect();
-		
+
 		var width = interactCanvas.canvas.width;
 		var height = interactCanvas.canvas.height;
 
@@ -165,7 +165,7 @@ for(var name in data){
 
 			}
 		}
-		
+
 		return hit;
 	}
 
@@ -225,7 +225,7 @@ for(var name in data){
 		}
 
 		select(hit.name,hit.count);
-		
+
 		drag(e); //to  make sure the handles positions to the cursor even before movement
 
 		helpers.requestAnimFrame.call(window,draw.drawUpdate);
@@ -237,7 +237,7 @@ for(var name in data){
 
 		var dragElement, name, count, element, coordinates, minutes;
 
-		
+
 
 		//newValues is an object that will replace the existing one with new values
 		var newValues = {}, positionInElement, duration, start, end;
@@ -272,7 +272,7 @@ for(var name in data){
 						count: count,
 						values: newValues
 					})
-					
+
 				})
 			});
 
@@ -290,12 +290,13 @@ for(var name in data){
 
 			console.log(newElements);
 
-			// send all the shiny new elements to the core for modification :-)
-			newElements.forEach(modify);
-			
 			function modify(newValueElement){
 				napchartCore.modifyElement(newValueElement.name,newValueElement.count,newValueElement.values);
 			}
+
+			// send all the shiny new elements to the core for modification :-)
+			newElements.forEach(modify);
+
 
 
 		}else{
@@ -305,7 +306,7 @@ for(var name in data){
 				napchartCore.modifyElement(name,count,newValues);
 			});
 		}
-		
+
 
 
 		function getMoveValues(dragElement, callback){
@@ -453,7 +454,7 @@ for(var name in data){
 	}
 
 	function checkState(element,name,count,type){
-		// checks if 
+		// checks if
 		function check(element){
 			if(name == element.name && count == element.count){
 				if(typeof type=='undefined' || type == element.type){
@@ -474,7 +475,7 @@ for(var name in data){
 	//public:
 	return{
 		initialize:function(canvas){
-			
+
 			canvas.addEventListener('mousemove',hover);
 			canvas.addEventListener('mousedown',down);
 			canvas.addEventListener('touchstart',down);
