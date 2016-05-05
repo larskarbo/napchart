@@ -66,7 +66,7 @@ window.formInput=(function(){
 		}
 
 		if(!showAllElements){
-			$(container).children().addClass('hidden');
+			$(container).children().not('.selected').addClass('hidden');
 		}else{
 			$(container).children().removeClass('hidden');
 		}
@@ -129,7 +129,7 @@ window.formInput=(function(){
 			value=value+"00";
 		if(value.length == 3)
 			value="0"+value;
-		
+
 		hours = value.substring(0,2);
 		minutes = value.substring(2,4);
 
@@ -138,7 +138,7 @@ window.formInput=(function(){
 		}else{
 			return false;
 		}
-		
+
 
 	}
 
@@ -162,12 +162,13 @@ window.formInput=(function(){
 		},
 
 		setData:function(data){
+			console.log("setting elements");
 			updateValues(data);
 			prune(data);
 		},
 
 		setSelected:function(array){
-
+			console.log("setting selected");
 			$(container).children().removeClass('selected');
 
 			if(typeof array == 'undefined'){
@@ -178,7 +179,11 @@ window.formInput=(function(){
 			array.forEach(function(k){
 				$(container).find('.'+k.name+k.count).addClass('selected').removeClass('hidden');
 			})
-			
+
+
+		},
+
+		deselect:function(){
 
 		},
 
