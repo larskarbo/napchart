@@ -34,6 +34,8 @@ window.napchartCore=(function(){
 
 			feedback.initialize();
 
+			dom.init();
+
 
 			//maybe throw this into a chartLoader module?
 			if(typeof fromServer != 'undefined'){

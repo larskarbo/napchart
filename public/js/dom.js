@@ -10,7 +10,7 @@ window.dom=(function(){
 	//private
 	var SAVE_BTN = document.getElementById('saveButton');
 	var URL_FIELD = document.getElementById('urlField');
-	
+
 	//public:
 	return{
 		bindAddButtons:function(){
@@ -79,7 +79,7 @@ window.dom=(function(){
 				$(URL_FIELD).show();
 				$(URL_FIELD).css('width','220px');
 			}
-			
+
 			$(URL_FIELD).addClass('loading');
 			URL_FIELD.value = 'loading';
 		},
@@ -109,14 +109,17 @@ window.dom=(function(){
 				$("body").addClass("darkoff");
 				$("body *").addClass("darkoff");
 			}
+		},
+
+		init:function(){
+			// bitcoin
+			$('#bitcoinlink').click(function(e){
+				e.preventDefault();
+				$(this).children().toggleClass('hidden');
+				$('#bitcoininfo').toggleClass('hidden');
+			})
 		}
-		
+
 	}
 
 }())
-
-	
-
-
-
-
