@@ -86,7 +86,7 @@ p,.list li{
 }
 
 .card.dark {
-	background-color: #2A0F0D !important;
+	background-color: #435c63 !important;
 }
 
 .card-headline.dark {
@@ -333,8 +333,9 @@ Schedule chooser
 	height: 1.5rem;
 }
 
+
 .formInput[type=text].dark, .formInput[type=number].dark{
-	color: black;
+	color: black !important;
 }
 
 .clock[type=text]{

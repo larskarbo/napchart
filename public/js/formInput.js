@@ -11,11 +11,23 @@ window.formInput=(function(){
 	var prevData;
 
 	function createBlock(name,count){
+		/*/
+
+		**hotfix
+
+		/*/
+		if($('body').hasClass('dark')){
+			var dclass = "dark";
+		}else{
+			var dclass = "";
+		}
+
+
 		var className, add;
 		className = name+count;
-		add = '<div class="'+className+' inputBox">';
+		add = '<div class="'+className+dclass+' inputBox">';
 		add += name + ' ' + (count+1);
-		add += ':  <input class="clock start formInput" length="4" type="text">';
+		add += ':  <input class="clock start formInput'+ dclass +'" length="4" type="text">';
 
 		if(name == 'nap'){
 			//set duration value once now because it can't be changed from outside

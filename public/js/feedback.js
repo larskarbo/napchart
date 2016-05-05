@@ -14,7 +14,7 @@ window.feedback=(function(){
 		event.stopPropagation();
 		event.preventDefault();
 		var message = $(container).find('textarea').val();
-		
+
 		$(container).find('#feedback-error').addClass('hidden');
 		$(container).find('#feedback-devthanks').addClass('hidden');
 
@@ -32,7 +32,7 @@ window.feedback=(function(){
 			finishedLoading();
 		});
 
-		
+
 	}
 
 	function loading(){
@@ -44,6 +44,7 @@ window.feedback=(function(){
 		$(container).find('.loading-wheel').addClass('hidden');
 		$(container).find('.arm').show();
 		$(container).find('textarea').val('');
+		$(container).find('.emailoptional').removeClass('hidden');
 	}
 
 	//public:

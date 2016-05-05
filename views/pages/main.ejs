@@ -8,260 +8,281 @@
 
         <% include ../partials/analytics.ejs %>
 
-    <% } %>
+        <% } %>
 
-</head>
+    </head>
 
-<body>
-
-
+    <body>
 
 
 
-    <script>
-    fromServer = {};
-
-    <% if(chartid && chart){ %>
-        fromServer.chartid = '<%= chartid %>';
-        fromServer.data = <%- chart %>;
-    <% } %>
-
-    fromServer.hasDatabase = <%= db %>;
-    fromServer.url = '<%= url %>';
-    </script>
 
 
+        <script>
+        fromServer = {};
 
-    <div class="top-nav">
-        <div class="nav-wrapper topnav">
-            <div class="row">
-                <div class="col s12 m3">
-                    <div id="logo"><a href="/">napchart</a></div>
-                </div>
+        <% if(chartid && chart){ %>
+            fromServer.chartid = '<%= chartid %>';
+            fromServer.data = <%- chart %>;
+            <% } %>
 
-                <% if (db) { %>
-                <div class="col s12 m9">
-                    <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
-                    <div class="btn history disabled" id="back"><i class="fa fa-undo"></i></div>
-                    <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
-                    <input spellcheck="false" type="text" id="urlField" />
-                </div>
-                <% } %>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col s12 m12 l12" id="toolbar">
-            <div class="btn waves-effect grey lighten-1 black-text" id="addNap">Nap <i class="fa fa-plus-square-o"></i></div>
-            <div class="btn waves-effect grey lighten-1 black-text" id="addCore">Core <i class="fa fa-plus-square-o"></i></div>
-            <div class="btn waves-effect waves-light grey darken-3 white-text" id="addBusy">Busy <i class="fa fa-plus-square-o"></i></div>
-            <div id="removeAll" class="btn btn-flat waves-effect"><span class="hideSmall">Remove all </span><i class="fa fa-trash-o"></i></div>
-
-
-        </div>
-    </div>
+            fromServer.hasDatabase = <%= db %>;
+            fromServer.url = '<%= url %>';
+            </script>
 
 
 
-    <div class="row">
+            <div class="top-nav">
+                <div class="nav-wrapper topnav">
+                    <div class="row">
+                        <div class="col s12 m3">
+                            <div id="logo"><a href="/">napchart</a></div>
+                        </div>
 
-        <div class="col s12 m2 l2 sampleSchedules-col">
-            <div class="card stat-block transparent">
-                <div id="sampleSchedules">
-                    <div id="none" class=""></div>
-                    <div id="scheduleIndicator"></div>
-                    <div id="monophasic" class="sampleSchedule">Monophasic</div>
-                    <div id='segmented' class='sampleSchedule'>Segmented</div>
-                    <div id='siesta' class='sampleSchedule'>Siesta</div>
-                    <div id='dualcore1' class='sampleSchedule'>Dual Core 1</div>
-                    <div id='triphasic' class='sampleSchedule'>Triphasic</div>
-                    <div id='everyman' class='sampleSchedule'>Everyman</div>
-                    <div id='uberman' class='sampleSchedule'>Uberman</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="canvasResizer" class="col s12 m6 l6">
-                <canvas id="canvas">
-                </canvas>
-        </div>
-
-        <div class="col s12 m4 l4">
-
-
-            <div class="card stat-block" id="settings">
-                <div class="card-headline">Settings</div>
-                <div class="inner-card">
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="darkmode" />
-                        <label for="darkmode">Darkmode</label>
+                        <% if (db) { %>
+                            <div class="col s12 m9">
+                                <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
+                                <div class="btn history disabled" id="back"><i class="fa fa-undo"></i></div>
+                                <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
+                                <input spellcheck="false" type="text" id="urlField" />
+                            </div>
+                            <% } %>
+                        </div>
                     </div>
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="showAllElements" />
-                        <label for="showAllElements">Show all elements</label>
-                    </div>
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="moveSim" />
-                        <label for="moveSim">Move sleep simultaneously</label>
-                    </div>
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="snap5" />
-                        <label for="snap5">Snap to five minutes</label>
-                    </div>
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="snap10" />
-                        <label for="snap10">Snap to ten minutes</label>
-                    </div>
-
-                    <div class="settingsElement">
-                        <input type="checkbox" id="ampm" />
-                        <label for="ampm">Display time as AM/PM</label>
-                    </div>
-
-                    <div class="settingsElement">
-                        <label>Nap default duration <input id="napDuration" class="duration formInput" type="number" min="10" max="90" value="20"> min</label>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-            <div id="formInputContainer"></div>
-
-
-
-
-
-
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m6 l4">
-
-            <div class="card stat-block left">
-                <div class="card-headline">Sleep time</div>
-                <div class="inner-card">
-                    <span class="stat-time sleep"></span>
-                    <div class="stat-desc sleep"></div>
-                </div>
-            </div>
-
-
-            <div class="card stat-block left">
-                <div class="card-headline">Free time</div>
-                <div class="inner-card">
-                    <span class="stat-time free"></span>
-                    <div class="stat-desc free"></div>
-                </div>
-            </div>
-
-
-
-            <div class="card stat-block right feedback" id="feedback-card">
-
-
-                <div class="card-headline">
-                    <div id="feedback-text-question">Issues, ideas or compliments:</div>
                 </div>
 
-                <div class="inner-card">
-                    <textarea></textarea>
-                    <div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
-                        <i class="fa fa-hand-o-right arm"></i>
-                        <i class="fa fa-refresh fa-spin loading-wheel hidden"></i>
-                    </div>
-                    <span id="feedback-devthanks" class="hidden">Thank you!</span>
-                    <span id="feedback-error" class="hidden">Something went wrong</span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col s12 m6 l4 right">
+                <div class="row">
+                    <div class="col s12 m12 l12" id="toolbar">
+                        <div class="btn waves-effect grey lighten-1 black-text" id="addNap">Nap <i class="fa fa-plus-square-o"></i></div>
+                        <div class="btn waves-effect grey lighten-1 black-text" id="addCore">Core <i class="fa fa-plus-square-o"></i></div>
+                        <div class="btn waves-effect waves-light grey darken-3 white-text" id="addBusy">Busy <i class="fa fa-plus-square-o"></i></div>
+                        <div id="removeAll" class="btn btn-flat waves-effect"><span class="hideSmall">Remove all </span><i class="fa fa-trash-o"></i></div>
 
 
-            <div class="card stat-block left">
-                <div class="card-headline">Schedule:</div>
-                <div class="inner-card">
-                    <textarea  id="textSchedule" rows="4"  readonly></textarea>
-                </div>
-            </div>
-
-            <div class="card stat-block left">
-                <div class="card-headline">
-                    News
-                </div>
-                <div class="inner-card">
-                    <p>Thank you for all your feedback! Here are the things we are working on now:
-                        <ul class="list">
-                            <li>Access presets on mobile</li>
-                            <li>Add description to elements ('school', 'work', etc.)</li>
-                            <li>More presets</li>
-                            <li>Export to image/print (?)</li>
-                            <li><del>Dark mode</del> <i class="fa fa-check"></i></li>
-                        </ul>
                     </div>
                 </div>
 
 
-            </div>
+
+                <div class="row">
+
+                    <div class="col s12 m2 l2 sampleSchedules-col">
+                        <div class="card stat-block transparent">
+                            <div id="sampleSchedules">
+                                <div id="none" class=""></div>
+                                <div id="scheduleIndicator"></div>
+                                <div id="monophasic" class="sampleSchedule">Monophasic</div>
+                                <div id='segmented' class='sampleSchedule'>Segmented</div>
+                                <div id='siesta' class='sampleSchedule'>Siesta</div>
+                                <div id='dualcore1' class='sampleSchedule'>Dual Core 1</div>
+                                <div id='triphasic' class='sampleSchedule'>Triphasic</div>
+                                <div id='everyman' class='sampleSchedule'>Everyman</div>
+                                <div id='uberman' class='sampleSchedule'>Uberman</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="canvasResizer" class="col s12 m6 l6">
+                        <canvas id="canvas">
+                        </canvas>
+                    </div>
+
+                    <div class="col s12 m4 l4">
+
+
+                        <div class="card stat-block" id="settings">
+                            <div class="card-headline">Settings</div>
+                            <div class="inner-card">
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="darkmode" />
+                                    <label for="darkmode">Darkmode</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="showAllElements" />
+                                    <label for="showAllElements">Show all elements</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="moveSim" />
+                                    <label for="moveSim">Move sleep simultaneously</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="snap5" />
+                                    <label for="snap5">Snap to five minutes</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="snap10" />
+                                    <label for="snap10">Snap to ten minutes</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <input type="checkbox" id="ampm" />
+                                    <label for="ampm">Display time as AM/PM</label>
+                                </div>
+
+                                <div class="settingsElement">
+                                    <label>Nap default duration <input id="napDuration" class="duration formInput" type="number" min="10" max="90" value="20"> min</label>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div id="formInputContainer"></div>
 
 
 
 
-            <div class="col s12 m12 l4">
-
-
-                <div class="card stat-block">
-                    <div class="card-headline">About</div>
-                    <div class="inner-card">
-                        <p>
-                            Napchart is a tool created for people that want to experiment with <i>polyphasic sleep</i>.
-                        </p>
-
-                        <p>
-                            If you find this site useful, please consider donating to keep this site and me alive.
-                        </p>
-
-
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                            <input type="hidden" name="cmd" value="_s-xclick">
-                            <input type="hidden" name="hosted_button_id" value="JFJD33SUL9Z28">
-                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                        </form>
 
 
 
-                        <p>Bitcoin: <a id="bitcoinlink" href="#"><span>show&#x25b2;</span><span class="hidden">hide&#x25bc;</span></a></p>
-                        <div id="bitcoininfo" class="hidden">
-                            <input type="text" class="formInput" value="3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"  />
-                            <img src="http://i.imgur.com/5gGIvMa.png" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m6 l4">
+
+                        <div class="card stat-block left">
+                            <div class="card-headline">Sleep time</div>
+                            <div class="inner-card">
+                                <span class="stat-time sleep"></span>
+                                <div class="stat-desc sleep"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="card stat-block left">
+                            <div class="card-headline">Free time</div>
+                            <div class="inner-card">
+                                <span class="stat-time free"></span>
+                                <div class="stat-desc free"></div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card stat-block right feedback" id="feedback-card">
+
+
+                            <div class="card-headline">
+                                <div id="feedback-text-question">Issues, ideas or compliments:</div>
+                            </div>
+
+                            <div class="inner-card">
+                                <textarea></textarea>
+                                <div id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send
+                                    <i class="fa fa-hand-o-right arm"></i>
+                                    <i class="fa fa-refresh fa-spin loading-wheel hidden"></i>
+                                </div>
+                                <span id="feedback-devthanks" class="hidden">Thank you!</span>
+                                <span id="feedback-error" class="hidden">Something went wrong</span>
+
+                            </div>
+                            <div class="emailoptional hidden">
+                                <div class="card-headline">
+                                    <div id="feedback-text-question">(optional) email for further contact <3</div>
+                                </div>
+                                <div class=" inner-card">
+                                    <div class="">
+                                        <input style="border:solid 1px grey" type="text" class="formInput">
+                                        <input type="hidden" id="token">
+
+                                        <div style="margin-top:10px;" id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send email too
+                                            <i class="fa fa-hand-o-right arm"></i>
+                                            <i class="fa fa-refresh fa-spin loading-wheel hidden"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inner-card">
+                                <br>
+                                You can also contact me at <a href="https://www.reddit.com/user/gaptrast/">reddit</a> or <a href="http://github.com/larskarbo/napchart">github</a>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
+
+                    <div class="col s12 m6 l4 right">
+
+
+                        <div class="card stat-block left">
+                            <div class="card-headline">Schedule:</div>
+                            <div class="inner-card">
+                                <textarea  id="textSchedule" rows="4"  readonly></textarea>
+                            </div>
+                        </div>
+
+                        <div class="card stat-block left">
+                            <div class="card-headline">
+                                News
+                            </div>
+                            <div class="inner-card">
+                                <p>Thank you for all your feedback! Here are the things we are working on now:
+                                    <ul class="list">
+                                        <li>Access presets on mobile</li>
+                                        <li>Add description to elements ('school', 'work', etc.)</li>
+                                        <li>More presets</li>
+                                        <li>Export to image/print (?)</li>
+                                        <li><del>Dark mode</del> <i class="fa fa-check"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
 
 
 
-        </div>
+
+                        <div class="col s12 m12 l4">
 
 
-        <% include ../partials/footer.ejs %>
+                            <div class="card stat-block">
+                                <div class="card-headline">About</div>
+                                <div class="inner-card">
+                                    <p>
+                                        Napchart is a tool created for people that want to experiment with <i>polyphasic sleep</i>.
+                                    </p>
 
-        <% include ../partials/scripts.ejs %>
+                                    <p>
+                                        If you find this site useful, please consider donating to keep this site and me alive.
+                                    </p>
+
+
+                                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                        <input type="hidden" name="cmd" value="_s-xclick">
+                                        <input type="hidden" name="hosted_button_id" value="JFJD33SUL9Z28">
+                                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                    </form>
+
+
+
+                                    <p>Bitcoin: <a id="bitcoinlink" href="#"><span>show&#x25b2;</span><span class="hidden">hide&#x25bc;</span></a></p>
+                                    <div id="bitcoininfo" class="hidden">
+                                        <input type="text" class="formInput" value="3BmHER1uxPyptxQvobMkn5mQ9FwuvGtaSr"  />
+                                        <img src="http://i.imgur.com/5gGIvMa.png" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <% include ../partials/footer.ejs %>
+
+                    <% include ../partials/scripts.ejs %>
 
 
 
 
 
-    </body>
-    </html>
+                </body>
+                </html>
