@@ -28,7 +28,7 @@
 
 
 /**************************
-1.0 
+1.0
 *******************/
 
 body{
@@ -110,19 +110,19 @@ p,.list li{
 
 @-webkit-keyframes flash {
 	0% { background-color:#fbf8b2;}
-	50% { background-color:#fbf8b2;}        
+	50% { background-color:#fbf8b2;}
 	100% {background-color:none;}
 }
 
 @-moz-keyframes flash {
 	0% { background-color:none;}
-	50% { background-color:#fbf8b2;}        
+	50% { background-color:#fbf8b2;}
 	100% {background-color:none;}
 }
 
 @-ms-keyframes flash {
 	0% { background-color:#fbf8b2;}
-	50% { background-color:#fbf8b2;}        
+	50% { background-color:#fbf8b2;}
 	100% {background-color:none;}
 }
 
@@ -139,7 +139,7 @@ p,.list li{
 	padding:0 1rem;
 }
 .history.btn.disabled {
-	
+
 	padding:0 1rem;
 }
 
@@ -333,6 +333,10 @@ Schedule chooser
 	height: 1.5rem;
 }
 
+.formInput[type=text].dark, .formInput[type=number].dark{
+	color: black;
+}
+
 .clock[type=text]{
 	width:50px;
 }
@@ -381,5 +385,3 @@ Schedule chooser
 /**************************
 Thank you for reading this stylesheet
 *******************/
-
-
