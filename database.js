@@ -37,8 +37,8 @@ var ipFunctions = {
 
 	num2dot:function(num){
 		var d = num%256;
-		for (var i = 3; i > 0; i--) 
-		{ 
+		for (var i = 3; i > 0; i--)
+		{
 			num = Math.floor(num/256);
 			d = num%256 + '.' + d;
 		}
@@ -46,8 +46,8 @@ var ipFunctions = {
 	},
 
 	getIp:function(req){
-		var ip = req.headers['x-forwarded-for'] || 
-		req.connection.remoteAddress || 
+		var ip = req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
 		req.socket.remoteAddress ||
 		req.connection.socket.remoteAddress;
 
@@ -93,7 +93,7 @@ function idgen(){
 	alphabet = "abcdefghijklmnopqrstuwxyz0123456789";
 	id='';
 	for( var i=0; i < 5; i++ )
-		id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+	id += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
 	return id;
 }
 
@@ -257,7 +257,7 @@ function saveChart(chartid,data,ip,callback){
 		});
 
 	});
-	
+
 }
 
 database.newChart = function(req,data,callback){
@@ -302,10 +302,31 @@ database.postFeedback = function(text, callback){
 
 	models.feedback.create({
 		text:text
-	}).then(function(){
+	}).then(function(result){
 		logger.verbose('Feedback successfully posted');
+		console.log(JSON.stringify(result,null,2));
+		callback(result.token);
 
-		callback(true);
+	}).catch(function(error){
+		logger.error('Error when posting feedback::', error);
+
+		callback('', error)
+	});
+}
+
+database.linkEmailToFeedback = function(token, email, callback){
+
+	models.feedback = sequelize.import(__dirname + '/models/feedback');
+
+	models.feedback.update({
+		email:email
+	},
+	{
+		where: { token : token }
+	})
+	.then(function(yo){
+		logger.verbose('Feedback successfully posted');
+		callback(yo);
 
 	}).catch(function(error){
 		logger.error('Error when posting feedback', error);

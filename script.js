@@ -31,7 +31,7 @@ if(nconf.get('setup')){
 
 function setup() {
 	var install = require('./install.js');
-	
+
 	install.setup(function(){
 		process.exit();
 	});
@@ -39,7 +39,7 @@ function setup() {
 
 function createTables() {
 	var install = require('./install.js');
-	
+
 	install.createTables(function(){
 		process.exit();
 	})
@@ -47,7 +47,7 @@ function createTables() {
 
 function exportJson() {
 	var database = require('./database.js');
-	
+
 	database.exportJson(function(horse,error){
 		if(error){
 			logger.error(error);
@@ -61,7 +61,7 @@ function exportJson() {
 function importJson() {
 	var database = require('./database.js');
 	var file = nconf.get('file') | 'export.json';
-	
+
 	database.importJson(file, function(horse,error){
 		if(error){
 			logger.error(error);
@@ -113,7 +113,7 @@ function start(db){
 					res.render('pages/main',{chartid:chartid,chart:JSON.stringify(chartData), url:host, db:db});
 				}
 			});
-			
+
 		});
 
 		//get schedule data (used for ajax requests ( not currently in use))
@@ -145,7 +145,7 @@ function start(db){
 
 		});
 
-		app.post('/email-feedback-post', function (req,res){
+		app.post('/post/feedback', function (req,res){
 			var text = req.body.message;
 			var database = require('./database.js');
 
@@ -156,10 +156,26 @@ function start(db){
 					res.end("error");
 				}else{
 					res.writeHead(200);
-					res.end('success');
+					res.end(JSON.stringify(result,null,2));
 				}
 			})
+		});
+		app.post('/post/linkEmailToFeedback', function (req,res){
+			var token = req.body.token;
+			var email = req.body.email;
+			var database = require('./database.js');
+			console.log("email:", email);
 
+			database.linkEmailToFeedback(token, email, function(result, error){
+				if(error){
+					logger.error("There was a problem when posting feedback:", error);
+					res.writeHead(503);
+					res.end("error");
+				}else{
+					res.writeHead(200);
+					res.end(JSON.stringify(result));
+				}
+			})
 		});
 	}
 

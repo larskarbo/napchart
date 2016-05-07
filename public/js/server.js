@@ -14,7 +14,7 @@ window.server=(function(){
 		}else{
 			alert('Something went wrong:\n\n' + response);
 		}
-		
+
 		finish();
 		console.log(response);
 	}
@@ -44,25 +44,36 @@ window.server=(function(){
 			var json = JSON.stringify(data);
 
 			$.post( "post", {data: json })
-			  .done(function(chartid) {
-			    callback(true,chartid);
-			  })
-			  .fail(function(error) {
-			  	console.error(error);
-			    callback(false,JSON.stringify(error));
-			  })
-			
+			.done(function(chartid) {
+				callback(true,chartid);
+			})
+			.fail(function(error) {
+				console.error(error);
+				callback(false,JSON.stringify(error));
+			})
+
 
 		},
 
-		sendMail:function(message,callback){
-			$.post( "email-feedback-post", {message: message })
-			  .done(function() {
-			    callback('success');
-			  })
-			  .fail(function(error) {
-			    callback(error);
-			  })
+		sendFeedback:function(message,callback){
+			$.post( "/post/feedback", {message: message })
+			.done(function(result) {
+				callback(null, result);
+			})
+			.fail(function(error) {
+				callback(error);
+			})
+		},
+
+		linkEmailToFeedback:function(token,email,callback){
+			$.post( "/post/linkEmailToFeedback", {token: token, email:email })
+			.done(function(yo) {
+				console.log(JSON.stringify(yo,null,2));
+				callback(null,'success');
+			})
+			.fail(function(error) {
+				callback(error);
+			})
 		},
 
 

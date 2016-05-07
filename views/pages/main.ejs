@@ -188,14 +188,17 @@
                                 </div>
                                 <div class=" inner-card">
                                     <div class="">
-                                        <input style="border:solid 1px grey" type="text" class="formInput">
+                                        <input id="email" style="border:solid 1px grey" type="email" class="formInput">
                                         <input type="hidden" id="token">
 
-                                        <div style="margin-top:10px;" id="send-feedback" class="btn-flat grey lighten-2 waves-effect">Send email too
+                                        <div style="margin-top:10px;" id="linkEmail" class="btn-flat grey lighten-2 waves-effect">Send email too
                                             <i class="fa fa-hand-o-right arm"></i>
                                             <i class="fa fa-refresh fa-spin loading-wheel hidden"></i>
                                         </div>
                                     </div>
+
+                                    <span id="linkemailsuccess" class="hidden">Thank you!</span>
+                                    <span id="linkemailfail" class="hidden">Oops, couldn't link email. Try contacting me another way</span>
                                 </div>
                             </div>
                             <div class="inner-card">
