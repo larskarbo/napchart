@@ -174,7 +174,6 @@ window.formInput=(function(){
 		},
 
 		setData:function(data){
-			console.log("setting elements");
 			updateValues(data);
 			prune(data);
 		},
