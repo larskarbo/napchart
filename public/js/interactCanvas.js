@@ -191,6 +191,8 @@ for(var name in data){
 		var coordinates = getCoordinates(e,canvas);
 		var hit = {};
 
+		console.log('click: ',coordinates)
+
 		hit = hitDetect(coordinates);
 
 		//return of no hit

@@ -68,7 +68,7 @@ window.draw=(function(){
 
 	var darkBarConfig = { //when darkmode is on
 		core:{
-			color:"#c70e0e",
+			color:"black",
 			opacity:0.7,
 			hoverOpacity:0.7,
 			activeOpacity:0.7,
@@ -149,24 +149,248 @@ window.draw=(function(){
 		},
 	}
 
-	function createCurve(ctx, radius, start, end, anticlockwise){
-		if(typeof anticlockwise == 'undefined')
-			var anticlockwise = false;
 
-		//ctx.arc(draw.w/2,draw.h/2,radius*draw.ratio,helpers.minutesToRadians(start), helpers.minutesToRadians(end), anticlockwise);
-		ctx.ellipse(draw.w/2,draw.h/2,radius*draw.ratio,(radius)*draw.ratio,0,helpers.minutesToRadians(start), helpers.minutesToRadians(end), anticlockwise);
+	function calculateShape(ctx, shape){
+		var minutesPreservedByLine = 0;
+		var radius = 36*draw.ratio;
+
+		for (var i = 0; i < shape.length; i++) {
+			if(shape[i].type == 'line'){
+				minutesPreservedByLine += shape[i].minutes;
+			}
+		}
+
+		var spaceForArcs = 1440 - minutesPreservedByLine;
+		if(spaceForArcs < 0){
+			throw new Error('too much space is given to straight segments in the shape');
+		}
+
+		var totalRadians = 0;
+		for (var i = 0; i < shape.length; i++) {
+
+			shape[i].angle = totalRadians;
+
+			if(shape[i].type == 'arc'){
+				totalRadians += shape[i].radians;
+			}
+
+		}
+
+		var pathLengthPerMinute;
+		//calc. minutes
+		for (var i = 0; i < shape.length; i++) {
+			if(shape[i].type == 'arc'){
+				shape[i].minutes = (shape[i].radians/totalRadians) * spaceForArcs;
+
+				// find perimeter of whole main circle, then find length of this
+				shape[i].pathLength = radius * 2 * Math.PI * (shape[i].radians/(Math.PI*2));
+
+				// only need to do this once
+				if(i == 0){
+					pathLengthPerMinute = shape[i].pathLength/shape[i].minutes;
+				}
+			}
+		}
+
+		for (var i = 0; i < shape.length; i++) {
+			if(shape[i].type == 'line'){
+				console.log(pathLengthPerMinute)
+				shape[i].pathLength = shape[i].minutes * pathLengthPerMinute;
+			}
+		}
+
+		var sumMinutes = 0;
+		for (var i = 0; i < shape.length; i++) {
+			shape[i].start = sumMinutes;
+			shape[i].end = sumMinutes + shape[i].minutes;
+
+			sumMinutes += shape[i].minutes;
+		}
+
+		// find centres
+		for (var i = 0; i < shape.length; i++) {
+			console.log(i)
+			if(i == 0){
+				shape[i].centre = {
+					x: draw.w/2,
+					y: draw.h/2
+				};
+			}else{
+				console.log('warning')
+				shape[i].centre = shape[i-1].endCentre;
+			}
+
+			if(shape[i].type == 'line'){
+				console.log(shape[i])
+				shape[i].endCentre = {
+					x: shape[i].centre.x + Math.cos(shape[i].angle)*shape[i].pathLength,
+					y: shape[i].centre.x + Math.sin(shape[i].angle)*shape[i].pathLength
+				}
+			}else{
+				shape[i].endCentre = shape[i].centre;
+			}
+		}
+
+		console.log(JSON.stringify(shape,null,2));
+		draw.shape = shape;
+	}
+
+	function minutesToXY(minutes, radius, basewidth, baseheight) {
+		if(typeof basewidth == 'undefined')
+		var basewidth = 0;
+		if(typeof baseheight == 'undefined')
+		var baseheight = 0;
+
+		o = {};
+		o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + baseheight;
+		o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + basewidth;
+		return o;
+	};
+
+	function createCurve(ctx, radius, start, end, anticlockwise){
+		if(typeof anticlockwise == 'undefined'){
+			var anticlockwise = false;
+		}
+
+		//end = 900;
+		var c = {
+			x: draw.w/2,
+			y: draw.h/2
+		}
+		var r = radius*draw.ratio;
+
+		var cumRad = 0;
+		var nowPoint = {
+			x: c.x,
+			y: c.y-r
+		}
+		if(anticlockwise){
+			//draw.shape = draw.shape.reverse();
+		}
+
+
+		// find start
+		var startBlock, endBlock;
+		for (var i = 0; i < draw.shape.length; i++) {
+			var e = draw.shape[i];
+
+			// if start is inside this shapeBlock
+			if(helpers.isInside(start, e.start, e.end)){
+				startBlock = i;
+			}
+			// if end is inside this shapeBlock
+			if(helpers.isInside(end, e.start, e.end)){
+				endBlock = i;
+			}
+		}
+
+		// create iterable task array
+		var taskArray = [];
+		var skipEndCheck = false;
+		for (var i = startBlock; i < draw.shape.length; i++) {
+			var task = {
+				shape: draw.shape[i],
+				start: 0,
+				end: 1
+			}
+
+			if(i == startBlock){
+				task.start = helpers.getPositionBetweenTwoValues(start,draw.shape[i].start,draw.shape[i].end);
+			}
+			if(i == endBlock){
+				task.end = helpers.getPositionBetweenTwoValues(end,draw.shape[i].start,draw.shape[i].end);
+			}
+			if(i == startBlock && i == endBlock && task.end < task.start){
+				// make sure things are correct when end is less than start
+				if(taskArray.length == 0){
+					// it is beginning
+					task.end = 1;
+					skipEndCheck = true;
+				}else {
+					// it is end
+					task.start = 0;
+				}
+			}
+
+			taskArray.push(task);
+
+			if(i == endBlock){
+				if(skipEndCheck){
+					skipEndCheck = false;
+					// let it run a round and add all shapes
+				}else{
+					// finished.. nothing more to do here!
+					break;
+				}
+			}
+
+			// if we reached end of array without having found
+			// the end point, it means that we have to go to
+			// the beginning again
+			// ex. when start:700 end:300
+			if(i == draw.shape.length-1){
+				i = -1;
+			}
+		}
+
+
+		console.log(taskArray.length)
+		for (var i = 0; i < taskArray.length; i++) {
+			var shape = taskArray[i].shape;
+			if(shape.type == 'arc'){
+				var shapeStart = shape.angle-(Math.PI/2);
+				var start = shapeStart + (taskArray[i].start * shape.radians);
+				var end = shapeStart + (taskArray[i].end * shape.radians);
+				ctx.arc(shape.centre.x,shape.centre.y,r,start, end, anticlockwise);
+
+				var radNormalize = shape.angle + shape.radians - (Math.PI/2); // because my circle is not the same as the math circle
+				nowPoint.x = c.x + Math.cos(radNormalize)*r;
+				nowPoint.y = c.y + Math.sin(radNormalize)*r;
+
+			}else if(shape.type == 'line'){
+				var distance = {
+					x: Math.cos(shape.angle)*shape.pathLength * taskArray[i].end,
+					y: Math.sin(shape.angle)*shape.pathLength * taskArray[i].end
+				}
+				var start = {
+					x: shape.centre.x + Math.sin(shape.angle)*r,
+					y: shape.centre.y - Math.cos(shape.angle)*r
+				};
+				var end = {
+					x: start.x + distance.x,
+					y: start.y + distance.y
+				}
+				c.x += distance.x;
+				c.y += distance.y;
+				if(i == 0){
+					ctx.moveTo(start.x, start.y)
+				}
+				ctx.lineTo(end.x,end.y);
+			}
+		}
+
+		if(helpers.isInside(start, 0, 600)){
+		}else{
+		}
+
+
+		//ctx.ellipse(draw.w/2,draw.h/2,radius*draw.ratio,(radius)*draw.ratio,0,helpers.minutesToRadians(start), helpers.minutesToRadians(end), anticlockwise);
 	}
 
 	function createSegment(ctx, outer, inner, start, end){
 		ctx.beginPath();
 		createCurve(ctx, outer, start, end);
-		createCurve(ctx, inner, end, start, true);
+		//createCurve(ctx, inner, end, start, true);
 		ctx.closePath();
 	}
 
 	function drawBoat(ctx){
 		var radius=40*draw.ratio;
+		ctx.rect(0,0,1000,1000);
+		ctx.fillStyle = "#F4F4F4";
+		ctx.fill();
 	}
+
 
 	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
@@ -277,7 +501,7 @@ window.draw=(function(){
 			ctx.lineTo(c.x,c.y);
 		}
 		ctx.closePath();
-		ctx.stroke();
+		//ctx.stroke();
 		ctx.restore();
 	}
 
@@ -302,7 +526,7 @@ window.draw=(function(){
 		c=helpers.minutesToXY(1200,radius);
 		ctx.lineTo(c.x,c.y);
 		ctx.closePath();
-		ctx.stroke();
+		//ctx.stroke();
 		ctx.restore();
 	}
 
@@ -315,8 +539,9 @@ window.draw=(function(){
 
 		for(i=0;i<circles.length;i++){
 			ctx.beginPath();
-			createCurve(ctx,circles[i].radius,0,1440);
+			createCurve(ctx,circles[i].radius,0,1439);
 			ctx.stroke();
+			break;
 		}
 	}
 
@@ -348,8 +573,9 @@ window.draw=(function(){
 				if(ampm){
 					ctx.fillText(ampmTable[i],xval,yval);
 				}
-				else
-				ctx.fillText(i,xval,yval);
+				else{
+					//ctx.fillText(i,xval,yval);
+				}
 			}
 		}
 	}
@@ -361,10 +587,10 @@ window.draw=(function(){
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
-		createCurve(ctx, radius, 0, 1440);
+		//createCurve(ctx, radius, 0, 1440);
 		ctx.lineTo(width/2,height/2);
 		ctx.closePath();
-		ctx.fill();
+		//ctx.fill();
 		ctx.restore();
 	}
 
@@ -406,7 +632,7 @@ window.draw=(function(){
 				else{
 					ctx.globalAlpha=opacity;
 				}
-				ctx.fill();
+				//ctx.fill();
 
 			}
 		}
@@ -460,7 +686,7 @@ window.draw=(function(){
 
 				ctx.globalAlpha=0.1*ctx.globalAlpha;
 
-				ctx.fill();
+				//ctx.fill();
 				ctx.restore();
 
 
@@ -483,8 +709,8 @@ window.draw=(function(){
 		ctx.fillStyle=clockConfig.background;
 		ctx.globalAlpha=clockConfig.blurCircle.opacity;
 		ctx.beginPath();
-		createCurve(ctx, clockConfig.blurCircle.radius ,0,1440);
-		ctx.fill();
+		//createCurve(ctx, clockConfig.blurCircle.radius ,0,1440);
+		//ctx.fill();
 		ctx.restore();
 	}
 
@@ -794,11 +1020,29 @@ window.draw=(function(){
 			this.w = canvas.width;
 			this.h = canvas.height;
 
+			var shape = [
+				{
+					type: 'arc',
+					radians: Math.PI
+				},
+				{
+					type: 'line',
+					minutes: 120
+				},
+				{
+					type: 'arc',
+					radians: Math.PI
+				},
+				{
+					type: 'line',
+					minutes: 120
+				},
+			];
 
 			offScreenCanvas.height=canvas.width;
 			offScreenCanvas.width=canvas.width;
 
-
+			calculateShape(octx, shape);
 			//draw clock
 			drawBoat(octx);
 			drawLines(octx);

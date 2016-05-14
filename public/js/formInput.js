@@ -179,7 +179,6 @@ window.formInput=(function(){
 		},
 
 		setSelected:function(array){
-			console.log("setting selected");
 			$(container).children().removeClass('selected');
 
 			if(typeof array == 'undefined'){
