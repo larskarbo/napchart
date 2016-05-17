@@ -47,7 +47,7 @@ window.napchartCore=(function(){
 
 			scheduleData=helpers.clone(data);
 
-			draw.drawFrame(scheduleData);
+			// draw.drawFrame(scheduleData);
 			formInput.setData(scheduleData);
 			statistics.update(scheduleData);
 			textSerialize.update(scheduleData);

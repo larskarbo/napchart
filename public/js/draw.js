@@ -339,7 +339,7 @@ window.draw=(function(){
 				i = -1;
 			}
 		}
-		console.log(JSON.stringify(taskArray,null,2))
+
 
 		for (var i = 0; i < taskArray.length; i++) {
 			var shape = taskArray[i].shape;
@@ -958,6 +958,13 @@ window.draw=(function(){
 		ctx.restore();
 	}
 
+	function render(){
+		var data = napchartCore.getSchedule();
+		draw.drawFrame(data);
+
+		window.requestAnimationFrame(render);
+	}
+
 	return { //exposed to public
 		initialize:function(canvas){
 			//first determine canvas size
@@ -1040,6 +1047,7 @@ window.draw=(function(){
 			//saves to a variable used in drawFrame()
 			this.cachedBackground=offScreenCanvas;
 
+			render();
 		},
 
 		reInit:function(){
@@ -1103,8 +1111,10 @@ window.draw=(function(){
 
 			},
 			drawUpdate:function(){
-				data = napchartCore.getSchedule();
-				draw.drawFrame(data);
+				console.log('drawUpdate')
+				// data = napchartCore.getSchedule();
+				// draw.drawFrame(data);
+				requestUpdate = true;
 			},
 
 			getBarConfig:function(){
