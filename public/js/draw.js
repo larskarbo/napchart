@@ -224,28 +224,15 @@ window.draw=(function(){
 				console.log(shape[i])
 				shape[i].endCentre = {
 					x: shape[i].centre.x + Math.cos(shape[i].angle)*shape[i].pathLength,
-					y: shape[i].centre.x + Math.sin(shape[i].angle)*shape[i].pathLength
+					y: shape[i].centre.y + (Math.sin(shape[i].angle)*shape[i].pathLength)
 				}
 			}else{
 				shape[i].endCentre = shape[i].centre;
 			}
 		}
 
-		console.log(JSON.stringify(shape,null,2));
 		draw.shape = shape;
 	}
-
-	function minutesToXY(minutes, radius, basewidth, baseheight) {
-		if(typeof basewidth == 'undefined')
-		var basewidth = 0;
-		if(typeof baseheight == 'undefined')
-		var baseheight = 0;
-
-		o = {};
-		o.y = Math.sin((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + baseheight;
-		o.x = Math.cos((minutes / 1440) * (Math.PI * 2) - (Math.PI / 2)) * radius + basewidth;
-		return o;
-	};
 
 	function createCurve(ctx, radius, start, end, anticlockwise){
 		if(typeof anticlockwise == 'undefined'){
@@ -264,15 +251,15 @@ window.draw=(function(){
 			x: c.x,
 			y: c.y-r
 		}
+		var shape = helpers.clone(draw.shape);
 		if(anticlockwise){
-			//draw.shape = draw.shape.reverse();
+			shape.reverse();
 		}
-
 
 		// find start
 		var startBlock, endBlock;
-		for (var i = 0; i < draw.shape.length; i++) {
-			var e = draw.shape[i];
+		for (var i = 0; i < shape.length; i++) {
+			var e = shape[i];
 
 			// if start is inside this shapeBlock
 			if(helpers.isInside(start, e.start, e.end)){
@@ -284,33 +271,53 @@ window.draw=(function(){
 			}
 		}
 
+		console.log(startBlock, endBlock)
+
 		// create iterable task array
 		var taskArray = [];
 		var skipEndCheck = false;
-		for (var i = startBlock; i < draw.shape.length; i++) {
-			var task = {
-				shape: draw.shape[i],
+		var defaultTask;
+		if(anticlockwise){
+			defaultTask = {
+				start: 1,
+				end: 0
+			}
+		}else{
+			defaultTask = {
 				start: 0,
 				end: 1
 			}
+		}
+
+
+		for (var i = startBlock; i < shape.length; i++) {
+			var task = {
+				shape: shape[i],
+				start: defaultTask.start,
+				end: defaultTask.end
+			}
 
 			if(i == startBlock){
-				task.start = helpers.getPositionBetweenTwoValues(start,draw.shape[i].start,draw.shape[i].end);
+				task.start = helpers.getPositionBetweenTwoValues(start,shape[i].start,shape[i].end);
 			}
 			if(i == endBlock){
-				task.end = helpers.getPositionBetweenTwoValues(end,draw.shape[i].start,draw.shape[i].end);
+				task.end = helpers.getPositionBetweenTwoValues(end,shape[i].start,shape[i].end);
 			}
-			if(i == startBlock && i == endBlock && task.end < task.start){
+			if(i == startBlock && i == endBlock && (task.end > task.start && anticlockwise) || (task.end < task.start && !anticlockwise)){
 				// make sure things are correct when end is less than start
 				if(taskArray.length == 0){
 					// it is beginning
-					task.end = 1;
+					task.end = defaultTask.end;
 					skipEndCheck = true;
 				}else {
 					// it is end
-					task.start = 0;
+					task.start = defaultTask.start;
 				}
 			}
+			//
+			// var oldEnd = task.end;
+			// task.end = task.start;
+			// task.start = oldEnd;
 
 			taskArray.push(task);
 
@@ -328,13 +335,12 @@ window.draw=(function(){
 			// the end point, it means that we have to go to
 			// the beginning again
 			// ex. when start:700 end:300
-			if(i == draw.shape.length-1){
+			if(i == shape.length-1){
 				i = -1;
 			}
 		}
+		console.log(JSON.stringify(taskArray,null,2))
 
-
-		console.log(taskArray.length)
 		for (var i = 0; i < taskArray.length; i++) {
 			var shape = taskArray[i].shape;
 			if(shape.type == 'arc'){
@@ -349,21 +355,24 @@ window.draw=(function(){
 
 			}else if(shape.type == 'line'){
 				var distance = {
-					x: Math.cos(shape.angle)*shape.pathLength * taskArray[i].end,
-					y: Math.sin(shape.angle)*shape.pathLength * taskArray[i].end
+					x: Math.cos(shape.angle)*shape.pathLength,
+					y: Math.sin(shape.angle)*shape.pathLength
 				}
-				var start = {
+				var shapeStart = {
 					x: shape.centre.x + Math.sin(shape.angle)*r,
 					y: shape.centre.y - Math.cos(shape.angle)*r
+				}
+				var start = {
+					x: shapeStart.x + distance.x*taskArray[i].start,
+					y: shapeStart.y + distance.y*taskArray[i].start
 				};
 				var end = {
-					x: start.x + distance.x,
-					y: start.y + distance.y
+					x: shapeStart.x + distance.x*taskArray[i].end,
+					y: shapeStart.y + distance.y*taskArray[i].end
 				}
-				c.x += distance.x;
-				c.y += distance.y;
+
 				if(i == 0){
-					ctx.moveTo(start.x, start.y)
+					ctx.lineTo(start.x, start.y)
 				}
 				ctx.lineTo(end.x,end.y);
 			}
@@ -380,17 +389,9 @@ window.draw=(function(){
 	function createSegment(ctx, outer, inner, start, end){
 		ctx.beginPath();
 		createCurve(ctx, outer, start, end);
-		//createCurve(ctx, inner, end, start, true);
+		createCurve(ctx, inner, end, start, true);
 		ctx.closePath();
 	}
-
-	function drawBoat(ctx){
-		var radius=40*draw.ratio;
-		ctx.rect(0,0,1000,1000);
-		ctx.fillStyle = "#F4F4F4";
-		ctx.fill();
-	}
-
 
 	function removeOverlapping(data,inferior,superior){
 		//this function will prevent two bars from overlapping
@@ -501,7 +502,7 @@ window.draw=(function(){
 			ctx.lineTo(c.x,c.y);
 		}
 		ctx.closePath();
-		//ctx.stroke();
+		ctx.stroke();
 		ctx.restore();
 	}
 
@@ -526,7 +527,7 @@ window.draw=(function(){
 		c=helpers.minutesToXY(1200,radius);
 		ctx.lineTo(c.x,c.y);
 		ctx.closePath();
-		//ctx.stroke();
+		ctx.stroke();
 		ctx.restore();
 	}
 
@@ -541,7 +542,6 @@ window.draw=(function(){
 			ctx.beginPath();
 			createCurve(ctx,circles[i].radius,0,1439);
 			ctx.stroke();
-			break;
 		}
 	}
 
@@ -574,7 +574,7 @@ window.draw=(function(){
 					ctx.fillText(ampmTable[i],xval,yval);
 				}
 				else{
-					//ctx.fillText(i,xval,yval);
+					ctx.fillText(i,xval,yval);
 				}
 			}
 		}
@@ -587,10 +587,10 @@ window.draw=(function(){
 		ctx.save();
 		ctx.globalCompositeOperation = 'destination-out';
 		ctx.beginPath();
-		//createCurve(ctx, radius, 0, 1440);
+		createCurve(ctx, radius, 0, 1440);
 		ctx.lineTo(width/2,height/2);
 		ctx.closePath();
-		//ctx.fill();
+		ctx.fill();
 		ctx.restore();
 	}
 
@@ -632,7 +632,7 @@ window.draw=(function(){
 				else{
 					ctx.globalAlpha=opacity;
 				}
-				//ctx.fill();
+				ctx.fill();
 
 			}
 		}
@@ -686,7 +686,7 @@ window.draw=(function(){
 
 				ctx.globalAlpha=0.1*ctx.globalAlpha;
 
-				//ctx.fill();
+				ctx.fill();
 				ctx.restore();
 
 
@@ -709,8 +709,8 @@ window.draw=(function(){
 		ctx.fillStyle=clockConfig.background;
 		ctx.globalAlpha=clockConfig.blurCircle.opacity;
 		ctx.beginPath();
-		//createCurve(ctx, clockConfig.blurCircle.radius ,0,1440);
-		//ctx.fill();
+		createCurve(ctx, clockConfig.blurCircle.radius ,0,1440);
+		ctx.fill();
 		ctx.restore();
 	}
 
@@ -1023,20 +1023,8 @@ window.draw=(function(){
 			var shape = [
 				{
 					type: 'arc',
-					radians: Math.PI
-				},
-				{
-					type: 'line',
-					minutes: 120
-				},
-				{
-					type: 'arc',
-					radians: Math.PI
-				},
-				{
-					type: 'line',
-					minutes: 120
-				},
+					radians: Math.PI*2
+				}
 			];
 
 			offScreenCanvas.height=canvas.width;
@@ -1044,7 +1032,6 @@ window.draw=(function(){
 
 			calculateShape(octx, shape);
 			//draw clock
-			drawBoat(octx);
 			drawLines(octx);
 			clearClockCircle(octx,clockConfig.clearCircle);
 			drawCircles(octx);
