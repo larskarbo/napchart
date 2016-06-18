@@ -8,7 +8,7 @@ window.draw=(function(){
 	var barConfig = { //used for defining the radius and color of bars
 		core:{
 			stack:0,
-			color:"#c70e0e",
+			color:'#c70e0e',
 			innerRadius:29,
 			outerRadius:40,
 			stroke:{
@@ -26,7 +26,7 @@ window.draw=(function(){
 		},
 		nap:{
 			stack:1,
-			color:"#c70e0e",
+			color:'#c70e0e',
 			innerRadius:29,
 			outerRadius:40,
 			stroke:{
@@ -43,7 +43,7 @@ window.draw=(function(){
 		},
 		busy:{
 			stack:2,
-			color:"#1f1f1f",
+			color:'#1f1f1f',
 			innerRadius:29,
 			outerRadius:36,
 			stroke:{
@@ -68,7 +68,7 @@ window.draw=(function(){
 
 	var darkBarConfig = { //when darkmode is on
 		core:{
-			color:"black",
+			color:'#733134',
 			opacity:0.7,
 			hoverOpacity:0.7,
 			activeOpacity:0.7,
@@ -79,7 +79,7 @@ window.draw=(function(){
 			}
 		},
 		nap:{
-			color:"#c70e0e",
+			color:'#c70e0e',
 			opacity:0.7,
 			hoverOpacity:0.7,
 			activeOpacity:0.7,
@@ -90,7 +90,7 @@ window.draw=(function(){
 			}
 		},
 		busy:{
-			color:"#9E9E9E",
+			color:'#9E9E9E',
 			opacity:0.6,
 			hoverOpacity:0.5,
 			activeOpacity:0.5,
@@ -120,33 +120,47 @@ window.draw=(function(){
 			opacity:0.8
 		},
 		stroke:0.32,
-		strokeColor:"#C9C9C9",
-		impStrokeColor:"#262626",
+		strokeColor:'#C9C9C9',
+		impStrokeColor:'#262626',
 		clockNumbers:{
 			radius:44,
 			color:'#262626'
 		},
 		between:{
 			strokeColor: '#d2d2d2',
-			textColor: 'black'
+			textColor: 'black',
+			opacity: 0.5,
 		},
 		timeLocation:4, //how far away from the bar the time indicators should be
 
 	};
 
 	var darkClockConfig = {
-		background:'#0F0F0F',
+		background:'#373737',
+		circles:[
+			{radius:36},
+			{radius:29},
+			{radius:20},
+			{radius:2}
+		],
+		clearCircle: 20,
 		blurCircle:{
-			opacity:1
+			radius:29,
+			opacity:0.5
 		},
-		impStrokeColor:"white",
+		stroke:0.32,
+		strokeColor:'#525252',
+		impStrokeColor:'EDEDED',
 		clockNumbers:{
-			color:'white'
+			radius:44,
+			color:'#BFBFBF'
 		},
 		between:{
-			strokeColor: '#8F8F8F',
-			textColor: 'white'
+			strokeColor: '#A5A5A5',
+			textColor: 'white',
+			opacity: 0.9,
 		},
+		timeLocation:4, //how far away from the bar the time indicators should be
 	}
 
 
@@ -836,7 +850,7 @@ window.draw=(function(){
 		ctx.font = fontSize + "px verdana";
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
-		ctx.globalAlpha = ctx.globalAlpha*0.5;
+		ctx.globalAlpha = ctx.globalAlpha * clockConfig.between.opacity;
 
 		//push start and endpoints to draw array
 		var drawArr = [];
