@@ -64,22 +64,28 @@
 
 
 
-                <div class="row">
-
+                <div class="row flex">
                     <div class="col s12 m2 l2 sampleSchedules-col">
-                        <div class="card stat-block transparent">
-                            <div id="sampleSchedules">
-                                <div id="none" class=""></div>
-                                <div id="scheduleIndicator"></div>
-                                <div id="monophasic" class="sampleSchedule">Monophasic</div>
-                                <div id='segmented' class='sampleSchedule'>Segmented</div>
-                                <div id='siesta' class='sampleSchedule'>Siesta</div>
-                                <div id='dualcore1' class='sampleSchedule'>Dual Core 1</div>
-                                <div id='triphasic' class='sampleSchedule'>Triphasic</div>
-                                <div id='everyman' class='sampleSchedule'>Everyman</div>
-                                <div id='uberman' class='sampleSchedule'>Uberman</div>
+                      <ul class="collapsible" data-collapsible="accordion">
+                          <li>
+                            <div class="collapsible-header active">
+                              Schedules▼
                             </div>
-                        </div>
+                            <div class="collapsible-body">
+                              <div id="sampleSchedules">
+                                  <div id="none" class=""></div>
+                                  <div id="scheduleIndicator"></div>
+                                  <div id="monophasic" class="sampleSchedule">Monophasic</div>
+                                  <div id='segmented' class='sampleSchedule'>Segmented</div>
+                                  <div id='siesta' class='sampleSchedule'>Siesta</div>
+                                  <div id='dualcore1' class='sampleSchedule'>Dual Core 1</div>
+                                  <div id='triphasic' class='sampleSchedule'>Triphasic</div>
+                                  <div id='everyman' class='sampleSchedule'>Everyman</div>
+                                  <div id='uberman' class='sampleSchedule'>Uberman</div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
                     </div>
 
                     <div id="canvasResizer" class="col s12 m6 l6">
@@ -87,7 +93,7 @@
                         </canvas>
                     </div>
 
-                    <div class="col s12 m4 l4">
+                    <div class="col s12 m4 l4" id="settingsRow">
 
 
                         <div class="card stat-block" id="settings">

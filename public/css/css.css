@@ -209,10 +209,9 @@ p,.list li{
   }
 }
 
-/*#canvasResizer {
-	width:100%;
-	height:100%;
-}*/
+#canvasResizer {
+	order: 1
+}
 
 #footer{
 	background-color: #F44336;
@@ -265,8 +264,12 @@ Schedule chooser
 }
 
 @media (max-width: 600px) {
+	.flex {
+		display: flex;
+		flex-direction: column;
+	}
   .sampleSchedules-col {
-    display: none;
+		order: 2;
   }
 }
 
@@ -379,6 +382,9 @@ Schedule chooser
 /**************************
 11.0   Settings
 *******************/
+#settingsRow {
+	order: 3;
+}
 .settingsElement:not(:first-child){
 	padding-top: 10px
 }
