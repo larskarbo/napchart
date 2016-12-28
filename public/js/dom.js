@@ -49,8 +49,14 @@ window.dom=(function(){
 			$(SAVE_BTN).on('click',function(){
 				var data = napchartCore.getSchedule();
 
-				server.saveNew(data)
-			})
+				server.saveNew(data);
+			});
+      $('#saveToPDF').on('click', function(e) {
+        e.preventDefault();
+        var data = napchartCore.getSchedule();
+
+        print.toPDF(data);
+      });
 		},
 
 		showNavExtension:function(){

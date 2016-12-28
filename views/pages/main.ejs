@@ -39,9 +39,10 @@
                             <div id="logo"><a href="/">napchart</a></div>
                         </div>
 
-                        <% if (db) { %>
+                        <% if (!db) { %>
                             <div class="col s12 m9">
                                 <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
+                                <div class="btn waves-effect waves-light" id="saveToPDF"><i class="fa fa-link"></i> save to pdf</div>
                                 <div class="btn history disabled" id="back"><i class="fa fa-undo"></i></div>
                                 <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
                                 <input spellcheck="false" type="text" id="urlField" />
