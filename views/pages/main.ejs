@@ -39,15 +39,17 @@
                             <div id="logo"><a href="/">napchart</a></div>
                         </div>
 
-                        <% if (!db) { %>
+                        
                             <div class="col s12 m9">
+                            <% if (db) { %>
                                 <div class="btn waves-effect waves-light" id="saveButton"><i class="fa fa-link"></i> save</div>
-                                <div class="btn waves-effect waves-light" id="saveToPDF"><i class="fa fa-link"></i> save to pdf</div>
+
+                            <% } %>
                                 <div class="btn history disabled" id="back"><i class="fa fa-undo"></i></div>
                                 <div class="btn history disabled" id="forward"><i class="fa fa-repeat"></i></div>
                                 <input spellcheck="false" type="text" id="urlField" />
+
                             </div>
-                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -96,6 +98,7 @@
 
                     <div class="col s12 m4 l4" id="settingsRow">
 
+                        <div class="btn grey darken-2 waves-effect waves-light" id="saveToPDF"><i class="fa fa-download"></i> save as pdf</div>
 
                         <div class="card stat-block" id="settings">
                             <div class="card-headline">Settings</div>
