@@ -30,10 +30,24 @@ window.statistics=(function(){
 
 	//public:
 	return{
+      getStats: function(data) {
+			    var sleep, free;
+
+			    sleep = totalTime( helpers.merge(data,['core','nap']) );
+			    sleep = helpers.minutesToReadable( sleep );
+
+			    free = totalTime( helpers.merge(data,['nap','core','busy']) ,true);
+			    free = helpers.minutesToReadable( free );
+
+          return {sleep: sleep,
+                  free: free };
+      },
+
 		initialize:function(cont){
 			container = cont;
 
 		},
+
 		update:function(data){
 			var sleep, free;
 
