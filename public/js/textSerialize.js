@@ -64,6 +64,36 @@ window.textSerialize=(function(){
 
 	//public:
 	return{
+    dataToTextArray: function(data) {
+		    var data = helpers.clone(data);
+		    var output = [];
+
+		    for(var name in data){
+
+			      //sort array by start value:
+
+			      data[name] = data[name].sort(function(a, b){
+			          return a.start-b.start;
+			      });
+
+			      //name to uppercase
+			      var nameCap = name[0].toUpperCase() + name.slice(1);
+			      var start, end;
+
+			      //iterate and add
+			      for(var i = 0; i < data[name].length; i++){
+				        start = helpers.minutesToClock(data[name][i].start);
+				        end = helpers.minutesToClock(data[name][i].end);
+
+
+				        output.push(nameCap + ' ' + (i+1) + ': ' + start + ' - ' + end);
+
+			      }
+
+		    }
+		    return output;
+    },
+
 		update:function(data){
 			if(typeof data == 'undefined'){
 				var data = prevData;
