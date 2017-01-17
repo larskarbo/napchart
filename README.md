@@ -157,3 +157,9 @@ This module handles some of the dom handling. Some modules use the functions her
 #### feedback.js
 
 Handles the functionality of the feedback form. Handles DOM by itself
+
+## Example Output
+
+Everyman
+
+![Everyman](public/img/example.png)
