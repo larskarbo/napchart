@@ -9,7 +9,7 @@ window.sampleSchedule = (function () {
 	var CONTAINER;
 
 	function whichSchedule(data){
-		var naps = 0, cores = 0; 
+		var naps = 0, cores = 0;
 
 		if(typeof data.nap != 'undefined')
 			naps = data.nap.length;
@@ -32,6 +32,8 @@ window.sampleSchedule = (function () {
 			return "everyman";
 		else if(cores===0&&naps===6)
 			return "uberman";
+		else if (cores === 0 && naps === 4)
+			return "dymaxion";
 		else
 			return "none";
 	}
@@ -93,7 +95,15 @@ window.sampleSchedule = (function () {
 			dualcore1: {core:[{start:1320,end:90},{start:390,end:480}],nap:[{start:960,end:980}]},
 			triphasic: {core:[],nap:[{start:390,end:480},{start:870,end:960},{start:1350,end:1440}]},
 			everyman: {core:[{start:1260,end:30}],nap:[{start:250,end:270},{start:880,end:900},{start:490,end:510}]},
-			uberman: {nap:[{start:960,end:980},{start:480,end:500},{start:720,end:740},{start:1200,end:1220},{start:0,end:20},{start:240,end:260}]}
+			uberman: {nap:[{start:960,end:980},{start:480,end:500},{start:720,end:740},{start:1200,end:1220},{start:0,end:20},{start:240,end:260}]},
+			dymaxion: { // No core sleep, four 30-minute naps:
+				nap: [
+					{start:    0, end:   30},
+					{start:  360, end:  390},
+					{start:  720, end:  750},
+					{start: 1080, end: 1110},
+				]
+			},
 		}
 
 
