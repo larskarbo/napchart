@@ -5,6 +5,8 @@ import Header from './Header.jsx'
 import Chart from './Chart.jsx'
 import Elements from './Elements.jsx'
 
+import styles from '../styles/index.scss'
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
