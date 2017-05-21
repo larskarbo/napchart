@@ -15,7 +15,8 @@ export default class App extends React.Component {
         elements: [
 	      {start: 100, end: 480, typeString: 'busy'},
 	      {start: 1000, end: 1020, typeString: 'sleep'}
-	    ]
+	    ],
+	    selected: []
       }
     }
   }
@@ -29,7 +30,7 @@ export default class App extends React.Component {
        			<Chart data={this.state.data} onSetData={this.updateData} />
         	</div>
      		<div className="col-1-2">
-		        <Elements elements={this.state.data.elements}
+		        <Elements elements={this.state.data.selected}
 		        onDeleteElement={this.deleteElement}
 		        onEditElement={this.editElement} />
 		    </div>
@@ -54,7 +55,7 @@ export default class App extends React.Component {
 
   deleteElement = (id, e) => {
     e.stopPropagation()
-
+    console.log('fsdifsji')
     this.setState({
       data:{
         elements: this.state.data.elements.filter((element, index) =>

@@ -1,5 +1,6 @@
 
 import React from 'react'
+import Button from './Button.jsx'
 
 export default class Element extends React.Component {
   constructor(props){
@@ -10,12 +11,12 @@ export default class Element extends React.Component {
     const {element, onDeleteElement} = this.props
 
     return(
-      <div>
-        <input type="text" onChange={this.startChange} onKeyPress={this.checkEnter} value={element.start} />
-        -
-        <input type="text" onChange={this.endChange} onKeyPress={this.checkEnter} value={element.end} />
-        <button onClick={onDeleteElement}> remove </button>
+      <div className="Element">
+        <Button text="color" />
+        <Button text="up" />
+        <Button text="down" />
         <input type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
+        <Button text="x" onClick={onDeleteElement} />
       </div>
     )
   }
