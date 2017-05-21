@@ -6,7 +6,7 @@ import Element from './Element.jsx'
 export default ({elements, onDeleteElement=() => {}, onEditElement, ...props}) => {
 
 	return (
-     <div>
+     <div style={{paddingTop: '100px'}}>
      	{elements.map((element, index) => 
 	  		(
 	  			<div key={index}>

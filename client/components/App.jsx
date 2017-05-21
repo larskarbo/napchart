@@ -22,12 +22,18 @@ export default class App extends React.Component {
 
   render() {
     return (
-     <div style={{textAlign: 'center'}}>
+     <div style={{textAlign: 'center'}} className="grid">
      	<Header />
-        <Chart data={this.state.data} onSetData={this.updateData} />
-        <Elements elements={this.state.data.elements}
-        onDeleteElement={this.deleteElement}
-        onEditElement={this.editElement} />
+     	<div className="grid">
+     		<div className="col-1-2">
+       			<Chart data={this.state.data} onSetData={this.updateData} />
+        	</div>
+     		<div className="col-1-2">
+		        <Elements elements={this.state.data.elements}
+		        onDeleteElement={this.deleteElement}
+		        onEditElement={this.editElement} />
+		    </div>
+        </div>
      </div>);
   }
 
