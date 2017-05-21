@@ -1,0 +1,15 @@
+node_modules
+
+.babelrc
+
+dist
+
+npm-debug.log
+
+yarn.lock
+
+.sublime-project
+
+log
+
+tmp
