@@ -27,35 +27,15 @@ export default class Chart extends React.Component {
 
   initializeChart() {
     var ctx = this.refs[this.state.id].getContext('2d')
-    
+
     var napchart = Napchart.init(ctx, {shape:'circle'})
-    napchart.addListener(chart => this.setData(chart))
+    napchart.addListener(chart => this.setData(chart.data))
     napchart.setElements(this.props.data.elements)
 
     this.state.napchart = napchart
   }
 
-  
-
-  deleteElement = (id, e) => {
-    e.stopPropagation()
-
-    this.setState({
-      data:{
-        elements: this.state.data.elements.filter((element, index) =>
-          id !== index)
-      }
-    })
-  }
-
   setData = (data) => {
-
+    this.props.onSetData(data)
   }
-
-  addElement = (e) => {
-    e.stopPropagation()
-
-    this.state.napchart.addElement()
-  }
-
 }

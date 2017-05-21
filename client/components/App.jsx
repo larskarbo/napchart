@@ -10,7 +10,10 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       data: {
-        elements: []
+        elements: [
+	      {start: 100, end: 480, typeString: 'busy'},
+	      {start: 1000, end: 1020, typeString: 'sleep'}
+	    ]
       }
     }
   }
@@ -19,8 +22,8 @@ export default class App extends React.Component {
     return (
      <div style={{textAlign: 'center'}}>
      	<Header />
-        <Chart data= />
-        <Elements data={this.state.data} elements={this.state.data.elements}
+        <Chart data={this.state.data} onSetData={this.updateData} />
+        <Elements elements={this.state.data.elements}
         onDeleteElement={this.deleteElement}
         onEditElement={this.editElement} />
      </div>);
@@ -58,7 +61,9 @@ export default class App extends React.Component {
     this.state.napchart.addElement()
   }
 
-  setData = (data) => {
-
+  updateData = (data) => {
+  	this.setState({
+  		data: data
+  	})
   }
 }
