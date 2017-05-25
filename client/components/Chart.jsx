@@ -17,6 +17,11 @@ export default class Chart extends React.Component {
     this.initializeChart()
   }
 
+  componentWillUpdate(nextProps, nextState){
+    this.state.napchart.updateTypes(nextProps.data.types)
+    this.state.napchart.update(nextProps.data)
+  }
+
   render() {
     return (
       <div>
@@ -29,9 +34,8 @@ export default class Chart extends React.Component {
   initializeChart() {
     var ctx = this.refs[this.state.id].getContext('2d')
 
-    var napchart = Napchart.init(ctx, {shape:'circle'})
+    var napchart = Napchart.init(ctx, this.props.data, {shape:'circle'})
     napchart.addListener(chart => this.setData(chart.data))
-    napchart.setElements(this.props.data.elements)
 
     this.state.napchart = napchart
   }
