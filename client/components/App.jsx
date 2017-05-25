@@ -53,7 +53,7 @@ export default class App extends React.Component {
        			<Chart data={this.state.data} onSetData={this.updateData} />
         	</div>
      		<div className="col-1-2">
-		        <Elements elements={this.state.data.elements}
+		        <Elements elements={this.state.data.selected}
 		        onDeleteElement={this.deleteElement}
 		        onDuplicateElement={this.duplicateElement}
 		        onEditElement={this.editElement}
