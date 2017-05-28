@@ -15,16 +15,19 @@ export default class Types extends React.Component {
     }
   }
 
+  componentWillUpdate(nextProps){
+  }
+
   render() {
-    var nameSign;
 
     return(
       <div>
         <Button text="Add type" onClick={this.addingNew} />
 
-      	{this.state.types.map(type => (
+      	{this.props.types.map(type => (
       		<Type key={type.name} type={type} elements={this.props.elements}
-          onTextChange={this.textChange.bind(null, type)} />
+          onTextChange={this.textChange.bind(null, type)}
+          onDeleteType={this.onDeleteType} />
       	))}
       		<div className="Element">
       			Unallocated time

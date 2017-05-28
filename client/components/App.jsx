@@ -16,77 +16,56 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       elements: [
-	      {id:0, start: 100, end: 480, typeName: 'Workout', text:'First nap'},
-	      {id:1, start: 1000, end: 1020, typeName: 'Sleep', text:'Activity'}
-	    ],
-	    selected: [],
+      ],
+      selected: [],
       types: [
-        {
-          name: 'Sleep',
-          style: 'red',
-          lane: 3
-        },
-        {
-          name: 'Workout',
-          style: 'blue',
-          lane: 1,
-        },
-        {
-          name: 'School',
-          style: 'green',
-          lane: 3,
-        },
       ]
     }
     this.connectTypes(this.state)
-    console.log(JSON.parse(JSON.stringify(this.state)))
   }
 
   componentDidMount() {
     this.checkURLAndGetChart()
 
-    // console.log(JSON.parse(JSON.stringify(nextProps)))
   }
 
   componentWillUpdate(nextProps, nextState){
-    // console.log(JSON.parse(JSON.stringify(nextState)))
+    console.log(JSON.parse(JSON.stringify(nextState)))
     
   }
 
   render() {
     return (
      <div style={{textAlign: 'center'}} className="grid">
-     	<Header
-      chartid={this.state.chartid}
-      onSave={this.saveChart} />
-     	<div className="grid">
-     		<div className="col-1-2">
-       			<Chart data={this.state} onSetData={this.updateData} />
-        	</div>
-     		<div className="col-1-2">
-		        <Elements elements={this.state.selected}
-		        onDeleteElement={this.deleteElement}
-		        onDuplicateElement={this.duplicateElement}
-		        onEditElement={this.editElement}
-		        onMoveLaneUp={this.moveLaneUp}
-		        onMoveLaneDown={this.moveLaneDown}
-            types={this.state.types}
-            />
-            <Types types={this.state.types}
-            onAddType={this.addType}
-            elements={this.state.elements} />
-		    </div>
-        </div>
+     <Header
+     chartid={this.state.chartid}
+     onSave={this.saveChart} />
+     <div className="grid">
+     <div className="col-1-2">
+     <Chart data={this.state} onSetData={this.updateData} />
+     </div>
+     <div className="col-1-2">
+     <Elements elements={this.state.selected}
+     onDeleteElement={this.deleteElement}
+     onDuplicateElement={this.duplicateElement}
+     onEditElement={this.editElement}
+     onMoveLaneUp={this.moveLaneUp}
+     onMoveLaneDown={this.moveLaneDown}
+     types={this.state.types}
+     />
+     <Types types={this.state.types}
+     onAddType={this.addType}
+     onDeleteType={this.deleteType}
+     elements={this.state.elements} />
+     </div>
+     </div>
      </div>);
   }
 
-  addType = (element) => {
-    // var value = e.target.value * 1
-    this.setState({
-      types: {
-        $push: element
-      }
-    })
+  defaultType = {
+    name: 'default',
+    style: 'grey',
+    lane: 2
   }
 
   editElement = (element) => {
@@ -100,6 +79,8 @@ export default class App extends React.Component {
         return el
       })
     })
+
+    this.connectTypes(this.state)
   }
 
   deleteElement = (element, e) => {
@@ -158,17 +139,17 @@ export default class App extends React.Component {
     })
 
     axios.post('/api/create', {
-        lol: 'lars',
-        data: JSON.stringify(data)
-      })
-      .then(function (response) {
-        console.log(response)
-        var chartid = response.data.id
-        window.history.pushState(response.data, "", '/c/'+chartid)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      lol: 'lars',
+      data: JSON.stringify(data)
+    })
+    .then(function (response) {
+      console.log(response)
+      var chartid = response.data.id
+      window.history.pushState(response.data, "", '/c/'+chartid)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   checkURLAndGetChart = () => {
@@ -181,30 +162,58 @@ export default class App extends React.Component {
     var splitted = url.split('/')
     var chartid = splitted[splitted.length - 1]
 
-    console.log(chartid)
-    
     axios.get(`/api/get?chartid=${chartid}`, )
-      .then(response => {
-        console.log(JSON.parse(JSON.stringify(response.data)))
-        this.connectTypes(response.data.data)
-        this.setState(response.data.data)
+    .then(response => {
+      this.connectTypes(response.data.data)
+      this.setState(response.data.data)
 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   connectTypes = (state) => {
     // connect all elements to their type
-    console.log(JSON.parse(JSON.stringify(state)))
     state.elements.forEach(element => {
       element.type = state.types.find(type => type.name == element.typeName)
 
       if(typeof element.type == 'undefined'){
-        throw new Error(`Type ${element.typeName} does not exist`)
+        if(element.typeName == 'default'){
+          element.type = this.defaultType
+        }else{
+          throw new Error(`Type ${element.typeName} does not exist`)
+        }
       }
     })
 
   }
+
+  deleteType = (type) => {
+    // move away all elements from type
+    this.setState({
+      elements: this.state.elements.map(element => {
+        if(type.name == element.typeName){
+          element.typeName = 'default'
+        }
+        return element
+      })
+    })
+
+    this.connectTypes(this.state)
+
+  // delete type
+  this.setState({
+    types: this.state.types.filter(tp => tp.name != type.name)
+  })
+}
+
+addType = (type) => {
+  this.setState(update({
+    types: {
+      $push: type
+    }
+  }))
+}
+
 }

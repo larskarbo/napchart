@@ -31,6 +31,7 @@ export default class Type extends React.Component {
 
         <Button text="+" onClick={this.props.onMoveLaneUp} />
         <Button text="color" onClick={this.props.onMoveLaneUp} />
+        <Button text="x" onClick={this.props.deleteType} />
         {this.calculateDuration(type)}
 
       </div>
