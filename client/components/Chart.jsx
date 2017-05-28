@@ -18,7 +18,7 @@ export default class Chart extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    this.state.napchart.updateTypes(nextProps.data.types)
+    
     this.state.napchart.update(nextProps.data)
   }
 
