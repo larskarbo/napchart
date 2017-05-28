@@ -3,28 +3,29 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var chartSchema = new Schema({
+var chart = new Schema({
   id:  String,
   data: {
     elements: [
-      {id: Number, start: Number, end: Number, typeName: String, text: String},
+      {id: Number, start: Number, end: Number, typeName: String, text: String, _id: false},
     ],
     types: [
       {
         name: String,
         style: String,
-        lane: Number
+        lane: Number,
+        _id: false
       },
     ]
   }
 });
 
-chartSchema.pre('save', function(next) {
+chart.pre('save', function(next) {
   this.id = idgen()
   next();
 });
 
-module.exports = mongoose.model('Chart', chartSchema)
+module.exports = mongoose.model('Chart', chart)
 
 function idgen(){
 	alphabet = "abcdefghijklmnopqrstuwxyz0123456789";

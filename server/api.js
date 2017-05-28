@@ -15,11 +15,11 @@ module.exports = {
 	},
 
 	get: function(req, res) {
-		var chartid = req.param('chartid')
+		var chartid = req.query.chartid
 
 		database.getChart(chartid, function(err, response) {
 			if(err) throw new Error(err)
-				console.log(req.params)
+				
 			res.send(response)
 		})
 	}
