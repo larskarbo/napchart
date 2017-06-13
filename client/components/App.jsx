@@ -1,12 +1,11 @@
 
 import update from 'react-addons-update';
-import axios from 'axios'
-
+import fetch from 'whatwg-fetch'
 
 import React from 'react'
 import Header from './Header.jsx'
-import Chart from './Chart.jsx'
-import Elements from './Elements.jsx'
+import ChartContainer from '../containers/ChartContainer.jsx'
+import ElementsContainer from '../containers/ElementsContainer.jsx'
 import Types from './Types.jsx'
 
 import styles from '../styles/index.scss'
@@ -21,7 +20,21 @@ export default class App extends React.Component {
       types: [
       ]
     }
-    this.connectTypes(this.state)
+    props.store.dispatch({
+      type:'SET_ELEMENTS',
+      elements:[{
+        id: 0,
+        start: 50,
+        end: 150,
+        text: 'Very cool app',
+        typeName: 'default',
+        type:{
+          name:'default',
+          style:'blue',
+          lane:1
+        }
+      }]
+    })
   }
 
   componentDidMount() {
@@ -30,37 +43,35 @@ export default class App extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    console.log(JSON.parse(JSON.stringify(nextState)))
-    
+    // console.log(JSON.parse(JSON.stringify(nextState)))
   }
 
   render() {
     return (
      <div style={{textAlign: 'center'}} className="grid">
+     
      <Header
      chartid={this.state.chartid}
      onSave={this.saveChart} />
+
      <div className="grid">
      <div className="col-1-2">
-     <Chart data={this.state} onSetData={this.updateData} />
+      <ChartContainer />
      </div>
+
      <div className="col-1-2">
-     <Elements elements={this.state.selected}
-     onDeleteElement={this.deleteElement}
-     onDuplicateElement={this.duplicateElement}
-     onEditElement={this.editElement}
-     onMoveLaneUp={this.moveLaneUp}
-     onMoveLaneDown={this.moveLaneDown}
-     types={this.state.types}
-     />
-     <Types types={this.state.types}
+     <ElementsContainer />
+     {/*<Types types={this.state.types}
      onAddType={this.addType}
      onDeleteType={this.deleteType}
-     elements={this.state.elements} />
+     onSetTypes={this.setTypes}
+     elements={this.state.elements}
+     onEditType={this.editType} />*/}
      </div>
      </div>
      </div>);
   }
+
 
   defaultType = {
     name: 'default',
@@ -138,18 +149,18 @@ export default class App extends React.Component {
       delete element.type
     })
 
-    axios.post('/api/create', {
-      lol: 'lars',
-      data: JSON.stringify(data)
-    })
-    .then(function (response) {
-      console.log(response)
-      var chartid = response.data.id
-      window.history.pushState(response.data, "", '/c/'+chartid)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // axios.post('/api/create', {
+    //   lol: 'lars',
+    //   data: JSON.stringify(data)
+    // })
+    // .then(function (response) {
+    //   console.log(response)
+    //   var chartid = response.data.id
+    //   window.history.pushState(response.data, "", '/c/'+chartid)
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   }
 
   checkURLAndGetChart = () => {
@@ -162,15 +173,15 @@ export default class App extends React.Component {
     var splitted = url.split('/')
     var chartid = splitted[splitted.length - 1]
 
-    axios.get(`/api/get?chartid=${chartid}`, )
-    .then(response => {
-      this.connectTypes(response.data.data)
-      this.setState(response.data.data)
+    // axios.get(`/api/get?chartid=${chartid}`, )
+    // .then(response => {
+    //   this.connectTypes(response.data.data)
+    //   this.setState(response.data.data)
 
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   }
 
   connectTypes = (state) => {
@@ -190,6 +201,7 @@ export default class App extends React.Component {
   }
 
   deleteType = (type) => {
+    console.log(type)
     // move away all elements from type
     this.setState({
       elements: this.state.elements.map(element => {
@@ -202,18 +214,31 @@ export default class App extends React.Component {
 
     this.connectTypes(this.state)
 
-  // delete type
-  this.setState({
-    types: this.state.types.filter(tp => tp.name != type.name)
-  })
-}
+    // delete type
+    this.setState({
+      types: this.state.types.filter(tp => tp.name != type.name)
+    })
+  }
 
-addType = (type) => {
-  this.setState(update({
-    types: {
-      $push: type
-    }
-  }))
-}
+  addType = (type) => {
+    this.setState(update({
+      types: {
+        $push: type
+      }
+    }))
+  }
+
+  setTypes = (types) => {
+    this.setState({
+      types: types
+    })
+  }
+
+  editType = (type) => {
+
+    this.setState({
+      types: types
+    })
+  }
 
 }

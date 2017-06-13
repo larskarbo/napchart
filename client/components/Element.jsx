@@ -44,8 +44,7 @@ export default class Element extends React.Component {
   }
 
   finishEdit = () => {
-    console.log(this.props.element)
-    this.props.onEditElement(this.props.element)
+    this.props.onElementUpdate(this.props.element)
   }
 
   limitValue = (value) => {

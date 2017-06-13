@@ -1,9 +1,10 @@
-// data lives here
+// data lives here (no it doesn't)
 
 import React from 'react'
 import Elements from './Elements.jsx'
 import uuid from 'uuid'
 import napchart from 'napchart'
+
 
 export default class Chart extends React.Component {
   constructor(props) {
@@ -18,8 +19,8 @@ export default class Chart extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    
-    this.state.napchart.update(nextProps.data)
+    // console.log('will update')
+    this.state.napchart.update(this.props.data)
   }
 
   render() {
@@ -35,7 +36,10 @@ export default class Chart extends React.Component {
     var ctx = this.refs[this.state.id].getContext('2d')
 
     var napchart = Napchart.init(ctx, this.props.data, {shape:'circle'})
-    napchart.addListener(chart => this.setData(chart.data))
+    // napchart.addListener(chart => this.setData(chart.data))
+    napchart.onElementUpdate(this.props.onElementUpdate)
+
+    napchart.onSetSelected(this.props.onSetSelected)
 
     this.state.napchart = napchart
   }

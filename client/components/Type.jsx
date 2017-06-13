@@ -14,7 +14,7 @@ export default class Type extends React.Component {
       return (
         <div className="Element">
 
-          <input type="text" onKeyPress={this.checkEnter} />
+          <input type="text" key='jfiji' value={type.name} onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
           
           <Button text="+" onClick={this.props.onMoveLaneUp} />
           <Button text="color" onClick={this.props.onMoveLaneUp} />
@@ -27,16 +27,18 @@ export default class Type extends React.Component {
       <div className="Element">
 
         {type.name}
-        <Button text="edit" onClick={this.props.onMoveLaneUp} />
+        <Button text="edit" onClick={this.props.onSetEditing} />
 
         <Button text="+" onClick={this.props.onMoveLaneUp} />
         <Button text="color" onClick={this.props.onMoveLaneUp} />
-        <Button text="x" onClick={this.props.deleteType} />
+        <Button text="x" onClick={this.props.onDeleteType} />
         {this.calculateDuration(type)}
 
       </div>
     )
   }
+
+  
 
   calculateDuration = (type) => {
     var minutes = 0
@@ -50,8 +52,11 @@ export default class Type extends React.Component {
 
   checkEnter = (e) => {
     if(e.key === 'Enter') {
-      console.log('enter')
-      this.props.onTextChange(e)
+      this.props.onFinishedEditing(e)
     }
+  }
+
+  changeText = (e) => {
+    this.props.onTextChange(e)
   }
 }
