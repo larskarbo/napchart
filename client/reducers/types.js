@@ -1,17 +1,25 @@
+import { omit } from 'lodash'
+
 const types = (state = [], action) => {
-  return {
-  	0: {
-  		id:0,
-  		name:'Work',
-  		style:'blue',
-  		lane:1
-  	},
-  	1: {
-  		id:0,
-  		name:'Sleep',
-  		style:'green',
-  		lane:2
-  	}
+  switch (action.type) {
+    case 'CREATE_TYPE':
+      return {
+        ...state,
+        [action.typeElement.id]: action.typeElement
+      }
+    case 'EDIT_TYPE':
+    console.log([action.typeElement.id])
+      return {
+      	...state,
+      	[action.typeElement.id]: action.typeElement
+      }
+    case 'DELETE_TYPE':
+    console.log(state, action.id)
+      return omit(state, action.id)
+    case 'SET_TYPES':
+      return action.typeElements
+    default:
+      return state
   }
 }
 

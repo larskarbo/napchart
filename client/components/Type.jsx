@@ -14,7 +14,7 @@ export default class Type extends React.Component {
       return (
         <div className="Element">
 
-          <input type="text" key='jfiji' value={type.name} onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
+          <input autoFocus type="text" key='jfiji' value={type.name} onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
           
           <Button text="+" onClick={this.props.onMoveLaneUp} />
           <Button text="color" onClick={this.props.onMoveLaneUp} />
@@ -26,10 +26,10 @@ export default class Type extends React.Component {
     return (
       <div className="Element">
 
-        {type.name}
+        <span onClick={this.props.onSetEditing}>{type.name}</span>
         <Button text="edit" onClick={this.props.onSetEditing} />
 
-        <Button text="+" onClick={this.props.onMoveLaneUp} />
+        <Button text="+" onClick={this.props.onCreateElement} />
         <Button text="color" onClick={this.props.onMoveLaneUp} />
         <Button text="x" onClick={this.props.onDeleteType} />
         {this.calculateDuration(type)}

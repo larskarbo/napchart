@@ -8,7 +8,7 @@ export const createElement = (elements) => {
 			highestId = element.id
 		}
 	})
-  console.log(elements)
+
   return {
     type: 'CREATE_ELEMENT',
     element: {
@@ -40,5 +40,37 @@ export const setElements = (element) => {
   return {
     type: 'SET_ELEMENTS',
     elements: elements
+  }
+}
+
+export const editType = (typeElement) => {
+  return {
+    type: 'EDIT_TYPE',
+    typeElement
+  }
+}
+
+export const deleteType = (id) => {
+  return {
+    type: 'DELETE_TYPE',
+    id
+  }
+}
+
+export const createType = (element) => {
+  // find an id that is not in use
+  var highestId = 0
+  Object.keyst(elements).forEach(id => {
+    if(id > highestId){
+      highestId = id
+    }
+  })
+
+  return {
+    type: 'CREATE_TYPE',
+    typeElement: {
+      ...typeElement,
+      id: highestId + 1
+    }
   }
 }

@@ -27,18 +27,14 @@ export default class Types extends React.Component {
       <div>
         <Button text="Add type" onClick={this.addingNew} />
 
-      	{this.state.types.map(type => (
-      		<Type key={type.name} type={type} elements={this.props.elements}
-          onTextChange={this.textChange.bind(null, type)}
+      	{Object.keys(this.state.types).map(type => (
+      		<Type key={type} type={this.state.types[type]} elements={this.props.elements}
+          onTextChange={this.textChange.bind(null, this.state.types[type])}
           onDeleteType={this.props.onDeleteType.bind(null, type)}
-          onSetEditing={this.setEditing.bind(null, type)}
-          onFinishedEditing={this.finishedEditing.bind(null, type)} />
+          onCreateElement={this.props.onCreateElement.bind(null, this.props.elements, type)}
+          onSetEditing={this.setEditing.bind(null, this.state.types[type])}
+          onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])} />
       	))}
-      		<div className="Element">
-      			Unallocated time
-        		14h 3m
-
-      		</div>
       </div>
     )
   }
@@ -55,9 +51,7 @@ export default class Types extends React.Component {
 
   finishedEditing = (type, e) => {
     type.editing = false
-    console.log(type.nameBeforeEditing)
-    this.props.onSetTypes(this.state.types)
-    // this.props.onEditType(type)
+    this.props.onTypeUpdate(type)
   }
 
   setEditing = (type) => {

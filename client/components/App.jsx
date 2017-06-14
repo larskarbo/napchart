@@ -6,6 +6,7 @@ import React from 'react'
 import Header from './Header.jsx'
 import ChartContainer from '../containers/ChartContainer.jsx'
 import ElementsContainer from '../containers/ElementsContainer.jsx'
+import TypesContainer from '../containers/TypesContainer.jsx'
 import Types from './Types.jsx'
 
 import styles from '../styles/index.scss'
@@ -29,6 +30,23 @@ export default class App extends React.Component {
         text: 'Very cool app',
         type: 0
       }]
+    })
+    props.store.dispatch({
+      type:'SET_TYPES',
+      typeElements:{
+        0: {
+          id:0,
+          name:'Sleep',
+          style:'blue',
+          lane:1
+        },
+        1: {
+          id:1,
+          name:'Work',
+          style:'green',
+          lane:0
+        }
+      }
     })
   }
 
@@ -55,13 +73,8 @@ export default class App extends React.Component {
      </div>
 
      <div className="col-1-2">
-     <ElementsContainer />
-     {/*<Types types={this.state.types}
-     onAddType={this.addType}
-     onDeleteType={this.deleteType}
-     onSetTypes={this.setTypes}
-     elements={this.state.elements}
-     onEditType={this.editType} />*/}
+       <ElementsContainer />
+       <TypesContainer />
      </div>
      </div>
      </div>);

@@ -9,7 +9,7 @@ const elements = (state = [], action) => {
     case 'EDIT_ELEMENT':
       return state.map(elem => {
         if(elem.id == action.id){
-          action.element
+          return action.element
         }
         return elem
       })

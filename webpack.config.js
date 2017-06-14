@@ -18,8 +18,10 @@ module.exports = {
   module:{
     rules: [
       {
-        test: /\.jsx$/,
-        exclude: [/node_modules/],
+        test: /\.jsx?$/,
+        include: [
+          path.resolve(__dirname, "client")
+        ],
         use: [{
           loader: 'babel-loader',
           options: {
