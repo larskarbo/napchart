@@ -27,12 +27,7 @@ export default class App extends React.Component {
         start: 50,
         end: 150,
         text: 'Very cool app',
-        typeName: 'default',
-        type:{
-          name:'default',
-          style:'blue',
-          lane:1
-        }
+        type: 0
       }]
     })
   }
@@ -72,70 +67,10 @@ export default class App extends React.Component {
      </div>);
   }
 
-
-  defaultType = {
-    name: 'default',
-    style: 'grey',
-    lane: 2
-  }
-
-  editElement = (element) => {
-    // var value = e.target.value * 1
-    console.log(JSON.parse(JSON.stringify(element)))
-    this.setState({
-      elements: this.state.elements.map(el => {
-        if(el.id == element.id){
-          return element
-        }
-        return el
-      })
-    })
-
-    this.connectTypes(this.state)
-  }
-
-  deleteElement = (element, e) => {
-    console.log('fsdifsji')
-    e.stopPropagation()
-    this.setState({
-      elements: this.state.elements.filter(el => element.id !== el.id),
-      selected: this.state.elements.filter(el => element.id !== el.id)
-    })
-  }
-
-  addElement = (e) => {
-    e.stopPropagation()
-
-    this.state.napchart.addElement()
-  }
-
-  duplicateElement = (element, e) => {
-    console.log('duplicate')
-    e.stopPropagation()
-    var newElement = Object.assign({}, element)
-    newElement.id = 9
-    newElement.start = element.end + 60
-    newElement.end = newElement.start + 120
-    this.setState({
-      elements: this.state.elements.concat(newElement)
-    })
-  }
-
   updateData = (data) => {
   	this.setState(data)
   }
 
-  moveLaneUp = (data) => {
-  	this.setState({
-  		data: data
-  	})
-  }
-
-  moveLaneDown = (data) => {
-  	this.setState({
-  		data: data
-  	})
-  }
 
   saveChart = () => {
     console.log('saving')
@@ -184,61 +119,5 @@ export default class App extends React.Component {
     // });
   }
 
-  connectTypes = (state) => {
-    // connect all elements to their type
-    state.elements.forEach(element => {
-      element.type = state.types.find(type => type.name == element.typeName)
-
-      if(typeof element.type == 'undefined'){
-        if(element.typeName == 'default'){
-          element.type = this.defaultType
-        }else{
-          throw new Error(`Type ${element.typeName} does not exist`)
-        }
-      }
-    })
-
-  }
-
-  deleteType = (type) => {
-    console.log(type)
-    // move away all elements from type
-    this.setState({
-      elements: this.state.elements.map(element => {
-        if(type.name == element.typeName){
-          element.typeName = 'default'
-        }
-        return element
-      })
-    })
-
-    this.connectTypes(this.state)
-
-    // delete type
-    this.setState({
-      types: this.state.types.filter(tp => tp.name != type.name)
-    })
-  }
-
-  addType = (type) => {
-    this.setState(update({
-      types: {
-        $push: type
-      }
-    }))
-  }
-
-  setTypes = (types) => {
-    this.setState({
-      types: types
-    })
-  }
-
-  editType = (type) => {
-
-    this.setState({
-      types: types
-    })
-  }
 
 }

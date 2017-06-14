@@ -12,16 +12,12 @@ export default class Element extends React.Component {
 
     return(
       <div className="Element">
-        <Button text="up" onClick={this.props.onMoveLaneUp} />
-        <Button text="down" onClick={this.props.onMoveLaneDown} />
         <input type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
-        <select onChange={this.typeChange} value={element.typeName}>
-          {this.props.types.map(type => (
-            <option key={type.name} value={type.name}>{type.name}</option>
+        <select onChange={this.typeChange} value={element.type}>
+          {Object.keys(this.props.types).map(id => (
+            <option key={id} value={id}>{this.props.types[id].name}</option>
           ))}
-            <option value='default'></option>
         </select>
-        <Button text="duplicate" onClick={this.props.onDuplicateElement} />
         <Button text="x" onClick={this.props.onDeleteElement} />
       </div>
     )
@@ -33,7 +29,7 @@ export default class Element extends React.Component {
   }
 
   typeChange = (e) => {
-    this.props.element.typeName = e.target.value
+    this.props.element.type = e.target.value
     this.finishEdit()
   }
 

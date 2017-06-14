@@ -1,33 +1,15 @@
-const element = (state = {}, action) => {
-  switch (action.type) {
-    case 'ADD_ELEMENT':
-      return {
-        id: action.id,
-        start: 50,
-        end: 150,
-        text: 'Very cool app',
-        typeName: 'default'
-      }
-
-    case 'EDIT_ELEMENT':
-      return action.element
-    
-    default:
-      return state
-  }
-}
 
 const elements = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_ELEMENT':
+    case 'CREATE_ELEMENT':
       return [
         ...state,
-        element(undefined, action)
+        action.element
       ]
     case 'EDIT_ELEMENT':
       return state.map(elem => {
         if(elem.id == action.id){
-          return element(undefined, action)
+          action.element
         }
         return elem
       })

@@ -1,8 +1,24 @@
-let nextElementId = 0
-export const addElement = (text) => {
+
+
+export const createElement = (elements) => {
+	// find an id that is not in use
+	var highestId = 0
+	elements.forEach(element => {
+		if(element.id > highestId){
+			highestId = element.id
+		}
+	})
+  console.log(elements)
   return {
-    type: 'ADD_ELEMENT',
-    id: nextElementId++
+    type: 'CREATE_ELEMENT',
+    element: {
+    	id: highestId + 1,
+    	start: 40,
+    	end: 80,
+    	text: '',
+    	type: 0
+    }
+
   }
 }
 

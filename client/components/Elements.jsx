@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Element from './Element.jsx'
+import Button from './Button.jsx'
 
 export default class Elements extends React.Component {
 	constructor(props){
@@ -9,11 +10,11 @@ export default class Elements extends React.Component {
 	}
 
 	render() {
-    const {elements, types} = this.props
-    
+    const {elements, elementsToShow, types} = this.props
+
     return (
        <div style={{paddingTop: '100px'}}>
-        {elements.map((element) => 
+        {elementsToShow.map((element) => 
           (
             <div key={element.id}>
               <Element 
@@ -24,6 +25,7 @@ export default class Elements extends React.Component {
             </div>
           )
         )}
+        <Button text="New element" onClick={this.props.onCreateElement.bind(null, elements)} />
        </div>
       )
   }
