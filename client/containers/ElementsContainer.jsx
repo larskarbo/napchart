@@ -4,7 +4,6 @@ import Elements from '../components/Elements.jsx'
 import { editElement, deleteElement, createElement } from '../actions/actions.js'
 
 const mapStateToProps = (state) => {
-  console.log(state)
   var elementsToShow = state.elements.filter(element => state.selected.indexOf(element.id) > -1)
 	return {
     elements: state.elements,

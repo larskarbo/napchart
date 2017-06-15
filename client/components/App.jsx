@@ -35,13 +35,13 @@ export default class App extends React.Component {
       type:'SET_TYPES',
       typeElements:{
         0: {
-          id:0,
+          id:'0',
           name:'Sleep',
           style:'blue',
           lane:1
         },
         1: {
-          id:1,
+          id:'1',
           name:'Work',
           style:'green',
           lane:0

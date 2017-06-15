@@ -1,12 +1,12 @@
-const selectedElements = (state = [], action) => {
+import { List } from 'immutable'
+
+const selectedElements = (state = List(), action) => {
 
   switch (action.type) {
     case 'SET_SELECTED':
-      return [
-        ...action.selected
-      ]
+      return List(action.selected)
     case 'DESELECT':
-      return []
+      return List()
     default:
       return state
   }

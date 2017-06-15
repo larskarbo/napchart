@@ -5,6 +5,8 @@ import Elements from './Elements.jsx'
 import uuid from 'uuid'
 import napchart from 'napchart'
 
+import shallowEqual from 'react-pure-render/shallowEqual'
+
 
 export default class Chart extends React.Component {
   constructor(props) {
@@ -18,9 +20,14 @@ export default class Chart extends React.Component {
     this.initializeChart()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextState)
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+  }
+
   componentWillUpdate(nextProps, nextState){
-    // console.log('will update')
-    this.state.napchart.update(this.props.data)
+    console.log('will update')
+    this.state.napchart.update(this.dataToJS(this.props.data))
   }
 
   render() {
@@ -34,9 +41,8 @@ export default class Chart extends React.Component {
 
   initializeChart() {
     var ctx = this.refs[this.state.id].getContext('2d')
-
-    var napchart = Napchart.init(ctx, this.props.data, {shape:'circle'})
-    // napchart.addListener(chart => this.setData(chart.data))
+    console.log(this.props.data.elements.toJS())
+    var napchart = Napchart.init(ctx, this.dataToJS(this.props.data), {shape:'circle'})
     napchart.onElementUpdate(this.props.onElementUpdate)
 
     napchart.onSetSelected(this.props.onSetSelected)
@@ -44,7 +50,13 @@ export default class Chart extends React.Component {
     this.state.napchart = napchart
   }
 
-  setData = (data) => {
-    this.props.onSetData(data)
+  dataToJS = (data) => {
+    return {
+      elements: data.elements.toJS(),
+      selected: data.selected.toJS(),
+      types: data.types.toJS(),
+    }
   }
+
+
 }
