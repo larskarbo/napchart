@@ -10,11 +10,11 @@ export default class Type extends React.Component {
 
   render() {
     const {type} = this.props
-    if(type.get('editing')){
+    if(type.editing){
       return (
         <div className="Element">
 
-          <input autoFocus type="text" key='jfiji' value={type.get('name')} onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
+          <input autoFocus type="text" key='jfiji' value={type.name} onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
           
           <Button text="+" onClick={this.props.onMoveLaneUp} />
           <Button text="color" onClick={this.props.onMoveLaneUp} />
@@ -26,7 +26,7 @@ export default class Type extends React.Component {
     return (
       <div className="Element">
 
-        <span onClick={this.props.onSetEditing}>{type.get('name')}</span>
+        <span onClick={this.props.onSetEditing}>{type.name}</span>
         <Button text="edit" onClick={this.props.onSetEditing} />
 
         <Button text="+" onClick={this.props.onCreateElement} />

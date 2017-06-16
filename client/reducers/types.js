@@ -1,15 +1,23 @@
-import { List, Map, fromJS } from 'immutable'
+import { omit } from 'lodash'
 
-const types = (state = Map(), action) => {
+const types = (state = [], action) => {
   switch (action.type) {
     case 'CREATE_TYPE':
-      return state.set(action.typeElement.id, action.typeElement)
+      return {
+        ...state,
+        [action.typeElement.id]: action.typeElement
+      }
     case 'EDIT_TYPE':
-      return state.set(action.typeElement.get('id'), action.typeElement)
+    console.log([action.typeElement.id])
+      return {
+      	...state,
+      	[action.typeElement.id]: action.typeElement
+      }
     case 'DELETE_TYPE':
-      return state.delete(action.id)
+    console.log(state, action.id)
+      return omit(state, action.id)
     case 'SET_TYPES':
-      return fromJS(action.typeElements)
+      return action.typeElements
     default:
       return state
   }

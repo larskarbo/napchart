@@ -5,7 +5,6 @@ import Elements from './Elements.jsx'
 import uuid from 'uuid'
 import napchart from 'napchart'
 
-import shallowEqual from 'react-pure-render/shallowEqual'
 
 
 export default class Chart extends React.Component {
@@ -21,13 +20,12 @@ export default class Chart extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextState)
-    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+    return true
   }
 
   componentWillUpdate(nextProps, nextState){
     console.log('will update')
-    this.state.napchart.update(this.dataToJS(this.props.data))
+    this.state.napchart.update(this.props.data)
   }
 
   render() {
@@ -41,21 +39,12 @@ export default class Chart extends React.Component {
 
   initializeChart() {
     var ctx = this.refs[this.state.id].getContext('2d')
-    console.log(this.props.data.elements.toJS())
-    var napchart = Napchart.init(ctx, this.dataToJS(this.props.data), {shape:'circle'})
+    var napchart = Napchart.init(ctx, this.props.data, {shape:'circle'})
     napchart.onElementUpdate(this.props.onElementUpdate)
 
     napchart.onSetSelected(this.props.onSetSelected)
 
     this.state.napchart = napchart
-  }
-
-  dataToJS = (data) => {
-    return {
-      elements: data.elements.toJS(),
-      selected: data.selected.toJS(),
-      types: data.types.toJS(),
-    }
   }
 
 
