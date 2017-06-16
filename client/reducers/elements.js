@@ -15,6 +15,11 @@ const elements = (state = [], action) => {
       })
     case 'DELETE_ELEMENT':
       return state.filter(elem => action.id != elem.id)
+    case 'DELETE_ELEMENTS':
+    console.log(action.ids.indexOf(state[1].id))
+      return state.filter(elem => {
+        return action.ids.indexOf(elem.id) == -1
+      })
     case 'SET_ELEMENTS':
       return action.elements
     default:

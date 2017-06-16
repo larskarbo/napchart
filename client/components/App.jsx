@@ -29,6 +29,12 @@ export default class App extends React.Component {
         end: 150,
         text: 'Very cool app',
         type: 0
+      },{
+        id: 1,
+        start: 50,
+        end: 150,
+        text: 'Very cool app',
+        type: 1
       }]
     })
     props.store.dispatch({

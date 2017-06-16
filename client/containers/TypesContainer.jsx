@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Types from '../components/Types.jsx'
 
-import { editType, deleteType, createType, createElement } from '../actions/actions.js'
+import { editType, deleteType, createType, createElement, deleteElementsWithType, moveTypeLane } from '../actions/actions.js'
 
 const mapStateToProps = (state) => {
 	return {
@@ -15,14 +15,19 @@ const mapDispatchToProps = (dispatch) => {
     onTypeUpdate: (type) => {
       dispatch(editType(type))
     },
-    onDeleteType: (id) => {
+    onDeleteType: (id, elements) => {
+      dispatch(deleteElementsWithType(elements, id))
       dispatch(deleteType(id))
     },
-    onCreateType: (type) => {
-      dispatch(createType(type))
+    onCreateType: (type, types) => {
+      dispatch(createType(types, type.name))
     },
     onCreateElement: (elements, type) => {
+      console.log(type)
       dispatch(createElement(elements, type))
+    },
+    onMoveLane: (type, direction) => {
+      dispatch(moveTypeLane(type, direction))
     },
   }
 }

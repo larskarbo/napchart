@@ -24,8 +24,7 @@ export default class Chart extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState){
-    console.log('will update')
-    this.state.napchart.update(this.props.data)
+    this.state.napchart.update(nextProps.data)
   }
 
   render() {
