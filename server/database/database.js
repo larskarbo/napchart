@@ -11,9 +11,7 @@ var Chart = require('./models/Chart')
 
 module.exports = {
 	createChart: function(data, callback) {
-		var chart = new Chart({
-			data: data
-		})
+		var chart = new Chart(data)
 
 		chart.save(function (err, response) {
 			callback(err, response)

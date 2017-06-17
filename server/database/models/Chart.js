@@ -5,15 +5,16 @@ var Schema = mongoose.Schema;
 
 var chart = new Schema({
   id:  String,
-  data: {
+  chartData: {
     elements: [
-      {id: Number, start: Number, end: Number, typeName: String, text: String, _id: false},
+      {id: Number, start: Number, end: Number, typeId: Number, text: String, _id: false},
     ],
     types: [
       {
         name: String,
         style: String,
         lane: Number,
+        id: Number,
         _id: false
       },
     ]

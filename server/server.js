@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 
 var api = require('./api')
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname + '/../dist/')));
@@ -17,7 +17,6 @@ app.get('/', function(req, res){
 app.get('/c/:whatever', function(req, res){
   res.sendFile(path.resolve(__dirname + '/../dist/index.html'))
 })
-
 
 app.post('/api/create', api.create)
 app.get('/api/get', api.get)

@@ -3,7 +3,6 @@ var database = require('./database/database');
 
 module.exports = {
 	create: function(req, res) {
-
 		var data = JSON.parse(req.body.data)
 
 

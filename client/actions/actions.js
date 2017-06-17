@@ -1,3 +1,5 @@
+import axios from 'axios'
+import { toArray } from 'lodash'
 
 
 export const createElement = (elements, type) => {
@@ -28,7 +30,7 @@ export const createElement = (elements, type) => {
     	start: startPosition,
     	end: endPosition,
     	text: '',
-    	type: type
+    	typeId: type
     }
 
   }
@@ -125,6 +127,67 @@ export const createType = (types, newTypeName) => {
       ...defaultType,
       name: newTypeName,
       id: highestId + 1
+    }
+  }
+}
+
+export function saveChart(data) {
+
+  return (dispatch) => {
+    var chartData = {
+      ...data.chartData,
+      types: toArray(data.chartData.types)
+    }
+
+    return axios.post('/api/create', {
+      data: JSON.stringify({
+        chartData: chartData
+      })
+    })
+    .then(function (response) {
+      console.log(response)
+      var chartid = response.data.id
+      window.history.pushState(response.data, "", '/c/'+chartid)
+      dispatch({
+        type: 'CHART_SAVED'
+      })
+    })
+  }
+}
+
+export function fetchChart(chartid) {
+  return (dispatch) => 
+    axios.get(`/api/get?chartid=${chartid}`, )
+      .then(response => {
+        var data = {
+          ...response.data,
+          chartData: {
+            ...response.data.chartData,
+            types: response.data.chartData.types.reduce((result, type) => {
+              result[type.id] = type
+              return result
+            }, {})
+          }
+        }
+        dispatch({
+          type: 'SET_FROM_SERVER',
+          data
+        })
+      })
+}
+
+export function fetchChartIfNeeded() {
+  return (dispatch) => {
+    var url = window.location.href
+
+    if(url.search('/c/') == -1){
+      // nothing to fetch!
+      return Promise.resolve()
+    }else {
+      var splitted = url.split('/')
+      var chartid = splitted[splitted.length - 1]
+
+      return dispatch(fetchChart(chartid))
     }
   }
 }

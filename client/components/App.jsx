@@ -8,6 +8,7 @@ import ChartContainer from '../containers/ChartContainer.jsx'
 import ElementsContainer from '../containers/ElementsContainer.jsx'
 import TypesContainer from '../containers/TypesContainer.jsx'
 import MetaInfoContainer from '../containers/MetaInfoContainer.jsx'
+import HeaderContainer from '../containers/HeaderContainer.jsx'
 import Types from './Types.jsx'
 
 import styles from '../styles/index.scss'
@@ -29,13 +30,13 @@ export default class App extends React.Component {
         start: 50,
         end: 150,
         text: 'Very cool app',
-        type: 0
+        typeId: 0
       },{
         id: 1,
         start: 50,
         end: 150,
         text: 'Very cool app',
-        type: 1
+        typeId: 1
       }]
     })
     props.store.dispatch({
@@ -70,9 +71,7 @@ export default class App extends React.Component {
     return (
      <div style={{textAlign: 'center'}} className="grid">
      
-       <Header
-       chartid={this.state.chartid}
-       onSave={this.saveChart} />
+       <HeaderContainer />
 
        <div className="grid">
 

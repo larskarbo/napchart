@@ -7,6 +7,8 @@ const selectedElements = (state = [], action) => {
       ]
     case 'DESELECT':
       return []
+    case 'SET_FROM_SERVER':
+      return []
     default:
       return state
   }

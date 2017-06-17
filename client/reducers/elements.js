@@ -22,6 +22,8 @@ const elements = (state = [], action) => {
       })
     case 'SET_ELEMENTS':
       return action.elements
+    case 'SET_FROM_SERVER':
+      return action.data.chartData.elements
     default:
       return state
   }

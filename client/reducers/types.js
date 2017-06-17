@@ -18,6 +18,8 @@ const types = (state = [], action) => {
       return omit(state, action.id)
     case 'SET_TYPES':
       return action.typeElements
+    case 'SET_FROM_SERVER':
+      return action.data.chartData.types
     default:
       return state
   }
