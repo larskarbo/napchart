@@ -9,7 +9,7 @@ export default class Header extends React.Component {
 
   render() {
     return(
-      <div className="Element">
+      <div className="header">
       	Napchart
       	{this.props.chartid}
         <Button text="save" onClick={this.props.onSave} />

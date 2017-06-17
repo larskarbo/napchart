@@ -7,6 +7,7 @@ import Header from './Header.jsx'
 import ChartContainer from '../containers/ChartContainer.jsx'
 import ElementsContainer from '../containers/ElementsContainer.jsx'
 import TypesContainer from '../containers/TypesContainer.jsx'
+import MetaInfoContainer from '../containers/MetaInfoContainer.jsx'
 import Types from './Types.jsx'
 
 import styles from '../styles/index.scss'
@@ -69,20 +70,25 @@ export default class App extends React.Component {
     return (
      <div style={{textAlign: 'center'}} className="grid">
      
-     <Header
-     chartid={this.state.chartid}
-     onSave={this.saveChart} />
+       <Header
+       chartid={this.state.chartid}
+       onSave={this.saveChart} />
 
-     <div className="grid">
-     <div className="col-1-2">
-      <ChartContainer />
-     </div>
+       <div className="grid">
 
-     <div className="col-1-2">
-       <ElementsContainer />
-       <TypesContainer />
-     </div>
-     </div>
+         <div className="col-1-4 sidebar">
+          <MetaInfoContainer />
+         </div>
+
+         <div className="col-1-2">
+          <ChartContainer />
+         </div>
+
+         <div className="col-1-4">
+           <ElementsContainer />
+           <TypesContainer />
+         </div>
+       </div>
      </div>);
   }
 
