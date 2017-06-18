@@ -134,15 +134,23 @@ export const createType = (types, newTypeName) => {
 export function saveChart(data) {
 
   return (dispatch) => {
-    var chartData = {
-      ...data.chartData,
-      types: toArray(data.chartData.types)
+
+    var dataForDatabase = {
+      metaInfo: data.metaInfo,
+      chartData: {
+        ...data.chartData,
+        // anti-normalize types before server
+        types: toArray(data.chartData.types)
+      }
     }
 
+    dispatch({
+      type: 'SAVING_CHART',
+      data: dataForDatabase
+    })
+
     return axios.post('/api/create', {
-      data: JSON.stringify({
-        chartData: chartData
-      })
+      data: JSON.stringify(dataForDatabase)
     })
     .then(function (response) {
       console.log(response)

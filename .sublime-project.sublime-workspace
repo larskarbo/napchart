@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"ch",
+				"chartData"
+			],
+			[
+				"las",
+				"lastElementOfSameType"
+			],
+			[
+				"la",
+				"lastElementOfSameType"
+			],
+			[
+				"end",
+				"endPosition"
+			],
+			[
+				"start",
+				"startPosition"
+			],
+			[
+				"l",
+				"lastElementOfSameType"
+			],
+			[
+				"ele",
+				"elementsToDelete"
+			],
+			[
+				"new",
+				"newTypeBeingCreated"
+			],
+			[
+				"ne",
+				"newTypeBeingCreated"
+			],
+			[
+				"type",
+				"typeElement"
+			],
+			[
 				"ex",
 				"extends"
 			],
@@ -40,14 +80,6 @@
 				"renderElements"
 			],
 			[
-				"ele",
-				"elementsInSector"
-			],
-			[
-				"new",
-				"newValues"
-			],
-			[
 				"di",
 				"distanceToCenter"
 			],
@@ -66,10 +98,6 @@
 			[
 				"elemen",
 				"elementsInSector"
-			],
-			[
-				"start",
-				"startAngle"
 			],
 			[
 				"n",
@@ -107,133 +135,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "client/containers/ChartContainer.jsx",
-			"settings":
-			{
-				"buffer_size": 647,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "chartContainer.jsx"
-			}
-		},
-		{
-			"file": "client/containers/ElementsContainer.jsx",
-			"settings":
-			{
-				"buffer_size": 806,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "ElementsContainer.jsx"
-			}
-		},
-		{
-			"file": "client/components/Elements.jsx",
-			"settings":
-			{
-				"buffer_size": 793,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/components/Element.jsx",
-			"settings":
-			{
-				"buffer_size": 1396,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/components/Button.jsx",
-			"settings":
-			{
-				"buffer_size": 217,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/components/App.jsx",
-			"settings":
-			{
-				"buffer_size": 5100,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/components/Chart.jsx",
-			"settings":
-			{
-				"buffer_size": 1071,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/actions/actions.js",
-			"settings":
-			{
-				"buffer_size": 415,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": ".sublime-project",
-			"settings":
-			{
-				"buffer_size": 93,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/reducers/elements.js",
-			"settings":
-			{
-				"buffer_size": 873,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/reducers/index.js",
-			"settings":
-			{
-				"buffer_size": 231,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/reducers/selected.js",
-			"settings":
-			{
-				"buffer_size": 259,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "selected.js"
-			}
-		},
-		{
-			"file": "client/reducers/types.js",
-			"settings":
-			{
-				"buffer_size": 129,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/index.jsx",
-			"settings":
-			{
-				"buffer_size": 417,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -273,26 +174,52 @@
 	[
 		"/C/dev/napchart-react",
 		"/C/dev/napchart-react/client",
-		"/C/dev/napchart-react/client/actions",
 		"/C/dev/napchart-react/client/components",
 		"/C/dev/napchart-react/client/containers",
-		"/C/dev/napchart-react/client/reducers"
+		"/C/dev/napchart-react/client/styles/partials",
+		"/C/dev/napchart-react/server",
+		"/C/dev/napchart-react/server/database",
+		"/C/dev/napchart-react/server/database/models"
 	],
 	"file_history":
 	[
-		"/C/dev/napchart-react/client/components/VisibleTodoList.jsx",
+		"/C/dev/napchart-react/client/containers/MetaInfoContainer.jsx",
+		"/C/dev/napchart-react/client/styles/partials/grid.scss",
+		"/C/dev/napchart-react/client/styles/partials/header.scss",
+		"/C/dev/napchart-react/client/styles/partials/shit.scss",
+		"/C/dev/napchart-react/server/server.js",
+		"/C/dev/napchart-react/server/database/models/Chart.js",
+		"/C/dev/napchart-react/server/database/database.js",
+		"/C/dev/napchart-react/server/api.js",
+		"/C/dev/napchart-react/client/components/MetaInfo.jsx",
+		"/C/dev/napchart-react/client/components/Type.jsx",
 		"/C/dev/napchart-react/client/components/App.jsx",
-		"/C/dev/napchart-react/client/reducers/index.js",
-		"/C/dev/napchart-react/client/stores/chartStore2.js",
-		"/C/dev/napchart-react/client/reducers/elements.js",
-		"/C/dev/napchart-react/client/components/Element.jsx",
-		"/C/dev/napchart-react/client/components/Elements.jsx",
-		"/C/dev/napchart-react/client/components/Chart.jsx",
-		"/C/dev/napchart-react/client/actions/index.js",
+		"/C/dev/napchart-react/client/containers/HeaderContainer.jsx",
+		"/C/dev/napchart-react/client/actions/actions.js",
 		"/C/dev/napchart-react/client/index.jsx",
+		"/C/dev/napchart-react/client/components/Header.jsx",
+		"/C/dev/napchart-react/client/reducers/elements.js",
+		"/C/dev/napchart-react/client/reducers/types.js",
+		"/C/dev/napchart-react/client/reducers/metaInfo.js",
+		"/C/dev/napchart-react/client/reducers/selected.js",
+		"/C/dev/napchart-react/client/styles/index.scss",
+		"/C/dev/napchart-react/client/styles/partials/layout.scss",
+		"/C/dev/napchart-react/client/containers/TypesContainer.jsx",
+		"/C/dev/napchart-react/client/components/Types.jsx",
+		"/C/dev/napchart-react/client/containers/ChartContainer.jsx",
+		"/C/dev/napchart-react/client/components/Chart.jsx",
+		"/C/dev/napchart-react/client/containers/ElementsContainer.jsx",
+		"/C/dev/napchart-react/client/components/Elements.jsx",
+		"/C/dev/napchart-react/client/components/Element.jsx",
+		"/C/dev/napchart-react/webpack.config.js",
+		"/C/dev/napchart-react/client/reducers/index.js",
+		"/C/dev/napchart-react/.sublime-project",
+		"/C/dev/napchart-react/client/components/Button.jsx",
+		"/C/dev/napchart-react/client/components/VisibleTodoList.jsx",
+		"/C/dev/napchart-react/client/stores/chartStore2.js",
+		"/C/dev/napchart-react/client/actions/index.js",
 		"/C/dev/napchart-react/client/components/AddTodo.jsx",
 		"/C/dev/napchart-react/client/components/TodoList.jsx",
-		"/C/dev/napchart-react/client/reducers/types.js",
 		"/C/dev/napchart-react/client/components/Todo.jsx",
 		"/C/dev/napchart-react/client/reducers/visibilityFilter.js",
 		"/C/dev/napchart-react/client/components/Link.jsx",
@@ -318,22 +245,11 @@
 		"/C/dev/napchart/lib/chart/draw/content/distances.js",
 		"/C/dev/napchart/lib/chart/draw/content/durations.js",
 		"/C/dev/napchart-react/client/components/ColorPicker.jsx",
-		"/C/dev/napchart-react/server/server.js",
-		"/C/dev/napchart-react/server/api.js",
-		"/C/dev/napchart-react/client/components/Header.jsx",
 		"/C/dev/napchart-react/server/models/Chart.js",
 		"/C/dev/napchart-react/dist/index.html",
-		"/C/dev/napchart-react/webpack.config.js",
-		"/C/dev/napchart-react/client/components/Types.jsx",
-		"/C/dev/napchart-react/client/components/Type.jsx",
 		"/C/dev/napchart-react/package.json",
-		"/C/dev/napchart-react/client/components/Button.jsx",
-		"/C/dev/napchart-react/client/styles/partials/shit.scss",
 		"/C/dev/napchart-react/client/index.html",
-		"/C/dev/napchart-react/client/styles/index.scss",
 		"/C/dev/napchart-react/client/components/Canvas.jsx",
-		"/C/dev/napchart-react/client/styles/partials/layout.scss",
-		"/C/dev/napchart-react/client/styles/partials/grid.scss",
 		"/C/dev/napchart-react/client/styles/layout.scss",
 		"/C/dev/napchart-react/.gitignore",
 		"/C/dev/napchart-react/client/components/Charts.jsx",
@@ -394,20 +310,7 @@
 		"/C/dev/sites-enabled/script",
 		"/C/dev/kt/sass/partials/_layout.scss",
 		"/C/dev/kt/routes/views/index.js",
-		"/C/dev/kt/models/Sponsor.js",
-		"/C/dev/kt/models/Påmeldingar.js",
-		"/C/dev/kt/templates/imports/boats.html",
-		"/C/dev/kt/routes/middleware.js",
-		"/C/dev/kt/templates/layouts/default.html",
-		"/C/dev/kt/templates/views/turar/tur.html",
-		"/C/dev/kt/templates/includes/minikontakt.html",
-		"/C/dev/kt/templates/views/arrangement/arrangement.html",
-		"/C/dev/kt/models/PlanTur.js",
-		"/C/dev/kt/bower.json",
-		"/C/dev/kt/sass/partials/_footer.scss",
-		"/C/dev/kt/public/js/angular.js",
-		"/C/dev/kt/templates/includes/footer.html",
-		"/C/dev/kt/sass/partials/_form.scss"
+		"/C/dev/kt/models/Sponsor.js"
 	],
 	"find":
 	{
@@ -437,6 +340,38 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"const",
+			"todoApp",
+			"data",
+			"type",
+			"Chart",
+			"MetaInfoContainer",
+			"Elements",
+			"type",
+			"moveLane",
+			"space",
+			"s, type",
+			".props.addNew",
+			"newType",
+			"toJS",
+			".toJS()",
+			"text",
+			".id",
+			"this.state.types[type]",
+			"elements",
+			"SetData",
+			"setData",
+			"SET_SELECTED",
+			"elements",
+			"div",
+			"element.",
+			"\n          id:0,",
+			"Type",
+			"type",
+			"Element",
+			"element",
+			"Elements",
+			"typeName",
 			"Element",
 			"element",
 			"ChartContainer",
@@ -532,39 +467,7 @@
 			".sin",
 			"angle",
 			"x1",
-			"a",
-			"1",
-			"distan",
-			"distance",
-			"endpoi",
-			"startpoint",
-			"endpoint",
-			"startpoint",
-			"xytominutes",
-			"consol",
-			"type.lane",
-			"initConfig",
-			"chart.config.types.general.",
-			"style.",
-			"style",
-			"data[name][i]",
-			"10",
-			"config.",
-			"Things",
-			"bars",
-			"data",
-			"console.log(",
-			"config",
-			"g.",
-			"chrio",
-			"console.log",
-			"scaleco",
-			"horizontalEllipse",
-			"shape",
-			"initshape",
-			"me",
-			",",
-			"element."
+			"a"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -583,418 +486,8 @@
 	"groups":
 	[
 		{
-			"selected": 8,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "client/containers/ChartContainer.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 647,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								534,
-								534
-							]
-						],
-						"settings":
-						{
-							"auto_name": "chartContainer.jsx",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 54.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "client/containers/ElementsContainer.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 806,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								495,
-								495
-							],
-							[
-								539,
-								539
-							]
-						],
-						"settings":
-						{
-							"auto_name": "ElementsContainer.jsx",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 91.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "client/components/Elements.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 793,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								757,
-								757
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "client/components/Element.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1396,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								709,
-								709
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 432.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "client/components/Button.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 217,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "client/components/App.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5100,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								244,
-								244
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 846.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "client/components/Chart.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1071,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								969,
-								969
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "client/actions/actions.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 415,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								265,
-								265
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": ".sublime-project",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 93,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								93,
-								93
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "client/reducers/elements.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 873,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								700,
-								700
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "client/reducers/index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 231,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								136,
-								136
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "client/reducers/selected.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 259,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								220,
-								220
-							]
-						],
-						"settings":
-						{
-							"auto_name": "selected.js",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "client/reducers/types.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 129,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								129
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "client/index.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 417,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								364,
-								364
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				}
 			]
 		}
 	],

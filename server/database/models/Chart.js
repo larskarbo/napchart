@@ -18,6 +18,10 @@ var chart = new Schema({
         _id: false
       },
     ]
+  },
+  metaInfo: {
+    title: String,
+    description: String
   }
 });
 

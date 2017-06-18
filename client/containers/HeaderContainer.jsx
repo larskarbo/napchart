@@ -7,19 +7,22 @@ import { editElement, saveChart } from '../actions/actions.js'
 
 const mapStateToProps = (state) => {
 	return {
-		chartData: {
-			elements: state.elements,
-			types: state.types
-		}
+    data: {
+  		chartData: {
+  			elements: state.elements,
+  			types: state.types
+  		},
+      metaInfo: state.metaInfo,
+      chartid: state.chartid
+    }
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (chartData) => {
-      dispatch(saveChart({
-      	chartData
-      }))
+    onSave: (data) => {
+      console.log(data)
+      dispatch(saveChart(data))
     },
     onSetSelected: (selected) => {
       dispatch({

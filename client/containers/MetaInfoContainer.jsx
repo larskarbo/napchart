@@ -15,6 +15,18 @@ const mapDispatchToProps = (dispatch) => {
         newMetaInfo: element
       })
     },
+    onTitleChange: (e) => {
+      dispatch({
+        type: 'EDIT_TITLE',
+        title: e.target.value
+      })
+    },
+    onDescriptionChange: (e) => {
+      dispatch({
+        type: 'EDIT_DESCRIPTION',
+        description: e.target.value
+      })
+    }
   }
 }
 

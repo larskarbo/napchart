@@ -8,11 +8,12 @@ export default class Header extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return(
       <div className="header">
       	Napchart
-      	{this.props.chartid}
-        <Button text="save" onClick={this.props.onSave.bind(null, this.props.chartData)} />
+      	{this.props.data.chartid}
+        <Button text="save" onClick={this.props.onSave.bind(null, this.props.data)} />
       </div>
     )
   }
