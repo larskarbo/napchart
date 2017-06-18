@@ -12,7 +12,7 @@ export const createElement = (elements, type) => {
 	})
 
   // find start position based on last element
-  var lastElementOfSameType = elements.filter(el => el.type == type).slice(-1)
+  var lastElementOfSameType = elements.filter(el => el.typeId == type).slice(-1)
 
   if(lastElementOfSameType.length == 0){
     var startPosition = 100

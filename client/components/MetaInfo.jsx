@@ -3,6 +3,8 @@
 import React from 'react'
 import Element from './Element.jsx'
 import Button from './Button.jsx'
+import TypesContainer from '../containers/TypesContainer.jsx'
+
 
 export default class Elements extends React.Component {
 	constructor(props){
@@ -18,6 +20,8 @@ export default class Elements extends React.Component {
        	onChange={this.props.onTitleChange} />
         <textarea type="text" placeholder="Description" value={metaInfo.description}
         onChange={this.props.onDescriptionChange} />
+
+        <TypesContainer />
        </div>
       )
   }

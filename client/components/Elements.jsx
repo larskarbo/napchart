@@ -20,7 +20,9 @@ export default class Elements extends React.Component {
               <Element 
               onElementUpdate={this.props.onElementUpdate.bind(element)}
               onDeleteElement={this.props.onDeleteElement.bind(null, element.id)}
-               element={element} types={types}
+              onDeselect={this.props.onDeselect}
+              element={element} types={types}
+              
               />
             </div>
           )

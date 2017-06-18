@@ -6,10 +6,8 @@ import React from 'react'
 import Header from './Header.jsx'
 import ChartContainer from '../containers/ChartContainer.jsx'
 import ElementsContainer from '../containers/ElementsContainer.jsx'
-import TypesContainer from '../containers/TypesContainer.jsx'
 import MetaInfoContainer from '../containers/MetaInfoContainer.jsx'
 import HeaderContainer from '../containers/HeaderContainer.jsx'
-import Types from './Types.jsx'
 
 import styles from '../styles/index.scss'
 
@@ -36,7 +34,7 @@ export default class App extends React.Component {
 
          <div className="col-1-4">
            <ElementsContainer />
-           <TypesContainer />
+           
          </div>
        </div>
      </div>);

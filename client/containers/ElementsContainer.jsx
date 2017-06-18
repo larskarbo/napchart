@@ -23,6 +23,11 @@ const mapDispatchToProps = (dispatch) => {
     onCreateElement: (elements) => {
       dispatch(createElement(elements))
     },
+    onDeselect: (elements) => {
+      dispatch({
+        type: 'DESELECT'
+      })
+    },
   }
 }
 

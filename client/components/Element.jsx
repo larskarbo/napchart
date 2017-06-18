@@ -12,7 +12,7 @@ export default class Element extends React.Component {
 
     return(
       <div className="Element">
-        <input type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
+        <input autoFocus type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
         <select onChange={this.typeChange} value={element.type}>
           {Object.keys(this.props.types).map(id => (
             <option key={id} value={id}>{this.props.types[id].name}</option>
@@ -36,6 +36,7 @@ export default class Element extends React.Component {
   checkEnter = (e) => {
     if(e.key === 'Enter') {
       this.finishEdit()
+      this.props.onDeselect()
     }
   }
 
