@@ -1,27 +1,25 @@
 import axios from 'axios'
 import { toArray } from 'lodash'
 
-
 export const createElement = (elements, type) => {
 	// find an id that is not in use
-	var highestId = 0
-	elements.forEach(element => {
-		if(element.id > highestId){
-			highestId = element.id
-		}
-	})
+  var highestId = 0
+  elements.forEach(element => {
+    if (element.id > highestId) {
+      highestId = element.id
+    }
+  })
 
   // find start position based on last element
   var lastElementOfSameType = elements.filter(el => el.typeId == type).slice(-1)
 
-  if(lastElementOfSameType.length == 0){
+  if (lastElementOfSameType.length == 0) {
     var startPosition = 100
     var endPosition = 200
-  }else{
+  } else {
     var startPosition = lastElementOfSameType[0].end + 60
     var endPosition = startPosition + 120
   }
-
 
   return {
     type: 'CREATE_ELEMENT',
@@ -29,6 +27,7 @@ export const createElement = (elements, type) => {
     	id: highestId + 1,
     	start: startPosition,
     	end: endPosition,
+      duration: endPosition - startPosition,
     	text: '',
     	typeId: type
     }
@@ -66,7 +65,7 @@ export const editType = (typeElement) => {
 
 export const moveTypeLane = (typeElement, direction) => {
   var newLane = typeElement.lane + direction
-  if(newLane == 3 || newLane == -1){
+  if (newLane == 3 || newLane == -1) {
     console.warn('at edge already')
     return {
       type: 'DO_NOTHING'
@@ -76,14 +75,14 @@ export const moveTypeLane = (typeElement, direction) => {
     type: 'EDIT_TYPE',
     typeElement: {
       ...typeElement,
-      lane:newLane
+      lane: newLane
     }
   })
   return {
     type: 'EDIT_TYPE',
     typeElement: {
       ...typeElement,
-      lane:newLane
+      lane: newLane
     }
   }
 }
@@ -97,7 +96,7 @@ export const deleteType = (id) => {
 
 export const deleteElementsWithType = (elements, typeId) => {
   var elementsToDelete = elements.map(element => {
-    if(element.type == typeId){
+    if (element.type == typeId) {
       return element.id
     }
   })
@@ -111,7 +110,7 @@ export const createType = (types, newTypeName) => {
   // find an id that is not in use
   var highestId = 0
   Object.keys(types).forEach(id => {
-    if(id > highestId){
+    if (id > highestId) {
       highestId = id
     }
   })
@@ -131,10 +130,8 @@ export const createType = (types, newTypeName) => {
   }
 }
 
-export function saveChart(data) {
-
+export function saveChart (data) {
   return (dispatch) => {
-
     var dataForDatabase = {
       metaInfo: data.metaInfo,
       chartData: {
@@ -155,7 +152,7 @@ export function saveChart(data) {
     .then(function (response) {
       console.log(response)
       var chartid = response.data.id
-      window.history.pushState(response.data, "", '/c/'+chartid)
+      window.history.pushState(response.data, '', '/c/' + chartid)
       dispatch({
         type: 'CHART_SAVED'
       })
@@ -163,10 +160,15 @@ export function saveChart(data) {
   }
 }
 
-export function fetchChart(chartid) {
-  return (dispatch) => 
+export function fetchChart (chartid) {
+  return (dispatch) => {
+    dispatch({
+      type: 'FETCHING_CHART'
+    })
+
     axios.get(`/api/get?chartid=${chartid}`, )
       .then(response => {
+        console.log('response')
         var data = {
           ...response.data,
           chartData: {
@@ -182,16 +184,21 @@ export function fetchChart(chartid) {
           data
         })
       })
+  }
 }
 
-export function fetchChartIfNeeded() {
+export function fetchChartIfNeeded () {
   return (dispatch) => {
     var url = window.location.href
 
-    if(url.search('/c/') == -1){
+    dispatch({
+      type: 'CHECKING_IF_FETCH_IS_NEEDED'
+    })
+
+    if (url.search('/c/') == -1) {
       // nothing to fetch!
       return Promise.resolve()
-    }else {
+    } else {
       var splitted = url.split('/')
       var chartid = splitted[splitted.length - 1]
 

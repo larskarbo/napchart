@@ -4,10 +4,10 @@ import Types from '../components/Types.jsx'
 import { editType, deleteType, createType, createElement, deleteElementsWithType, moveTypeLane } from '../actions/actions.js'
 
 const mapStateToProps = (state) => {
-	return {
-		types: state.types,
-		elements: state.elements
-	}
+  return {
+    types: state.types,
+    elements: state.elements
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMoveLane: (type, direction) => {
       dispatch(moveTypeLane(type, direction))
-    },
+    }
   }
 }
 

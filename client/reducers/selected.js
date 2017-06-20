@@ -1,5 +1,4 @@
 const selectedElements = (state = [], action) => {
-
   switch (action.type) {
     case 'SET_SELECTED':
       return [

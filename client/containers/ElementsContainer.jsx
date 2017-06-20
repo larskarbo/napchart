@@ -5,11 +5,11 @@ import { editElement, deleteElement, createElement } from '../actions/actions.js
 
 const mapStateToProps = (state) => {
   var elementsToShow = state.elements.filter(element => state.selected.indexOf(element.id) > -1)
-	return {
+  return {
     elements: state.elements,
     elementsToShow: elementsToShow,
-		types: state.types
-	}
+    types: state.types
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'DESELECT'
       })
-    },
+    }
   }
 }
 

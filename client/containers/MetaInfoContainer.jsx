@@ -2,9 +2,9 @@ import { connect } from 'react-redux'
 import MetaInfo from '../components/MetaInfo.jsx'
 
 const mapStateToProps = (state) => {
-	return {
+  return {
     metaInfo: state.metaInfo
-	}
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

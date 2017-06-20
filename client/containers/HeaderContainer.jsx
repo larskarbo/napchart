@@ -3,10 +3,10 @@ import Header from '../components/Header.jsx'
 
 import { editElement, saveChart } from '../actions/actions.js'
 
-//todo: use fetch instead of axios
+// todo: use fetch instead of axios
 
 const mapStateToProps = (state) => {
-	return {
+  return {
     data: {
   		chartData: {
   			elements: state.elements,
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
       metaInfo: state.metaInfo,
       chartid: state.chartid
     }
-	}
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-
 
 const HeaderContainer = connect(
   mapStateToProps,

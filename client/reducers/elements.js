@@ -8,7 +8,7 @@ const elements = (state = [], action) => {
       ]
     case 'EDIT_ELEMENT':
       return state.map(elem => {
-        if(elem.id == action.id){
+        if (elem.id == action.id) {
           return action.element
         }
         return elem
@@ -16,7 +16,7 @@ const elements = (state = [], action) => {
     case 'DELETE_ELEMENT':
       return state.filter(elem => action.id != elem.id)
     case 'DELETE_ELEMENTS':
-    console.log(action.ids.indexOf(state[1].id))
+      console.log(action.ids.indexOf(state[1].id))
       return state.filter(elem => {
         return action.ids.indexOf(elem.id) == -1
       })

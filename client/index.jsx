@@ -14,10 +14,9 @@ import { fetchChartIfNeeded } from './actions/actions.js'
 
 import App from './components/App.jsx'
 
-
-let store = createStore(rootReducer, 
+let store = createStore(rootReducer,
 	compose(
-		applyMiddleware(thunkMiddleware), 
+		applyMiddleware(thunkMiddleware),
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 	)
 )
@@ -26,7 +25,7 @@ store.dispatch(fetchChartIfNeeded())
 
 render(
   <Provider store={store}>
-	  <App store={store} />
-	</Provider>,
+    <App store={store} />
+  </Provider>,
   document.getElementById('root')
 )

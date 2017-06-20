@@ -1,25 +1,24 @@
 
-var database = require('./database/database');
+var database = require('./database/database')
 
 module.exports = {
-	create: function(req, res) {
-		var data = JSON.parse(req.body.data)
+  create: function (req, res) {
+    var data = JSON.parse(req.body.data)
 
+    database.createChart(data, function (err, response) {
+      if (err) throw new Error(err)
 
-		database.createChart(data, function(err, response) {
-			if(err) throw new Error(err)
+      res.send(response)
+    })
+  },
 
-			res.send(response)
-		})
-	},
+  get: function (req, res) {
+    var chartid = req.query.chartid
 
-	get: function(req, res) {
-		var chartid = req.query.chartid
+    database.getChart(chartid, function (err, response) {
+      if (err) throw new Error(err)
 
-		database.getChart(chartid, function(err, response) {
-			if(err) throw new Error(err)
-				
-			res.send(response)
-		})
-	}
+      res.send(response)
+    })
+  }
 }
