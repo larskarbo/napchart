@@ -10,6 +10,29 @@
     margin: 2px;
 }
 
+.StatsElement{
+	width:200px;
+	height:50px;
+	margin-bottom: 8px;
+
+	.colorSquare{
+		float:left;
+		width:30px;
+		height: 30px;
+		margin: 10px;
+	}
+
+
+	text-align:left;
+	.type {
+		font-weight: bold;
+		padding: 2px 4px
+	}
+	.time {
+		padding: 2px 4px
+	}
+}
+
 .sidebar {
 	background: white;
 	height: 100vh;
@@ -19,7 +42,7 @@
 .colorSquare {
 	width: 15px;
 	height: 15px;
-	margin-right:500px;
+	margin-right:5px;
 	display: inline-block;
 	&.red{background:red};
 	&.blue{background:blue};

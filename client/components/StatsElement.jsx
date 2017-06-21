@@ -14,10 +14,10 @@ export default class Header extends React.Component {
     }
 
     return (
-      <div>
-        {type.name}
+      <div className="StatsElement">
         <div className={"colorSquare " + type.style}></div>
-        {this.calculateTime(type)}
+        <div className="type">{type.name}</div>
+        <div className="time">{this.calculateTime(type)}</div>
       </div>
     )
   }
