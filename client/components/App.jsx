@@ -28,7 +28,6 @@ export default class App extends React.Component {
 
           <div className='col-1-4 sidebar'>
             <MetaInfoContainer />
-            <TypesContainer />
           </div>
 
           <div className='col-1-2'>
@@ -37,7 +36,7 @@ export default class App extends React.Component {
 
           <div className='col-1-4'>
             <ElementsContainer />
-            <StatsContainer />
+            <TypesContainer />
 
           </div>
         </div>

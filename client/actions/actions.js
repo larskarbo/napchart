@@ -29,9 +29,22 @@ export const createElement = (elements, type) => {
     	end: endPosition,
       duration: endPosition - startPosition,
     	text: '',
-    	typeId: type
+    	typeId: type,
+      lane:2
     }
 
+  }
+}
+
+export const setDragging = (elementId) => {
+  return {
+    type: 'SET_ACTIVE_ELEMENT',
+    activeElement: {
+      elementId,
+      type: 'middle',
+      positionInElement: 10,
+      identifier: 'mouse'
+    }
   }
 }
 

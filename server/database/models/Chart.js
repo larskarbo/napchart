@@ -6,13 +6,21 @@ var chart = new Schema({
   id: String,
   chartData: {
     elements: [
-      {id: Number, start: Number, end: Number, duration: Number, typeId: Number, text: String, _id: false}
+      {
+        id: Number,
+        start: Number,
+        end: Number,
+        duration: Number,
+        typeId: Number,
+        text: String,
+        lane: Number,
+        _id: false
+      }
     ],
     types: [
       {
         name: String,
         style: String,
-        lane: Number,
         id: Number,
         _id: false
       }

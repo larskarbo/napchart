@@ -10,7 +10,7 @@
     margin: 2px;
 }
 
-.StatsElement{
+.TypeElement{
 	width:200px;
 	height:50px;
 	margin-bottom: 8px;
@@ -30,6 +30,14 @@
 	}
 	.time {
 		padding: 2px 4px
+	}
+
+	input {
+		width:130px
+	}
+
+	&.dragging {
+		border: dashed 3px orange
 	}
 }
 

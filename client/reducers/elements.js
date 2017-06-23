@@ -20,6 +20,16 @@ const elements = (state = [], action) => {
       return state.filter(elem => {
         return action.ids.indexOf(elem.id) == -1
       })
+    case 'SET_ACTIVE_ELEMENT':
+      return state.map(elem => {
+        if (elem.id == action.id) {
+          return {
+            ...elem,
+            dragging: 'mouse'
+          }
+        }
+        return elem
+      })
     case 'SET_ELEMENTS':
       return action.elements
     case 'SET_FROM_SERVER':

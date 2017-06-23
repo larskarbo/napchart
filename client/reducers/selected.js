@@ -1,6 +1,11 @@
 const selectedElements = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SELECTED':
+    case 'SET_SELECTED_ELEMENT':
+      return [
+        ...state,
+        action.selected
+      ]
+    case 'SET_SELECTED_ELEMENTS':
       return [
         ...action.selected
       ]

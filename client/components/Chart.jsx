@@ -40,6 +40,8 @@ export default class Chart extends React.Component {
     napchart.onElementUpdate(this.props.onElementUpdate)
 
     napchart.onSetSelected(this.props.onSetSelected)
+    napchart.onDeselect (this.props.onDeselect )
+    napchart.onSetActive(this.props.onSetActive)
     window.napchart = napchart
 
     this.state.napchart = napchart

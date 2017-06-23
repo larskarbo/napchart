@@ -10,6 +10,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onTypeUpdate: (type) => {
+      dispatch(editType(type))
+    },
+    onDeleteType: (id, elements) => {
+      dispatch(deleteElementsWithType(elements, id))
+      dispatch(deleteType(id))
+    },
+    onCreateType: (type, types) => {
+      dispatch(createType(types, type.name))
+    },
+    onCreateElement: (elements, type) => {
+      console.log(type)
+      dispatch(createElement(elements, type))
+    },
   }
 }
 

@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
     data: {
       elements: state.elements,
       types: state.types,
-      selected: state.selected
+      selected: state.selected,
+      activeElements: state.active
     }
   }
 }
@@ -20,8 +21,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSetSelected: (selected) => {
       dispatch({
-      	type: 'SET_SELECTED',
-      	selected
+        type: 'SET_SELECTED_ELEMENT',
+        selected
+      })
+    },
+    onDeselect: (selected) => {
+      dispatch({
+        type: 'DESELECT'
+      })
+    },
+    onSetActive: (activeElements) => {
+      dispatch({
+        type: 'SET_ACTIVE_ELEMENTS',
+        activeElements
       })
     }
   }

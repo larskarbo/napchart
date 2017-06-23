@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import Types from '../components/Types.jsx'
 
-import { editType, deleteType, createType, createElement, deleteElementsWithType, moveTypeLane } from '../actions/actions.js'
+import { editType, deleteType, createType, createElement, deleteElementsWithType, moveTypeLane,
+setDragging } from '../actions/actions.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -25,6 +26,15 @@ const mapDispatchToProps = (dispatch) => {
     onCreateElement: (elements, type) => {
       console.log(type)
       dispatch(createElement(elements, type))
+    },
+    onStartDrag: (elements, type) => {
+      var elementAction = createElement(elements, type)
+      dispatch(elementAction)
+      dispatch(setDragging(elementAction.element.id))
+      dispatch({
+        type: 'SET_SELECTED_ELEMENT',
+        selected: elementAction.element.id
+      })
     },
     onMoveLane: (type, direction) => {
       dispatch(moveTypeLane(type, direction))
