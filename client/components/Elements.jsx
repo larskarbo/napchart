@@ -12,7 +12,7 @@ export default class Elements extends React.Component {
     const {elements, elementsToShow, types} = this.props
 
     return (
-      <div style={{paddingTop: '100px'}}>
+      <div style={{height: '75px'}}>
         {elementsToShow.map((element) =>
           (
             <div key={element.id}>

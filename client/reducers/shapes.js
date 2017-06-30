@@ -1,0 +1,29 @@
+const activeElements = (state, action) => {
+  if(typeof state == "undefined"){
+    state = {
+      shapes: [
+        'circle',
+        'line',
+        'compactLine',
+        'horizontalEllipse'
+      ],
+      activeShape: 'circle'
+    }
+  }
+  switch (action.type) {
+    case 'SET_ACTIVE_SHAPE':
+      return {
+        ...state,
+        activeShape: action.shape
+      }
+    case 'SET_FROM_SERVER':
+      return {
+        ...state,
+        activeShape: action.data.chartData.shape
+      }
+    default:
+      return state
+  }
+}
+
+export default activeElements

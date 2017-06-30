@@ -1,32 +1,28 @@
 import { omit } from 'lodash'
 
-const types = (state = {}, action) => {
-  // return {
-  //       0: {
-  //         "id" : 0,
-  //         "name" : "",
-  //         "style" : "blue",
-  //         "lane" : 1
-  //       },
-  //       1: {
-  //         "id" : 1,
-  //         "name" : "",
-  //         "style" : "green",
-  //         "lane" : 0
-  //       },
-  //       2: {
-  //         "id" : 2,
-  //         "name" : "",
-  //         "style" : "red",
-  //         "lane" : 0
-  //       },
-  //       3: {
-  //         "id" : 3,
-  //         "name" : "",
-  //         "style" : "gray",
-  //         "lane" : 0
-  //       }
-  //     }
+const types = (state, action) => {
+  if(typeof state == 'undefined'){
+    state = {
+      0: {
+        "id" : 0,
+        "name" : "Sleep",
+        "style" : "gray",
+        "lane" : 1
+      },
+      2: {
+        "id" : 2,
+        "name" : "Activities",
+        "style" : "red",
+        "lane" : 0
+      },
+      3: {
+        "id" : 3,
+        "name" : "",
+        "style" : "blue",
+        "lane" : 0
+      }
+    }
+  }
   switch (action.type) {
     case 'CREATE_TYPE':
       return {

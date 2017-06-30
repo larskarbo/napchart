@@ -13,23 +13,13 @@ export default class Element extends React.Component {
     return(
       <div className="Element">
         <input autoFocus type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
-        <select onChange={this.typeChange} value={element.type}>
-          {Object.keys(this.props.types).map(id => (
-            <option key={id} value={id}>{this.props.types[id].name}</option>
-          ))}
-        </select>
-        <Button text="x" onClick={this.props.onDeleteElement} />
+        <Button text="delete element" onClick={this.props.onDeleteElement} />
       </div>
     )
   }
 
   textChange = (e) => {
     this.props.element.text = e.target.value
-    this.finishEdit()
-  }
-
-  typeChange = (e) => {
-    this.props.element.type = e.target.value
     this.finishEdit()
   }
 

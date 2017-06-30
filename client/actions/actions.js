@@ -42,7 +42,6 @@ export const setDragging = (elementId) => {
     activeElement: {
       elementId,
       type: 'middle',
-      positionInElement: 10,
       identifier: 'mouse'
     }
   }
@@ -108,11 +107,8 @@ export const deleteType = (id) => {
 }
 
 export const deleteElementsWithType = (elements, typeId) => {
-  var elementsToDelete = elements.map(element => {
-    if (element.type == typeId) {
-      return element.id
-    }
-  })
+  var elementsToDelete = elements.filter(e => e.typeId == typeId).map(e => e.id)
+  
   return {
     type: 'DELETE_ELEMENTS',
     ids: elementsToDelete
@@ -181,7 +177,6 @@ export function fetchChart (chartid) {
 
     axios.get(`/api/get?chartid=${chartid}`, )
       .then(response => {
-        console.log('response')
         var data = {
           ...response.data,
           chartData: {

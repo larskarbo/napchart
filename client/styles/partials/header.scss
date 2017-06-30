@@ -1,7 +1,10 @@
+$header-height: 43px;
+
 .header {
 	background: white;
 	text-align: left;
 	padding: 10px 30px;
+	height: $header-height;
 	box-shadow: 0 0 5px rgba(57,70,78,.2);
 	position: relative;
 	z-index: 1

@@ -9,7 +9,8 @@ const mapStateToProps = (state) => {
       elements: state.elements,
       types: state.types,
       selected: state.selected,
-      activeElements: state.active
+      activeElements: state.active,
+      shape: state.shapes.activeShape
     }
   }
 }
@@ -34,6 +35,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'SET_ACTIVE_ELEMENTS',
         activeElements
+      })
+    },
+    onDeleteSelected: (elements) => {
+      dispatch({
+        type: 'DELETE_ELEMENTS',
+        ids: elements.map(e => e.id)
       })
     }
   }

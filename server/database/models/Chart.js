@@ -24,7 +24,8 @@ var chart = new Schema({
         id: Number,
         _id: false
       }
-    ]
+    ],
+    shape: String
   },
   metaInfo: {
     title: String,

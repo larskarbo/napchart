@@ -9,6 +9,7 @@ import ElementsContainer from '../containers/ElementsContainer.jsx'
 import MetaInfoContainer from '../containers/MetaInfoContainer.jsx'
 import HeaderContainer from '../containers/HeaderContainer.jsx'
 import TypesContainer from '../containers/TypesContainer.jsx'
+import ShapesContainer from '../containers/ShapesContainer.jsx'
 import StatsContainer from '../containers/StatsContainer.jsx'
 
 import styles from '../styles/index.scss'
@@ -26,19 +27,17 @@ export default class App extends React.Component {
 
         <div className='grid'>
 
-          <div className='col-1-4 sidebar'>
+          <div className='sidebar'>
             <MetaInfoContainer />
+            <ShapesContainer />
+            <ElementsContainer />
+            <TypesContainer />
           </div>
 
-          <div className='col-1-2'>
+          <div className='mainChartArea'>
             <ChartContainer />
           </div>
 
-          <div className='col-1-4'>
-            <ElementsContainer />
-            <TypesContainer />
-
-          </div>
         </div>
       </div>)
   }

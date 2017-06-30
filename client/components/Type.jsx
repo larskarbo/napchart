@@ -6,9 +6,6 @@ import ColorPicker from './ColorPicker.jsx'
 export default class Type extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      dragging: false
-    }
   }
 
   render() {
@@ -18,34 +15,31 @@ export default class Type extends React.Component {
     if(type.editing){
       var nameElement = <input autoFocus type="text" key='jfiji' value={type.name} onBlur={this.props.onFinishedEditing}
           onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
+    }else if(type.name.length == 0){
+      var nameElement = <span onClick={this.props.onSetEditing}><i>No name</i></span>
     }else{
       var nameElement = <span onClick={this.props.onSetEditing}>{type.name}</span>
     }
 
-    if(this.state.dragging){
-      var classNames = "TypeElement"
-    } else {
-      var classNames = "TypeElement dragging"
-    }
-
     return (
-      <div className={classNames}>
-        <div draggable='false' onClick={this.toggleDrag}
-        onMouseDown={this.maybeWillDrag} onMouseUp={this.toggleDrag} className={"colorSquare " + type.style}></div>
+      <div className="TypeElement">
+        <div draggable='false'
+        onMouseDown={this.maybeWillDrag} onDrag={this.onDrag} className={"colorSquare " + type.style}></div>
         <div className="type">{nameElement}</div>
         <div className="time">{this.calculateDuration(type)}</div>
+        <Button text="delete" onClick={this.props.onDeleteType} />
+        <Button text="color" />
       </div>
     )
   }
 
-  maybeWillDrag = () => {
+  maybeWillDrag = (e) => {
+    e.preventDefault()
     this.props.onDrag(this)
   }
 
-  toggleDrag = () => {
-    this.setState({
-      dragging: !this.state.dragging
-    })
+  onDrag = (e) => {
+    e.preventDefault()
   }
 
   calculateDuration = (type) => {

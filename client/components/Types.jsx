@@ -34,6 +34,8 @@ export default class Types extends React.Component {
     }
     return(
       <div>
+        <Button text="Add type" onClick={this.addingNew} />
+        {newType}
         {Object.keys(this.state.types).map(type => (
           <Type key={type} type={this.state.types[type]} elements={this.props.elements}
           onTextChange={this.textChange.bind(null, this.state.types[type])}
@@ -43,23 +45,6 @@ export default class Types extends React.Component {
           onSetEditing={this.setEditing.bind(null, this.state.types[type])}
           onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])} />
         ))}
-      </div>
-    )
-    return(
-      <div>
-        <Button text="Add type" onClick={this.addingNew} />
-        {newType}
-
-      	{Object.keys(this.state.types).map(type => (
-      		<Type key={type} type={this.state.types[type]} elements={this.props.elements}
-          onTextChange={this.textChange.bind(null, this.state.types[type])}
-          onDeleteType={this.props.onDeleteType.bind(null, type, this.props.elements)}
-          onCreateElement={this.props.onCreateElement.bind(null, this.props.elements, type)}
-          onSetEditing={this.setEditing.bind(null, this.state.types[type])}
-          onMoveLaneUp={this.props.onMoveLane.bind(null, this.state.types[type], 1)}
-          onMoveLaneDown={this.props.onMoveLane.bind(null, this.state.types[type], -1)}
-          onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])} />
-      	))}
       </div>
     )
   }
@@ -107,9 +92,6 @@ export default class Types extends React.Component {
 
   addingNew = () => {
   	this.setState({
-      types: {
-        ...this.state.types
-      },
       newTypeBeingCreated: {
         name:''
       }

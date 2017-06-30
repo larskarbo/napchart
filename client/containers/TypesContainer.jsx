@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(editType(type))
     },
     onDeleteType: (id, elements) => {
+      console.log('deletetype', elements, id)
       dispatch(deleteElementsWithType(elements, id))
       dispatch(deleteType(id))
     },

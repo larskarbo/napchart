@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
     data: {
   		chartData: {
   			elements: state.elements,
-  			types: state.types
+  			types: state.types,
+        shape: state.shapes.activeShape
   		},
       metaInfo: state.metaInfo,
       chartid: state.chartid

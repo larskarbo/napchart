@@ -43,9 +43,24 @@
 
 .sidebar {
 	background: white;
-	height: 100vh;
-	width:200px
+	width:200px;
+	position:absolute;
+	top:$header-height;
+	bottom: 0
 }
+
+.mainChartArea {
+	padding-left: 200px;
+	width: 100%;
+	height: calc(100vh - 50px);
+
+	#resizer {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+
 
 .colorSquare {
 	width: 15px;
