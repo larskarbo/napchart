@@ -3,9 +3,49 @@ $header-height: 43px;
 .header {
 	background: white;
 	text-align: left;
-	padding: 10px 30px;
+	padding: 0px 30px 0 0;
 	height: $header-height;
 	box-shadow: 0 0 5px rgba(57,70,78,.2);
 	position: relative;
-	z-index: 1
+	z-index: 1;
+	font-size: 13px
+}
+
+.logo {
+	font-weight:bold;
+	padding:0 25px
+}
+
+.HeaderElement {
+	// width:100%;
+	display:inline-block;
+	padding-top:13px;
+	padding-left:15px;
+	padding-right:15px;
+
+	// text-transform: uppercase;
+	border-bottom: transparent 4px solid;
+	letter-spacing: 0.5px;
+	// font-weight:bold;
+	color: black;
+	height:100%;
+
+	&:link, &:visited{
+		text-decoration: none;
+	}
+
+	&:hover {
+		text-decoration: none;
+		border-bottom-color: blue;
+	}
+
+	// margin-left: 20px;
+
+	// font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+	// span {
+	// 	border: solid 1px #2e84c7;
+	// 	padding: 6px 12px 3px 16px;
+	// 	border-radius: 45px
+
+	// }
 }

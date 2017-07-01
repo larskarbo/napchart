@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Button from './Button.jsx'
+import HeaderElement from './HeaderElement.jsx'
 
 export default class Header extends React.Component {
   constructor (props) {
@@ -10,10 +10,13 @@ export default class Header extends React.Component {
   render () {
     return (
       <div className='header'>
-      	Napchart
+      	<span className='logo'>Napchart</span>
       	{this.props.data.chartid}
-        <Button text='save' onClick={this.props.onSave.bind(null, this.props.data)} />
+        <HeaderElement text='Save' onClick={this.props.onSave.bind(null, this.props.data)} />
+        <HeaderElement text='Export' onClick={this.props.onSave.bind(null, this.props.data)} />
+        <HeaderElement text='Start tour' style= {{float:'right'}} onClick={this.props.startTour} />
       </div>
+
     )
   }
 }

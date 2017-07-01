@@ -10,6 +10,7 @@
     margin: 2px;
 }
 
+
 .TypeElement{
 	width:200px;
 	height:50px;
@@ -46,7 +47,9 @@
 	width:200px;
 	position:absolute;
 	top:$header-height;
-	bottom: 0
+	padding-top:20px;
+	bottom: 0;
+	font-family: monospace
 }
 
 .mainChartArea {
