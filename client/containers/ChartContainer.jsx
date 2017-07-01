@@ -37,10 +37,10 @@ const mapDispatchToProps = (dispatch) => {
         activeElements
       })
     },
-    onDeleteSelected: (elements) => {
+    onDeleteSelected: (ids) => {
       dispatch({
         type: 'DELETE_ELEMENTS',
-        ids: elements.map(e => e.id)
+        ids: ids
       })
     }
   }
