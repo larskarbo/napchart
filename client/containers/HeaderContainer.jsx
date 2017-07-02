@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (data) => {
+    onSave: (data, dj) => {
+      console.log(data, dj, djjj)
       dispatch(saveChart(data))
     },
     onSetSelected: (selected) => {
