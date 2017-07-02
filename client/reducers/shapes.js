@@ -21,6 +21,11 @@ const activeElements = (state, action) => {
         ...state,
         activeShape: action.data.chartData.shape
       }
+    case 'SET_DEFAULT_DATA':
+      return {
+        ...state,
+        activeShape: action.data.chartData.shape
+      }
     default:
       return state
   }

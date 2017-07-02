@@ -14,7 +14,7 @@ export default class Header extends React.Component {
       	{this.props.data.chartid}
         <HeaderElement text='Save' onClick={this.props.onSave.bind(null, this.props.data)} />
         <HeaderElement text='Export' onClick={this.props.onSave.bind(null, this.props.data)} />
-        <HeaderElement text='Start tour' style= {{float:'right'}} onClick={this.props.startTour} />
+        <HeaderElement text='Start tour' style= {{float:'right'}} onClick={this.props.onStartTour.bind(null, this.props.data)} />
       </div>
 
     )

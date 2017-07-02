@@ -8,11 +8,12 @@ const elements = (state = [], action) => {
       ]
     case 'EDIT_ELEMENT':
       return state.map(elem => {
-        if (elem.id == action.id) {
-          return action.element
+        if (elem.id == action.element.id) {
+          return Object.assign({}, elem, action.element)
         }
         return elem
       })
+
     case 'DELETE_ELEMENT':
       return state.filter(elem => action.id != elem.id)
     case 'DELETE_ELEMENTS':

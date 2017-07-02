@@ -6,6 +6,7 @@ import { editElement } from '../actions/actions.js'
 const mapStateToProps = (state) => {
   return {
     data: {
+      // elements: JSON.parse(JSON.stringify(state.elements)),
       elements: state.elements,
       types: state.types,
       selected: state.selected,

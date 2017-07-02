@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Header from '../components/Header.jsx'
 
-import { editElement, saveChart } from '../actions/actions.js'
+import { editElement, saveChart, startTour } from '../actions/actions.js'
 
 // todo: use fetch instead of axios
 
@@ -26,9 +26,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSetSelected: (selected) => {
       dispatch({
-      	type: 'SET_SELECTED',
-      	selected
+        type: 'SET_SELECTED',
+        selected
       })
+    },
+    onStartTour: (currentData) => {
+      console.log('fkodko')
+      dispatch(startTour(currentData))
     }
   }
 }
