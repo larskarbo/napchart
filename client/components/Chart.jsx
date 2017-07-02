@@ -3,7 +3,7 @@
 import React from 'react'
 import Elements from './Elements.jsx'
 import uuid from 'uuid'
-import napchart from 'napchart'
+import Napchart from 'napchart'
 
 export default class Chart extends React.Component {
   constructor (props) {
@@ -73,7 +73,7 @@ export default class Chart extends React.Component {
     napchart.onElementUpdate(this.props.onElementUpdate)
 
     napchart.onSetSelected(this.props.onSetSelected)
-    napchart.onDeselect (this.props.onDeselect )
+    napchart.onDeselect (this.props.onDeselect)
     napchart.onSetActive(this.props.onSetActive)
 
     window.napchart = napchart

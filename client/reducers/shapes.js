@@ -5,7 +5,7 @@ const activeElements = (state, action) => {
         'circle',
         'line',
         'compactLine',
-        'horizontalEllipse'
+        'wideCircle'
       ],
       activeShape: 'circle'
     }
