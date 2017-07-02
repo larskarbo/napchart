@@ -198,6 +198,7 @@ export function saveChart (data) {
 
 export function fetchChart (chartid) {
   return (dispatch) => {
+
     dispatch({
       type: 'FETCHING_CHART'
     })

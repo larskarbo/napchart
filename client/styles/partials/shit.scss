@@ -47,9 +47,28 @@
 	width:200px;
 	position:absolute;
 	top:$header-height;
-	padding-top:20px;
+	padding: 20px 10px;
 	bottom: 0;
 	font-family: monospace
+}
+
+.metaInfo {
+	input[type=text], textarea{
+		width: 100%;
+		margin-bottom: 12px;
+		border: none;
+		border-bottom: #eaeaea 1px solid;
+		resize:none;
+		padding-left: 3px;
+		padding-bottom: 5px;
+		font-family: "Segoe UI";
+		outline: none;
+		box-sizing: border-box;
+
+		&:focus {
+			border-bottom:#6dade4 2px solid;
+		}
+	}
 }
 
 .mainChartArea {
@@ -62,6 +81,7 @@
 		height: 100%;
 	}
 }
+
 
 
 

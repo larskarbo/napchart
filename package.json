@@ -17,6 +17,7 @@
 		"lodash": "^4.17.4",
 		"mongodb": "^2.2.27",
 		"mongoose": "^4.10.4",
+		"nprogress": "^0.2.0",
 		"path": "^0.12.7",
 		"react": "^15.5.4",
 		"react-dom": "^15.5.4",
