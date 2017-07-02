@@ -10,6 +10,18 @@
     margin: 2px;
 }
 
+.shapeButton {
+	background: white;
+    border: solid 1px aliceblue;
+    margin: 2px;
+    padding: 3px;
+    outline: none;
+
+    &.active {
+    	background: #e4dbdb
+    }
+}
+
 
 .TypeElement{
 	width:200px;

@@ -3,9 +3,8 @@ const activeElements = (state, action) => {
     state = {
       shapes: [
         'circle',
+        'wide',
         'line',
-        'compactLine',
-        'wideCircle'
       ],
       activeShape: 'circle'
     }

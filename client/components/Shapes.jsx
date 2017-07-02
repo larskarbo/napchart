@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from './Button.jsx'
 
 export default class Chart extends React.Component {
   constructor (props) {
@@ -10,7 +9,15 @@ export default class Chart extends React.Component {
   	var {shapes} = this.props
 
   	var shapeButtons = shapes.shapes.map(shape => {
-  		return <Button onClick={this.props.onChangeShape.bind(null, shape)} key={shape} text={shape} />
+      var className = ""
+      if(shapes.activeShape == shape){
+        var className = "active"
+      }
+      return (
+        <button style={{width: '30%', height: '30px'}} className={"shapeButton " + className} onClick={this.props.onChangeShape.bind(null, shape)} key={shape}>
+          {shape}
+        </button>
+      )
   	})
     return (
       <div>
