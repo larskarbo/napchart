@@ -34,17 +34,21 @@ export default class Types extends React.Component {
     }
     return(
       <div>
-        <Button text="Add type" onClick={this.addingNew} />
-        {newType}
+        
         {Object.keys(this.state.types).map(type => (
           <Type key={type} type={this.state.types[type]} elements={this.props.elements}
           onTextChange={this.textChange.bind(null, this.state.types[type])}
           onDeleteType={this.props.onDeleteType.bind(null, type, this.props.elements)}
           onCreateElement={this.props.onCreateElement.bind(null, this.props.elements, type)}
+          onStyleChange={this.props.onStyleChange.bind(null, type)}
           onDrag={this.props.onStartDrag.bind(null, this.props.elements, type)}
           onSetEditing={this.setEditing.bind(null, this.state.types[type])}
-          onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])} />
+          onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])}
+          styles={this.props.styles} />
         ))}
+        {newType}
+
+        <Button text="Add type" onClick={this.addingNew} />
       </div>
     )
   }

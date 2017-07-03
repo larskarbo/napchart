@@ -26,33 +26,66 @@
 
 
 .TypeElement{
-	width:200px;
+	width:100%;
 	height:50px;
 	margin-bottom: 8px;
+	padding: 10px;
 
 	.colorSquare{
 		float:left;
 		width:30px;
 		height: 30px;
-		margin: 10px;
+		margin: 10px 10px 0 0;
 	}
+
 
 
 	text-align:left;
 	.type {
 		// font-weight: bold;
-		padding: 2px 4px
+		padding: 6px 4px 2px
 	}
 	.time {
 		padding: 2px 4px
 	}
 
 	input {
-		width:130px
+		width:90px
 	}
 
 	&.dragging {
 		border: dashed 3px orange
+	}
+
+	.mdi-icon {
+		fill: #888888;
+		width: 14px;
+		height: 14px;
+
+		&:hover {
+			fill: #565656
+		}
+	}
+
+	.add {
+		float:right;
+		width:40px;
+		height:40px;
+		.mdi-icon {
+			width: 100%;
+			height: 100%
+		}
+	}
+
+	&.hover {
+
+	}
+
+	.smallColorBox {
+		width: 14px;
+		height: 14px;
+		margin-right: 5px;
+		display: inline-block
 	}
 }
 
@@ -98,15 +131,3 @@
 
 
 
-.colorSquare {
-	width: 15px;
-	height: 15px;
-	margin-right:5px;
-	display: inline-block;
-	&.red{background:red};
-	&.blue{background:blue};
-	&.gray{background:gray};
-	&.green{background:green};
-	&.yellow{background:yellow};
-	&.red{background:red};
-}

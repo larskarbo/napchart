@@ -10,8 +10,16 @@ const types = (state = {}, action) => {
     case 'EDIT_TYPE':
       console.log([action.typeElement.id])
       return {
-      	...state,
-      	[action.typeElement.id]: action.typeElement
+        ...state,
+        [action.typeElement.id]: action.typeElement
+      }
+    case 'SET_TYPE_STYLE':
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          style: action.newStyle
+        }
       }
     case 'DELETE_TYPE':
       console.log(state, action.id)

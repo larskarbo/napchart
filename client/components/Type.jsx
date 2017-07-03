@@ -1,11 +1,23 @@
 
+
 import React from 'react'
 import Button from './Button.jsx'
 import ColorPicker from './ColorPicker.jsx'
+import TextboxIcon from 'mdi-react/TextboxIcon'
+import Palette from 'mdi-react/PaletteIcon'
+import Plus from 'mdi-react/PlusIcon'
+import Trash from 'mdi-react/TrashIcon'
+
+import mapObject from '../helpers/mapObject'
 
 export default class Type extends React.Component {
   constructor(props){
     super(props)
+
+    this.state = {
+      hover: false,
+      colorPicker: false
+    }
   }
 
   render() {
@@ -16,26 +28,85 @@ export default class Type extends React.Component {
       var nameElement = <input autoFocus type="text" key='jfiji' value={type.name} onBlur={this.props.onFinishedEditing}
           onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
     }else if(type.name.length == 0){
-      var nameElement = <span onClick={this.props.onSetEditing}><i>No name</i></span>
+      var nameElement = <span onClick={this.props.onSetEditing}><i>...</i></span>
     }else{
-      var nameElement = <span onClick={this.props.onSetEditing}>{type.name}</span>
+      var nameElement = (
+        <span onClick={this.props.onSetEditing}>{type.name}
+          
+        </span>
+      )
+    }
+
+    if(this.state.hover){
+      var hoverClass = 'hover'
+      var hoverStyle = {background: this.props.styles[type.style]}
+    }else {
+      var hoverClass = ''
+      var hoverStyle = {}
+    }
+
+    if(this.state.colorPicker){
+      var colorPicker = (
+        <div>
+          {mapObject(this.props.styles, (style, name) => (
+            <span key={name} onClick={this.setColor.bind(null, name)} style={{background: style}} className="smallColorBox"></span>
+          ))}
+        </div>
+      )
+    }else {
+      var colorPicker = ''
     }
 
     return (
-      <div className="TypeElement">
-        <div draggable='false'
-        onMouseDown={this.maybeWillDrag} className={"colorSquare " + type.style}></div>
+      <div style={hoverStyle} className={"TypeElement " + hoverClass}>
+        <div style={{background:this.props.styles[type.style]}} className="colorSquare"></div>
+        <div 
+          onMouseEnter={this.hoverStart}
+          onMouseLeave={this.hoverEnd}
+          onMouseDown={this.maybeWillDrag} className="add">
+          <Plus className="plusicon" />
+        </div>
         <div className="type">{nameElement}</div>
-        <div className="time">{this.calculateDuration(type, this.props.elements)}</div>
-        <Button text="delete" onClick={this.props.onDeleteType} />
-        <Button text="color" />
+        <div>
+          <span className="iconlink" onClick={this.props.onSetEditing}><TextboxIcon /></span>
+          <span className="iconlink" onClick={this.changeColor}><Palette /></span>
+          <span className="iconlink" onClick={this.props.onDeleteType}><Trash /></span>
+        </div>
+        {colorPicker}
       </div>
     )
+        
   }
 
   maybeWillDrag = (e) => {
     e.preventDefault()
+
     this.props.onDrag(this)
+  }
+
+  hoverStart = (e) => {
+    this.setState({
+      hover: true
+    })
+  }
+
+  hoverEnd = (e) => {
+    this.setState({
+      hover: false
+    })
+  }
+
+  changeColor = () => {
+    this.setState({
+      colorPicker: true
+    })
+  }
+
+  setColor = (color) => {
+    this.props.onStyleChange(color)
+    this.setState({
+      colorPicker: false
+    })
   }
 
   calculateDuration = (type, elements) => {

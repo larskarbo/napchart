@@ -5,6 +5,7 @@ import selected from './selected'
 import active from './active'
 import metaInfo from './metaInfo'
 import shapes from './shapes'
+import styles from './styles'
 
 const chartApp = combineReducers({
   elements,
@@ -12,7 +13,8 @@ const chartApp = combineReducers({
   selected,
   metaInfo,
   shapes,
-  active
+  active,
+  styles
 })
 
 export default chartApp

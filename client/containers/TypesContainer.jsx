@@ -7,7 +7,8 @@ setDragging } from '../actions/actions.js'
 const mapStateToProps = (state) => {
   return {
     types: state.types,
-    elements: state.elements
+    elements: state.elements,
+    styles: state.styles
   }
 }
 
@@ -39,6 +40,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMoveLane: (type, direction) => {
       dispatch(moveTypeLane(type, direction))
+    },
+    onStyleChange: (id, newStyle) => {
+      dispatch({
+        type: 'SET_TYPE_STYLE',
+        newStyle,
+        id
+      })
     }
   }
 }
