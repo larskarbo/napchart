@@ -12,6 +12,7 @@
 		"axios": "^0.16.2",
 		"body-parser": "^1.17.2",
 		"canvas": "^2.0.0-alpha.2",
+		"color": "^2.0.0",
 		"element-resize-event": "^2.0.9",
 		"express": "^4.15.3",
 		"immutable": "^3.8.1",

@@ -9,6 +9,7 @@ import Plus from 'mdi-react/PlusIcon'
 import Trash from 'mdi-react/TrashIcon'
 
 import mapObject from '../helpers/mapObject'
+import color from 'color'
 
 export default class Type extends React.Component {
   constructor(props){
@@ -39,7 +40,7 @@ export default class Type extends React.Component {
 
     if(this.state.hover){
       var hoverClass = 'hover'
-      var hoverStyle = {background: this.props.styles[type.style]}
+      var hoverStyle = {background: color(this.props.styles[type.style]).fade(0.9)}
     }else {
       var hoverClass = ''
       var hoverStyle = {}
@@ -49,7 +50,9 @@ export default class Type extends React.Component {
       var colorPicker = (
         <div>
           {mapObject(this.props.styles, (style, name) => (
-            <span key={name} onClick={this.setColor.bind(null, name)} style={{background: style}} className="smallColorBox"></span>
+            <span key={name} onClick={this.setColor.bind(null, name)}
+            style={{background: style}}
+            className="smallColorBox"></span>
           ))}
         </div>
       )
@@ -98,8 +101,13 @@ export default class Type extends React.Component {
 
   changeColor = () => {
     this.setState({
-      colorPicker: true
+      colorPicker: !this.state.colorPicker
     })
+    // window.addEventListener('mousedown', () => {
+    //   this.setState({
+    //     colorPicker: false
+    //   })
+    // })
   }
 
   setColor = (color) => {
