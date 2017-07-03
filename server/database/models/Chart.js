@@ -10,7 +10,6 @@ var chart = new Schema({
         id: Number,
         start: Number,
         end: Number,
-        duration: Number,
         typeId: Number,
         text: String,
         lane: Number,

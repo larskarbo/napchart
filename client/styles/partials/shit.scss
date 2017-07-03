@@ -16,9 +16,11 @@
     margin: 2px;
     padding: 3px;
     outline: none;
+    cursor: pointer;
 
     &.active {
-    	background: #e4dbdb
+    	background: #e4dbdb;
+    	cursor: default
     }
 }
 
@@ -38,7 +40,7 @@
 
 	text-align:left;
 	.type {
-		font-weight: bold;
+		// font-weight: bold;
 		padding: 2px 4px
 	}
 	.time {
@@ -61,7 +63,6 @@
 	top:$header-height;
 	padding: 20px 10px;
 	bottom: 0;
-	font-family: monospace
 }
 
 .metaInfo {

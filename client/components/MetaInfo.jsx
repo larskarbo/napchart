@@ -17,7 +17,6 @@ export default class Elements extends React.Component {
           onChange={this.props.onTitleChange} />
         <textarea type='text' placeholder='Description' value={metaInfo.description}
           onChange={this.props.onDescriptionChange} />
-
       </div>
     )
   }

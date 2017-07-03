@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
       types: state.types,
       selected: state.selected,
       activeElements: state.active,
-      shape: state.shapes.activeShape
+      shape: state.shapes.activeShape,
+      title: state.metaInfo.title,
+      description: state.metaInfo.description
     }
   }
 }

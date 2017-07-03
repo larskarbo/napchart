@@ -24,9 +24,9 @@ export default class Type extends React.Component {
     return (
       <div className="TypeElement">
         <div draggable='false'
-        onMouseDown={this.maybeWillDrag} onDrag={this.onDrag} className={"colorSquare " + type.style}></div>
+        onMouseDown={this.maybeWillDrag} className={"colorSquare " + type.style}></div>
         <div className="type">{nameElement}</div>
-        <div className="time">{this.calculateDuration(type)}</div>
+        <div className="time">{this.calculateDuration(type, this.props.elements)}</div>
         <Button text="delete" onClick={this.props.onDeleteType} />
         <Button text="color" />
       </div>
@@ -38,20 +38,24 @@ export default class Type extends React.Component {
     this.props.onDrag(this)
   }
 
-  onDrag = (e) => {
-    e.preventDefault()
-  }
-
-  calculateDuration = (type) => {
+  calculateDuration = (type, elements) => {
     // count minutes
-    var minutes = this.props.elements.reduce((minutes, element) => {
-      if(element.typeId === type.id){
-        return minutes + element.duration
+    var minutes = elements.reduce((minutes, element) => {
+      if(element.typeId == type.id){
+        return minutes + this.duration(element.start, element.end)
       }else{
         return minutes
       }
     }, 0)
     return this.minutesToReadable(minutes)
+  }
+
+  duration = function (start, end) {
+    if (end < start) {
+      return 1440 - start + end
+    } else {
+      return end - start
+    }
   }
 
   checkEnter = (e) => {

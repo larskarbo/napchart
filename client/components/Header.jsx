@@ -10,7 +10,8 @@ export default class Header extends React.Component {
   render () {
     return (
       <div className='header'>
-      	<span className='logo'>Napchart</span>
+        <HeaderElement className='logo' href="/" text='Napchart' />
+
       	{this.props.data.chartid}
         <HeaderElement href="#save" text='Save' onClick={this.props.onSave.bind(null, this.props.data)} />
         <HeaderElement href="#export" text='Export' onClick={this.props.onSave.bind(null, this.props.data)} />
