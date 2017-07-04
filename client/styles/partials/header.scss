@@ -8,7 +8,8 @@ $header-height: 43px;
 	box-shadow: 0 0 5px rgba(57,70,78,.2);
 	position: relative;
 	z-index: 1;
-	font-size: 13px
+	font-size: 13px;
+	user-select:none;
 }
 
 .logo {
@@ -22,7 +23,7 @@ $header-height: 43px;
 	padding-top:13px;
 	padding-left:15px;
 	padding-right:15px;
-
+	cursor: pointer;
 	// text-transform: uppercase;
 	border-bottom: transparent 4px solid;
 	letter-spacing: 0.5px;

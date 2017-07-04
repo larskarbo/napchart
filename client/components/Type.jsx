@@ -16,7 +16,6 @@ export default class Type extends React.Component {
     super(props)
 
     this.state = {
-      hover: false,
       colorPicker: false
     }
   }
@@ -38,14 +37,6 @@ export default class Type extends React.Component {
       )
     }
 
-    if(this.state.hover){
-      var hoverClass = 'hover'
-      var hoverStyle = {background: color(this.props.styles[type.style]).fade(0.9)}
-    }else {
-      var hoverClass = ''
-      var hoverStyle = {}
-    }
-
     if(this.state.colorPicker){
       var colorPicker = (
         <div>
@@ -61,11 +52,9 @@ export default class Type extends React.Component {
     }
 
     return (
-      <div style={hoverStyle} className={"TypeElement " + hoverClass}>
+      <div className="TypeElement">
         <div style={{background:this.props.styles[type.style]}} className="colorSquare"></div>
         <div 
-          onMouseEnter={this.hoverStart}
-          onMouseLeave={this.hoverEnd}
           onMouseDown={this.maybeWillDrag} className="add">
           <Plus className="plusicon" />
         </div>
@@ -85,18 +74,6 @@ export default class Type extends React.Component {
     e.preventDefault()
 
     this.props.onDrag(this)
-  }
-
-  hoverStart = (e) => {
-    this.setState({
-      hover: true
-    })
-  }
-
-  hoverEnd = (e) => {
-    this.setState({
-      hover: false
-    })
   }
 
   changeColor = () => {

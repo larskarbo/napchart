@@ -9,14 +9,23 @@ import metaInfo from './metaInfo'
 import shapes from './shapes'
 import styles from './styles'
 
-const chartApp = undoable(combineReducers({
-  elements,
-  types,
+// I don't really like the way the undo feature
+// makes me access data state.history.present.elements
+// instead of state.elements
+// but maybe I'm just overreacting
+// anyway, I did it that way
+const chartApp = combineReducers({
+	history: undoable(combineReducers({
+	  elements,
+	  types,
+	  metaInfo,
+	})),
   selected,
-  metaInfo,
   shapes,
   active,
   styles
-}))
+})
+
+
 
 export default chartApp

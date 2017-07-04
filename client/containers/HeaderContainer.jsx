@@ -5,17 +5,19 @@ import { editElement, saveChart, startTour } from '../actions/actions.js'
 
 // todo: use fetch instead of axios
 
-const mapStateToProps = ({present}) => {
+const mapStateToProps = (state) => {
+  var present = state.history.present
   return {
     data: {
   		chartData: {
   			elements: present.elements,
   			types: present.types,
-        shape: present.shapes.activeShape
+        shape: state.shapes.activeShape
   		},
       metaInfo: present.metaInfo,
-      chartid: present.chartid
-    }
+      chartid: state.chartid
+    },
+    history: state.history
   }
 }
 
@@ -37,6 +39,11 @@ const mapDispatchToProps = (dispatch) => {
     undo: () => {
       dispatch({
         type: 'UNDO'
+      })
+    },
+    redo: () => {
+      dispatch({
+        type: 'REDO'
       })
     }
   }

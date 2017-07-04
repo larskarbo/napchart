@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import MetaInfo from '../components/MetaInfo.jsx'
 
-const mapStateToProps = ({present}) => {
+const mapStateToProps = (state) => {
   return {
-    metaInfo: present.metaInfo
+    metaInfo: state.history.present.metaInfo
   }
 }
 

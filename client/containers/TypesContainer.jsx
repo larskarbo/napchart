@@ -4,11 +4,11 @@ import Types from '../components/Types.jsx'
 import { editType, deleteType, createType, createElement, deleteElementsWithType, moveTypeLane,
 setDragging } from '../actions/actions.js'
 
-const mapStateToProps = ({present}) => {
+const mapStateToProps = (state) => {
   return {
-    types: present.types,
-    elements: present.elements,
-    styles: present.styles
+    types: state.history.present.types,
+    elements: state.history.present.elements,
+    styles: state.styles
   }
 }
 

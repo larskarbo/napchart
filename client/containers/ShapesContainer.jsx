@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import Shapes from '../components/Shapes.jsx'
 
-const mapStateToProps = ({present}) => {
+const mapStateToProps = (state) => {
   return {
-    shapes: present.shapes
+    shapes: state.shapes
   }
 }
 

@@ -3,17 +3,16 @@ import Chart from '../components/Chart.jsx'
 
 import { editElement } from '../actions/actions.js'
 
-const mapStateToProps = ({present}) => {
+const mapStateToProps = (state) => {
   return {
     data: {
-      // elements: JSON.parse(JSON.stringify(present.elements)),
-      elements: present.elements,
-      types: present.types,
-      selected: present.selected,
-      activeElements: present.active,
-      shape: present.shapes.activeShape,
-      title: present.metaInfo.title,
-      description: present.metaInfo.description
+      elements: state.history.present.elements,
+      types: state.history.present.types,
+      description: state.history.present.metaInfo.description,
+      title: state.history.present.metaInfo.title,
+      selected: state.selected,
+      activeElements: state.active,
+      shape: state.shapes.activeShape,
     }
   }
 }

@@ -8,15 +8,53 @@ export default class Header extends React.Component {
   }
 
   render () {
+    if(this.props.history.past.length == 0){
+      var undoElement = (
+        <HeaderElement className="disabled">
+          Undo
+        </HeaderElement>
+      )
+    }else{
+      var undoElement = (
+        <HeaderElement onClick={this.props.undo}>
+          Undo
+        </HeaderElement>
+      )
+    }
+    console.log(this.props.history.future.length)
+    if(this.props.history.future.length == 0){
+      var redoElement = (
+        <HeaderElement className="disabled">
+          Redo
+        </HeaderElement>
+      )
+    }else{
+      var redoElement = (
+        <HeaderElement onClick={this.props.redo}>
+          Redo
+        </HeaderElement>
+      )
+    }
+
+
     return (
       <div className='header'>
-        <HeaderElement className='logo' href="/" text='Napchart' />
+        <HeaderElement className='logo' href="/">
+          Napchart
+        </HeaderElement>
 
       	{this.props.data.chartid}
-        <HeaderElement href="#save" text='Save' onClick={this.props.onSave.bind(null, this.props.data)} />
-        <HeaderElement href="#export" text='Export' onClick={this.props.onSave.bind(null, this.props.data)} />
-        <HeaderElement href="#tour" text='Undo' style= {{float:'right'}} onClick={this.props.undo} />
-        <HeaderElement href="#tour" text='Start tour' style= {{float:'right'}} onClick={this.props.onStartTour.bind(null, this.props.data)} />
+        <HeaderElement onClick={this.props.onSave.bind(this.props.data)}>
+          Save
+        </HeaderElement>
+        <HeaderElement onClick={this.props.onSave.bind(this.props.data)}>
+          Export
+        </HeaderElement>
+        {undoElement}
+        {redoElement}
+        <HeaderElement style= {{float:'right'}} onClick={this.props.onStartTour.bind(this.props.data)}>
+          Start tour
+        </HeaderElement>
       </div>
 
     )
