@@ -3,12 +3,12 @@ import Elements from '../components/Elements.jsx'
 
 import { editElement, deleteElement, createElement } from '../actions/actions.js'
 
-const mapStateToProps = (state) => {
-  var elementsToShow = state.elements.filter(element => state.selected.indexOf(element.id) > -1)
+const mapStateToProps = ({present}) => {
+  var elementsToShow = present.elements.filter(element => present.selected.indexOf(element.id) > -1)
   return {
-    elements: state.elements,
+    elements: present.elements,
     elementsToShow: elementsToShow,
-    types: state.types
+    types: present.types
   }
 }
 

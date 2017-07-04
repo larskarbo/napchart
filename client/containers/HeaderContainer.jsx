@@ -5,16 +5,16 @@ import { editElement, saveChart, startTour } from '../actions/actions.js'
 
 // todo: use fetch instead of axios
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({present}) => {
   return {
     data: {
   		chartData: {
-  			elements: state.elements,
-  			types: state.types,
-        shape: state.shapes.activeShape
+  			elements: present.elements,
+  			types: present.types,
+        shape: present.shapes.activeShape
   		},
-      metaInfo: state.metaInfo,
-      chartid: state.chartid
+      metaInfo: present.metaInfo,
+      chartid: present.chartid
     }
   }
 }
@@ -33,6 +33,11 @@ const mapDispatchToProps = (dispatch) => {
     onStartTour: (currentData) => {
       console.log('fkodko')
       dispatch(startTour(currentData))
+    },
+    undo: () => {
+      dispatch({
+        type: 'UNDO'
+      })
     }
   }
 }

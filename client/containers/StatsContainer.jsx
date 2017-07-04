@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import Stats from '../components/Stats.jsx'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({present}) => {
   return {
-    elements: state.elements,
-    types: state.types
+    elements: present.elements,
+    types: present.types
   }
 }
 

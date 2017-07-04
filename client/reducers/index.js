@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import undoable from './undoable'
+
 import elements from './elements'
 import types from './types'
 import selected from './selected'
@@ -7,7 +9,7 @@ import metaInfo from './metaInfo'
 import shapes from './shapes'
 import styles from './styles'
 
-const chartApp = combineReducers({
+const chartApp = undoable(combineReducers({
   elements,
   types,
   selected,
@@ -15,6 +17,6 @@ const chartApp = combineReducers({
   shapes,
   active,
   styles
-})
+}))
 
 export default chartApp
