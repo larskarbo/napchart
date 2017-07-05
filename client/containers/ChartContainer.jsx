@@ -1,8 +1,6 @@
 import { connect } from 'react-redux'
 import Chart from '../components/Chart.jsx'
 
-import { editElement } from '../actions/actions.js'
-
 const mapStateToProps = (state) => {
   return {
     data: {
@@ -19,8 +17,23 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onElementUpdate: (element) => {
-      dispatch(editElement(element))
+    onElementUpdate: (changes, type, elements) => {
+      // we have to check if type is locked before we do anything!
+      var idsWithType = elements
+        .filter(element => element.typeId == type.id)
+        .map(element => element.id)
+      if(type.locked){
+        dispatch({
+          type: 'EDIT_ELEMENT_LOCKED',
+          changes,
+          idsWithType
+        })
+      }else{
+        dispatch({
+          type: 'EDIT_ELEMENT',
+          changes
+        })
+      }
     },
     onSetSelected: (selected) => {
       dispatch({

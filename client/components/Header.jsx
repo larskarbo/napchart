@@ -21,7 +21,6 @@ export default class Header extends React.Component {
         </HeaderElement>
       )
     }
-    console.log(this.props.history.future.length)
     if(this.props.history.future.length == 0){
       var redoElement = (
         <HeaderElement className="disabled">

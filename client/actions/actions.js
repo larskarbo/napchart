@@ -47,13 +47,6 @@ export const setDragging = (elementId) => {
   }
 }
 
-export const editElement = (element) => {
-  return {
-    type: 'EDIT_ELEMENT',
-    element
-  }
-}
-
 export const deleteElement = (id) => {
   return {
     type: 'DELETE_ELEMENT',

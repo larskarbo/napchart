@@ -10,7 +10,6 @@ export default function undoable(reducer) {
   return function (state = initialState, action) {
     const { past, present, future } = state
 
-      console.log(action.type)
     
     switch (action.type) {
       case 'UNDO':

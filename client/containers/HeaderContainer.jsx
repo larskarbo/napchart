@@ -24,7 +24,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSave: (data, dj) => {
-      console.log(data, dj)
       dispatch(saveChart(data))
     },
     onSetSelected: (selected) => {
@@ -34,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     onStartTour: (currentData) => {
-      console.log('fkodko')
       dispatch(startTour(currentData))
     },
     undo: () => {
