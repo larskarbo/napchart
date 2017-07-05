@@ -17,7 +17,7 @@ export default class Elements extends React.Component {
           (
             <div key={element.id}>
               <Element
-                onElementUpdate={this.props.onElementUpdate.bind(element)}
+                onElementUpdate={this.props.onElementUpdate.bind({id: element.id, text: element.text})}
                 onDeleteElement={this.props.onDeleteElement.bind(null, element.id)}
                 onDeselect={this.props.onDeselect}
                 element={element} types={types}

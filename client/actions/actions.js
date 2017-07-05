@@ -212,6 +212,10 @@ export function fetchChart (chartid) {
           type: 'SET_FROM_SERVER',
           data
         })
+
+        dispatch({
+          type: 'NAPCHART_START'
+        })
       })
   }
 }

@@ -15,8 +15,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onElementUpdate: (element) => {
-      dispatch(editElement(element))
+    onElementUpdate: (changes) => {
+      dispatch({
+        type: 'EDIT_ELEMENT',
+        changes
+      })
     },
     onDeleteElement: (id) => {
       dispatch(deleteElement(id))
