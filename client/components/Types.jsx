@@ -41,6 +41,7 @@ export default class Types extends React.Component {
           onDeleteType={this.props.onDeleteType.bind(null, type, this.props.elements)}
           onCreateElement={this.props.onCreateElement.bind(null, this.props.elements, type)}
           onStyleChange={this.props.onStyleChange.bind(null, type)}
+          onLockToggle={this.props.onLockToggle.bind(null, type)}
           onDrag={this.props.onStartDrag.bind(null, this.props.elements, type)}
           onSetEditing={this.setEditing.bind(null, this.state.types[type])}
           onFinishedEditing={this.finishedEditing.bind(null, this.state.types[type])}

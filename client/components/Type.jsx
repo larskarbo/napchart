@@ -7,6 +7,8 @@ import TextboxIcon from 'mdi-react/TextboxIcon'
 import Palette from 'mdi-react/PaletteIcon'
 import Plus from 'mdi-react/PlusIcon'
 import Trash from 'mdi-react/TrashIcon'
+import Lock from 'mdi-react/LockIcon'
+import LockUnlocked from 'mdi-react/LockUnlockedOutlineIcon'
 
 import mapObject from '../helpers/mapObject'
 import color from 'color'
@@ -51,6 +53,12 @@ export default class Type extends React.Component {
       var colorPicker = ''
     }
 
+    if(type.locked){
+      var LockIcon = <Lock />
+    }else {
+      var LockIcon = <LockUnlocked />
+    }
+
     return (
       <div className="TypeElement">
         <div style={{background:this.props.styles[type.style]}} className="colorSquare"></div>
@@ -63,6 +71,7 @@ export default class Type extends React.Component {
           <span className="iconlink" onClick={this.props.onSetEditing}><TextboxIcon /></span>
           <span className="iconlink" onClick={this.changeColor}><Palette /></span>
           <span className="iconlink" onClick={this.props.onDeleteType}><Trash /></span>
+          <span className="iconlink" onClick={this.props.onLockToggle.bind(null, type.locked)}>{LockIcon}</span>
         </div>
         {colorPicker}
       </div>

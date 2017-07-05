@@ -47,6 +47,21 @@ const mapDispatchToProps = (dispatch) => {
         newStyle,
         id
       })
+    },
+    onLockToggle: (id, current) => {
+      console.log(id, current)
+      if(typeof current == 'undefined' || !current){
+        dispatch({
+          type: 'LOCK_TYPE',
+          id
+        })
+      }else {
+        //it was locked
+        dispatch({
+          type: 'UNLOCK_TYPE',
+          id
+        })
+      }
     }
   }
 }

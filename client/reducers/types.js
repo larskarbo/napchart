@@ -13,6 +13,22 @@ const types = (state = {}, action) => {
         ...state,
         [action.typeElement.id]: action.typeElement
       }
+    case 'LOCK_TYPE':
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          locked: true
+        }
+      }
+    case 'UNLOCK_TYPE':
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          locked: false
+        }
+      }
     case 'SET_TYPE_STYLE':
       return {
         ...state,
