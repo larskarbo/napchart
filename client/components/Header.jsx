@@ -44,15 +44,15 @@ export default class Header extends React.Component {
         </HeaderElement>
 
       	{this.props.data.chartid}
-        <HeaderElement onClick={this.props.onSave.bind(this.props.data)}>
+        <HeaderElement onClick={this.props.onSave.bind(null, this.props.data)}>
           Save
         </HeaderElement>
-        <HeaderElement onClick={this.props.onSave.bind(this.props.data)}>
+        <HeaderElement onClick={this.props.onSave.bind(null, this.props.data)}>
           Export
         </HeaderElement>
         {undoElement}
         {redoElement}
-        <HeaderElement style= {{float:'right'}} onClick={this.props.onStartTour.bind(this.props.data)}>
+        <HeaderElement style= {{float:'right'}} onClick={this.props.onStartTour.bind(null, this.props.data)}>
           Start tour
         </HeaderElement>
       </div>
