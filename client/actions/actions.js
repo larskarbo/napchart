@@ -214,8 +214,10 @@ export function fetchChart (chartid) {
         })
 
         dispatch({
-          type: 'NAPCHART_START'
+          type: 'NAPCHART_START',
+          data
         })
+        
       })
   }
 }
@@ -230,6 +232,9 @@ export function fetchChartIfNeeded () {
 
     if (url.search('/c/') == -1) {
       // nothing to fetch!
+      dispatch({
+        type: 'NAPCHART_START'
+      })
       return Promise.resolve()
     } else {
       var splitted = url.split('/')

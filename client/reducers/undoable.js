@@ -12,7 +12,6 @@ export default function undoable(reducer) {
   return function (state = initialState, action) {
     const { past, present, future } = state
 
-    console.log(state)
     switch (action.type) {
       case 'NAPCHART_START':
         isUndoableActive = true
@@ -33,17 +32,23 @@ export default function undoable(reducer) {
           present: next,
           future: newFuture
         }
+      case 'SET_ACTIVE_ELEMENT':
+        // just a hotfix to fix this man from showing up in the history
+        return state
       default:
         // Delegate handling the action to the passed reducer
         const newPresent = reducer(present, action)
 
-
-        if (present === newPresent) {
+        if (present.elements === newPresent.elements 
+          && present.types == newPresent.types
+          && present.metaInfo === newPresent.metaInfo) {
           // nothing changed
           return state
-        }
+        }else
+        console.log('things changed with ', action.type, present, newPresent)
 
         if(!isUndoableActive){ // not active
+          console.log('lol not active')
           return {
             ...state,
             present: {
@@ -55,8 +60,6 @@ export default function undoable(reducer) {
 
         // ignore when multiple small identical EDIT_ELEMENTs
         if(state.past.length > 0){
-          console.log('wellwell')
-          console.log(state.present)
           if(state.present.action.type == action.type 
             && action.type == 'EDIT_ELEMENT'
             && action.changes.id == state.present.action.changes.id){

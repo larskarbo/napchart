@@ -1,6 +1,8 @@
 
 import React from 'react'
 import HeaderElement from './HeaderElement.jsx'
+import UndoIcon from 'mdi-react/UndoVariantIcon'
+import RedoIcon from 'mdi-react/RedoVariantIcon'
 
 export default class Header extends React.Component {
   constructor (props) {
@@ -10,28 +12,28 @@ export default class Header extends React.Component {
   render () {
     if(this.props.history.past.length == 0){
       var undoElement = (
-        <HeaderElement className="disabled">
-          Undo
-        </HeaderElement>
+        <div className="headerBtn disabled">
+          <UndoIcon />
+        </div>
       )
     }else{
       var undoElement = (
-        <HeaderElement onClick={this.props.undo}>
-          Undo
-        </HeaderElement>
+        <div className="headerBtn" onClick={this.props.undo}>
+          <UndoIcon />
+        </div>
       )
     }
     if(this.props.history.future.length == 0){
       var redoElement = (
-        <HeaderElement className="disabled">
-          Redo
-        </HeaderElement>
+        <div className="headerBtn disabled">
+          <RedoIcon />
+        </div>
       )
     }else{
       var redoElement = (
-        <HeaderElement onClick={this.props.redo}>
-          Redo
-        </HeaderElement>
+        <div className="headerBtn" onClick={this.props.redo}>
+          <RedoIcon />
+        </div>
       )
     }
 
