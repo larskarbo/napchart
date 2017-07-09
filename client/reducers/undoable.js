@@ -45,10 +45,8 @@ export default function undoable(reducer) {
           // nothing changed
           return state
         }else
-        console.log('things changed with ', action.type, present, newPresent)
 
         if(!isUndoableActive){ // not active
-          console.log('lol not active')
           return {
             ...state,
             present: {

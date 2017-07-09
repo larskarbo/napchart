@@ -14,22 +14,43 @@ import { fetchChartIfNeeded } from './actions/actions.js'
 
 import App from './components/App.jsx'
 
-window.allActions = []
+window.replayable = []
 function logger({getState}) {
   return next => action => {
     // console.log('dispatching' , JSON.stringify(action))
-    allActions.push(action)
+    replayable.push(action)
     return next(action)
   }
 }
-
-let store = createStore(rootReducer,
-	compose(
-		applyMiddleware(thunkMiddleware),
+if(typeof window.__REDUX_DEVTOOLS_EXTENSION__ != 'undefined'){
+  var composed = compose(
+    applyMiddleware(thunkMiddleware),
     applyMiddleware(logger),
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-	)
-)
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+}else {
+  var composed = compose(
+    applyMiddleware(thunkMiddleware),
+    applyMiddleware(logger)
+  )
+}
+
+
+let store = createStore(rootReducer, composed)
+
+// if(process.env.NODE_ENV == 'production'){
+//   let store = createStore(rootReducer,
+//     compose(
+//       applyMiddleware(thunkMiddleware),
+//       applyMiddleware(logger)
+//     )
+//   )
+// } else {
+  
+// }
+
+
+
 
 store.dispatch({
   type:"SET_DEFAULT_DATA",
