@@ -131,6 +131,37 @@
 	}
 }
 
+.toggler {
+	height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    margin: 0 -10px;
+    font-size: 13px;
+    font-weight: 400;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: none;
 
+    &.active {
+    	font-weight: bold;
+    }
+
+    &:hover {
+    	border-right: solid 3px #1C90F3;
+    	padding-right: 7px;
+    }
+}
+
+.expandable {
+	// height: 0;
+	// overflow: hidden;
+	// transition: height 0.4s;
+	display: none;
+
+	&.active {
+		display: block
+	}
+}
 
 

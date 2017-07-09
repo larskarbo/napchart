@@ -35,22 +35,7 @@ if(typeof window.__REDUX_DEVTOOLS_EXTENSION__ != 'undefined'){
   )
 }
 
-
 let store = createStore(rootReducer, composed)
-
-// if(process.env.NODE_ENV == 'production'){
-//   let store = createStore(rootReducer,
-//     compose(
-//       applyMiddleware(thunkMiddleware),
-//       applyMiddleware(logger)
-//     )
-//   )
-// } else {
-  
-// }
-
-
-
 
 store.dispatch({
   type:"SET_DEFAULT_DATA",
