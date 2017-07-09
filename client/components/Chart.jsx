@@ -3,7 +3,7 @@
 import React from 'react'
 import Elements from './Elements.jsx'
 import uuid from 'uuid'
-import Napchart from 'napchart'
+import Napchart from 'napchart-canvas'
 
 export default class Chart extends React.Component {
   constructor (props) {

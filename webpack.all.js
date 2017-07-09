@@ -1,17 +1,15 @@
-
 const path = require('path')
 const webpack = require('webpack')
 
-module.exports = {
+var config = {
   devtool: 'source-map',
-  entry: [
-    // 'react-hot-loader/patch',
-    // 'webpack-hot-middleware/client',
-    './client/index.jsx'
-  ],
+  entry: {
+    corejs: 'core-js',
+    index_bundle: './client/index.jsx'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'index_bundle.js',
+    filename: '[name].js',
     publicPath: '/public/'
   },
 
@@ -20,7 +18,8 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: [
-          path.resolve(__dirname, 'client')
+          path.resolve(__dirname, 'client'),
+          path.resolve(__dirname, 'node_modules', 'napchart-canvas')
         ],
         use: [{
           loader: 'babel-loader',
@@ -41,9 +40,21 @@ module.exports = {
       }, 
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
-
-  // plugins: [HtmlWebpackPluginConfig]
 }
+
+if(process.env.NODE_ENV == 'production'){
+  config.plugins = [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({minimize: false})
+  ]
+} else {
+  // development
+  delete config.entry.corejs
+}
+
+module.exports = config
+// 

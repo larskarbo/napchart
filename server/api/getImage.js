@@ -1,5 +1,5 @@
 var database = require('../database/database')
-var Napchart = require('napchart')
+var Napchart = require('napchart-canvas')
 
 module.exports = function (req, res) {
   var chartid = req.query.chartid

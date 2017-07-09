@@ -8,6 +8,23 @@
     <div id="root">
 
     </div>
+    <script>
+    var newBrowser = (
+      'fetch' in window &&
+      'Promise' in window &&
+      'assign' in Object &&
+      'keys' in Object
+    );
+
+    if (newBrowser) {
+      // script for the less fortunate
+      var scriptEl = document.createElement('script');
+      scriptEl.src = '/corejs.js';
+      scriptEl.async = false;
+      document.head.appendChild(scriptEl);
+      console.log('added corejs script')
+    }
+    </script>
   <script type="text/javascript" src="/index_bundle.js"></script></body>
 
   </body>

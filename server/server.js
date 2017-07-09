@@ -2,15 +2,7 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var bodyParser = require('body-parser')
-var webpack = require('webpack')
-var config = require('../webpack.config')
 
-var compiler = webpack(config)
-// app.use(require('webpack-dev-middleware')(compiler, {
-//   publicPath: '../public/'
-// }));
-
-// app.use(require('webpack-hot-middleware')(compiler))
 var api = require('./api/api')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
