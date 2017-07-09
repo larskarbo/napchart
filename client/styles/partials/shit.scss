@@ -94,6 +94,7 @@
 	top:$header-height;
 	padding: 20px 10px;
 	bottom: 0;
+	overflow-y: scroll
 }
 
 .metaInfo {
@@ -131,7 +132,6 @@
     line-height: 36px;
     padding: 0 10px;
     margin: 0 -10px;
-    font-size: 13px;
     font-weight: 400;
     position: relative;
     text-align: left;
@@ -146,6 +146,14 @@
     	border-right: solid 3px #1C90F3;
     	padding-right: 7px;
     }
+}
+
+.selectedElement {
+	width: 100%;
+
+	&:focus {
+		width: calc(100% - 30px)
+	}
 }
 
 .expandable {
