@@ -10,22 +10,22 @@ export default class Elements extends React.Component {
 
   render () {
     const {elements, elementsToShow, types} = this.props
-
+    var disabled = true
+    if(elementsToShow.length > 0){
+      disabled = false
+    }
     return (
       <div>
-        {elementsToShow.map((element) =>
-          (
-            <div key={element.id}>
-              <Element
-                onElementUpdate={this.props.onElementUpdate.bind({id: element.id, text: element.text})}
-                onDeleteElement={this.props.onDeleteElement.bind(null, element.id)}
-                onDeselect={this.props.onDeselect}
-                element={element} types={types}
+        <div key={element.id}>
+          <Element
+            disabled={disabled}
+            onElementUpdate={this.props.onElementUpdate.bind({id: element.id, text: element.text})}
+            onDeleteElement={this.props.onDeleteElement.bind(null, element.id)}
+            onDeselect={this.props.onDeselect}
+            element={element} types={types}
 
-              />
-            </div>
-          )
-        )}
+          />
+        </div>
       </div>
     )
   }

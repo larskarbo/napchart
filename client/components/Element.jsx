@@ -12,7 +12,7 @@ export default class Element extends React.Component {
 
     return(
       <div className="Element">
-        <input autoFocus type="text" onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
+        <input autoFocus type="text" disabled={this.props.disabled} onChange={this.textChange} onKeyPress={this.checkEnter} value={element.text} />
         <Button text="delete element" onClick={this.props.onDeleteElement} />
       </div>
     )

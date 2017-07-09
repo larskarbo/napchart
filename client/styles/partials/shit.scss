@@ -4,15 +4,9 @@
 	z-index:4
 }
 
-.Button{
-	background: #e4dbdb;
-    border: solid 1px grey;
-    margin: 2px;
-}
-
-.shapeButton {
+.button{
 	background: white;
-    border: solid 1px aliceblue;
+    border: solid 1px #d2d2d2;
     margin: 2px;
     padding: 3px;
     outline: none;
@@ -24,6 +18,15 @@
     }
 }
 
+.mdi-icon {
+	fill: #888888;
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+	&:hover {
+		fill: #404040
+	}
+}
 
 .TypeElement{
 	width:100%;
@@ -57,15 +60,7 @@
 		border: dashed 3px orange
 	}
 
-	.mdi-icon {
-		fill: #888888;
-		width: 14px;
-		height: 14px;
-		cursor: pointer;
-		&:hover {
-			fill: #404040
-		}
-	}
+	
 
 	.add {
 		float:right;

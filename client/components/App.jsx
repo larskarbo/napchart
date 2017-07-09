@@ -9,7 +9,7 @@ import MetaInfoContainer from '../containers/MetaInfoContainer.jsx'
 import HeaderContainer from '../containers/HeaderContainer.jsx'
 import TypesContainer from '../containers/TypesContainer.jsx'
 import StatsContainer from '../containers/StatsContainer.jsx'
-import ElementsContainer from '../containers/ElementsContainer.jsx'
+import SelectedContainer from '../containers/SelectedContainer.jsx'
 import ShapesContainer from '../containers/ShapesContainer.jsx'
 import Sidebar from './Sidebar.jsx'
 
@@ -31,7 +31,7 @@ export default class App extends React.Component {
           <div className='sidebar'>
             <MetaInfoContainer />
             <ShapesContainer />
-            <ElementsContainer />
+            <SelectedContainer />
             <Sidebar />
           </div>
 

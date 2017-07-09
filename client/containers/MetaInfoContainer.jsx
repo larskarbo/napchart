@@ -26,6 +26,11 @@ const mapDispatchToProps = (dispatch) => {
         type: 'EDIT_DESCRIPTION',
         description: e.target.value
       })
+    },
+    onFocus: () => {
+      dispatch({
+        type: 'DESELECT'
+      })
     }
   }
 }

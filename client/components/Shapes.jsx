@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default class Chart extends React.Component {
   constructor (props) {
     super(props)
@@ -14,7 +15,7 @@ export default class Chart extends React.Component {
         var className = "active"
       }
       return (
-        <button style={{width: '30%', height: '30px'}} className={"shapeButton " + className} onClick={this.props.onChangeShape.bind(null, shape)} key={shape}>
+        <button style={{width: '30%', height: '30px'}} className={"button " + className} onClick={this.props.onChangeShape.bind(null, shape)} key={shape}>
           {shape}
         </button>
       )
