@@ -185,6 +185,10 @@ export function saveChart (data) {
       dispatch({
         type: 'CHART_SAVED'
       })
+      dispatch({
+        type: 'SET_CHARTID',
+        chartid
+      })
     })
   }
 }
@@ -211,6 +215,12 @@ export function fetchChart (chartid) {
         dispatch({
           type: 'SET_FROM_SERVER',
           data
+        })
+
+        
+        dispatch({
+          type: 'SET_CHARTID',
+          chartid
         })
 
         dispatch({

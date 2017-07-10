@@ -69,3 +69,15 @@ $header-height: 43px;
 		}
 	}
 }
+
+.chartidIndicator {
+
+	display:flex;
+	align-items:center;
+	margin-right: 20px;
+	input {
+		font-size: 10px;
+		width: 136px;
+		outline: none;
+	}
+}

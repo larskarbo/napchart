@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
         shape: state.shapes.activeShape
   		},
       metaInfo: present.metaInfo,
-      chartid: state.chartid
+      chartid: state.chartDetails.chartid
     },
     history: state.history
   }

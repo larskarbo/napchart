@@ -37,6 +37,15 @@ export default class Header extends React.Component {
       )
     }
 
+    var chartidIndicator = ''
+    if(typeof this.props.data.chartid != 'undefined'){
+      chartidIndicator = (
+        <div className="chartidIndicator">
+          <input spellcheck="false" type="text" value={'https://napchart.com/c/' + this.props.data.chartid} />
+        </div>
+      )
+    }
+
 
     return (
       <div className='header'>
@@ -44,13 +53,12 @@ export default class Header extends React.Component {
           Napchart
         </HeaderElement>
 
-      	{this.props.data.chartid}
+      	
         <HeaderElement onClick={this.props.onSave.bind(null, this.props.data)}>
           Save
         </HeaderElement>
-        <HeaderElement onClick={this.props.onSave.bind(null, this.props.data)}>
-          Export
-        </HeaderElement>
+        {chartidIndicator}
+        
         {undoElement}
         {redoElement}
         <HeaderElement style= {{marginLeft:'auto'}} onClick={this.props.onStartTour.bind(null, this.props.data)}>
