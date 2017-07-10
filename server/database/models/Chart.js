@@ -33,7 +33,9 @@ var chart = new Schema({
 })
 
 chart.pre('save', function (next) {
-  this.id = idgen()
+  if(typeof this.id == 'undefined'){
+    this.id = idgen()
+  }
   next()
 })
 

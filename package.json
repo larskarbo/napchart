@@ -25,6 +25,7 @@
 		"mongodb": "^2.2.30",
 		"mongoose": "^4.11.1",
 		"napchart-canvas": "git+https://github.com/larskarbo/napchart-canvas.git",
+		"npm": "^5.1.0",
 		"nprogress": "^0.2.0",
 		"path": "^0.12.7",
 		"react": "^15.6.1",

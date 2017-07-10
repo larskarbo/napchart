@@ -53,7 +53,7 @@ export default class Header extends React.Component {
         </HeaderElement>
         {undoElement}
         {redoElement}
-        <HeaderElement style= {{float:'right'}} onClick={this.props.onStartTour.bind(null, this.props.data)}>
+        <HeaderElement style= {{marginLeft:'auto'}} onClick={this.props.onStartTour.bind(null, this.props.data)}>
           Start tour
         </HeaderElement>
       </div>
