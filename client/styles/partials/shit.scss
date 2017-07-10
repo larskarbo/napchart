@@ -22,10 +22,6 @@
 	fill: #888888;
 	width: 14px;
 	height: 14px;
-	cursor: pointer;
-	&:hover {
-		fill: #404040
-	}
 }
 
 .TypeElement{
@@ -33,14 +29,31 @@
 	// height:50px;
 	margin-bottom: 8px;
 	padding: 0 4px;
-
+	font-weight: 500;
 	.colorSquare{
-		float:left;
-		width:30px;
-		height: 30px;
-		margin: 10px 10px 0 0;
+		width:13px;
+		height: 13px;
+		margin-right: 4px;
+		display: none
+	}
+	.options {
+		// visibility: hidden;
+	}
+	.mdi-icon {
+		fill: #888888;
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+		&:hover {
+			fill: #404040
+		}
 	}
 
+	&:hover {
+		.options {
+			visibility: visible;
+		}
+	}
 
 
 	text-align:left;
@@ -165,6 +178,8 @@
 	&.active {
 		display: block
 	}
+
+	padding-bottom: 20px
 }
 
 

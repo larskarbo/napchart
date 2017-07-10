@@ -61,13 +61,16 @@ export default class Type extends React.Component {
 
     return (
       <div className="TypeElement">
-        <div style={{background:this.props.styles[type.style]}} className="colorSquare"></div>
+        
         <div 
           onMouseDown={this.maybeWillDrag} className="add">
           <Plus className="plusicon" />
         </div>
-        <div className="type">{nameElement}</div>
-        <div>
+        <div className="type" style={{color:this.props.styles[type.style],fill:this.props.styles[type.style]}}>
+          <span style={{background:this.props.styles[type.style]}} className="colorSquare"></span>
+          {nameElement}
+        </div>
+        <div className="options">
           <span className="iconlink" onClick={this.props.onSetEditing}><TextboxIcon /></span>
           <span className="iconlink" onClick={this.changeColor}><Palette /></span>
           <span className="iconlink" onClick={this.props.onDeleteType}><Trash /></span>
