@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var bodyParser = require('body-parser')
+var argv = require('minimist')(process.argv.slice(2))
 
 var api = require('./api/api')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -23,7 +24,7 @@ app.post('/api/create', api.create)
 app.get('/api/get', api.get)
 app.get('/api/getImage', api.getImage)
 
-var port = 3000
+var port = argv.port || 3000
 app.listen(port, function () {
   console.log(`listening at ${port}`)
 })

@@ -4,7 +4,6 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"start": "webpack-dev-server",
 		"dev": "npm run build:dev:watch & nodemon --watch server server/server",
 		"prod": "npm run build:prod & node server/server",
 		"build:prod": "NODE_ENV=production webpack --config webpack.all.js",
