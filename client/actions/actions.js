@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { toArray } from 'lodash'
-
 export const createElement = (elements, type) => {
 	// find an id that is not in use
   var highestId = 0
@@ -166,7 +164,7 @@ export function saveChart (data) {
       chartData: {
         ...data.chartData,
         // anti-normalize types before server
-        types: toArray(data.chartData.types)
+        types: Object.keys(data.chartData.types).map(type => data.chartData.types[type])
       }
     }
 

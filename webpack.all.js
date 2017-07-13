@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+var CompressionPlugin = require('compression-webpack-plugin')
 
 var config = {
   devtool: 'source-map',
@@ -12,8 +13,11 @@ var config = {
     filename: '[name].js',
     publicPath: '/public/'
   },
-
+  resolve: { // this makes npm link work
+    symlinks: false
+  },
   module: {
+        
     rules: [
       {
         test: /\.jsx?$/,
@@ -21,6 +25,7 @@ var config = {
           path.resolve(__dirname, 'client'),
           path.resolve(__dirname, 'node_modules', 'napchart-canvas')
         ],
+        // exclude: /.*node_modules((?!napchart-canvas).)*$/,
         use: [{
           loader: 'babel-loader',
           options: {
@@ -49,7 +54,14 @@ if(process.env.NODE_ENV == 'production'){
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({minimize: false})
+    new webpack.optimize.UglifyJsPlugin({minimize: false}),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
   ]
 } else {
   // development

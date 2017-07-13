@@ -1,8 +1,7 @@
 
 import React from 'react'
 import StatsElement from './StatsElement.jsx'
-import values from 'lodash/values'
-
+import mapObject from '../helpers/mapObject'
 
 export default class Header extends React.Component {
   constructor(props){
@@ -14,7 +13,7 @@ export default class Header extends React.Component {
     
     return(
       <div>
-        {values(types).map(type => (
+        {mapObject(types, type => (
           <StatsElement elements={elements} key={type.id} type={type} />
         ))}
       </div>

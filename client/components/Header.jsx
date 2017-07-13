@@ -41,7 +41,7 @@ export default class Header extends React.Component {
     if(typeof this.props.data.chartid != 'undefined'){
       chartidIndicator = (
         <div className="chartidIndicator">
-          <input spellcheck="false" type="text" value={'https://napchart.com/c/' + this.props.data.chartid} />
+          <input spellCheck="false" type="text" value={'https://napchart.com/c/' + this.props.data.chartid} />
         </div>
       )
     }

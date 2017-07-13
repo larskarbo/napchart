@@ -8,8 +8,16 @@ var api = require('./api/api')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use(express.static(path.resolve(__dirname + '/../dist/')))
-console.log(path.resolve(__dirname + '/dist'))
+if(process.env.NODE_ENV == 'production'){
+	console.log('Starting node server in production mode')
+	app.get('*.js', function (req, res, next) {
+		console.log('fj')
+	  req.url = req.url + '.gz'
+	  res.set('Content-Encoding', 'gzip')
+	  next()
+	})
+}
+
 app.use('/public', express.static(path.resolve(__dirname + '/../dist')))
 
 app.get('/', function (req, res) {
@@ -19,6 +27,7 @@ app.get('/', function (req, res) {
 app.get('/c/:whatever', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/../client/index.html'))
 })
+
 
 app.post('/api/create', api.create)
 app.get('/api/get', api.get)

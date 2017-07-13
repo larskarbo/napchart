@@ -1,5 +1,3 @@
-import { omit } from 'lodash'
-
 const types = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_TYPE':
@@ -39,7 +37,9 @@ const types = (state = {}, action) => {
       }
     case 'DELETE_TYPE':
       console.log(state, action.id)
-      return omit(state, action.id)
+      var state = Object.assign({}, state)
+      delete state[action.id]
+      return state
     case 'SET_TYPES':
       return action.typeElements
     case 'SET_FROM_SERVER':
