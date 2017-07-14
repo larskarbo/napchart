@@ -2,11 +2,15 @@
 @import 'animations/animations';
 
 body, input {
-	font-family: -apple-system, BlinkMacSystemFont, 
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 
     "Segoe UI", "Roboto", "Oxygen", 
     "Ubuntu", "Cantarell", "Fira Sans", 
     "Droid Sans", "Helvetica Neue", sans-serif;
 	font-size: 14px
+}
+
+.monospace {
+	font-family: Consolas, "Liberation Mono", Courier, monospace
 }
 
 //bootstrap 

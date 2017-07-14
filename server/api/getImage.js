@@ -15,6 +15,8 @@ module.exports = function (req, res) {
   }
 
   var Canvas = require('canvas')
+  Canvas.registerFont('server/Consolas.ttf', {family: 'Consolas'})
+
   var Image = Canvas.Image
   var canvas = new Canvas(width, height)
   var ctx = canvas.getContext('2d')
@@ -34,12 +36,14 @@ module.exports = function (req, res) {
     var chartData = {
       elements: response.chartData.elements,
       types,
-      shape: shape
+      shape
     }
 
-    var mynapchart = Napchart.init(ctx, chartData, {interaction:false})
+    var mynapchart = Napchart.init(ctx, chartData, {
+      interaction:false,
+      font: 'Consolas'
+    })
 
-    // return res.send('iji')
     canvas.pngStream().pipe(res)
 	})
 }
