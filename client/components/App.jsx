@@ -1,6 +1,7 @@
 
 import update from 'react-addons-update'
 import fetch from 'whatwg-fetch'
+import MediaQuery from 'react-responsive'
 
 import React from 'react'
 import Header from './Header.jsx'
@@ -26,20 +27,38 @@ export default class App extends React.Component {
 
         <HeaderContainer />
 
-        <div className='grid'>
+        <MediaQuery query='(min-width: 600px)'>
+          <div className='grid'>
+            <div className='sidebar'>
+              <MetaInfoContainer />
+              <ShapesContainer />
+              <SelectedContainer />
+              <Sidebar />
+            </div>
 
-          <div className='sidebar'>
+            <div className='mainChartArea withPadding'>
+              <ChartContainer />
+            </div>
+
+          </div>
+        </MediaQuery>
+        
+        
+
+        <MediaQuery query='(max-width: 600px)'>
+          <div className='mainChartArea'>
+            <ChartContainer />
+          </div>
+
+          <div className='padding'>
+            <TypesContainer />
             <MetaInfoContainer />
             <ShapesContainer />
             <SelectedContainer />
             <Sidebar />
           </div>
 
-          <div className='mainChartArea'>
-            <ChartContainer />
-          </div>
-
-        </div>
+        </MediaQuery>
       </div>)
   }
 }

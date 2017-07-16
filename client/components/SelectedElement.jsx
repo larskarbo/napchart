@@ -13,7 +13,7 @@ export default class Element extends React.Component {
     }
     return(
       <div className="Element">
-        <input className="selectedElement" ref={input => input && input.focus()} type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
+        <input className="selectedElement" placeholder="text" type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
         {deleteButton}
       </div>
     )
