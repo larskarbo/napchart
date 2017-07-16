@@ -63,7 +63,7 @@ export default class Type extends React.Component {
       <div className="TypeElement">
         
         <div 
-          onMouseDown={this.maybeWillDrag} className="add">
+          onMouseDown={this.maybeWillDrag} onTouchStart={this.maybeWillDrag} className="add">
           <Plus className="plusicon" />
         </div>
         <div className="type" style={{color:this.props.styles[type.style],fill:this.props.styles[type.style]}}>

@@ -52,10 +52,9 @@ export default class App extends React.Component {
 
           <div className='padding'>
             <TypesContainer />
+            <SelectedContainer />
             <MetaInfoContainer />
             <ShapesContainer />
-            <SelectedContainer />
-            <Sidebar />
           </div>
 
         </MediaQuery>
