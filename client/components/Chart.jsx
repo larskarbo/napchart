@@ -14,8 +14,6 @@ export default class Chart extends React.Component {
   }
 
   componentDidMount () {
-
-
     // this.updateDimensions()
 
     var resizer = document.getElementById('resizer')
@@ -29,9 +27,6 @@ export default class Chart extends React.Component {
         this.state.napchart.updateDimensions()
       )
     });
-
-    
-    
   }
 
   componentWillMount () {

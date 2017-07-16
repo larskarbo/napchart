@@ -22,6 +22,12 @@ export default class Type extends React.Component {
     }
   }
 
+  componentDidMount(){
+    // use native events because then we can use preventDefault
+    this.refs.add.addEventListener('touchstart', this.maybeWillDrag, false)
+    this.refs.add.addEventListener('mousedown', this.maybeWillDrag, false)
+  }
+
   render() {
     const {type} = this.props
 
@@ -63,7 +69,7 @@ export default class Type extends React.Component {
       <div className="TypeElement">
         
         <div 
-          onMouseDown={this.maybeWillDrag} onTouchStart={this.maybeWillDrag} className="add">
+          ref="add" className="add">
           <Plus className="plusicon" />
         </div>
         <div className="type" style={{color:this.props.styles[type.style],fill:this.props.styles[type.style]}}>
