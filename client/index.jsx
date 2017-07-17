@@ -50,12 +50,12 @@ store.dispatch({
         '0': {
           id: 0,
           name: 'Sleep',
-          style: 'gray'
+          style: 'red'
         },
         '2': {
           id: 2,
           name: 'Activities',
-          style: 'red'
+          style: 'gray'
         }
       },
       // elements: []
