@@ -63,12 +63,13 @@ export default class Chart extends React.Component {
   }
 
   initializeChart () {
+    console.log('fjijfijfij')
     var ctx = this.refs[this.state.id].getContext('2d')
     var napchart = Napchart.init(ctx, this.props.data)
     napchart.onElementUpdate(this.props.onElementUpdate)
 
     napchart.onSetSelected(this.props.onSetSelected)
-    napchart.onDeselect (this.props.onDeselect)
+    napchart.onDeselect(this.props.onDeselect)
     napchart.onSetActive(this.props.onSetActive)
 
     window.napchart = napchart

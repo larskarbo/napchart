@@ -1,4 +1,6 @@
 import axios from 'axios'
+import limitValue from '../helpers/limitValue'
+
 export const createElement = (elements, type) => {
 	// find an id that is not in use
   var highestId = 0
@@ -18,6 +20,9 @@ export const createElement = (elements, type) => {
     var startPosition = lastElementOfSameType[0].end + 60
     var endPosition = startPosition + 120
   }
+
+  startPosition = limitValue(startPosition)
+  endPosition = limitValue(endPosition)
 
   return {
     type: 'CREATE_ELEMENT',
