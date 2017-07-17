@@ -60,7 +60,7 @@ export default class Types extends React.Component {
     }
   }
 
-  createType(){
+  createType = () => {
     this.props.onCreateType(this.state.newTypeBeingCreated, this.state.types)
     this.setState({
       newTypeBeingCreated: false
