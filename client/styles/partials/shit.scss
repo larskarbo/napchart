@@ -138,7 +138,7 @@
 		height: 100%;
 	}
 
-	&.withPadding {
+	@media all and (min-width: 600px) {
 		padding-left: 200px;
 		height: calc(100vh - 50px);
 	}

@@ -27,37 +27,35 @@ export default class App extends React.Component {
 
         <HeaderContainer />
 
-        <MediaQuery query='(min-width: 600px)'>
-          <div className='grid'>
+        <div className='grid'>
+          <div className='mainChartArea'>
+            <ChartContainer />
+          </div>
+
+          <MediaQuery query='(min-width: 600px)'>
             <div className='sidebar'>
               <MetaInfoContainer />
               <ShapesContainer />
               <SelectedContainer />
               <Sidebar />
             </div>
+          </MediaQuery>
 
-            <div className='mainChartArea withPadding'>
-              <ChartContainer />
+          <MediaQuery query='(max-width: 600px)'>
+            <div className='padding'>
+              <TypesContainer />
+              <SelectedContainer />
+              <MetaInfoContainer />
+              <ShapesContainer />
             </div>
+          </MediaQuery>
 
-          </div>
-        </MediaQuery>
+          
+        </div>
         
         
 
-        <MediaQuery query='(max-width: 600px)'>
-          <div className='mainChartArea'>
-            <ChartContainer />
-          </div>
-
-          <div className='padding'>
-            <TypesContainer />
-            <SelectedContainer />
-            <MetaInfoContainer />
-            <ShapesContainer />
-          </div>
-
-        </MediaQuery>
+        
       </div>)
   }
 }

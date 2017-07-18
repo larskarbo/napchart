@@ -33,7 +33,7 @@ export const createElement = (elements, type) => {
       duration: endPosition - startPosition,
     	text: '',
     	typeId: type,
-      lane:2
+      lane:1
     }
 
   }
