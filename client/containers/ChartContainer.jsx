@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
       selected: state.selected,
       activeElements: state.active,
       shape: state.shapes.activeShape,
-    }
+    },
+
+    loading: state.chartDetails.loading
   }
 }
 

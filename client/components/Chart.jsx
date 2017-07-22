@@ -46,9 +46,13 @@ export default class Chart extends React.Component {
   }
 
   render () {
+    var blurClass = ''
+    if(this.props.loading){
+      blurClass = 'blur'
+    }
     return (
       <div id="resizer">
-        <canvas className="canvas" width={this.state.width} height={this.state.height} ref={this.state.id}>
+        <canvas className={"canvas " + blurClass} width={this.state.width} height={this.state.height} ref={this.state.id}>
           A chart
         </canvas>
       </div>)
