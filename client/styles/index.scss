@@ -1,11 +1,13 @@
 
 @import 'animations/animations';
 
-body, input {
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, 
+$fontStack: system-ui, -apple-system, BlinkMacSystemFont, 
     "Segoe UI", "Roboto", "Oxygen", 
     "Ubuntu", "Cantarell", "Fira Sans", 
     "Droid Sans", "Helvetica Neue", sans-serif;
+
+body, input {
+	font-family: $fontStack;
 	font-size: 14px
 }
 

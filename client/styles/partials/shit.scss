@@ -119,7 +119,7 @@
 		resize:none;
 		padding-left: 3px;
 		padding-bottom: 5px;
-		font-family: "Segoe UI";
+		font-family: $fontStack;
 		outline: none;
 		box-sizing: border-box;
 
@@ -127,6 +127,11 @@
 			border-bottom:#6dade4 2px solid;
 		}
 	}
+}
+
+canvas.canvas {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
 }
 
 .mainChartArea {

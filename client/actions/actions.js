@@ -35,7 +35,6 @@ export const createElement = (elements, type) => {
     	typeId: type,
       lane:1
     }
-
   }
 }
 

@@ -48,7 +48,7 @@ export default class Chart extends React.Component {
   render () {
     return (
       <div id="resizer">
-        <canvas width={this.state.width} height={this.state.height} ref={this.state.id}>
+        <canvas className="canvas" width={this.state.width} height={this.state.height} ref={this.state.id}>
           A chart
         </canvas>
       </div>)
@@ -64,7 +64,8 @@ export default class Chart extends React.Component {
 
   initializeChart () {
     console.log('fjijfijfij')
-    var ctx = this.refs[this.state.id].getContext('2d')
+    var canvas = this.refs[this.state.id]
+    var ctx = canvas.getContext('2d')
     var napchart = Napchart.init(ctx, this.props.data)
     napchart.onElementUpdate(this.props.onElementUpdate)
 
@@ -77,6 +78,12 @@ export default class Chart extends React.Component {
     this.state.napchart = napchart
 
     this.initDeleteKey()
+
+    canvas.oncontextmenu = function(event) {
+         event.preventDefault()
+         event.stopPropagation()
+         return false
+    }
   }
 
   initDeleteKey() {
