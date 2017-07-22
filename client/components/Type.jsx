@@ -36,27 +36,9 @@ export default class Type extends React.Component {
       var nameElement = <input autoFocus type="text" key='jfiji' value={type.name} onBlur={this.props.onFinishedEditing}
           onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
     }else if(type.name.length == 0){
-      var nameElement = <span onClick={this.props.onSetEditing}><i>...</i></span>
+      var nameElement = <span onClick={this.props.onSetEditing}><i>Click to add name</i></span>
     }else{
-      var nameElement = (
-        <span onClick={this.props.onSetEditing}>{type.name}
-          
-        </span>
-      )
-    }
-
-    if(this.state.colorPicker){
-      var colorPicker = (
-        <div>
-          {mapObject(this.props.styles, (style, name) => (
-            <span key={name} onClick={this.setColor.bind(null, name)}
-            style={{background: style}}
-            className="smallColorBox"></span>
-          ))}
-        </div>
-      )
-    }else {
-      var colorPicker = ''
+      var nameElement = <span onClick={this.props.onSetEditing}>{type.name}</span>
     }
 
     if(type.locked){
@@ -67,26 +49,23 @@ export default class Type extends React.Component {
 
     return (
       <div className="TypeElement">
-        
-        <div 
-          ref="add" className="add">
-          <Plus className="plusicon" />
+        <div ref="add" className="add">
+          <span className={"colorSquare " + type.style}></span>
         </div>
-        <div className="type" style={{color:this.props.styles[type.style],fill:this.props.styles[type.style]}}>
-          <span style={{background:this.props.styles[type.style]}} className="colorSquare"></span>
-          {nameElement}
+        <div className="duration">
+          {this.calculateDuration(type, this.props.elements)}
         </div>
         <div className="options">
-          <span className="iconlink" onClick={this.props.onSetEditing}><TextboxIcon /></span>
-          <span className="iconlink" onClick={this.changeColor}><Palette /></span>
-          <span className="iconlink" onClick={this.props.onDeleteType}><Trash /></span>
+          {nameElement}
           <span className="iconlink" onClick={this.props.onLockToggle.bind(null, type.locked)}>{LockIcon}</span>
         </div>
-        {colorPicker}
       </div>
     )
         
   }
+        // <div className="type" style={{color:this.props.styles[type.style],fill:this.props.styles[type.style]}}>
+        //   {nameElement}
+        // </div>
 
   maybeWillDrag = (e) => {
     e.preventDefault()

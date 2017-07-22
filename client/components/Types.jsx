@@ -33,7 +33,7 @@ export default class Types extends React.Component {
       )
     }
     return(
-      <div>
+      <div className="types">
         
         {Object.keys(this.state.types).map(type => (
           <Type key={type} type={this.state.types[type]} elements={this.props.elements}
@@ -49,10 +49,10 @@ export default class Types extends React.Component {
         ))}
         {newType}
 
-        <Button text="Add type" onClick={this.addingNew} />
       </div>
     )
   }
+        // <Button text="Add type" onClick={this.addingNew} />
 
   checkEnter = (e) => {
     if(e.key === 'Enter') {

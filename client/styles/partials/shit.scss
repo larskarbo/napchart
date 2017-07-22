@@ -23,35 +23,63 @@
 	width: 14px;
 	height: 14px;
 }
-
+.types {
+	padding-top: 20px
+}
 .TypeElement{
 	width:100%;
 	// height:50px;
 	margin-bottom: 8px;
 	padding: 0 4px;
-	font-weight: 500;
 	.colorSquare{
-		width:13px;
-		height: 13px;
+		width:40px;
+		height: 40px;
 		margin-right: 4px;
-		display: none
+		display: block;
+		border: 3px solid;
+
+		&.red {
+			background-color: #d50000;
+			border-color: #d50000;
+		}
+		&.blue {
+			background-color: blue;
+			border-color: blue;
+		}
+		&.gray {
+			background-color: gray;
+			border-color: gray;
+		}
+		&.green {
+			background-color: green;
+			border-color: green;
+		}
 	}
-	.options {
-		// visibility: hidden;
+	.duration {
+		font-size:30px;
 	}
 	.mdi-icon {
 		fill: #888888;
 		width: 20px;
 		height: 20px;
 		cursor: pointer;
+		position: relative;
+		top: 3px;
+		margin-left:4px;
 		&:hover {
 			fill: #404040
 		}
 	}
 
+	.options {
+		opacity: 0;
+		transition: none
+	}
+
 	&:hover {
 		.options {
-			visibility: visible;
+			opacity: 1;
+			transition: opacity 0.8s;
 		}
 	}
 
@@ -77,12 +105,6 @@
 
 	.add {
 		float:right;
-		width:40px;
-		height:40px;
-		.mdi-icon {
-			width: 100%;
-			height: 100%
-		}
 	}
 
 	&.hover {
@@ -175,11 +197,8 @@ canvas.canvas {
 }
 
 .selectedElement {
-	width: 100%;
 
-	&:focus {
 		width: calc(100% - 30px)
-	}
 }
 
 .expandable {

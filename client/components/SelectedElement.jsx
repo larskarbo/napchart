@@ -7,14 +7,10 @@ import Trash from 'mdi-react/DeleteCircleIcon'
 export default class Element extends React.Component {
   render() {
     const {element} = this.props
-    var deleteButton = ''
-    if(!element.disabled){
-    	var deleteButton = <Button text={<Trash />} onClick={this.props.onDeleteElement} />
-    }
     return(
       <div className="Element">
-        <input className="selectedElement" placeholder="text" type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
-        {deleteButton}
+        <input autoFocus ref={input => input && input.focus()} className="selectedElement" placeholder="text" type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
+        <Button text={<Trash />} onClick={this.props.onDeleteElement} />
       </div>
     )
   }

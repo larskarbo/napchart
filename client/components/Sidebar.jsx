@@ -1,6 +1,5 @@
 import React from 'react'
 
-import TypesContainer from '../containers/TypesContainer.jsx'
 import Expandable from './Expandable.jsx'
 
 
@@ -16,10 +15,6 @@ export default class App extends React.Component {
   render () {
   	return (
       <div>
-      	<Expandable title="Types" onToggle={this.onToggle.bind(null, 'types')} active={this.isActive('types')}>
-      		<TypesContainer />
-      	</Expandable>
-
         <Expandable title="Polyphasic sleep" onToggle={this.onToggle.bind(null, 'poly')} active={this.isActive('poly')}>
           Submit feedback here
         </Expandable>

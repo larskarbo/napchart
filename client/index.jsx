@@ -56,6 +56,16 @@ store.dispatch({
           id: 2,
           name: 'Activities',
           style: 'gray'
+        },
+        '3': {
+          id: 3,
+          name: '',
+          style: 'green'
+        },
+        '4': {
+          id: 4,
+          name: '',
+          style: 'blue'
         }
       },
       // elements: []

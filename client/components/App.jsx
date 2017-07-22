@@ -37,7 +37,7 @@ export default class App extends React.Component {
               <MetaInfoContainer />
               <ShapesContainer />
               <SelectedContainer />
-              <Sidebar />
+              <TypesContainer />
             </div>
           </MediaQuery>
 
