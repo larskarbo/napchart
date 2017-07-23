@@ -38,6 +38,7 @@ export default class App extends React.Component {
               <ShapesContainer />
               <SelectedContainer />
               <TypesContainer />
+              <Sidebar />
             </div>
           </MediaQuery>
 
@@ -47,6 +48,9 @@ export default class App extends React.Component {
               <TypesContainer />
               <MetaInfoContainer />
               <ShapesContainer />
+              <div style={{padding:'10px'}}></div>
+              <Sidebar />
+
             </div>
           </MediaQuery>
 

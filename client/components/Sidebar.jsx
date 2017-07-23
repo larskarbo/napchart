@@ -14,22 +14,15 @@ export default class App extends React.Component {
 
   render () {
   	return (
-      <div>
-        <Expandable title="Polyphasic sleep" onToggle={this.onToggle.bind(null, 'poly')} active={this.isActive('poly')}>
-          Submit feedback here
-        </Expandable>
-
-        <Expandable title="Feedback" onToggle={this.onToggle.bind(null, 'feedback')} active={this.isActive('feedback')}>
-          Submit feedback here
-        </Expandable>
-
-        <Expandable title="About" onToggle={this.onToggle.bind(null, 'about')} active={this.isActive('about')}>
-          Submit feedback here
-        </Expandable>
+      <div style={{textAlign:'left', fontSize:'11px'}}>
+      Napchart is an app created to visualize complex time schedules. Check it out on <a href="jij">Github</a>
       </div>
     )
   }
 
+        // <Expandable title="About & feedback" onToggle={this.onToggle.bind(null, 'about')} active={this.isActive('about')}>
+        //   Submit feedback here
+        // </Expandable>
   onToggle = (key) => {
     this.setState({
       active: key

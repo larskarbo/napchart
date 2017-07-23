@@ -187,6 +187,7 @@ export function saveChart (data) {
       dispatch({
         type: 'CHART_SAVED'
       })
+      window.alert('Napchart saved!')
       dispatch({
         type: 'SET_CHARTID',
         chartid
