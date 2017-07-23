@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Napchart is an app created to visualize complex time schedules">
+    {% if chartid %}
+      <meta property="og:image" content="/api/getImage?chartid={{chartid}}&width=600&height=600&shape=circle" />
+    {% endif %}
     <title>Napchart</title>
   </head>
   <body>

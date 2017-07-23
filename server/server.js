@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var bodyParser = require('body-parser')
+var nunjucks = require('nunjucks')
 var argv = require('minimist')(process.argv.slice(2))
 
 var api = require('./api/api')
@@ -21,11 +22,13 @@ if(process.env.NODE_ENV == 'production'){
 app.use('/public', express.static(path.resolve(__dirname + '/../dist')))
 
 app.get('/', function (req, res) {
-  res.sendFile(path.resolve(__dirname + '/../client/index.html'))
+  var file = nunjucks.render(__dirname + '/../client/index.html', { chartid: false });
+  res.send(file)
 })
 
 app.get('/c/:whatever', function (req, res) {
-  res.sendFile(path.resolve(__dirname + '/../client/index.html'))
+  var file = nunjucks.render(__dirname + '/../client/index.html', { chartid: req.params.whatever });
+  res.send(file)
 })
 
 

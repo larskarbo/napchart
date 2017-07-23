@@ -25,6 +25,7 @@
 		"napchart-canvas": "git+https://github.com/larskarbo/napchart-canvas.git",
 		"npm": "^5.1.0",
 		"nprogress": "^0.2.0",
+		"nunjucks": "^3.0.1",
 		"path": "^0.12.7",
 		"react": "^15.6.1",
 		"react-dom": "^15.6.1",
