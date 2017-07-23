@@ -12,6 +12,7 @@ import TypesContainer from '../containers/TypesContainer.jsx'
 import StatsContainer from '../containers/StatsContainer.jsx'
 import SelectedContainer from '../containers/SelectedContainer.jsx'
 import ShapesContainer from '../containers/ShapesContainer.jsx'
+import PolyContainer from '../containers/PolyContainer.jsx'
 import Sidebar from './Sidebar.jsx'
 
 import styles from '../styles/index.scss'
@@ -23,24 +24,28 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <div style={{textAlign: 'center'}} className='grid'>
+      <div style={{textAlign: 'center'}}>
 
         <HeaderContainer />
 
         <div className='grid'>
-          <div className='mainChartArea'>
-            <ChartContainer />
-          </div>
 
-          <MediaQuery query='(min-width: 600px)'>
-            <div className='sidebar'>
+          <MediaQuery className='sidebar' query='(min-width: 600px)'>
+            
               <MetaInfoContainer />
               <ShapesContainer />
               <SelectedContainer />
               <TypesContainer />
               <Sidebar />
-            </div>
+            
+
           </MediaQuery>
+
+          <PolyContainer />
+
+          <div className='mainChartArea'>
+            <ChartContainer />
+          </div>
 
           <MediaQuery query='(max-width: 600px)'>
             <div className='padding'>

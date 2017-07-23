@@ -52,18 +52,18 @@ store.dispatch({
           name: 'Sleep',
           style: 'red'
         },
-        '2': {
-          id: 2,
+        '1': {
+          id: 1,
           name: 'Activities',
           style: 'gray'
         },
-        '3': {
-          id: 3,
+        '2': {
+          id: 2,
           name: '',
           style: 'green'
         },
-        '4': {
-          id: 4,
+        '3': {
+          id: 3,
           name: '',
           style: 'blue'
         }

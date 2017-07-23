@@ -21,7 +21,7 @@ export default class Chart extends React.Component {
       this.initializeChart()
     )
 
-
+    
     window.addEventListener("resize", () => {
       this.updateDimensions(() =>
         this.state.napchart.updateDimensions()

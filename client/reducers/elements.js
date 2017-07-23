@@ -48,6 +48,18 @@ const elements = (state = [], action) => {
         }
         return elem
       })
+    case 'ADD_ELEMENTS':
+      var highID = state.reduce((cum, el) => cum + el.id, 0)
+      var newElements = action.elements.map(el => {
+        return {
+          ...el,
+          id: highID++
+        }
+      })
+      return [
+        ...state,
+        ...newElements
+      ]
     case 'SET_ELEMENTS':
       return action.elements
     case 'SET_FROM_SERVER':

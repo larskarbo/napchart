@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Expandable from './Expandable.jsx'
+import PolyToggleContainer from '../containers/PolyToggleContainer.jsx'
 
 
 export default class App extends React.Component {
@@ -14,8 +15,11 @@ export default class App extends React.Component {
 
   render () {
   	return (
-      <div style={{textAlign:'left', fontSize:'11px'}}>
-      Napchart is an app created to visualize complex time schedules. Check it out on <a href="jij">Github</a>
+      <div>
+        <PolyToggleContainer />
+        <div style={{textAlign:'left', fontSize:'11px'}}>
+        Napchart is an app created to visualize complex time schedules. Check it out on <a href="jij">Github</a>
+        </div>
       </div>
     )
   }

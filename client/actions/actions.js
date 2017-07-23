@@ -103,7 +103,7 @@ export const deleteType = (id) => {
 
 export const deleteElementsWithType = (elements, typeId) => {
   var elementsToDelete = elements.filter(e => e.typeId == typeId).map(e => e.id)
-  
+  console.log(elements.filter(e => e.typeId == typeId))
   return {
     type: 'DELETE_ELEMENTS',
     ids: elementsToDelete

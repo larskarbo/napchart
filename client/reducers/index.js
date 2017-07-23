@@ -9,6 +9,7 @@ import metaInfo from './metaInfo'
 import shapes from './shapes'
 import styles from './styles'
 import chartDetails from './chartDetails'
+import poly from './poly'
 
 // I don't really like the way the undo feature
 // makes me access data state.history.present.elements
@@ -25,7 +26,8 @@ const chartApp = combineReducers({
   shapes,
   active,
   styles,
-  chartDetails
+  chartDetails,
+  poly
 })
 
 
