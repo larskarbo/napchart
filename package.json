@@ -16,6 +16,7 @@
 		"canvas": "^2.0.0-alpha.2",
 		"color": "^2.0.0",
 		"core-js": "^2.4.1",
+		"dotenv": "^4.0.0",
 		"element-resize-event": "^2.0.9",
 		"express": "^4.15.3",
 		"immutable": "^3.8.1",
