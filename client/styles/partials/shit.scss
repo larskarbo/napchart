@@ -110,6 +110,10 @@
 
 	.add {
 		float:right;
+		position:relative;
+		top:11px;
+		cursor: pointer;
+		z-index:10000;
 	}
 
 	&.hover {

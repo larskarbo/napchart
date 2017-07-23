@@ -36,7 +36,7 @@ export default class Type extends React.Component {
       var nameElement = <input autoFocus type="text" key='jfiji' value={type.name} onBlur={this.props.onFinishedEditing}
           onChange={this.props.onTextChange} onKeyPress={this.checkEnter} />
     }else if(type.name.length == 0){
-      var nameElement = <span className="invisibleBeforeHover" onClick={this.props.onSetEditing}><i>Click to add name</i></span>
+      var nameElement = <span className="invisibleBeforeHover" onClick={this.props.onSetEditing}><i>Click to name</i></span>
     }else{
       var nameElement = <span onClick={this.props.onSetEditing}>{type.name}</span>
     }
