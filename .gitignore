@@ -13,3 +13,4 @@ yarn.lock
 log
 
 tmp
+.env
