@@ -43,8 +43,8 @@ export default class App extends React.Component {
 
           <MediaQuery query='(max-width: 600px)'>
             <div className='padding'>
-              <TypesContainer />
               <SelectedContainer />
+              <TypesContainer />
               <MetaInfoContainer />
               <ShapesContainer />
             </div>
