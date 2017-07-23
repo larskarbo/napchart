@@ -67,7 +67,6 @@ export default class Chart extends React.Component {
   }
 
   initializeChart () {
-    console.log('fjijfijfij')
     var canvas = this.refs[this.state.id]
     var ctx = canvas.getContext('2d')
     var napchart = Napchart.init(ctx, this.props.data)

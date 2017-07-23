@@ -9,8 +9,8 @@ export default class Element extends React.Component {
     const {element} = this.props
     return(
       <div className="Element">
-        <input autoFocus ref={input => input && input.focus()} className="selectedElement" placeholder="text" type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
-        <Button text={<Trash />} onClick={this.props.onDeleteElement} />
+        <input className="selectedElement" placeholder="text" type="text" disabled={element.disabled} onChange={this.textChange} value={element.text} />
+        <Button text={<Trash />} onClick={this.props.onDeleteElement.bind(null, this.props.element.id)} />
       </div>
     )
   }
