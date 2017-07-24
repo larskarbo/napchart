@@ -16,28 +16,7 @@
     <div id="root">
 
     </div>
-    <script>
-    var newBrowser = (
-      'fetch' in window &&
-      'Promise' in window &&
-      'assign' in Object &&
-      'keys' in Object
-    )
-
-    if (!newBrowser) {
-      // script for the less fortunate
-      var scriptEl = document.createElement('script')
-      scriptEl.src = '/public/corejs.js'
-      scriptEl.async = false
-      document.head.appendChild(scriptEl)
-      console.log('added corejs script')
-    }
-
-    var scriptEl = document.createElement('script')
-    scriptEl.src = '/public/index_bundle.js'
-    scriptEl.async = false
-    document.head.appendChild(scriptEl)
-    </script>
+    <script src="/public/index_bundle.js" />
 
     <script type="text/javascript">
     setTimeout(function() {
