@@ -174,7 +174,12 @@
 	flex-grow: 0;
 	flex-shrink: 0
 }
-
+.polytoggle {
+	display: none;
+	@media all and (min-width: 600px) {
+		display: block;
+	}
+}
 .polyBar {
 	display:none;
 	@media all and (min-width: 600px) {

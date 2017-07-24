@@ -7,7 +7,7 @@ export default class App extends React.Component {
 
   render () {
   	return (
-    <button onClick={this.props.toggle} style={{height: '30px', fontSize: '11px', marginBottom: '10px'}} className={"button"}>
+    <button onClick={this.props.toggle} style={{height: '30px', fontSize: '11px', marginBottom: '10px'}} className={"button polytoggle"}>
       Polyphasic sleep schedules
     </button>
     )
