@@ -16,9 +16,11 @@ var schedules = {
 	'Siesta': 'e72xy',
 	'Tesla': 's2x5u',
 	'Tri Core 1': 'tocl4',
+  'Tri Core 2': '43swa',
 	'Trimaxion': 'awkwb',
 	'Triphasic': '8z46u',
 	'Uberman': 'omr2x',
+  'Mutated Mono': 'yig06',
 	'Monophasic': 'q6fkh'
 }
 

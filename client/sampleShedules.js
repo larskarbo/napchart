@@ -553,6 +553,41 @@
     ]
   },
   {
+    "name": "Tri Core 2",
+    "elements": [
+      {
+        "start": 1380,
+        "end": 30,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1020,
+        "end": 1110,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 300,
+        "end": 390,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 580,
+        "end": 600,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 800,
+        "end": 820,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
     "name": "Trimaxion",
     "elements": [
       {
@@ -640,6 +675,17 @@
       {
         "start": 240,
         "end": 260,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Mutated Mono",
+    "elements": [
+      {
+        "start": 60,
+        "end": 300,
         "typeId": 0,
         "text": ""
       }
