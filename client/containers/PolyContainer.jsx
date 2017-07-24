@@ -16,7 +16,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteElementsWithType(elements, 0))
       dispatch({
         type: 'ADD_ELEMENTS',
-        elements: schedule.elements
+        elements: schedule.elements.map(el => ({
+          ...el,
+          lane:1
+        }))
       })
     },
   }

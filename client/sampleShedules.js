@@ -1,0 +1,659 @@
+[
+  {
+    "name": "Biphasic",
+    "elements": [
+      {
+        "start": 1380,
+        "end": 300,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 780,
+        "end": 800,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Dual Core 1",
+    "elements": [
+      {
+        "start": 330,
+        "end": 480,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1290,
+        "end": 0,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 840,
+        "end": 860,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Dual Core 2",
+    "elements": [
+      {
+        "start": 1260,
+        "end": 1380,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 180,
+        "end": 300,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 480,
+        "end": 500,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 840,
+        "end": 860,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Dual Core 3",
+    "elements": [
+      {
+        "start": 1320,
+        "end": 1410,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 150,
+        "end": 240,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 420,
+        "end": 440,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 740,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1000,
+        "end": 1020,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Dual Core 4",
+    "elements": [
+      {
+        "start": 1320,
+        "end": 1410,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 120,
+        "end": 210,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 360,
+        "end": 380,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 600,
+        "end": 620,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 840,
+        "end": 860,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1080,
+        "end": 1100,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Dymaxion",
+    "elements": [
+      {
+        "start": 1050,
+        "end": 1080,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 690,
+        "end": 720,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 330,
+        "end": 360,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1410,
+        "end": 1440,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Everyman 2",
+    "elements": [
+      {
+        "start": 1380,
+        "end": 210,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 480,
+        "end": 500,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 870,
+        "end": 890,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Everyman 3",
+    "elements": [
+      {
+        "start": 1260,
+        "end": 0,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 250,
+        "end": 270,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 490,
+        "end": 510,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 880,
+        "end": 900,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Everyman 4",
+    "elements": [
+      {
+        "start": 1320,
+        "end": 1410,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 190,
+        "end": 210,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 460,
+        "end": 480,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 740,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 980,
+        "end": 1000,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Everyman 5",
+    "elements": [
+      {
+        "start": 1320,
+        "end": 1410,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 120,
+        "end": 140,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 360,
+        "end": 380,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 600,
+        "end": 620,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1080,
+        "end": 1100,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 840,
+        "end": 860,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Naptation",
+    "elements": [
+      {
+        "start": 0,
+        "end": 20,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 120,
+        "end": 140,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 240,
+        "end": 260,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 360,
+        "end": 380,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 480,
+        "end": 500,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 600,
+        "end": 620,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 740,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 840,
+        "end": 860,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 960,
+        "end": 980,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1080,
+        "end": 1100,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1200,
+        "end": 1220,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1320,
+        "end": 1340,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Quadphasic",
+    "elements": [
+      {
+        "start": 1350,
+        "end": 0,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 330,
+        "end": 420,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 750,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1035,
+        "end": 1065,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "SPAMAYL",
+    "elements": [
+      {
+        "start": 1260,
+        "end": 1280,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1380,
+        "end": 1400,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 60,
+        "end": 80,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 180,
+        "end": 200,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 300,
+        "end": 320,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 420,
+        "end": 440,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 740,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 960,
+        "end": 980,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Segmented",
+    "elements": [
+      {
+        "start": 1320,
+        "end": 90,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 210,
+        "end": 420,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Siesta",
+    "elements": [
+      {
+        "start": 1380,
+        "end": 240,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 780,
+        "end": 870,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Tesla",
+    "elements": [
+      {
+        "start": 1060,
+        "end": 1080,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 700,
+        "end": 720,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 340,
+        "end": 360,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1420,
+        "end": 1440,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Tri Core 1",
+    "elements": [
+      {
+        "start": 1290,
+        "end": 1380,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 120,
+        "end": 210,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 390,
+        "end": 480,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 870,
+        "end": 890,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Trimaxion",
+    "elements": [
+      {
+        "start": 1350,
+        "end": 0,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 330,
+        "end": 360,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 750,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1040,
+        "end": 1070,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Triphasic",
+    "elements": [
+      {
+        "start": 1350,
+        "end": 0,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 390,
+        "end": 480,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 870,
+        "end": 960,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Uberman",
+    "elements": [
+      {
+        "start": 960,
+        "end": 980,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 480,
+        "end": 500,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 740,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1200,
+        "end": 1220,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 0,
+        "end": 20,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 240,
+        "end": 260,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Monophasic",
+    "elements": [
+      {
+        "start": 0,
+        "end": 480,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  }
+]

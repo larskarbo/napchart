@@ -17,7 +17,6 @@ module.exports = {
   },
 
   getChart: function (chartid, callback) {
-    console.log(chartid)
     Chart.findOne({id: chartid}, callback)
   }
 }

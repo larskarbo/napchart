@@ -41,7 +41,8 @@ module.exports = function (req, res) {
 
     var mynapchart = Napchart.init(ctx, chartData, {
       interaction:false,
-      font: 'Consolas'
+      font: 'Consolas',
+      background: 'white'
     })
 
     canvas.pngStream().pipe(res)
