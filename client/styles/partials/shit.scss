@@ -177,7 +177,7 @@
 .polytoggle {
 	display: none;
 	@media all and (min-width: 600px) {
-		display: block;
+		display: inline-block;
 	}
 }
 .polyBar {

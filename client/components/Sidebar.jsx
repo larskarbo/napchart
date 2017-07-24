@@ -18,7 +18,7 @@ export default class App extends React.Component {
       <div>
         <PolyToggleContainer />
         <div style={{textAlign:'left', fontSize:'11px'}}>
-        Napchart is an app created to visualize complex time schedules. Check it out on <a href="jij">Github</a>
+        Napchart is an app created to visualize complex time schedules. Check out the project on <a href="https://github.com/larskarbo/napchart">Github</a>.<br />Created by @larskarbo. Contact me at <a href="https://github.com/larskarbo/">Github</a>, <a href="https://www.reddit.com/user/gaptrast/">Reddit</a> or <a href="https://twitter.com/larskarbo">Twitter</a>. Feedback greatly appreciated 🌟
         </div>
       </div>
     )
