@@ -40,7 +40,7 @@ export default class Header extends React.Component {
     return (
       <div className='header'>
         <HeaderElement className='logo' href="/">
-          Napchart
+          Napchart (beta)
         </HeaderElement>
 
       	
