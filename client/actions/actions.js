@@ -183,7 +183,7 @@ export function saveChart (data) {
     .then(function (response) {
       console.log(response)
       var chartid = response.data.id
-      window.history.pushState(response.data, '', '/c/' + chartid)
+      window.history.pushState(response.data, '', '/' + chartid)
       dispatch({
         type: 'CHART_SAVED'
       })
@@ -242,8 +242,7 @@ export function fetchChartIfNeeded () {
     dispatch({
       type: 'CHECKING_IF_FETCH_IS_NEEDED'
     })
-
-    if (url.search('/c/') == -1) {
+    if (url.split('/')[3].length == 0) {
       // nothing to fetch!
       dispatch({
         type: 'NAPCHART_START'

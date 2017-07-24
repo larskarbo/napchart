@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
   res.send(file)
 })
 
-app.get('/c/:whatever', function (req, res) {
+app.get('/:whatever', function (req, res) {
   var file = nunjucks.render(__dirname + '/../client/index.html', {
   	chartid: req.params.whatever,
   	siteUrl: process.env.URL

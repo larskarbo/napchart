@@ -1,6 +1,6 @@
 .Element{
 	width:100%;
-	padding:10px;
+	padding:10px 0;
 	z-index:4
 }
 
@@ -178,9 +178,9 @@
 .polyBar {
 	display:none;
 	@media all and (min-width: 600px) {
-		display: block;
+		display: none;
 		background: white;
-		padding: 20px 10px;
+
 		overflow-y: auto;
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -192,6 +192,8 @@
 
 		&.open {
 			width: 130px;
+			padding: 20px 10px;
+			display: block;
 			opacity: 1
 		}
 
