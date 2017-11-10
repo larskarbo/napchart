@@ -1,16 +1,28 @@
 var sampleSchedules = [
   {
-    "name": "Biphasic",
+    "name": "Bimaxion",
     "elements": [
       {
-        "start": 1380,
-        "end": 300,
+        "start": 1350,
+        "end": 0,
         "typeId": 0,
         "text": ""
       },
       {
-        "start": 780,
-        "end": 800,
+        "start": 330,
+        "end": 420,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 720,
+        "end": 750,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 1035,
+        "end": 1065,
         "typeId": 0,
         "text": ""
       }
@@ -20,14 +32,14 @@ var sampleSchedules = [
     "name": "Dual Core 1",
     "elements": [
       {
-        "start": 330,
-        "end": 480,
+        "start": 350,
+        "end": 450,
         "typeId": 0,
         "text": ""
       },
       {
         "start": 1290,
-        "end": 0,
+        "end": 50,
         "typeId": 0,
         "text": ""
       },
@@ -43,26 +55,26 @@ var sampleSchedules = [
     "name": "Dual Core 2",
     "elements": [
       {
-        "start": 1260,
-        "end": 1380,
+        "start": 1320,
+        "end": 40,
         "typeId": 0,
         "text": ""
       },
       {
-        "start": 180,
-        "end": 300,
+        "start": 340,
+        "end": 420,
         "typeId": 0,
         "text": ""
       },
       {
-        "start": 480,
-        "end": 500,
+        "start": 720,
+        "end": 740,
         "typeId": 0,
         "text": ""
       },
       {
-        "start": 840,
-        "end": 860,
+        "start": 960,
+        "end": 980,
         "typeId": 0,
         "text": ""
       }
@@ -168,6 +180,23 @@ var sampleSchedules = [
       {
         "start": 1410,
         "end": 1440,
+        "typeId": 0,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "name": "Everyman 1",
+    "elements": [
+      {
+        "start": 1380,
+        "end": 300,
+        "typeId": 0,
+        "text": ""
+      },
+      {
+        "start": 780,
+        "end": 800,
         "typeId": 0,
         "text": ""
       }
@@ -373,35 +402,6 @@ var sampleSchedules = [
       {
         "start": 1320,
         "end": 1340,
-        "typeId": 0,
-        "text": ""
-      }
-    ]
-  },
-  {
-    "name": "Quadphasic",
-    "elements": [
-      {
-        "start": 1350,
-        "end": 0,
-        "typeId": 0,
-        "text": ""
-      },
-      {
-        "start": 330,
-        "end": 420,
-        "typeId": 0,
-        "text": ""
-      },
-      {
-        "start": 720,
-        "end": 750,
-        "typeId": 0,
-        "text": ""
-      },
-      {
-        "start": 1035,
-        "end": 1065,
         "typeId": 0,
         "text": ""
       }
@@ -675,17 +675,6 @@ var sampleSchedules = [
       {
         "start": 240,
         "end": 260,
-        "typeId": 0,
-        "text": ""
-      }
-    ]
-  },
-  {
-    "name": "Mutated Mono",
-    "elements": [
-      {
-        "start": 60,
-        "end": 300,
         "typeId": 0,
         "text": ""
       }
