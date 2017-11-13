@@ -4,6 +4,20 @@ Napchart is a web app that makes it easy to plan complex 24 hour time schedules
 
 Commonly used by people experimenting with polyphasic sleep, but can be used for any purpose
 
+## Quickstart
+
+First, install dependencies
+````
+npm install
+````
+
+Then launch the app
+````
+npm run dev
+````
+By default, the app will be available at `localhost:3000`
+
+
 ## API
 
 From `server.js`:
