@@ -10,7 +10,7 @@ export default class HeaderElement extends React.Component {
       var onClick = this.onClick
     }
     return (
-      <a style={this.props.style} className={'HeaderElement' + ' ' + this.props.className} onClick={onClick}>
+      <a style={this.props.style} href={this.props.href} className={'HeaderElement' + ' ' + this.props.className} onClick={onClick}>
         <span>{this.props.children}</span>
       </a>)
   }
