@@ -53,7 +53,7 @@ const elements = (state = [], action) => {
       var newElements = action.elements.map(el => {
         return {
           ...el,
-          id: highID++
+          id: ++highID
         }
       })
       return [
