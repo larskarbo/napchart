@@ -34,7 +34,7 @@ var i = 0
 
 function next(argument) {
   if(i == keys.length){
-    fs.writeFileSync('sampleShedules.js', JSON.stringify(refined, null, 2))
+    fs.writeFileSync('sampleSchedules.js', JSON.stringify(refined, null, 2))
     return 
   }
 	var scheduleID = schedules[keys[i]]
