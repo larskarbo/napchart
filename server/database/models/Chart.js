@@ -42,7 +42,7 @@ chart.pre('save', function (next) {
 module.exports = mongoose.model('Chart', chart)
 
 function idgen () {
-  alphabet = 'abcdefghijklmnopqrstuwxyz0123456789'
+  alphabet = 'abcdefghjkmnpqrstuwxyz23456789'
   id = ''
   for (var i = 0; i < 5; i++) { id += alphabet.charAt(Math.floor(Math.random() * alphabet.length)) }
   return id
