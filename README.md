@@ -35,6 +35,21 @@ var myNapchart = Napchart.init(ctx, {
 )
 </script>
 ```
+
+## Data
+
+The second *data* parameter of `napchart.init` defines what data should initially be drawn to the napchart. The structure is simple like this
+
+```javascript
+var defaultData = {
+  elements: [],
+  shape: 'circle',
+  lanes: 1,
+}
+```
+
+You don't need to specify shape or lanes if you don't want to. If you don't specify anything at all it will start with a blank napchart
+
 ## Options
 
 The third parameter of `napchart.init` is an object where you can specify options. Here are the defaults
@@ -48,21 +63,6 @@ The third parameter of `napchart.init` is an object where you can specify option
 	fontColor: '#aaaaaa'
 }
 ```
-
-## Data
-
-
-The second *data* parameter of `napchart.init` defines what data should initially be drawn to the napchart. The structure is simple like this
-
-```javascript
-var defaultData = {
-  elements: [],
-  shape: 'circle',
-  lanes: 1,
-}
-```
-
-You don't need to specify shape or lanes if you don't want to. If you don't specify anything at all it will start with a blank napchart
 
 ## Contributing
 
