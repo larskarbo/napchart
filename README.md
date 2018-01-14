@@ -1,35 +1,69 @@
 # Napchart
+*Drag-and-drop time-planning library using HTML5 and the canvas element. Used by [napchart.com](https://napchart.com/)*
 
-Napchart is a web app that makes it easy to plan complex 24 hour time schedules
+![enter image description here](https://larskarbo.no/napchart.PNG)
 
-Commonly used by people experimenting with polyphasic sleep, but can be used for any purpose
+## Installation
 
-## Quickstart
+You can download the latest version of Napchart from the [GitHub releases](https://github.com/larskarbo/napchart/releases/latest)
 
-First, install dependencies
-````
-npm install
-````
-
-Then launch the app
-````
-npm run dev
-````
-By default, the app will be available at `localhost:3000`
-
-
-## API
-
-From `server.js`:
-
-```javascript
-app.post('/api/create', api.create)
-app.get('/api/get', api.get)
-app.get('/api/getImage', api.getImage)
+To install via npm:
+```bash
+npm install napchart --save
 ```
 
-**Create chart:** `/api/create` with data as post
+## Create a Chart
 
-**Get chart:** `/api/get?chartid=xxxxx` receive data
+It is easy to create a Napchart on your page. All you need is a `canvas` element and some javascript code
 
-**Get image:** `/api/getImage?chartid=xxxxx&width=600&height=600&shape=circle` receive image (shape is optional)
+```html
+<canvas id="myNapchart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById("myNapchart").getContext('2d')
+var myNapchart = Napchart.init(ctx, {
+	// data goes here
+	elements: [{
+		"start":720,
+		"end": 790,
+		"text": "Cool text"
+	},{
+		"start":1420,
+		"end":400
+	}]
+}, {
+	// options go here
+)
+</script>
+```
+## Options
+
+The third parameter of `napchart.init` is an object where you can specify options. Here are the defaults
+
+```javascript
+{
+	interaction: true,
+	penMode: true,
+	responsive: false,
+	background: 'transparent',
+	fontColor: '#aaaaaa'
+}
+```
+
+## Data
+
+
+The second *data* parameter of `napchart.init` defines what data should initially be drawn to the napchart. The structure is simple like this
+
+```javascript
+var defaultData = {
+  elements: [],
+  shape: 'circle',
+  lanes: 1,
+}
+```
+
+You don't need to specify shape or lanes if you don't want to. If you don't specify anything at all it will start with a blank napchart
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/larskarbo/napchart/blob/master/CONTRIBUTING.md) for a sweet introduction to the code-base

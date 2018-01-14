@@ -1,61 +1,17 @@
 {
-	"name": "napchart",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "MIT",
-	"scripts": {
-		"dev": "npm run build:dev:watch & nodemon --watch server server/server",
-		"prod": "npm run build:prod & node server/server",
-		"build:prod": "NODE_ENV=production webpack --config webpack.all.js",
-		"build:dev:watch": "webpack --config webpack.all.js --watch"
-	},
-	"dependencies": {
-		"alt": "^0.18.6",
-		"axios": "^0.16.2",
-		"body-parser": "^1.17.2",
-		"canvas": "^2.0.0-alpha.2",
-		"color": "^2.0.0",
-		"core-js": "^2.4.1",
-		"dotenv": "^4.0.0",
-		"element-resize-event": "^2.0.9",
-		"express": "^4.15.3",
-		"immutable": "^3.8.1",
-		"mdi-react": "^1.9.32",
-		"mongodb": "^2.2.30",
-		"mongoose": "^4.11.1",
-		"napchart-canvas": "git+https://github.com/larskarbo/napchart-canvas.git",
-		"npm": "^5.1.0",
-		"nprogress": "^0.2.0",
-		"nunjucks": "^3.0.1",
-		"path": "^0.12.7",
-		"react": "^15.6.1",
-		"react-dom": "^15.6.1",
-		"react-hot-loader": "^3.0.0-beta.7",
-		"react-mdi": "^0.5.7",
-		"react-pure-render": "^1.0.2",
-		"react-redux": "^5.0.5",
-		"react-responsive": "^1.3.4",
-		"redux": "^3.7.1",
-		"redux-thunk": "^2.2.0",
-		"webpack": "^3.1.0",
-		"whatwg-fetch": "2.0.3"
-	},
-	"devDependencies": {
-		"babel-core": "^6.25.0",
-		"babel-loader": "^7.1.1",
-		"babel-plugin-transform-decorators-legacy": "^1.3.4",
-		"babel-preset-es2015": "^6.24.1",
-		"babel-preset-react": "^6.24.1",
-		"babel-preset-stage-0": "^6.24.1",
-		"compression-webpack-plugin": "^0.4.0",
-		"css-loader": "^0.28.4",
-		"node-sass": "^4.5.3",
-		"nodemon": "^1.11.0",
-		"react-addons-update": "^15.6.0",
-		"sass-loader": "^6.0.6",
-		"standard": "^10.0.2",
-		"style-loader": "^0.18.2",
-		"webpack-dev-middleware": "^1.11.0",
-		"webpack-hot-middleware": "^2.18.2"
-	}
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack --watch",
+    "build:prod": "NODE_ENV=production webpack --watch",
+    "standardfix": "standard --fix"
+  },
+  "main": "lib/index.js",
+  "name": "napchart",
+  "version": "1.0.12",
+  "description": "HTML5 Canvas time-planning library",
+  "devDependencies": {
+    "buble": "^0.18.0",
+    "buble-loader": "^0.4.1",
+    "webpack": "^3.10.0"
+  }
 }

@@ -1,10 +1,1 @@
-node_modules/*
-npm-debug.log
-.DS_Store
-.env
-dist
-log
-tmp
-.sublime-project.sublime-workspace
-.babelrc
-yarn.lock
+node_modules
