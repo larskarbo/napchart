@@ -1,4 +1,5 @@
-# Napchart
+[![npm version](https://badge.fury.io/js/napchart.svg)](https://badge.fury.io/js/napchart)
+
 *Drag-and-drop time-planning library using HTML5 and the canvas element. Used by [napchart.com](https://napchart.com/)*
 
 ![enter image description here](https://larskarbo.no/napchart.PNG)
