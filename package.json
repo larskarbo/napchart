@@ -7,7 +7,7 @@
   },
   "pre-push": [
     "build:prod"
-  ]
+  ],
   "main": "lib/index.js",
   "name": "napchart",
   "version": "3.0.0-beta",
