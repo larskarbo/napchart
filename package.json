@@ -4,7 +4,8 @@
     "dev": "webpack --watch",
     "build:prod": "NODE_ENV=production webpack",
     "standardfix": "standard --fix",
-    "version": "npm run build:prod && git add dist/napchart.min.js"
+    "version": "npm run build:prod && git add dist/napchart.min.js",
+    "postversion": "git push && git push --tags"
   },
   "main": "lib/index.js",
   "name": "napchart",
@@ -13,7 +14,6 @@
   "devDependencies": {
     "buble": "^0.18.0",
     "buble-loader": "^0.4.1",
-    "pre-push": "^0.1.1",
     "webpack": "^3.10.0"
   }
 }
