@@ -3,11 +3,9 @@
     "build": "webpack",
     "dev": "webpack --watch",
     "build:prod": "NODE_ENV=production webpack",
-    "standardfix": "standard --fix"
+    "standardfix": "standard --fix",
+    "version": "npm run build:prod && git add dist/napchart.min.js"
   },
-  "pre-push": [
-    "build:prod"
-  ],
   "main": "lib/index.js",
   "name": "napchart",
   "version": "3.0.0-beta",
