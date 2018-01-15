@@ -5,7 +5,7 @@
     "build:prod": "NODE_ENV=production webpack",
     "standardfix": "standard --fix",
     "version": "npm run build:prod && git add dist/napchart.min.js",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "main": "lib/index.js",
   "name": "napchart",
