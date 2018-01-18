@@ -16,10 +16,12 @@ npm install napchart --save
 
 ## Create a Chart
 
-It is easy to create a Napchart on your page. All you need is a `canvas` element and some javascript code
+It is easy to create a Napchart on your page. All you need is a `canvas` element, a resizer div and some javascript code
 
 ```html
-<canvas id="myNapchart" width="400" height="400"></canvas>
+<div style="width:400px;height:400px">
+	<canvas id="myNapchart"></canvas>
+</div>
 <script>
 var ctx = document.getElementById("myNapchart").getContext('2d')
 var myNapchart = Napchart.init(ctx, {
@@ -60,7 +62,6 @@ The third parameter of `napchart.init` is an object where you can specify option
 {
 	interaction: true,
 	penMode: true,
-	responsive: false,
 	background: 'transparent',
 	fontColor: '#aaaaaa'
 }
