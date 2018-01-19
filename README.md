@@ -49,10 +49,49 @@ var defaultData = {
   elements: [],
   shape: 'circle',
   lanes: 1,
+  colorTags,
 }
 ```
 
 You don't need to specify shape or lanes if you don't want to. If you don't specify anything at all it will start with a blank napchart
+
+### Elements
+
+Elements are structured like this
+
+```javascript
+var element = {
+  start: Number, // between 0 and 1440
+  end: Number, // between 0 and 1440
+  lane: Number || 0, // must not be higher or equal to chart.data.lanes
+  text: String || '',
+  color: Color || chart.config.defaultColor // string (red, blue...) or hex (#ffffff)
+  id: Number, // automatically generated
+}
+```
+
+### Shape
+
+String that defines which shape you want
+
+```javascript
+string = 'circle' || 'wide' || 'line
+```
+
+### Lanes
+
+Number of how many lanes you want. Max 4 recommended
+
+### ColorTags
+
+Array with objects that connects a color with a text string (tag). This replaces `types` from previous versions of napchart
+
+```javascript
+colorTags = [
+  { color: 'red', tag: 'Sleep'},
+  ...
+]
+```
 
 ## Options
 
