@@ -9,7 +9,7 @@
   },
   "main": "lib/index.js",
   "name": "napchart",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "HTML5 Canvas time-planning library",
   "devDependencies": {
     "buble": "^0.18.0",
