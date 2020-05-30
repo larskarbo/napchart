@@ -1,0 +1,18 @@
+<canvas id="myNapchart"></canvas>
+<script src="/dist/napchart.min.js"></script>
+<script>
+  var ctx = document.getElementById("myNapchart").getContext('2d')
+  var myNapchart = Napchart.init(ctx, {
+  	// data goes here
+  	elements: [{
+  		"start":720,
+  		"end": 790,
+  		"text": "Cool text"
+  	},{
+  		"start":1420,
+  		"end":400
+  	}]
+  }, {
+  	// options go here
+	})
+</script>
